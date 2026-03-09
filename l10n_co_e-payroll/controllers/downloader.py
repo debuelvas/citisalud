@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, http
+from odoo.http import request
+from odoo.http import serialize_exception 
+import base64
+
+
+class Binary(http.Controller):
+
+    def document(self, filename, filecontent):
+        if not filecontent:
+            return request.not_found()
+        else:
+            headers = [
+             ('Content-Type', 'application/xml'),
+             (
+              'Content-Disposition', content_disposition(filename)),
+             ('charset', 'utf-8')]
+            return request.make_response(filecontent, headers=headers, cookies=None)
+
+
+    @http.route(["/download/xml/epayslip/<model('hr.payslip.edi'):epayslip_id>"], type='http', auth='user')
+    def download_document(self, epayslip_id, **post):
+        filename = ('%s' % epayslip_id.name).replace(' ', '_')
+        filecontent = epayslip_id.xml_sended
+        return self.document(filename, filecontent)

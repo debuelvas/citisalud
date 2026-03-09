@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="product_template_form" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[2]/label[1]" position="before">
+                    <div class="oe_edit_only">
+                        <span class="o_form_label o_td_label">Es CUMS</span>
+                        <field name="is_cums" />
+                    </div>
+                </xpath>
+                <xpath expr="//sheet/div[2]" position="after">
+                    <group col="6" invisible="is_cums == False">
+                        <field name="atc" placeholder="ATC" nolabel="1" />
+                        <field name="expedient" placeholder="Expediente" nolabel="1" />
+                        <field name="consecutive" placeholder="Consecutivo" nolabel="1" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <!-- Vista de lista para medical.cups -->
+        <record id="medical_cups_tree_view" model="ir.ui.view">
+            <field name="name">medical.cups.tree</field>
+            <field name="model">medical.cups</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code" string="Código CUPS" />
+                    <field name="name" string="Descripción" />
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de formulario para medical.cups -->
+        <record id="medical_cups_form_view" model="ir.ui.view">
+            <field name="name">medical.cups.form</field>
+            <field name="model">medical.cups</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="active" invisible="1" />
+                    <header>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" invisible="active" />
+                        <field name="id" invisible="1" />
+                        <div class="oe_title">
+                            <h1>
+                                <field name="code" class="text-break" placeholder="Código CUPS" />
+                            </h1>
+                            <h2>
+                                <field name="name" placeholder="Descripción del código CUPS" />
+                            </h2>
+                        </div>
+                        <notebook>
+                            <page string="Información General" name="general_info">
+                                <group>
+                                    <group name="basic_info">
+                                        <field name="display_name" readonly="1" />
+                                        <field name="active" widget="boolean_toggle" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!-- <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" />
+                        <field name="message_ids" />
+                    </div> -->
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda para medical.cups -->
+        <record id="medical_cups_search_view" model="ir.ui.view">
+            <field name="name">medical.cups.search</field>
+            <field name="model">medical.cups</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <filter name="active" string="Activos" domain="[('active', '=', True)]"/>
+                    <filter name="inactive" string="Archivados" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Categoría" name="groupby_category" context="{'group_by': 'category'}"/>
+                        <filter string="Estado" name="groupby_active" context="{'group_by': 'active'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="category" string="Categoría" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista heredada de producto -->
+        <record id="product_template_form_view_inherit_cups" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.cups</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="replace">
+                    <field name="code_type" widget="radio" options="{'horizontal': true}" />
+                    <field name="cups_id"
+                        invisible="code_type != 'cups'"
+                        required="code_type == 'cups'"
+                        options="{
+                        'no_create': true,
+                        'no_open': true,
+                        'no_quick_create': true
+                    }"
+                        placeholder="Buscar código CUPS..." />
+                    <field name="custom_code"
+                        invisible="code_type != 'custom'"
+                        required="code_type == 'custom'"
+                        placeholder="Ingrese código personalizado..." />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Kanban view para medical.cups -->
+        <record id="medical_cups_kanban_view" model="ir.ui.view">
+            <field name="name">medical.cups.kanban</field>
+            <field name="model">medical.cups</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id" />
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="active" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="code" />
+                                    </strong>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="name" />
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="active" widget="boolean_toggle" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Acción de ventana para CUPS -->
+        <record id="action_medical_cups" model="ir.actions.act_window">
+            <field name="name">Códigos CUPS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.cups</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="medical_cups_search_view" />
+            <field name="context">{
+                'search_default_active': 1,
+                }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear primer código CUPS
+                </p>
+                <p>
+                    Los códigos CUPS son utilizados para identificar procedimientos y servicios
+                    médicos.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menú para CUPS -->
+        <menuitem id="menu_medical_cups"
+            name="Códigos CUPS"
+            action="action_medical_cups"
+            parent="stock.menu_stock_config_settings"
+            sequence="100" />
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_epayslips_by_edi_employees_form" model="ir.ui.view">
+            <field name="name">hr.epayslips.by.edi.employees.form</field>
+            <field name="model">hr.epayslips.by.edi.employees</field>
+            <field name="arch" type="xml">
+                <form string="Generar Nómina Electrónica">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>Generación de Nómina Electrónica</h1>
+                        </div>
+                        <group>
+                            <div class="alert alert-info" role="alert" colspan="2">
+                                <p>Este asistente generará nóminas electrónicas para todos los empleados seleccionados basándose en las fechas y crédito especificados en el Lote de Nóminas.</p>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="employee_ids" nolabel="1" colspan="2">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="job_id"/>
+                                    <field name="department_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="compute_sheet" string="Generar Nóminas" type="object" class="btn-primary" icon="fa-cogs"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_payslip_by_edi_employees" model="ir.actions.act_window">
+            <field name="name">Generar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.epayslips.by.edi.employees</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_epayslips_by_edi_employees_form"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <!-- Menu Devengos & deducciones por contrato -->
+        <menuitem name="Devengos y Deducciones por contrato" id="lavish_hr_employee.menu_contract_concepts" parent="hr_payroll.menu_hr_payroll_employees_root" action="lavish_menu_action_contract_concepts" sequence="99"/>
+        <!-- Menu tipos de empleados -->
+        <menuitem name="Tipos de empleado" id="lavish_hr_employee.menu_types_employee" parent="hr.menu_human_resources_configuration" action="lavish_menu_action_types_employee"/>                
+        <!-- Menu parametrización riesgos profesionales -->
+        <menuitem name="Riesgos profesionales" id="lavish_hr_employee.menu_contract_risk" parent="hr.menu_human_resources_configuration" action="lavish_menu_action_contract_risk"/>
+        <!-- Menu parametrización tipos de cotizante -->
+        <menuitem name="Tipos de cotizante" id="lavish_hr_employee.menu_hr_tipo_cotizante" parent="hr.menu_human_resources_configuration" action="action_hr_tipo_cotizante"/>
+        <!-- Menu parametrización subtipos de cotizante -->
+        <menuitem name="Subtipos de cotizante" id="lavish_hr_employee.menu_hr_subtipo_cotizante" parent="hr.menu_human_resources_configuration" action="action_hr_subtipo_cotizante"/>
+        <!-- Menu Configuración plantilla certificado laboral-->
+        <menuitem name="Configuración plantilla certificado laboral" id="lavish_hr_employee.menu_hr_labor_certificate_template" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" action="action_labor_certificate_template"/>
+        <!-- Menu Tipos de entidades-->
+        <menuitem name="Tipo de entidades" id="lavish_hr_employee.menu_types_entities" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" action="lavish_menu_action_types_entities"/>                
+        <!-- Menu Entidades -->
+        <menuitem name="Entidades" id="lavish_hr_employee.menu_employee_entities" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" action="lavish_menu_action_employee_entities"/>                
+        <!-- Menu Parámetros anuales -->
+        <menuitem name="Parámetros anuales" id="lavish_hr_employee.menu_annual_parameters" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" action="lavish_menu_action_annual_parameters"/>                        
+        <!-- Menu Listado de cumpleaños -->
+        <menuitem name="Listado de cumpleaños" id="lavish_hr_employee.menu_report_birthday" parent="hr_payroll.menu_hr_payroll_report" action="action_hr_employee_report_birthday" sequence="50"/>
+        <!-- Certificados laborales -->
+        <menuitem name="Certificados laborales generados" id="lavish_hr_employee.menu_labor_certificate_history" parent="hr_payroll.menu_hr_payroll_report" action="action_hr_labor_certificate_history" sequence="55"/>
+        <!-- Parametrización Cotizantes -->
+        <menuitem name="Parametrización Cotizantes" id="lavish_hr_employee.menu_hr_parameterization_of_contributors" parent="hr.menu_human_resources_configuration" action="action_hr_parameterization_of_contributors"/>
+        <!-- histórico salario-->
+        <menuitem name="Histórico Salario" id="lavish_hr_employee.menu_hr_salary_history_report" parent="hr_payroll.menu_hr_payroll_report" action="action_hr_salary_history_report"/>
+        <menuitem name="Actividad económica por nivel de riesgo" id="lavish_hr_employee.menu_lavish_economic_activity_level_risk" parent="hr.menu_human_resources_configuration" action="lavish_menu_action_lavish_economic_activity_level_risk" sequence="4"/>
+    </data>
+</odoo>

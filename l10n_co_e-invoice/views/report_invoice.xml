@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_electronic_invoice_document_inherit"
+            inherit_id="account.report_invoice_document" priority="160">
+            <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+                <t t-call="web.html_container">
+                    <div class="article" t-att-data-oe-model="o and o._name"
+                        t-att-data-oe-id="o and o.id"
+                        t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <style type="text/css">
+                            /* Estilos base */
+                            .article {
+                                font-family: 'Helvetica Neue', Arial, sans-serif;
+                                font-size: 11px;
+                                line-height: 1.2;
+                            }
+                            /* Encabezado */
+                            .company-name {
+                                font-size: 20px;
+                                font-weight: 600;
+                                margin-bottom: 6px;
+                            }
+                            .company-info {
+                                font-size: 11px;
+                                line-height: 1.2;
+                                margin-bottom: 3px;
+                            }
+                            .doc-title {
+                                font-size: 18px;
+                                font-weight: 600;
+                            }
+                            .doc-number {
+                                font-size: 16px;
+                                color: #666;
+                            }
+                            /* Títulos de sección */
+                            .section-title {
+                                font-size: 12px;
+                                font-weight: 600;
+                                margin-bottom: 6px;
+                                padding-bottom: 3px;
+                                border-bottom: 2px solid #ddd;
+                            }
+                            /* Tablas */
+                            .table {
+                                margin-bottom: 0;
+                            }
+                            .table td, .table th {
+                                padding: 2px;
+                                font-size: 11px;
+                                line-height: 1.3;
+                            }
+                            .order-table th {
+                                background-color: #f8f9fa;
+                                font-weight: 600;
+                            }
+                            /* Iconos */
+                            .fa {
+                                font-size: 11px;
+                                width: 14px;
+                                text-align: center;
+                            }
+                        </style>
+                        <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+                        <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat" />
+                        <t t-set="company" t-value="o.company_id" />
+                        <!-- Header -->
+                        <div class="header row pb-2 mb-3 border-bottom">
+                            <div class="col-3">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                    class="img-fluid" style="max-height: 110px;" alt="Company Logo" />
+                            </div>
+                            <div class="col-5 text-center">
+                                <div
+                                    style="font-size: 20px;             font-weight: 600;             margin-bottom: 6px;"
+                                    t-field="company.name" />
+                                <div style="font-size: 13px;  font-weight: 500;">
+                                    <i class="fa fa-building-o me-1" />
+                                    <span t-field="company.street" />
+                                </div>
+                                <div style="font-size: 13px;  font-weight: 500;">
+                                    <span t-field="company.city" /> , <span
+                                        t-field="company.state_id.name" /> , <span
+                                        t-field="company.zip" />
+                                </div>
+                                <div style="font-size: 13px;  font-weight: 500;">
+                                    <i class="fa fa-phone me-1" />
+                                    <span t-field="company.mobile" />
+                                    , <span t-field="company.phone" />
+                                </div>
+                                <div style="font-size: 13px;  font-weight: 500;">
+                                    <i class="fa fa-envelope me-1" />
+                                    <span t-field="company.email" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="border rounded p-2 text-center"
+                                    style="background-color: #f8f9fa;">
+                                    <h2>
+                                        <strong>
+                                            <h6 class="mb-0" style="font-weight: bold;">
+                                                <!-- Documentos con código DIAN -->
+                                                <t t-if="o.diancode_id">
+                                                    <t t-if="o.diancode_id.document_type == 'f'">
+                                                        <span t-if="o.move_type == 'in_invoice'"
+                                                            class="text-muted">
+                                                            Documento soporte en adquisiciones
+                                                            efectuados a no obligados a facturar
+                                                        </span>
+                                                        <span t-if="not o.move_type == 'in_invoice'"
+                                                            class="text-muted">
+                                                            Factura Electronica de venta
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="o.diancode_id.document_type == 'd'"
+                                                        class="text-muted">
+                                                        Nota de Débito
+                                                    </t>
+                                                    <t t-if="o.diancode_id.document_type == 'c'"
+                                                        class="text-muted">
+                                                        Nota de Crédito
+                                                    </t>
+                                                </t>
+                                                <!-- Documentos sin código DIAN ni número de
+                                                resolución -->
+                                                <t
+                                                    t-if="not o.diancode_id and not o.resolution_number">
+                                                    <t
+                                                        t-if="o.move_type == 'out_invoice' and o.state == 'draft'"
+                                                        class="text-muted">
+                                                        Factura Borrador
+                                                    </t>
+                                                    <t
+                                                        t-if="o.move_type == 'out_invoice' and o.state != 'draft'"
+                                                        class="text-muted">
+                                                        Factura
+                                                    </t>
+                                                    <t t-if="o.move_type == 'out_refund'"
+                                                        class="text-muted">
+                                                        Refund
+                                                    </t>
+                                                    <t t-if="o.move_type == 'in_refund'"
+                                                        class="text-muted">
+                                                        Vendor Refund
+                                                    </t>
+                                                    <t t-if="o.move_type == 'in_invoice'"
+                                                        class="text-muted">
+                                                        Factura de Proveedor
+                                                    </t>
+                                                </t>
+                                                <!-- Documentos sin código DIAN pero con número de
+                                                resolución -->
+                                                <t t-if="not o.diancode_id and o.resolution_number">
+                                                    <t t-if="o.move_type == 'out_invoice'"
+                                                        class="text-muted">
+                                                        Factura Electronica de Venta
+                                                    </t>
+                                                    <t t-if="o.move_type == 'out_refund'"
+                                                        class="text-muted">
+                                                        Factura Electronica Refund
+                                                    </t>
+                                                    <t t-if="o.move_type == 'in_refund'"
+                                                        class="text-muted">
+                                                        Vendor Refund
+                                                    </t>
+                                                    <t t-if="o.move_type == 'in_invoice'"
+                                                        class="text-muted">
+                                                        Factura de Compra
+                                                    </t>
+                                                </t>
+                                            </h6>
+                                        </strong>
+                                    </h2>
+                                    <div class="doc-number text-center mb-3 font-weight-bold"
+                                        t-field="o.name" />
+                                </div>
+                                <div t-if="o.move_type == 'out_refund'"
+                                    class="text-start font-weight-bold"> DOC. REVERSADO: <span
+                                        t-field="o.reversed_entry_id.name" />
+                                </div>
+                                <div t-if="o.move_type == 'out_refund'"
+                                    class="text-start font-weight-bold"> Motivo: <span
+                                        t-field="o.concepto_credit_note" />
+                                </div>
+                                <!-- Fechas -->
+                            </div>
+                        </div>
+                        <t t-set="o" t-value="o.with_context(lang=lang)" />
+                        <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat" />
+                        <div class="page">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-6 ps-2">
+                                        <!-- Información del Cliente -->
+                                        <h6 class="section-title">
+                                            <i class="fa fa-building me-1" /> Información del
+                                            Cliente </h6>
+                                        <table class="table table-sm table-borderless">
+                                            <tr>
+                                                <td style="width: 35%;">
+                                                    <i class="fa fa-id-card me-1" /> Empresa: </td>
+                                                <td>
+                                                    <strong t-field="o.partner_id.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <i class="fa fa-map-marker me-1" /> Dirección: </td>
+                                                <td>
+                                                    <span t-field="o.partner_id"
+                                                        t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True}" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-envelope me-1" /> Email: </td>
+                                                <td>
+                                                    <span t-field="o.partner_id.email" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-phone me-1" /> Teléfono: </td>
+                                                <td>
+                                                    <span t-field="o.partner_id.phone" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-id-card-o me-1" /> NIT/RUT: </td>
+                                                <td>
+                                                    <span t-field="o.partner_id.vat" />
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Dirección de Entrega -->
+                                        <t
+                                            t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)">
+                                            <h6 class="section-title mt-3">
+                                                <i class="fa fa-truck me-1" /> Dirección de Entrega </h6>
+                                            <table class="table table-sm table-borderless">
+                                                <tr>
+                                                    <td style="width: 35%;">
+                                                        <i class="fa fa-user me-1" /> Nombre: </td>
+                                                    <td>
+                                                        <span t-field="o.partner_shipping_id.name" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align: top;">
+                                                        <i class="fa fa-map-marker me-1" />
+                                                        Dirección: </td>
+                                                    <td>
+                                                        <span t-field="o.partner_shipping_id"
+                                                            t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True}" />
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </t>
+                                    </div>
+                                    <div class="col-6 pe-2">
+                                        <h6 class="section-title">
+                                            <i class="fa fa-file-text-o me-1" /> Información del
+                                            Documento </h6>
+                                        <table class="table table-sm table-borderless">
+                                            <tr>
+                                                <td style="width: 35%;">
+                                                    <i class="fa fa-calendar me-1" /> Fecha
+                                                    Generación: </td>
+                                                <td>
+                                                    <span class="date-value" t-field="o.fecha_xml"
+                                                        t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;format&quot;: &quot;yyyy-MM-dd HH:mm:ss XXX&quot;}" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%;">
+                                                    <i class="fa fa-calendar me-1" /> Fecha: </td>
+                                                <td>
+                                                    <span t-field="o.invoice_date" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-clock-o me-1" /> Vencimiento: </td>
+                                                <td>
+                                                    <span t-field="o.invoice_date_due" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-file-o me-1" /> Origen: </td>
+                                                <td>
+                                                    <span t-field="o.invoice_origin" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-file-o me-1" /> Ref/O.C: </td>
+                                                <td>
+                                                    <span t-field="o.ref" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-clock-o" /> Forma de Pago:</td>
+                                                <td>
+                                                    <span t-field="o.payment_format" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-credit-card" /> Medio de Pago:</td>
+                                                <td>
+                                                    <span t-field="o.method_payment_id.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-money me-1" /> Términos: </td>
+                                                <td>
+                                                    <span t-field="o.invoice_payment_term_id.name" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <h6 class="section-title mt-3">
+                                            <i class="fa fa-user me-1" /> Representante de Ventas </h6>
+                                        <table class="table table-sm table-borderless">
+                                            <tr>
+                                                <td style="width: 35%;">
+                                                    <i class="fa fa-id-badge me-1" /> Nombre: </td>
+                                                <td>
+                                                    <span t-field="o.invoice_user_id" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-envelope me-1" /> Email: </td>
+                                                <td>
+                                                    <span t-field="o.invoice_user_id.login" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-phone me-1" /> Teléfono: </td>
+                                                <td>
+                                                    <span
+                                                        t-field="o.invoice_user_id.partner_id.mobile" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <t t-set="display_discount"
+                                t-value="any(l.discount for l in o.invoice_line_ids)" />
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="border rounded">
+                                        <table class="table table-sm mb-0 order-table"
+                                            style="font-size: 11px; line-height: 1.2;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-hashtag me-1" />
+                                                    </th>
+                                                    <th class="text-start align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-barcode me-1" /> COD </th>
+                                                    <th class="text-left align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-file-text-o me-1" />
+                                                        Descripción </th>
+                                                    <th class="text-center align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-percent me-1" /> IVA </th>
+                                                    <th class="text-end align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-shopping-cart me-1" />
+                                                        Cantidad </th>
+                                                    <th class="text-end align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-money me-1" /> Precio Unit. </th>
+                                                    <th t-if="display_discount"
+                                                        class="text-end align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-tag me-1" /> Desc.% </th>
+                                                    <th class="text-end align-middle"
+                                                        style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                                                        <i class="fa fa-calculator me-1" /> Total </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="current_subtotal" t-value="0" />
+                                                <t t-set="lines"
+                                                    t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" />
+                                                <t t-foreach="lines" t-as="line">
+                                                    <t t-set="current_subtotal"
+                                                        t-value="current_subtotal + line.price_subtotal"
+                                                        groups="account.group_show_line_subtotals_tax_excluded" />
+                                                    <t t-set="current_subtotal"
+                                                        t-value="current_subtotal + line.price_total"
+                                                        groups="account.group_show_line_subtotals_tax_included" />
+                                                    <!-- Líneas de producto -->
+                                                    <tr
+                                                        t-att-class="'bg-light' if line.display_type == 'line_section' else ''">
+                                                        <t t-if="line.display_type == 'product'"
+                                                            name="account_invoice_line_accountable">
+                                                            <td class="text-center"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span t-esc="line_index + 1" />
+                                                            </td>
+                                                            <td class="text-start"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span
+                                                                    t-field="line.product_id.default_code" />
+                                                            </td>
+                                                            <td class="text-start"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span t-field="line.name"
+                                                                    t-options="{'widget': 'text'}" />
+                                                            </td>
+                                                            <td class="text-center"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <t t-set="taxes"
+                                                                    t-value="line.tax_ids.filtered(lambda l: l.tributes == '01')" />
+                                                                <span
+                                                                    t-esc="'\n '.join(map(lambda x: (str(x.amount) or '0.0'), taxes))"
+                                                                    id="line_tax_ids" />
+                                                            </td>
+                                                            <td class="text-end"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span t-field="line.quantity" />
+                                                            </td>
+                                                            <td class="text-end"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span class="text-nowrap"
+                                                                    t-field="line.price_unit" />
+                                                            </td>
+                                                            <td t-if="display_discount"
+                                                                class="text-right"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span class="text-nowrap"
+                                                                    t-field="line.discount" />
+                                                            </td>
+                                                            <td class="text-end"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span class="text-nowrap"
+                                                                    t-field="line.price_subtotal"
+                                                                    groups="account.group_show_line_subtotals_tax_excluded" />
+                                                                <span class="text-nowrap"
+                                                                    t-field="line.price_subtotal" />
+                                                            </td>
+                                                        </t>
+                                                        <!-- Secciones -->
+                                                        <t
+                                                            t-if="line.display_type == 'line_section'">
+                                                            <td colspan="8" class="fw-bold bg-light"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span t-field="line.name" />
+                                                            </td>
+                                                        </t>
+                                                        <!-- Notas -->
+                                                        <t t-if="line.display_type == 'line_note'">
+                                                            <td colspan="8"
+                                                                class="fst-italic text-muted bg-light"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <span t-field="line.name" />
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                    <!-- Subtotales de sección -->
+                                                    <t
+                                                        t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
+                                                        <tr class="text-right bg-light">
+                                                            <td colspan="8"
+                                                                style="border-top: 1px solid #dee2e6;">
+                                                                <strong class="me-2">Subtotal</strong>
+                                                                <span t-esc="current_subtotal"
+                                                                    t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" />
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="8"
+                                                        style="border-top: 2px solid #dee2e6;">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <strong class="me-2">Total Items:</strong>
+                                                                <span
+                                                                    t-esc="len(o.invoice_line_ids)" />
+                                                            </div>
+                                                            <div>
+                                                                <strong class="me-2">Valor en
+                                                                    Letras:</strong>
+                                                                <span
+                                                                    t-esc="o.currency_id.amount_to_text(o.amount_total)" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 1rem;">
+                                <div class="col-12">
+                                    <div style="background-color: #fafafa; padding: 1.5rem;">
+                                        <div class="row">
+                                            <!-- Columna izquierda (7) -->
+                                            <div class="col-7" style="padding-right: 0.5rem;">
+                                                <!-- Información bancaria -->
+                                                <div style="margin-bottom: 1rem;"
+                                                    t-if="o.move_type in ('out_invoice','out_refund')">
+                                                    <div
+                                                        style="color: #666; font-size: 11px; margin-bottom: 0.5rem;">
+                                                        <i class="fa fa-university me-1" />
+                                                        Información Bancaria </div>
+                                                    <t
+                                                        t-foreach="o.company_id.partner_id.bank_ids.filtered(lambda b: b.allow_out_payment)"
+                                                        t-as="bank_account">
+                                                        <div
+                                                            style="font-size: 10px;  font-style: italic;">
+                                                            <t t-if="bank_account.is_main">
+                                                                <strong>* Entidad <span
+                                                                        t-esc="bank_account.bank_id.name" />
+                                                                    Cuenta <span
+                                                                        t-field="bank_account.type_account" />
+                                                                    Número <span
+                                                                        t-field="bank_account.acc_number" />
+                                                                </strong>
+                                                            </t>
+                                                            <t t-else=""> Entidad <span
+                                                                    t-esc="bank_account.bank_id.name" />
+                                                                Cuenta <span
+                                                                    t-field="bank_account.type_account" />
+                                                                Número <span
+                                                                    t-field="bank_account.acc_number" />
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                    <div
+                                                        style="font-size: 10px; color: #666; margin-top: 0.5rem; font-style: italic;">
+                                                        ** Todas las cuentas bancarias están
+                                                        registradas a nombre de <span
+                                                            t-esc="o.company_id.name" />
+                                                    </div>
+                                                </div>
+                                                <!-- Título valor -->
+                                                <div
+                                                    t-if="o.move_type in ('out_invoice','out_refund')">
+                                                    <div style="font-size: 9px; color: #444;">
+                                                        <strong>Esta factura de venta es un título
+                                                            valor, conforme al Art.772, Modificado
+                                                            en la ley 1231 de 2008</strong>
+                                                    </div>
+                                                </div>
+                                                <!-- Términos y condiciones -->
+                                                <div style="margin-bottom: 1rem;"
+                                                    t-if="o.move_type in ('out_invoice','out_refund')">
+                                                    <div
+                                                        style="font-size: 10px; color: #444; text-align: justify; line-height: 1.4;">
+                                                        El cliente, autoriza a <span
+                                                            t-field="o.company_id.name" /> y/o quien
+                                                        represente sus derechos o intereses a
+                                                        reportar, consultar, procesar, solicitar o
+                                                        divulgar ante cualquier entidad que gestione
+                                                        bases de datos, como DATACREDITO, CIFIN,
+                                                        FENALCO, entre otras, toda la información
+                                                        sobre mi comportamiento y realidad
+                                                        comercial. </div>
+                                                </div>
+                                                <!-- Observaciones -->
+                                                <div style="margin-bottom: 1rem;">
+                                                    <div
+                                                        style="color: #666; font-size: 12px; margin-bottom: 0.5rem;">
+                                                        <i class="fa fa-comment me-1" />
+                                                        Observaciones </div>
+                                                    <div style="font-size: 11px; color: #444;">
+                                                        <span t-field="o.narration" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Columna derecha (5) - Totales -->
+                                            <div class="col-5"
+                                                style="background-color: #f5f5f5; padding: 0.5rem;">
+                                                <!-- Totales -->
+                                                <table class="table table-sm">
+                                                    <tr>
+                                                        <td style="padding: 0.3rem; border: none;">
+                                                            <span
+                                                                style="color: #666; font-size: 10px;">
+                                                                Moneda</span>
+                                                        </td>
+                                                        <td
+                                                            style="padding: 0.3rem; border: none; text-align: right;">
+                                                            <span t-field="o.currency_id"
+                                                                style="font-size: 10x;" />
+                                                        </td>
+                                                    </tr>
+                                                    <t t-set="tax_totals" t-value="o.tax_totals" />
+                                                    <t t-call="account.document_tax_totals" />
+                                                </table>
+                                                <!-- QR Code -->
+                                                <div t-if="o.diancode_id.QR_code"
+                                                    style="text-align: end;">
+                                                    <img
+                                                        t-att-src="image_data_uri(o.diancode_id.QR_code)"
+                                                        style="max-width: 80px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Firmas -->
+                                        <div class="row"
+                                            style="padding-top: 0.5rem; border-top: 1px solid #eee;">
+                                            <div class="col-4">
+                                                <div
+                                                    style="color: #666; font-size: 11px; margin-bottom: 1.5rem;">
+                                                    <i class="fa fa-pen me-1" /> Firma Recibe </div>
+                                                <div
+                                                    style="border-bottom: 1px solid #ddd; width: 80%;" />
+                                            </div>
+                                            <div class="col-4">
+                                                <div
+                                                    style="color: #666; font-size: 11px; margin-bottom: 1.5rem;">
+                                                    <i class="fa fa-pen me-1" /> Firma Elaboró </div>
+                                                <div
+                                                    style="border-bottom: 1px solid #ddd; width: 80%;" />
+                                            </div>
+                                            <div class="col-4">
+                                                <div style="color: #666; font-size: 11px;">
+                                                    <i class="fa fa-laptop me-1" /> Software Propio <div
+                                                        style="margin-top: 0.5rem; font-size: 10px;">
+                                                        <span t-field="o.company_id.name" /> - <span
+                                                            t-field="o.company_id.vat" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 1rem; background-color: #f5f5f5;"
+                                            t-if="o.resolution_number">
+                                            <div
+                                                style="font-size: 10px; color: #444; line-height: 1.6;">
+                                                <div>
+                                                    <strong style="color: #666;">Autorización DIAN: </strong>
+                                                    <span
+                                                        t-field="o.resolution_number" /> | <strong
+                                                        style="color: #666;">Fecha: </strong>
+                                                    <span
+                                                        t-field="o.resolution_date" />
+                                                    <t
+                                                        t-if="o.resolution_date_to"> | <strong
+                                                            style="color: #666;">Vigencia: </strong>
+                                                        <span
+                                                            t-field="o.resolution_date_to" />
+                                                    </t>
+                                                    <strong
+                                                        style="color: #666;">Rango de Facturación: </strong>
+                                                    <span
+                                                        t-field="o.resolution_number_from" /> - <span
+                                                        t-field="o.resolution_number_to" />
+                                                </div>
+                                                <div style="font-size: 10px; color: #444;">
+                                                    <div t-if="o.cufe">
+                                                        <strong t-if="o.move_type == 'out_invoice'"
+                                                            style="color: #666;">CUFE: </strong>
+                                                        <strong t-if="o.move_type == 'out_refund'"
+                                                            style="color: #666;">CUDE: </strong>
+                                                        <strong
+                                                            t-elif="o.move_type in ['in_invoice', 'in_refund']">
+                                                            CUDS:</strong>
+                                                        <t t-set="scheme"
+                                                            t-value="{             'out_invoice': 'CUFE-SHA384',             'out_refund': 'CUDE-SHA384',             'in_invoice': 'CUDS-SHA384',             'in_refund': 'CUDS-SHA384'         }.get(o.move_type, '')" />
+                                                        <span style="display: inline;">
+                                                            <t t-if="scheme">
+                                                                <small
+                                                                    style="box-sizing:border-box;font-size:0.875em;color:#95a5a6;display:inline;">
+                                                                    ( <t t-esc="scheme" /> ) </small>
+                                                            </t>
+                                                            <strong t-field="o.cufe"
+                                                                style="margin-left: 4px;" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <strong>Representación gráfica de la Factura
+                                                        Electrónica generada por: </strong>
+                                                    <span t-field="o.company_id.partner_id.name" />
+                                                    <strong style="margin-left: 0.5rem;">NIT: </strong>
+                                                    <span t-field="o.company_id.partner_id.vat" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div t-if="not is_html_empty(o.fiscal_position_id.note)"
+                            style="border-bottom:1px solid black" name="note">
+                            <span t-field="o.fiscal_position_id.note" />
+                        </div>
+                        <p t-if="o.invoice_incoterm_id" name="incoterm">
+                            <strong>Incoterm: </strong>
+                            <span t-field="o.invoice_incoterm_id.code" />
+                            - <span t-field="o.invoice_incoterm_id.name" />
+                        </p>
+                        <div t-attf-class="footer o_standard_footer">
+                            <div
+                                style="padding: 1rem; background-color: #fafafa; font-size: 10px; color: #666;">
+                                <div t-if="o.cufe" style="margin-bottom: 0.5rem;font-size:6px">
+                                    <strong style="color: #666;">Sello de Firma: </strong>
+                                    <span style="word-break: break-all;"
+                                        t-esc="o.extract_signature_value()" />
+                                </div>
+                                <div class="row align-items-center">
+                                    <!-- Información del creador -->
+                                    <div class="col-4 text-start">
+                                        <div>
+                                            <i class="fa fa-user me-1" />
+                                            <span>Documento creado por: </span>
+                                            <span t-field="o.create_uid.name" style="color: #444;" />
+                                        </div>
+                                    </div>
+                                    <!-- Marca de software -->
+                                    <div class="col-4 text-center">
+                                        <div style="font-size: 11px;">
+                                            <i class="fa fa-code me-1" /> Odoo - LavishSoft </div>
+                                    </div>
+                                    <br />
+                                    <!-- Numeración de páginas -->
+                                    <div class="col-4 text-end" t-if="report_type == 'pdf'">
+                                        <div>
+                                            <i class="fa fa-file-o me-1" />
+                                            <span>Página </span>
+                                            <span class="page" style="color: #444;" />
+                                            <span> de </span>
+                                            <span class="topage" style="color: #444;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

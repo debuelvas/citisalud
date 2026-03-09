@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="customer_contract_delete_annex_form" model="ir.ui.view">
+            <field name="name">customer.contract.delete.annex.form</field>
+            <field name="model">customer.contract.delete.annex</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="annexs_ids" context="{'tree_view_ref': 'customer_contract.customer_contract_annex_type_tree'}" />
+                    </sheet>
+                    <footer>
+                        <button name="delete_customer_contract_annex" type="object" string="Eliminar otrosí" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_contract_delete_annex_action" model="ir.actions.act_window">
+            <field name="name">Eliminar Otrosí</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.contract.delete.annex</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

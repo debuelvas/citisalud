@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1" xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2     http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<sts:DianExtensions>
+					<sts:InvoiceControl>
+						<sts:InvoiceAuthorization>18760000001</sts:InvoiceAuthorization>
+						<sts:AuthorizationPeriod>
+							<cbc:StartDate>2019-01-19</cbc:StartDate>
+							<cbc:EndDate>2030-01-19</cbc:EndDate>
+						</sts:AuthorizationPeriod>
+						<sts:AuthorizedInvoices>
+							<sts:Prefix>SETT</sts:Prefix>
+							<sts:From>1</sts:From>
+							<sts:To>1000000</sts:To>
+						</sts:AuthorizedInvoices>
+					</sts:InvoiceControl>
+					<sts:InvoiceSource>
+						<cbc:IdentificationCode listAgencyID="6" listAgencyName="United Nations Economic Commission for Europe" listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.1">CO</cbc:IdentificationCode>
+					</sts:InvoiceSource>
+					<sts:SoftwareProvider>
+						<sts:ProviderID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="0" schemeName="31">9999999999</sts:ProviderID>
+						<sts:SoftwareID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">1111111111111111111</sts:SoftwareID>
+					</sts:SoftwareProvider>
+					<sts:SoftwareSecurityCode schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">a1304a98512b28dc22af5f24839e8c1958961944ab53682f47b0asd4edc755273a48c28788dd270648e596190db2915327f</sts:SoftwareSecurityCode>
+					<sts:AuthorizationProvider>
+						<sts:AuthorizationProviderID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="4" schemeName="31">800197268</sts:AuthorizationProviderID>
+					</sts:AuthorizationProvider>
+					<sts:QRCode>https://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey=03d9722636b2760aa1c57cefcc3bcfffa6d7d791869a1c55069e1f8ec077824600a1f7ed18b8f0f02ac67f0a57767bbe</sts:QRCode>
+				</sts:DianExtensions>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="xmldsig-58a4d6a5-34c9-4d04-923a-b4e2355ff187">
+					<!-- FRAGMENTO DE LA FIRMA ELECTRÓNICA -->
+				</ds:Signature>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>SS-Recaudo</cbc:CustomizationID>
+	<cbc:ProfileID>DIAN 2.1: Factura Electrónica de Venta</cbc:ProfileID>
+	<cbc:ProfileExecutionID>2</cbc:ProfileExecutionID>
+	<cbc:ID>SETT6</cbc:ID>
+	<cbc:UUID schemeID="2" schemeName="CUFE-SHA384">03d9722636b2760aa1c57cefcc3bcfffa6d7d791869a1c55069e1f8ec077824600a1f7ed18b8f0f02ac67f0a57767bbe</cbc:UUID>
+	<cbc:IssueDate>2024-01-15</cbc:IssueDate>
+	<cbc:IssueTime>12:00:00-05:00</cbc:IssueTime>
+	<cbc:InvoiceTypeCode>04</cbc:InvoiceTypeCode>
+	<cbc:Note>NOTAS LIBRES POR PARTE DEL EMISOR</cbc:Note>
+	<cbc:Note>Este documento no tiene que ser transmitido al ministerio para su validación, sirve como soporte del recaudo generado por parte del prestador al tercero </cbc:Note>
+	<cbc:DocumentCurrencyCode>COP</cbc:DocumentCurrencyCode>
+	<cbc:LineCountNumeric>1</cbc:LineCountNumeric>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>1324</cbc:ID>
+	</cac:AdditionalDocumentReference>
+	<cac:AccountingSupplierParty>
+		<cbc:AdditionalAccountID schemeID="COD-1234" schemeName="Sector Salud">1</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name>IPS/PSS/PTS</cbc:Name>
+			</cac:PartyName>
+			<cac:PhysicalLocation>
+				<cac:Address>
+					<cbc:ID>05380</cbc:ID>
+					<cbc:CityName>la</cbc:CityName>
+					<cbc:PostalZone>055460</cbc:PostalZone>
+					<cbc:CountrySubentity>ant</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>05</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>Cra. 13 # 65a Sur - 89</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name languageID="es">Colombia</cbc:Name>
+					</cac:Country>
+				</cac:Address>
+			</cac:PhysicalLocation>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>IPS/PSS/PTS</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="1" schemeName="31">530520110</cbc:CompanyID>
+				<cbc:TaxLevelCode listName="No aplica">O-13;O-23</cbc:TaxLevelCode>
+				<cac:RegistrationAddress>
+					<cbc:ID>05380</cbc:ID>
+					<cbc:CityName>la</cbc:CityName>
+					<cbc:PostalZone>055460</cbc:PostalZone>
+					<cbc:CountrySubentity>ant</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>05</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>Cra. 13 # 65a Sur - 89</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name languageID="es">Colombia</cbc:Name>
+					</cac:Country>
+				</cac:RegistrationAddress>
+				<cac:TaxScheme>
+					<cbc:ID>01</cbc:ID>
+					<cbc:Name>IVA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>IPS/PSS/PTS</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="1" schemeName="31">530520110</cbc:CompanyID>
+				<cac:CorporateRegistrationScheme>
+					<cbc:ID>FE</cbc:ID>
+					<cbc:Name>1485596</cbc:Name>
+				</cac:CorporateRegistrationScheme>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:ElectronicMail>correorecepcion@psptspss.com.co</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<cbc:AdditionalAccountID>2</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PhysicalLocation>
+				<cac:Address>
+					<cbc:ID>11001</cbc:ID>
+					<cbc:CityName>Bogotá</cbc:CityName>
+					<cbc:CountrySubentity>Bogotá</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>11</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>Cr 18 b # 181 - 32</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name languageID="es">Colombia</cbc:Name>
+					</cac:Country>
+				</cac:Address>
+			</cac:PhysicalLocation>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>Antonia Vela</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="0" schemeName="13">9578642</cbc:CompanyID>
+				<cbc:TaxLevelCode listName="No aplica">O-13;O-23</cbc:TaxLevelCode>
+				<cac:RegistrationAddress>
+					<cbc:ID>11001</cbc:ID>
+					<cbc:CityName>Bogotá</cbc:CityName>
+					<cbc:CountrySubentity>Bogotá</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>11</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>Cr 18 b # 181 - 32</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name languageID="es">Colombia</cbc:Name>
+					</cac:Country>
+				</cac:RegistrationAddress>
+				<cac:TaxScheme>
+					<cbc:ID>01</cbc:ID>
+					<cbc:Name>IVA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>Información del Pagador</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="0" schemeName="31">100300200</cbc:CompanyID>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:ElectronicMail>correoz@gmail.com</cbc:ElectronicMail>
+			</cac:Contact>
+			<cac:Person>
+				<!-- GRUPO DE INFORMACIÓN DE BENEFICIARIO DEL SECTOR SALUD -->
+				<cbc:ID schemeID="99">123</cbc:ID>
+				<cbc:FirstName>Antonia</cbc:FirstName>
+				<cbc:FamilyName>Vela</cbc:FamilyName>
+				<cac:IdentityDocumentReference>
+					<cbc:ID schemeID="CC" schemeName="CEDULA CIUDADANIA	">9578642</cbc:ID>
+					<cac:IssuerParty>
+						<cac:PartyName>
+							<cbc:Name>Registraduría Nacional del Estado Civil</cbc:Name>
+						</cac:PartyName>
+						<cac:PostalAddress>
+							<cbc:ID schemeName="city code DANE"/>
+							<cbc:CityName>Bo</cbc:CityName>
+							<cac:Country/>
+						</cac:PostalAddress>
+					</cac:IssuerParty>
+				</cac:IdentityDocumentReference>
+				<cac:ResidenceAddress>
+					<cbc:ID schemeName="city code DANE"/>
+					<cbc:CityName/>
+					<cac:AddressLine>
+						<cbc:Line/>
+					</cac:AddressLine>
+					<cac:Country/>
+				</cac:ResidenceAddress>
+			</cac:Person>
+		</cac:Party>
+	</cac:AccountingCustomerParty>
+	<cac:PaymentMeans>
+		<cbc:ID>2</cbc:ID>
+		<cbc:PaymentMeansCode>48</cbc:PaymentMeansCode>
+		<cbc:PaymentDueDate>2022-02-20</cbc:PaymentDueDate>
+		<cbc:PaymentID>Tarjeta Crédito</cbc:PaymentID>
+	</cac:PaymentMeans>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+		<cbc:RoundingAmount currencyID="COP">0.00</cbc:RoundingAmount>
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="COP">18500.00</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>01</cbc:ID>
+					<cbc:Name>IVA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="COP">18500.00</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="COP">18500.00</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="COP">18500.00</cbc:TaxInclusiveAmount>
+		<cbc:AllowanceTotalAmount currencyID="COP">0.00</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="COP">0.00</cbc:ChargeTotalAmount>
+		<cbc:PayableAmount currencyID="COP">18500.00</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="94">1.00</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="COP">18500.00</cbc:LineExtensionAmount>
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+			<cbc:RoundingAmount currencyID="COP">0.00</cbc:RoundingAmount>
+			<cac:TaxSubtotal>
+				<cbc:TaxableAmount currencyID="COP">18500.00</cbc:TaxableAmount>
+				<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cbc:Percent>0.00</cbc:Percent>
+					<cac:TaxScheme>
+						<cbc:ID>01</cbc:ID>
+						<cbc:Name>IVA</cbc:Name>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+		</cac:TaxTotal>
+		<cac:Item>
+			<cbc:Description>Copago</cbc:Description>
+			<cbc:Description>Descripción libre por parte del PTS/PSS</cbc:Description>
+			<cac:StandardItemIdentification>
+				<cbc:ID schemeID="999" schemeName="Estándar de adopción del contribuyente">1005401-101</cbc:ID>
+			</cac:StandardItemIdentification>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="COP">18500.00</cbc:PriceAmount>
+			<cbc:BaseQuantity unitCode="94">1.00</cbc:BaseQuantity>
+		</cac:Price>
+	</cac:InvoiceLine>
+</Invoice>

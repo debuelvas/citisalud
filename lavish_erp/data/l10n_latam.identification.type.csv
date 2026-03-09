@@ -1,0 +1,15 @@
+id,name,l10n_co_document_code,country_id:id,is_vat,sequence,dian_code,active
+l10n_co.civil_registration,Registro Civil,civil_registration,,False,1,11,True
+l10n_co.id_document,Cédula,id_document,,False,2,12,False
+l10n_co.id_card,Tarjeta de Identidad,id_card,,False,3,12,True
+l10n_co.national_citizen_id,Cédula de ciudadanía,national_citizen_id,,False,4,13,True
+l10n_co.foreign_colombian_card,Tarjeta de extranjería,foreign_colombian_card,,False,5,21,True
+l10n_co.foreign_resident_card,Cédula de extranjería,foreign_resident_card,,False,6,22,True
+l10n_co.rut,NIT,rut,,TRUE,7,31,True
+l10n_latam_base.it_pass,Pasaporte,passport,,False,8,41,True
+l10n_latam_base.it_fid,Documento de identificación extranjero,foreign_id_card,,False,9,42,True
+l10n_co.external_id,NIT de otro país,external_id,,False,10,50,True
+l10n_co.niup_id,NIUP,niup_id,,False,11,91,True
+l10n_co.diplomatic_card,Carné Diplomatico,diplomatic_card,,False,12,0-99,False
+l10n_co.residence_document,Salvoconducto de Permanencia,residence_document,,False,13,0-99,False
+pep,PEP,pep,,False,14,47,True

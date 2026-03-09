@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_salary_rule_view" model="ir.ui.view">
+        <field name="name">hr_salary_rule</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="deduccion_rule_id" invisible="dev_or_ded != 'deduccion'"/>
+                <newline/>
+                <field name="devengado_rule_id" invisible="dev_or_ded !=  'devengo'"/>
+            </xpath>
+            <xpath expr="//field[(@name='devengado_rule_id')]" position="after">
+                <newline/>
+                <field name="type_incapacidad"/>
+                <field name="leave_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

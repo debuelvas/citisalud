@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <!-- TIPOS DE ENTIDADES VIEWS -->    
+        <record id="lavish_menu_action_types_entities" model="ir.actions.act_window">
+            <field name="name">Tipos de entidades</field>
+            <field name="res_model">hr.contribution.register</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Tipo de entidad
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_types_entities">
+            <field name="name">lavish tree types entities</field>
+            <field name="model">hr.contribution.register</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>                           
+                    <field name="type_entities"/>    
+                    <field name="note"/>    
+                </tree>
+            </field>
+        </record>
+        <!-- ENTIDADES EMPLEADOS VIEWS -->    
+        <record id="lavish_menu_action_employee_entities" model="ir.actions.act_window">
+            <field name="name">Entidades</field>
+            <field name="res_model">hr.employee.entities</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Entidad
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_employee_entities">
+            <field name="name">lavish tree employee entities</field>
+            <field name="model">hr.employee.entities</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/> 
+                    <field name="types_entities" /> 
+                    <field name="code_pila_eps"/>
+                    <field name="code_pila_ccf"/>
+                    <field name="code_pila_regimen"/>
+                    <field name="code_pila_exterior"/>                          
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="lavish_hr_employee.form_employee_entities">
+            <field name="name">lavish form employee entities</field>
+            <field name="model">hr.employee.entities</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Entidades empleados">
+                        <group colspan="4">
+                            <group string="Entidades">
+                            <field name="partner_id"/>
+                            <field name="types_entities" widget="many2many_checkboxes"/>                                
+                            </group>
+                            <group string="Codigo de Entidades">
+                            <field name="code_pila_eps"/>
+                            <field name="code_pila_ccf"/>
+                            <field name="code_pila_regimen"/>
+                            <field name="code_pila_exterior"/>
+                            </group>
+                            <group string="Otros">
+                            <field name="order" widget="radio"/>
+                            <field name="debit_account"/>
+                            <field name="credit_account"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

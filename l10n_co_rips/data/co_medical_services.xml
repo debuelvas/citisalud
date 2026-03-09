@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Modalidades de Pago -->
+        <record id="health_payment_mode_01" model="health.payment.mode">
+            <field name="code">01</field>
+            <field name="name">Pago individual por caso / Conjunto integral de atenciones / Paquete / Canasta</field>
+            <field name="description">Modalidad de pago prospectiva mediante la cual se acuerda por anticipado el pago de una suma fija y global por cada caso 
+que sea atendido. Este "caso" está ligado a un evento de salud específico, una condición médica o un conjunto de condiciones 
+relacionadas entre sí. La unidad de pago es el caso, conjunto, paquete o canasta de servicios, con una tarifa previamente pactada.
+
+Agrupa múltiples servicios y procedimientos que típicamente se requieren para el manejo de una condición específica bajo un 
+único pago. Transfiere al prestador una parte del riesgo financiero asociado a la intensidad del uso de recursos dentro del 
+paquete definido. Es útil para el tratamiento de episodios agudos bien definidos (ej. una apendicectomía, un parto, una 
+neumonía que requiere hospitalización), el manejo de condiciones crónicas durante un período específico, o la atención integral 
+basada en diagnósticos específicos.
+
+Incentiva la eficiencia y la coordinación en el manejo del caso completo por parte del prestador y ofrece predictibilidad 
+del costo por caso para la entidad pagadora.</field>
+            <field name="requires_period_dates" eval="False"/>
+            <field name="is_prospective" eval="True"/>
+            <field name="risk_level">medium</field>
+        </record>
+
+        <record id="health_payment_mode_02" model="health.payment.mode">
+            <field name="code">02</field>
+            <field name="name">Pago global prospectivo</field>
+            <field name="description">Modalidad de pago prospectiva mediante la cual se pacta por anticipado el pago de una suma fija y global. Este pago está destinado 
+a cubrir la prestación de un conjunto definido de servicios o el suministro de tecnologías en salud para un grupo de personas 
+determinado (una población específica) durante un período de tiempo definido (usualmente un año). La tarifa global se calcula 
+considerando la frecuencia de uso esperada, pero esta es ajustada por el nivel de riesgo de la población cubierta.
+
+Representa el nivel más agregado de pago prospectivo y cubre a una población claramente definida para un espectro amplio de 
+servicios relacionados con una condición o necesidad específica, durante un período prolongado. Transfiere un riesgo poblacional 
+significativo al prestador, incluyendo no solo la frecuencia y el costo del uso de servicios, sino también el riesgo asociado a 
+variaciones en la incidencia y severidad de las condiciones de salud en esa población (Riesgo Primario).
+
+Es apropiado para la gestión integral de la salud de poblaciones con necesidades específicas y complejas, como pacientes con 
+enfermedades crónicas de alto costo (ej. enfermedad renal crónica, VIH, hemofilia) en un área geográfica determinada.</field>
+            <field name="requires_period_dates" eval="True"/>
+            <field name="is_prospective" eval="True"/>
+            <field name="risk_level">high</field>
+        </record>
+
+        <record id="health_payment_mode_03" model="health.payment.mode">
+            <field name="code">03</field>
+            <field name="name">Pago por capitación</field>
+            <field name="description">Modalidad de pago prospectiva mediante la cual se acuerda el pago anticipado de una suma fija por cada persona (per cápita) 
+que tendrá derecho a recibir un conjunto preestablecido de servicios de salud durante un período determinado (generalmente mensual 
+o anual). La unidad de pago es, por tanto, una tarifa pactada multiplicada por el número de personas asignadas. Esta modalidad 
+se aplica comúnmente para la provisión de servicios de baja complejidad.
+
+El pago se realiza de forma anticipada y el riesgo asociado a la frecuencia de uso de los servicios incluidos en el paquete capitado 
+y a la variación en el costo unitario de los mismos es asumido principalmente por el prestador. Requiere una definición contractual 
+muy clara del conjunto de servicios cubiertos y de la población asignada.
+
+Es ideal para la contratación de servicios de atención primaria, programas de promoción y prevención (PyP), y conjuntos de servicios 
+básicos de baja complejidad. Es una modalidad frecuente en los contratos entre EPS e IPS primarias para la gestión de la salud de 
+sus afiliados asignados.</field>
+            <field name="requires_period_dates" eval="True"/>
+            <field name="is_prospective" eval="True"/>
+            <field name="risk_level">high</field>
+        </record>
+
+        <record id="health_payment_mode_04" model="health.payment.mode">
+            <field name="code">04</field>
+            <field name="name">Pago por evento</field>
+            <field name="description">Se trata de una modalidad de pago retrospectiva. Bajo este esquema, el pago se realiza por cada actividad, procedimiento, 
+intervención, insumo o medicamento individual que es prestado o suministrado a un paciente durante un período determinado, 
+siempre ligado a un evento específico de atención en salud. La unidad de pago es, por lo tanto, cada servicio o tecnología 
+suministrada, valorada según tarifas previamente pactadas entre las partes.
+
+El pago está directamente relacionado con el volumen de servicios prestados y el riesgo financiero principal (asociado a la 
+frecuencia de uso) recae sobre la entidad pagadora, ya que un mayor volumen de servicios implica un mayor costo total. 
+Requiere una facturación detallada y precisa por parte del prestador y robustos procesos de auditoría de cuentas y gestión 
+de glosas por parte del pagador.
+
+Es una modalidad adecuada para servicios especializados de alto costo o baja frecuencia, procedimientos diagnósticos y 
+terapéuticos complejos o muy específicos, atención de urgencias donde la demanda es impredecible, y el suministro de 
+medicamentos o insumos de alto costo que no están incluidos en paquetes o capitaciones.</field>
+            <field name="requires_period_dates" eval="False"/>
+            <field name="is_prospective" eval="False"/>
+            <field name="risk_level">low</field>
+        </record>
+
+        <record id="health_payment_mode_05" model="health.payment.mode">
+            <field name="code">05</field>
+            <field name="name">Otra modalidad (específica)</field>
+            <field name="description">Esta categoría permite registrar otras modalidades de pago que no encajan en las definiciones estandarizadas anteriores 
+o que representan combinaciones o variaciones de las mismas. Puede incluir esquemas híbridos que combinan elementos de 
+diferentes modalidades, modelos de pago basados en valor o resultados, modelos de riesgo compartido, o modalidades 
+experimentales o piloto que están siendo evaluadas.
+
+Cuando se selecciona esta opción, es especialmente importante que el contrato y la nota técnica definan con precisión 
+la estructura de la modalidad específica, incluyendo unidad de pago, distribución del riesgo, mecanismos de ajuste, 
+procesos de auditoría y demás características relevantes.
+
+Las modalidades específicas pueden responder a las particularidades de ciertos servicios, tipos de prestadores, poblaciones 
+o condiciones médicas que requieren adaptaciones o enfoques innovadores para su financiación y gestión eficiente.</field>
+            <field name="requires_period_dates" eval="False"/>
+            <field name="is_prospective" eval="False"/>
+            <field name="risk_level">medium</field>
+        </record>
+    </data>
+    <data noupdate="1">
+        <!-- Conceptos de Recaudo -->
+        <record id="health_collection_concept_01" model="health.collection.concept">
+            <field name="code">01</field>
+            <field name="name">COPAGO</field>
+            <field name="description">Representa el valor monetario que, según la normativa vigente y el plan de beneficios, le corresponde aportar al usuario 
+afiliado como parte del costo del servicio recibido. Los copagos son aportes en dinero que corresponden a una parte del valor 
+del servicio demandado y tienen como finalidad ayudar a financiar el sistema de salud.
+
+Aplican principalmente para servicios hospitalarios y procedimientos de alta complejidad y corresponden a un porcentaje del valor 
+del servicio, con topes máximos establecidos según el nivel de ingreso del afiliado (categorizado por nivel de SISBEN). 
+Se encuentran exentos de copagos los afiliados de menores recursos (niveles más bajos del SISBEN), ciertos grupos poblacionales 
+(niños menores de un año, población indígena), y algunos servicios específicos (control prenatal, atención del parto, enfermedades 
+catastróficas, urgencias, promoción y prevención).
+
+En la FEV XML este campo registra el valor del copago efectivamente pagado por el usuario y recaudado por el facturador cuando 
+la operación implica acreditar o reportar dicho recaudo. No representa el valor teórico del copago, sino el monto real transado.</field>
+            <field name="applies_fev" eval="True"/>
+            <field name="applies_rips" eval="True"/>
+        </record>
+
+        <record id="health_collection_concept_02" model="health.collection.concept">
+            <field name="code">02</field>
+            <field name="name">CUOTA MODERADORA</field>
+            <field name="description">Es el valor monetario fijo que debe pagar el usuario afiliado al utilizar ciertos servicios de salud definidos en la normativa, 
+con el fin de regular el uso del servicio y estimular su buen uso. A diferencia de los copagos, las cuotas moderadoras tienen como 
+finalidad principal racionalizar el uso de los servicios, no son un mecanismo de financiación.
+
+Aplican principalmente para servicios ambulatorios como consulta externa, exámenes de laboratorio y medicamentos. Su valor es fijo 
+(no es un porcentaje del servicio) y está establecido según el nivel de ingreso del afiliado al Régimen Contributivo (categorizado 
+por su Ingreso Base de Cotización - IBC). Igual que con los copagos, existen exenciones para ciertos grupos poblacionales y servicios.
+
+En la FEV XML este campo registra el valor de la cuota moderadora efectivamente pagada por el usuario y recaudada por el facturador, 
+cuando la operación lo requiere. Representa el valor real recaudado, no un valor teórico de la cuota moderadora.</field>
+            <field name="applies_fev" eval="True"/>
+            <field name="applies_rips" eval="True"/>
+        </record>
+
+        <record id="health_collection_concept_03" model="health.collection.concept">
+            <field name="code">03</field>
+            <field name="name">PAGOS COMPARTIDOS EN PLANES VOLUNTARIOS DE SALUD</field>
+            <field name="description">Se refiere a otros tipos de pagos a cargo del usuario, diferentes a copagos o cuotas moderadoras del Plan de Beneficios en Salud, 
+que aplican específicamente en los Planes Voluntarios de Salud (Medicina Prepagada, Pólizas de Salud, Planes Complementarios). 
+Estos pagos pueden corresponder a deducibles, bonos, o valores adicionales pactados en la póliza o plan voluntario.
+
+Los términos y valores de estos pagos compartidos están definidos en el contrato particular del plan voluntario, no en la normativa 
+general del SGSSS. Varían entre compañías aseguradoras y planes, y pueden estar estructurados como valores fijos por servicio, 
+porcentajes del valor de la atención, deducibles anuales, o combinaciones de estos esquemas.
+
+En la FEV XML este campo registra el valor de estos pagos efectivamente efectuados por el usuario y recaudados por el facturador 
+en el contexto de Planes Voluntarios, cuando la operación implica acreditar o reportar dicho recaudo.</field>
+            <field name="applies_fev" eval="True"/>
+            <field name="applies_rips" eval="True"/>
+        </record>
+
+        <record id="health_collection_concept_04" model="health.collection.concept">
+            <field name="code">04</field>
+            <field name="name">ANTICIPO</field>
+            <field name="description">Corresponde al valor monetario que el facturador (PSS/PTS) recibió de forma anticipada por parte de la entidad responsable del 
+pago y que se está aplicando o cruzando (acreditando) contra el valor total de la factura actual. Este campo permite reflejar en 
+la factura la amortización de pagos recibidos por adelantado, ajustando el saldo neto a pagar.
+
+Los anticipos son mecanismos financieros utilizados para facilitar el flujo de caja de los prestadores, especialmente cuando hay 
+servicios de alto costo o cuando existen relaciones contractuales estables entre pagador y prestador. Su valor, condiciones y 
+plazos de amortización son acordados entre las partes, usualmente en el marco del contrato que rige la relación.
+
+Es importante notar que este concepto aplica únicamente para el reporte en la FEV en salud y no debe utilizarse en la generación 
+del RIPS. Esta exclusión refuerza la separación conceptual entre los ajustes financieros globales de la factura (manejados en la 
+FEV XML) y el detalle a nivel de servicio que soporta la factura (contenido en el RIPS JSON).</field>
+            <field name="applies_fev" eval="True"/>
+            <field name="applies_rips" eval="False"/>
+        </record>
+
+        <record id="health_collection_concept_05" model="health.collection.concept">
+            <field name="code">05</field>
+            <field name="name">NO APLICA</field>
+            <field name="description">Este código se utiliza cuando no existe ningún pago o aporte a cargo del usuario para la atención o servicio que se está facturando. 
+Indica que el costo de los servicios es asumido en su totalidad por la entidad responsable de pago, sin participación financiera 
+del usuario.
+
+Aplica para servicios exentos de copagos y cuotas moderadoras según la normativa, como servicios de promoción y prevención, 
+atención de urgencias, enfermedades catastróficas, control prenatal, atención del parto, y para ciertos grupos poblacionales 
+exentos (niños menores de un año, población indígena, niveles bajos de SISBEN). También aplica cuando el prestador, 
+por su propia decisión administrativa o en cumplimiento de acuerdos contractuales específicos, decide no cobrar al usuario 
+los copagos o cuotas moderadoras que normativamente podrían aplicar.
+
+En operaciones tipo SS-SinAporte, este es el único concepto de recaudo válido y debe utilizarse para indicar explícitamente 
+que no hubo recaudos por parte del PSS/PTS que deban ser acreditados o reportados a la ERP.</field>
+            <field name="applies_fev" eval="True"/>
+            <field name="applies_rips" eval="True"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <!-- Planes de Cobertura -->
+        <record id="health_coverage_plan_01" model="health.coverage.plan">
+            <field name="code">01</field>
+            <field name="name">Plan de beneficios en salud financiado con UPC</field>
+            <field name="description">Es el conjunto básico de servicios y tecnologías en salud que se financia con la Unidad de Pago por Capitación (UPC). 
+Su objetivo es satisfacer las necesidades fundamentales en salud de toda la población residente en el territorio colombiano 
+afiliada al Sistema General de Seguridad Social en Salud (SGSSS), tanto en el Régimen Contributivo como en el Subsidiado. 
+Cubre acciones de promoción de la salud, prevención de la enfermedad, diagnóstico, tratamiento y rehabilitación para diversas patologías.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_02" model="health.coverage.plan">
+            <field name="code">02</field>
+            <field name="name">Presupuesto máximo</field>
+            <field name="description">Es un monto de dinero asignado anualmente a las Entidades Promotoras de Salud (EPS) y a las Entidades Adaptadas (EA).
+Su propósito es financiar aquellos servicios y tecnologías en salud que no están cubiertos por la financiación de la UPC 
+(es decir, no están explícitamente en el PBS) pero que tampoco son consideradas exclusiones. El cálculo de este presupuesto 
+se basa en información histórica de gastos en tecnologías no-UPC y se ajusta según las necesidades proyectadas del sistema.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_03" model="health.coverage.plan">
+            <field name="code">03</field>
+            <field name="name">Prima EPS / EOC, no asegurados SOAT</field>
+            <field name="description">Cobertura destinada a servicios de salud para afiliados a Entidades Promotoras de Salud (EPS) o Entidades Obligadas a Compensar (EOC) 
+que no están cubiertos por el Seguro Obligatorio de Accidentes de Tránsito (SOAT). Esta cobertura se utiliza para atenciones 
+derivadas de accidentes de tránsito donde la víctima no tiene seguro SOAT o cuando los gastos médicos superan el límite de cobertura 
+del SOAT, siendo asumidos por la EPS con recursos propios distintos a los de la UPC.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_04" model="health.coverage.plan">
+            <field name="code">04</field>
+            <field name="name">Cobertura Póliza SOAT</field>
+            <field name="description">Es el seguro obligatorio que deben poseer todos los vehículos automotores que circulen en Colombia. Su finalidad es amparar 
+los daños corporales sufridos por las personas (conductores, pasajeros, peatones) como consecuencia directa de un accidente de tránsito.
+Cubre gastos médicos, quirúrgicos, farmacéuticos y hospitalarios; indemnización por incapacidad permanente; indemnización por muerte 
+y gastos funerarios; y gastos de transporte para movilizar a las víctimas. Estas coberturas tienen topes máximos establecidos en SMDLV.</field>
+            <field name="requires_policy" eval="True"/>
+        </record>
+
+        <record id="health_coverage_plan_05" model="health.coverage.plan">
+            <field name="code">05</field>
+            <field name="name">Cobertura ARL</field>
+            <field name="description">Cobertura proporcionada por las Administradoras de Riesgos Laborales (ARL) que se dedican exclusivamente a cubrir los riesgos 
+derivados de accidentes que ocurran con ocasión o como consecuencia del trabajo (AT) y de las enfermedades catalogadas 
+como de origen laboral (EL). Ofrece prestaciones asistenciales (servicios de salud) y económicas (subsidios, indemnizaciones, pensiones). 
+Se financia mediante cotizaciones mensuales pagadas por empleadores o trabajadores independientes según el nivel de riesgo.</field>
+            <field name="requires_policy" eval="True"/>
+        </record>
+
+        <record id="health_coverage_plan_06" model="health.coverage.plan">
+            <field name="code">06</field>
+            <field name="name">Cobertura ADRES</field>
+            <field name="description">La Administradora de los Recursos del Sistema General de Seguridad Social en Salud (ADRES) administra recursos para diversos 
+eventos especiales, incluidos los catastróficos y terroristas. Bajo esta cobertura, la ADRES asume los costos de servicios de salud 
+para víctimas de eventos catastróficos (naturales o provocados por el hombre), eventos terroristas, y para víctimas de accidentes 
+de tránsito cuando los gastos médicos superan el tope de la póliza SOAT o cuando el vehículo involucrado no estaba asegurado.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_07" model="health.coverage.plan">
+            <field name="code">07</field>
+            <field name="name">Cobertura Salud Pública</field>
+            <field name="description">Conjunto de intervenciones colectivas orientadas a promover la salud y prevenir enfermedades a nivel poblacional. 
+Incluye programas de vacunación, control de vectores, acciones de promoción y prevención, vigilancia epidemiológica, 
+y otras acciones dirigidas a comunidades más que a individuos específicos. Se financia principalmente con recursos públicos 
+del Sistema General de Participaciones (SGP) y presupuestos territoriales, siendo ejecutada por las Secretarías de Salud.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_08" model="health.coverage.plan">
+            <field name="code">08</field>
+            <field name="name">Cobertura entidad territorial, recursos de oferta</field>
+            <field name="description">Corresponde a la financiación de servicios de salud con recursos directos de las entidades territoriales (departamentos, 
+distritos y municipios). Estos recursos del Sistema General de Participaciones (SGP) destinados a salud se utilizan para 
+subsidiar la operación de hospitales públicos que atienden a la población pobre no asegurada o para aspectos no cubiertos 
+por los subsidios a la demanda (UPC). Garantiza la disponibilidad de la red pública hospitalaria.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_09" model="health.coverage.plan">
+            <field name="code">09</field>
+            <field name="name">Urgencias población migrante</field>
+            <field name="description">Cobertura diseñada específicamente para la atención de urgencias médicas de la población migrante en situación irregular 
+en el territorio colombiano. Garantiza la atención inicial de urgencias para estabilizar su condición vital, sin importar 
+su estatus migratorio o afiliación al sistema de salud. Para acceder a otros servicios de salud, los migrantes deben 
+regularizar su estatus y afiliarse al SGSSS, preferiblemente al Régimen Subsidiado.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_10" model="health.coverage.plan">
+            <field name="code">10</field>
+            <field name="name">Plan complementario en salud</field>
+            <field name="description">Son planes voluntarios ofrecidos por las mismas Entidades Promotoras de Salud (EPS) a sus afiliados, que brindan 
+beneficios adicionales a los incluidos en el Plan de Beneficios en Salud (PBS). Estos beneficios suelen consistir en 
+mejores condiciones de hotelería hospitalaria, acceso preferencial a especialistas, menores tiempos de espera, 
+habitaciones individuales, redes de atención diferenciales o servicios no indispensables médicamente pero que 
+mejoran la experiencia del paciente.</field>
+            <field name="requires_policy" eval="True"/>
+        </record>
+
+        <record id="health_coverage_plan_11" model="health.coverage.plan">
+            <field name="code">11</field>
+            <field name="name">Medicina Prepagada</field>
+            <field name="description">Sistema privado de atención médica en el cual los usuarios acceden a una amplia gama de servicios médicos mediante 
+el pago anticipado de una tarifa periódica (mensual o anual). Estos planes son ofrecidos por compañías especializadas 
+en medicina prepagada (distintas a las EPS aunque pueden pertenecer a los mismos grupos económicos). Generalmente ofrecen 
+acceso a una red de clínicas, hospitales y profesionales percibidos como de mayor estándar de calidad, comodidad o agilidad.</field>
+            <field name="requires_policy" eval="True"/>
+        </record>
+
+        <record id="health_coverage_plan_12" model="health.coverage.plan">
+            <field name="code">12</field>
+            <field name="name">Póliza de Salud</field>
+            <field name="description">Son contratos de seguro ofrecidos por compañías aseguradoras vigiladas por la Superintendencia Financiera de Colombia. 
+Su naturaleza es fundamentalmente indemnizatoria o de reembolso. El usuario generalmente paga por los servicios médicos recibidos 
+y luego solicita a la aseguradora el reembolso según las condiciones, coberturas y topes establecidos en la póliza. 
+A diferencia de la medicina prepagada, las aseguradoras suelen operar bajo la modalidad de libre elección con reembolso.</field>
+            <field name="requires_policy" eval="True"/>
+        </record>
+
+        <record id="health_coverage_plan_13" model="health.coverage.plan">
+            <field name="code">13</field>
+            <field name="name">Régimen Especial</field>
+            <field name="description">Sistemas de seguridad social propios que cobijan a sectores específicos de la población, regulados por normativas anteriores 
+a la Ley 100 de 1993 o leyes particulares. Incluyen a los miembros de las Fuerzas Militares, Policía Nacional, el Magisterio, 
+trabajadores de Ecopetrol, entre otros. Estos regímenes tienen sus propios planes de beneficios en salud, redes de prestadores 
+y reglas de operación. Sus afiliados no cotizan al SGSSS general para servicios de salud.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_14" model="health.coverage.plan">
+            <field name="code">14</field>
+            <field name="name">Régimen de Excepción</field>
+            <field name="description">Similar al Régimen Especial, son sistemas de seguridad social con normativa propia que operan fuera del SGSSS general, 
+aunque con algunas interfaces con este. Incluyen principalmente a algunas universidades públicas que se acogieron a normativas 
+específicas. Estos regímenes gestionan sus propios recursos, beneficios y red de prestadores, manteniendo autonomía administrativa 
+y financiera respecto al sistema general.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_15" model="health.coverage.plan">
+            <field name="code">15</field>
+            <field name="name">Particular (pago pleno por el usuario)</field>
+            <field name="description">Se refiere a la situación en la que una persona accede a servicios de salud pagando directamente de su bolsillo el costo total 
+de la atención, sin intermediación de una EPS, ARL, SOAT, Plan Voluntario u otro asegurador. Permite el acceso directo a cualquier 
+prestador que esté dispuesto a atender bajo esta modalidad. El usuario asume el 100% del costo del servicio, ya sea por elección 
+personal, para acceder a servicios no cubiertos, o para evitar tiempos de espera del sistema asegurado.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_16" model="health.coverage.plan">
+            <field name="code">16</field>
+            <field name="name">Víctima de Accidente de Tránsito</field>
+            <field name="description">Cobertura específica para personas que han sufrido lesiones en accidentes de tránsito y requieren atención médica por esta causa. 
+Se aplica en casos donde la persona es víctima directa de un siniestro vial pero donde existe alguna particularidad que impide 
+aplicar la cobertura estándar del SOAT, como en ciertos casos de víctimas que son peatones o pasajeros en situaciones complejas 
+de identificación del vehículo responsable o donde existen reclamaciones especiales ante el sistema.</field>
+            <field name="requires_policy" eval="True"/>
+        </record>
+
+        <record id="health_coverage_plan_17" model="health.coverage.plan">
+            <field name="code">17</field>
+            <field name="name">Víctima de Evento Catastrófico o Terrorista</field>
+            <field name="description">Cobertura destinada a víctimas de eventos catastróficos de origen natural (terremotos, inundaciones, deslizamientos) 
+o provocados por el hombre (explosiones, accidentes industriales masivos), así como eventos terroristas (atentados con explosivos, 
+ataques armados a poblaciones). La ADRES asume los costos de los servicios de salud e indemnizaciones correspondientes a estas 
+víctimas, financiados con recursos del antiguo FOSYGA, hoy administrados por la ADRES.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_18" model="health.coverage.plan">
+            <field name="code">18</field>
+            <field name="name">Programa de Promoción y Prevención Territorial</field>
+            <field name="description">Corresponde a programas específicos implementados por Entidades Territoriales (departamentos, distritos, municipios) 
+orientados a promover la salud y prevenir enfermedades en grupos poblacionales definidos. Estos programas son adicionales 
+a las acciones de promoción y prevención incluidas en el Plan de Beneficios en Salud (PBS) y suelen abordar problemáticas 
+de salud propias del territorio, priorizadas en sus planes de salud pública.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_19" model="health.coverage.plan">
+            <field name="code">19</field>
+            <field name="name">Programa de Salud Ocupacional (Seguridad y Salud en el Trabajo)</field>
+            <field name="description">Conjunto de actividades, intervenciones y programas orientados a la promoción, prevención, diagnóstico y tratamiento 
+de condiciones relacionadas con el ambiente laboral y la salud de los trabajadores. Estas actividades pueden ser 
+financiadas directamente por empleadores como parte de sus programas de seguridad y salud en el trabajo, más allá 
+de las coberturas obligatorias proporcionadas por las ARL para accidentes y enfermedades laborales.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_20" model="health.coverage.plan">
+            <field name="code">20</field>
+            <field name="name">Otros Planes o Coberturas</field>
+            <field name="description">Categoría que agrupa diversos mecanismos de financiación o cobertura de servicios de salud que no encajan en las 
+clasificaciones anteriores. Puede incluir fondos especiales, donaciones para atención específica, cooperación internacional 
+en salud, o programas piloto con esquemas de financiación particulares. Esta categoría actúa como un repositorio para 
+registrar correctamente fuentes de financiación atípicas o nuevas dentro del sistema.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+
+        <record id="health_coverage_plan_21" model="health.coverage.plan">
+            <field name="code">21</field>
+            <field name="name">Plan de Intervenciones Colectivas (PIC)</field>
+            <field name="description">Conjunto de intervenciones, procedimientos o actividades enfocadas en la promoción de la salud y la gestión del riesgo, 
+dirigidas a grupos poblacionales (no a individuos) a lo largo de su curso de vida. Estas acciones se realizan en los entornos 
+donde las personas desarrollan su vida cotidiana (hogar, escuela, trabajo, comunidad). Se financia con recursos de salud pública 
+gestionados por las Entidades Territoriales y busca impactar los determinantes sociales de la salud a nivel comunitario.</field>
+            <field name="requires_policy" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista formulario de impuestos con campos DIAN -->
+    <record id="view_tax_form_dian" model="ir.ui.view">
+        <field name="name">account.tax.form.dian</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name='description' position="before">
+                <field name="tributes" required="1"/>
+                <field name="codigo_dian" readonly="1"/>
+                <field name="nombre_dian" readonly="1"/>
+                <field name="description_dian" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Vista formulario de impuestos - Pestaña Python Code -->
+    <record id="view_tax_form_python_code" model="ir.ui.view">
+        <field name="name">account.tax.form.python.code</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Python Code" name="python_code" invisible="amount_type != 'code'">
+                    <group>
+                        <group string="Cálculo del Impuesto">
+                            <field name="python_compute"
+                                   widget="ace"
+                                   options="{'mode': 'python'}"
+                                   placeholder="Ingrese el código Python para calcular el impuesto..."/>
+                        </group>
+                        <group string="Aplicabilidad del Impuesto">
+                            <field name="python_applicable"
+                                   widget="ace"
+                                   options="{'mode': 'python'}"
+                                   placeholder="Ingrese el código Python para determinar aplicabilidad..."/>
+                        </group>
+                    </group>
+                    <separator string="Ayuda"/>
+                    <div class="alert alert-info" role="alert">
+                        <h4>Variables disponibles para python_compute:</h4>
+                        <ul>
+                            <li><strong>base_amount</strong>: Monto base sobre el cual se aplica el impuesto</li>
+                            <li><strong>price_unit</strong>: Precio unitario del producto</li>
+                            <li><strong>quantity</strong>: Cantidad del producto</li>
+                            <li><strong>product</strong>: Registro del producto (product.product)</li>
+                            <li><strong>partner</strong>: Registro del cliente/proveedor (res.partner)</li>
+                            <li><strong>company</strong>: Compañía actual (res.company)</li>
+                        </ul>
+                        <p>Asigne el resultado a la variable <code>result</code></p>
+
+                        <h4>Variables disponibles para python_applicable:</h4>
+                        <ul>
+                            <li><strong>price_unit</strong>: Precio unitario del producto</li>
+                            <li><strong>quantity</strong>: Cantidad del producto</li>
+                            <li><strong>product</strong>: Registro del producto (product.product)</li>
+                            <li><strong>partner</strong>: Registro del cliente/proveedor (res.partner)</li>
+                            <li><strong>company</strong>: Compañía actual (res.company)</li>
+                        </ul>
+                        <p>Asigne <code>True</code> o <code>False</code> a la variable <code>result</code></p>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista lista con tributo DIAN -->
+    <record id="view_tax_tree_dian" model="ir.ui.view">
+        <field name="name">account.tax.tree.dian</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type_tax_use']" position="after">
+                <field name="tributes" optional="show"/>
+                <field name="codigo_dian" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda con filtros por tributo -->
+    <record id="view_tax_search_dian" model="ir.ui.view">
+        <field name="name">account.tax.search.dian</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_account_tax_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='sale']" position="after">
+                <separator/>
+                <filter string="IVA" name="tributo_iva" domain="[('tributes', '=', '01')]"/>
+                <filter string="INC" name="tributo_inc" domain="[('tributes', '=', '04')]"/>
+                <filter string="ICL" name="tributo_icl" domain="[('tributes', '=', '32')]"/>
+                <filter string="IBUA" name="tributo_ibua" domain="[('tributes', '=', '34')]"/>
+                <filter string="ICUI" name="tributo_icui" domain="[('tributes', '=', '35')]"/>
+                <filter string="INPP" name="tributo_inpp" domain="[('tributes', '=', '33')]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Tributo DIAN" name="groupby_tributes" domain="[]" context="{'group_by': 'tributes'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

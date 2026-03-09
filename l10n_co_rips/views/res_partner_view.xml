@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="entity_code" />
+                </field>
+            </field>
+        </record>
+        <record id="hms_patient_l10md" model="ir.ui.view">
+            <field name="inherit_id" ref="acs_hms_base.view_patient_form" />
+            <field name="model">hms.patient</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='family_note']" position="replace" />
+                <xpath expr="//page[@name='diseases']" position="replace" />
+                <xpath expr="//field[@name='gender']" position="replace" />
+                <xpath expr="//group[@name='ref_doc_details']" position="replace" />
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='hospital_info']/group[1]/group[1]" position="replace" />
+                <xpath expr="//field[@name='ethnic_group_id']" position="replace" />
+                <xpath expr="//field[@name='caste']" position="replace" />
+                <xpath expr="//field[@name='city']" position="replace">
+                    <field name="city_id" placeholder="Ciudad" class="o_address_city" required="1" />
+                    <field name="city" placeholder="Ciudad" invisible="1" />
+                    <field name="vat_co"  invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='occupation']" position="replace" />
+                <xpath expr="//field[@name='gov_code']" position="replace">
+                    <field name="tipo_usuario" string="Tipo De Usuario" required="1" />
+                </xpath>
+                <xpath expr="//field[@name='email']" position="replace">
+                    <field name="eps" required="1" />
+                    <field name="sex" required="1" />
+                    <field name="tipo_afiliacion" required="1" />
+                    <field name="edad" required="1" readonly="0" force_save="1" />
+                    <field name="age_unit" readonly="0" force_save="1" />
+                </xpath>
+                <xpath
+                    expr="//field[@name='mobile']" position="replace" />
+                <xpath expr="//field[@name='phone']" position="replace">
+                    <field name="zona" required="1" />
+                </xpath>
+                <xpath expr="//field[@name='department_ids']" position="replace" />
+                <xpath expr="//field[@name='code']" position="before">
+                    <field name="firs_name" string="Primer Nombre" required="1" />
+                    <field name="second_name" string="Segundo Nombre" />
+                    <field name="first_lastname" required="1" />
+                    <field name="second_lastname" />
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='info']/group[1]/group[1]/label[1]" position="before">
+                    <field name="tdoc" required="1" />
+                    <field name="l10n_latam_identification_type_id" invisible="1" />
+                    <field name="document_type" invisible="1" />
+                    <field name="vat" string="ID" required="1" />
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="before">
+                    <field name="country_code" invisible="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id="hms_patient_l10md_com" model="ir.ui.view">
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="cod_prestadorservicio" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

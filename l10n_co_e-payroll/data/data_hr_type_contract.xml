@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="l10n_co_e-payroll.fixed_term" model="hr.type.contract">
+            <field name="code">1</field>
+            <field name="name">Termino Fijo</field>
+        </record>
+        <record id="l10n_co_e-payroll.indefined_term" model="hr.type.contract">
+            <field name="code">2</field>
+            <field name="name">Termino Indefinido</field>
+        </record>
+        <record id="l10n_co_e-payroll.work_or_work" model="hr.type.contract">
+            <field name="code">3</field>
+            <field name="name">Obra o Labor</field>
+        </record>
+        <record id="l10n_co_e-payroll.learning" model="hr.type.contract">
+            <field name="code">4</field>
+            <field name="name">Aprendizaje</field>
+        </record>
+        <record id="l10n_co_e-payroll.internships" model="hr.type.contract">
+            <field name="code">5</field>
+            <field name="name">Practicas o Pasantias</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.rule" id="rule_multi_company_recepcion_factura_dian">    
+            <field name="name">Multi Company Recepcion Factura Dian</field>    
+            <field name="model_id" ref="model_recepcion_factura_dian"/>    
+            <field name="global" eval="True"/>    
+            <field name="domain_force">       [('company_id', 'in', company_ids)]    </field>
+        </record>
+    </data>
+</odoo>

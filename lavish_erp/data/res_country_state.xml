@@ -1,0 +1,138 @@
+<odoo>  
+    <data>
+        <record id="base.state_co_29" model="res.country.state">
+            <field name="code_dian">91</field>
+        </record>
+
+        <record id="base.state_co_01" model="res.country.state">
+            <field name="code_dian">05</field>
+        </record>
+
+        <record id="base.state_co_25" model="res.country.state">
+            <field name="code_dian">81</field>
+        </record>
+
+        <record id="base.state_co_02" model="res.country.state">
+            <field name="code_dian">08</field>
+        </record>
+
+        <record id="base.state_co_04" model="res.country.state">
+            <field name="code_dian">13</field>
+        </record>
+
+        <record id="base.state_co_05" model="res.country.state">
+            <field name="code_dian">15</field>
+        </record>
+
+        <record id="base.state_co_06" model="res.country.state">
+            <field name="code_dian">17</field>
+        </record>
+
+        <record id="base.state_co_07" model="res.country.state">
+            <field name="code_dian">18</field>
+        </record>
+
+        <record id="base.state_co_26" model="res.country.state">
+            <field name="code_dian">85</field>
+        </record>
+
+        <record id="base.state_co_08" model="res.country.state">
+            <field name="code_dian">19</field>
+        </record>
+
+        <record id="base.state_co_09" model="res.country.state">
+            <field name="code_dian">20</field>
+        </record>
+
+        <record id="base.state_co_12" model="res.country.state">
+            <field name="code_dian">27</field>
+        </record>
+
+        <record id="base.state_co_10" model="res.country.state">
+            <field name="code_dian">23</field>
+        </record>
+
+        <record id="base.state_co_11" model="res.country.state">
+            <field name="code_dian">25</field>
+        </record>
+
+        <record id="base.state_co_03" model="res.country.state">
+            <field name="code_dian">11</field>
+        </record>
+
+        <record id="base.state_co_30" model="res.country.state">
+            <field name="code_dian">94</field>
+        </record>
+
+        <record id="base.state_co_31" model="res.country.state">
+            <field name="code_dian">95</field>
+        </record>
+
+        <record id="base.state_co_13" model="res.country.state">
+            <field name="code_dian">41</field>
+        </record>
+
+        <record id="base.state_co_14" model="res.country.state">
+            <field name="code_dian">44</field>
+        </record>
+
+        <record id="base.state_co_15" model="res.country.state">
+            <field name="code_dian">47</field>
+        </record>
+
+        <record id="base.state_co_16" model="res.country.state">
+            <field name="code_dian">50</field>
+        </record>
+
+        <record id="base.state_co_17" model="res.country.state">
+            <field name="code_dian">52</field>
+        </record>
+
+        <record id="base.state_co_18" model="res.country.state">
+            <field name="code_dian">54</field>
+        </record>
+
+        <record id="base.state_co_27" model="res.country.state">
+            <field name="code_dian">86</field>
+        </record>
+
+        <record id="base.state_co_19" model="res.country.state">
+            <field name="code_dian">63</field>
+        </record>
+
+        <record id="base.state_co_20" model="res.country.state">
+            <field name="code_dian">66</field>
+        </record>
+
+        <record id="base.state_co_21" model="res.country.state">
+            <field name="code_dian">68</field>
+        </record>
+
+        <record id="base.state_co_28" model="res.country.state">
+            <field name="code_dian">88</field>
+        </record>
+
+        <record id="base.state_co_22" model="res.country.state">
+            <field name="code_dian">70</field>
+        </record>
+
+        <record id="base.state_co_23" model="res.country.state">
+            <field name="code_dian">73</field>
+        </record>
+
+        <record id="base.state_co_24" model="res.country.state">
+            <field name="code_dian">76</field>
+        </record>
+
+        <record id="base.state_co_32" model="res.country.state">
+            <field name="code_dian">97</field>
+        </record>
+
+        <record id="base.state_co_33" model="res.country.state">
+            <field name="code_dian">99</field>
+        </record>
+        <record id="base.co" model="res.country">
+            <field name="enforce_cities" eval="1" />
+        </record>
+    </data>
+</odoo>

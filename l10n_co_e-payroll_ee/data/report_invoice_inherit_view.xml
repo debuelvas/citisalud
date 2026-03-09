@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="l10n_co_tax_extension.external_layout_document_inherit" inherit_id="web.external_layout_standard">
+            <xpath expr="//div[@name='company_address']" position="replace">
+                <div class="col-6" name="company_address" style="font-size:12px; margin-top:10px;">
+                    <div t-field="company.partner_id"
+                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                    <span t-if="company.partner_id.formatedNit" style="display:inline-block;">
+                        NIT: <span t-field="company.partner_id.formatedNit"/>
+                    </span>
+                    <span t-if="company.partner_id.phone or company.partner_id.mobile"><br/>
+                        Tel: <span t-esc="company.partner_id.phone"/> / <span t-esc="company.partner_id.mobile"/>
+                    </span>
+                </div>
+
+                <div class="col-6" name="client_address" style="font-size:12px; margin-top:10px;">
+                    <!-- If partner has an identification set -->
+
+                    <span t-if="o.get_field_move()" class="mt16">
+                        <span t-if="o.partner_id.vat" class="mt16">
+                            <span t-if="o.partner_id.name"><strong>Cliente: </strong><span
+                                    t-field="o.partner_id.name"/></span>
+                            <br/>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'no_identification'"> No
+                                identification</span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'rut'"> RUT:<span
+                                    t-field="o.partner_id.formatedNit"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'national_citizen_id'"> CC:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'civil_registration'"> RC:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'id_card'"> T.I:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'passport'"> Passport:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == '21'"
+                                  class="glyphicon glyphi con-credit-card">R.E.:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'foreign_id_card'"> CE:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'external_id'"> IE:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'diplomatic_card'"> CD:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'residence_document'"> SP:<span
+                                    t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 43">No Foreign Identification</span>
+                            <span t-if="o.partner_id.l10n_co_document_code == 'id_document'"> CC:<span
+                                    t-field="o.partner_id.vat"/></span>
+
+                            <span t-if="o.partner_id.vat">TIN: <span t-field="o.partner_id.vat"/></span>
+                            <span t-if="o.partner_id.street"><br/><span class="glyphicon glyphicon-home"
+                                                                        t-field="o.partner_id.street"/></span>
+                            <span t-if="o.partner_id.street2"><br/> <span class="glyphicon glyphicon-home"
+                                                                          t-field="o.partner_id.street2"/></span>
+                            <span t-if="o.partner_id.xcity" class="text-capitalize"><br/> <span
+                                    t-esc="o.partner_id.xcity.name.capitalize()"/>,</span>
+                            <span t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id.name"/></span><br/>
+                            <span t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id"/></span>
+
+                            <span t-if="o.partner_id.phone or o.partner_id.mobile"><br/>
+                                Tel: <span t-esc="o.partner_id.phone"/> / <span t-esc="o.partner_id.mobile"/>
+                            </span>
+                        </span>
+                        <!-- If Partner has no identification number set -->
+                        <span t-if="not o.partner_id.vat">
+                            <div class="col-6" name="client_address" style="font-size:12px; margin-top:10px; ">
+                                <span><strong>Cliente: </strong></span> <span t-field="o.partner_id.name"/><br/>
+                                <span t-if="o.partner_id.formatedNit">NIT: <span
+                                        t-field="o.partner_id.formatedNit"/></span>
+                                <span t-if="o.partner_id.vat and not o.partner_id.formatedNit"> NIT / ID: <span
+                                        t-field="o.partner_id.vat"/></span>
+                                <address t-field="o.partner_id"
+                                         t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                                <span t-if="o.partner_id.vat">TIN: <span t-field="o.partner_id.vat"/></span>
+                            </div>
+                        </span>
+                    </span>
+                    <span t-if="not o.get_field_move()" class="mt16">
+                        <span t-if="o.employee_id.address_id" class="mt16">
+                            <span t-if="o.employee_id.address_id.name"><strong>Cliente: </strong><span
+                                    t-field="o.employee_id.address_id.name"/></span>
+                            <br/>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'no_identification'"> No
+                                identification</span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'rut'"> RUT:<span
+                                    t-field="o.employee_id.address_id.formatedNit"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'national_citizen_id'">
+                                CC:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'civil_registration'">
+                                RC:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'id_card'"> T.I:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'passport'"> Passport:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == '21'"
+                                  class="glyphicon glyphi con-credit-card">R.E.:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'foreign_id_card'"> CE:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'external_id'"> IE:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'diplomatic_card'"> CD:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'residence_document'">
+                                SP:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 43">No Foreign
+                                Identification</span>
+                            <span t-if="o.employee_id.address_id.l10n_co_document_code == 'id_document'"> CC:<span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+
+                            <span t-if="o.employee_id.address_id.vat">TIN: <span
+                                    t-field="o.employee_id.address_id.vat"/></span>
+                            <span t-if="o.employee_id.address_id.street"><br/><span class="glyphicon glyphicon-home"
+                                                                                    t-field="o.employee_id.address_id.street"/></span>
+                            <span t-if="o.employee_id.address_id.street2"><br/> <span class="glyphicon glyphicon-home"
+                                                                                      t-field="o.employee_id.address_id.street2"/></span>
+                            <span t-if="o.employee_id.address_id.xcity" class="text-capitalize"><br/> <span
+                                    t-esc="o.employee_id.address_id.xcity.name.capitalize()"/>,</span>
+                            <span t-if="o.employee_id.address_id.state_id"><span
+                                    t-field="o.employee_id.address_id.state_id.name"/></span><br/>
+                            <span t-if="o.employee_id.address_id.country_id"><span
+                                    t-field="o.employee_id.address_id.country_id"/></span>
+
+                            <span t-if="o.employee_id.address_id.phone or o.employee_id.address_id.mobile"><br/>
+                                Tel: <span t-esc="o.employee_id.address_id.phone"/> / <span
+                                        t-esc="o.employee_id.address_id.mobile"/>
+                            </span>
+                        </span>
+                        <!-- If Partner has no identification number set -->
+                        <span t-if="not o.employee_id.address_id.vat">
+                            <div class="col-6" name="client_address" style="font-size:12px; margin-top:10px; ">
+                                <span><strong>Cliente: </strong></span> <span
+                                    t-field="o.employee_id.address_id.name"/><br/>
+                                <span t-if="o.employee_id.address_id.formatedNit">NIT: <span
+                                        t-field="o.employee_id.address_id.formatedNit"/></span>
+                                <span t-if="o.employee_id.address_id.vat and not o.employee_id.address_id.formatedNit">
+                                    NIT / ID: <span
+                                        t-field="o.employee_id.address_id.vat"/></span>
+                                <address t-field="o.employee_id.address_id"
+                                         t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                                <span t-if="o.employee_id.address_id.vat">TIN: <span
+                                        t-field="o.employee_id.address_id.vat"/></span>
+                            </div>
+                        </span>
+                    </span>
+
+
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

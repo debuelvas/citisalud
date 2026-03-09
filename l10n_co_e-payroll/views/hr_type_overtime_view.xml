@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="l10n_co_e-payroll.hr_type_overtime_view_tree" model="ir.ui.view">
+        <field name="name">hr.type.overtime.tree</field>
+        <field name="model">hr.type.overtime</field>
+        <field name="arch" type="xml">
+            <tree string="Tipo Horas Extras">
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="l10n_co_e-payroll.hr_type_overtime_view_form" model="ir.ui.view">
+        <field name="name">hr.type.overtime.form</field>
+        <field name="model">hr.type.overtime</field>
+        <field name="arch" type="xml">
+            <form string="Tipo Horas Extras">
+                <group>
+                    <field name="code" />
+                    <field name="name" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="l10n_co_e-payroll.hr_type_overtime_action" model="ir.actions.act_window">
+        <field name="name">Tipo Horas Extras</field>
+        <field name="res_model">hr.type.overtime</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    
+</odoo>

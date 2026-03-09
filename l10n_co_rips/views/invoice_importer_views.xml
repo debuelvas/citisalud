@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_invoice_importer_form" model="ir.ui.view">
+            <field name="name">invoice.importer.form</field>
+            <field name="model">invoice.importer</field>
+            <field name="arch" type="xml">
+                <form string="Importador de Facturas">
+                <header>
+                    <!-- BOTÓN TEMPORALMENTE DESACTIVADO - MemoryError -->
+                    <!-- <button name="action_download_excel_template" string="Descargar Plantilla Excel"
+                            type="object" class="btn-secondary"
+                            icon="fa-download"
+                            help="Descarga plantilla Excel con ejemplos e instrucciones"/> -->
+                    <button name="action_load_file" string="Cargar Archivo"
+                            type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_calculate" string="Analizar Columnas"
+                            type="object" class="btn-warning"
+                            invisible="state == 'draft'"
+                            help="Muestra todas las columnas del Excel y su estado de mapeo"/>
+                    <button name="action_import" string="Importar"
+                            type="object" class="btn-success"
+                            invisible="state != 'loaded'"
+                            confirm="¿Está seguro de proceder con la importación?"/>
+
+                    <!-- BOTONES MASIVOS POST-IMPORTACIÓN -->
+                    <button name="action_post_pending" string="Publicar Todas"
+                            type="object" class="btn-success"
+                            invisible="state not in ['done', 'error'] or pending_post_count == 0"
+                            icon="fa-check-circle"
+                            help="Publica todas las facturas en borrador"/>
+                    <button name="action_send_dian_pending" string="Enviar DIAN Todas"
+                            type="object" class="btn-primary"
+                            invisible="state not in ['done', 'error'] or pending_dian_count == 0"
+                            icon="fa-send"
+                            help="Envía todas las facturas publicadas a la DIAN"/>
+                    <button name="action_check_cuv_pending" string="Consultar CUV Todas"
+                            type="object" class="btn-info"
+                            invisible="state not in ['done', 'error'] or pending_cuv_count == 0"
+                            icon="fa-search"
+                            help="Consulta respuesta DIAN de todas las facturas enviadas"/>
+                    <button name="action_send_rips_pending" string="Enviar RIPS Todas"
+                            type="object" class="btn-success"
+                            invisible="state not in ['done', 'error'] or pending_rips_count == 0"
+                            icon="fa-hospital-o"
+                            help="Envía todas las facturas publicadas al Ministerio para validación RIPS"/>
+
+                    <!-- BOTONES DE EXPORTACIÓN Y GESTIÓN -->
+                    <button name="action_generate_rips_export" string="Exportar RIPS"
+                            type="object" class="btn-info"
+                            invisible="state not in ['done', 'error'] or rips_success_count == 0"
+                            icon="fa-download"
+                            help="Genera archivo ZIP con RIPS de facturas validadas"/>
+                    <button name="action_view_invoices" string="Ver Documentos"
+                            type="object" class="btn-info"
+                            invisible="state not in ['done', 'error']"/>
+                    <button name="action_reset_lines_only" string="Resetear Líneas"
+                            type="object"
+                            invisible="state == 'draft'"
+                            icon="fa-refresh"
+                            help="Borra líneas pero mantiene el archivo. Útil si corrigió el Excel."/>
+                    <button name="action_reset" string="Resetear Todo"
+                            type="object"
+                            invisible="state == 'draft'"
+                            confirm="¿Está seguro? Se borrará todo incluyendo el archivo adjunto."/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,loaded,processing,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del lote de importación"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Configuración de Importación">
+                            <field name="import_type"/>
+                            <field name="file_data" filename="file_name" invisible="state != 'draft'"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="file_type" readonly="1"/>
+                            <field name="company_id" />
+                        </group>
+                        <group string="Configuración por Defecto">
+                            <field name="journal_id"/>
+                            <field name="team_id"/>
+                            <field name="default_state"/>
+                            <field name="default_payment_state"/>
+                            <field name="create_missing_partners"/>
+                        </group>
+                    </group>
+
+                    <group string="Opciones de Procesamiento Automático">
+                        <group>
+                            <field name="auto_post_invoices"/>
+                            <field name="auto_send_rips"/>
+                        </group>
+                        <group>
+                            <field name="auto_validate_dian"/>
+                        </group>
+                    </group>
+
+                    <group string="Información del Proceso" invisible="state == 'draft'">
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="date_import" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="total_count"/>
+                            <field name="success_count"
+                                   decoration-success="success_count > 0"/>
+                            <field name="error_count"
+                                   decoration-danger="error_count > 0"/>
+                        </group>
+                    </group>
+
+                    <group string="Contadores de Validación" invisible="state not in ['done', 'error']">
+                        <group string="DIAN">
+                            <field name="dian_success_count" string="Exitosas"
+                                   decoration-success="dian_success_count > 0" readonly="1"/>
+                            <field name="dian_rejected_count" string="Rechazadas"
+                                   decoration-danger="dian_rejected_count > 0" readonly="1"/>
+                        </group>
+                        <group string="RIPS">
+                            <field name="rips_success_count" string="Exitosas"
+                                   decoration-success="rips_success_count > 0" readonly="1"/>
+                            <field name="rips_rejected_count" string="Rechazadas"
+                                   decoration-danger="rips_rejected_count > 0" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Análisis de Columnas Excel" invisible="not column_analysis_html">
+                        <group>
+                            <field name="columns_mapped_count"
+                                   string="Columnas Mapeadas"
+                                   decoration-success="columns_mapped_count > 0"/>
+                            <field name="columns_unmapped_count"
+                                   string="Columnas Sin Mapear"
+                                   decoration-warning="columns_unmapped_count > 0"/>
+                        </group>
+                    </group>
+
+                    <group string="Detalle del Análisis" invisible="not column_analysis_html">
+                        <field name="column_analysis_html" nolabel="1"
+                               widget="html"
+                               options="{'style-inline': true}"/>
+                    </group>
+
+                    <group string="Resultado de la Importación" invisible="not error_log">
+                        <field name="error_log" nolabel="1"
+                               widget="html"
+                               options="{'style-inline': true}"/>
+                    </group>
+
+                    <!-- Pestañas con líneas -->
+                    <notebook invisible="state == 'draft'">
+                        <page string="Facturas" invisible="import_type == 'credit_note'">
+                            <field name="invoice_line_ids">
+                                <tree editable="bottom"
+                                     decoration-success="import_status == 'success'"
+                                     decoration-danger="import_status == 'error'"
+                                     decoration-warning="is_duplicate or import_status == 'duplicate'"
+                                     decoration-muted="skip_import or import_status == 'skipped'"
+                                     decoration-info="import_status == 'pending'">
+                                    <field name="skip_import" widget="boolean_toggle"/>
+                                    <field name="is_duplicate" column_invisible="1"/>
+                                    <field name="partner_id"/>
+                                    <field name="partner_vat"/>
+                                    <field name="partner_name"/>
+                                    <field name="reference"/>
+                                    <field name="invoice_date"/>
+                                    <field name="date_due" optional="hide"/>
+                                    <field name="journal_id" optional="hide"/>
+                                    <field name="contract_id" optional="hide"/>
+                                    <field name="invoice_type" optional="hide"/>
+                                    <field name="line_count" string="Líneas"/>
+                                    <field name="missing_products_count" string="Sin Producto"
+                                           decoration-danger="missing_products_count > 0"/>
+                                    <field name="amount_total" sum="Total"/>
+                                    <field name="rips_validation_status" widget="badge"
+                                           decoration-info="rips_validation_status == 'pending'"
+                                           decoration-warning="rips_validation_status == 'queued'"
+                                           decoration-success="rips_validation_status == 'validated'"
+                                           decoration-danger="rips_validation_status == 'error'"/>
+                                    <field name="import_status" widget="badge"/>
+                                    <field name="invoice_id" readonly="1" optional="hide"/>
+                                    <field name="existing_invoice_id" readonly="1" optional="show"
+                                           invisible="not is_duplicate"/>
+                                    <button name="action_view_detail_lines" string="Ver Detalle"
+                                            title="Ver todas las líneas de detalle"
+                                            type="object" icon="fa-list" class="btn-primary"/>
+                                    <button name="action_create_single_invoice" string="Crear"
+                                            title="Crear factura individual"
+                                            type="object" icon="fa-file-text-o" class="btn-success"
+                                            invisible="invoice_id or skip_import or is_duplicate"/>
+                                    <button name="action_post_invoice" string="Publicar"
+                                            title="Publicar factura en borrador"
+                                            type="object" icon="fa-check" class="btn-success"
+                                            invisible="not invoice_id or import_status != 'success'"/>
+                                    <button name="action_send_to_dian" string="DIAN"
+                                            title="Enviar factura a DIAN"
+                                            type="object" icon="fa-paper-plane" class="btn-primary"
+                                            invisible="not invoice_id or import_status != 'success'"/>
+                                    <button name="action_send_invoice_email" string="Email"
+                                            title="Enviar factura por correo"
+                                            type="object" icon="fa-envelope" class="btn-info"
+                                            invisible="not invoice_id"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Notas Crédito" invisible="import_type == 'invoice'">
+                            <field name="credit_note_line_ids">
+                                <tree editable="bottom"
+                                     decoration-success="import_status == 'success'"
+                                     decoration-danger="import_status == 'error'"
+                                     decoration-muted="import_status == 'pending'">
+                                    <field name="partner_id"/>
+                                    <field name="partner_vat" optional="hide"/>
+                                    <field name="partner_name" optional="hide"/>
+                                    <field name="origin_invoice_id"/>
+                                    <field name="origin_invoice_ref" optional="hide"/>
+                                    <field name="credit_date"/>
+                                    <field name="journal_id" optional="hide"/>
+                                    <field name="amount_total" sum="Total"/>
+                                    <field name="reason"/>
+                                    <field name="import_status"/>
+                                    <field name="credit_note_id" readonly="1"/>
+                                    <field name="error_message" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Documentos Creados">
+                            <field name="created_invoice_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="state"/>
+                                    <field name="payment_state"/>
+                                    <field name="move_type"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Facturas DIAN" invisible="state not in ['done', 'error']">
+                            <group>
+                                <group string="Rechazadas DIAN">
+                                    <field name="dian_rejected_count" readonly="1"/>
+                                </group>
+                                <group string="Exitosas DIAN">
+                                    <field name="dian_success_count" readonly="1"/>
+                                </group>
+                            </group>
+                            <div style="padding: 10px;">
+                                <button name="action_retry_dian_rejected"
+                                        string="Reintentar Facturas Rechazadas en DIAN"
+                                        type="object"
+                                        class="btn-warning"
+                                        icon="fa-refresh"
+                                        invisible="dian_rejected_count == 0"
+                                        help="Reenvía todas las facturas rechazadas a la DIAN"/>
+                            </div>
+                            <separator string="Facturas Rechazadas en DIAN"/>
+                            <field name="dian_rejected_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="response_document_dian"/>
+                                    <field name="state_dian_document"/>
+                                </tree>
+                            </field>
+                            <separator string="Facturas Exitosas en DIAN"/>
+                            <field name="dian_success_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="response_document_dian"/>
+                                    <field name="cufe"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Facturas RIPS" invisible="state not in ['done', 'error']">
+                            <group>
+                                <group string="Rechazadas RIPS">
+                                    <field name="rips_rejected_count" readonly="1"/>
+                                </group>
+                                <group string="Exitosas RIPS">
+                                    <field name="rips_success_count" readonly="1"/>
+                                </group>
+                            </group>
+                            <div style="padding: 10px;">
+                                <button name="action_retry_rips_rejected"
+                                        string="Reintentar Facturas Rechazadas en RIPS"
+                                        type="object"
+                                        class="btn-warning"
+                                        icon="fa-refresh"
+                                        invisible="rips_rejected_count == 0"
+                                        help="Reenvía todas las facturas rechazadas al Ministerio"/>
+                            </div>
+                            <separator string="Facturas Rechazadas en RIPS"/>
+                            <field name="rips_rejected_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="rips_validation_status"/>
+                                </tree>
+                            </field>
+                            <separator string="Facturas Exitosas en RIPS"/>
+                            <field name="rips_success_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="rips_validation_status"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Pendientes por Estado" invisible="state not in ['done', 'error']">
+                            <group>
+                                <group>
+                                    <field name="pending_post_count" string="Pendientes Publicar" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="pending_dian_count" string="Pendientes Enviar DIAN" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="pending_cuv_count" string="Pendientes Consultar CUV" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="pending_rips_count" string="Pendientes Enviar RIPS" readonly="1"/>
+                                </group>
+                            </group>
+                            <div style="padding: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button name="action_post_pending"
+                                        string="Publicar Facturas"
+                                        type="object"
+                                        class="btn-success"
+                                        icon="fa-check"
+                                        invisible="pending_post_count == 0"
+                                        help="Publica todas las facturas en borrador"/>
+                                <button name="action_send_dian_pending"
+                                        string="Enviar a DIAN"
+                                        type="object"
+                                        class="btn-primary"
+                                        icon="fa-paper-plane"
+                                        invisible="pending_dian_count == 0"
+                                        help="Envía todas las facturas publicadas a la DIAN"/>
+                                <button name="action_check_cuv_pending"
+                                        string="Consultar CUV"
+                                        type="object"
+                                        class="btn-info"
+                                        icon="fa-search"
+                                        invisible="pending_cuv_count == 0"
+                                        help="Consulta el CUV de todas las facturas enviadas"/>
+                                <button name="action_send_rips_pending"
+                                        string="Enviar RIPS"
+                                        type="object"
+                                        class="btn-success"
+                                        icon="fa-upload"
+                                        invisible="pending_rips_count == 0"
+                                        help="Envía todas las facturas publicadas al Ministerio (RIPS)"/>
+                            </div>
+                            <separator string="Facturas Pendientes de Publicar"/>
+                            <field name="pending_post_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                            <separator string="Facturas Pendientes de Enviar a DIAN"/>
+                            <field name="pending_dian_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="state_dian_document"/>
+                                </tree>
+                            </field>
+                            <separator string="Facturas Pendientes de Consultar CUV"/>
+                            <field name="pending_cuv_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="state_dian_document"/>
+                                    <field name="cufe"/>
+                                </tree>
+                            </field>
+                            <separator string="Facturas Pendientes de Enviar RIPS"/>
+                            <field name="pending_rips_invoice_ids" nolabel="1" widget="many2many">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="rips_validation_status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+    <!-- Vista Tree del Importador -->
+    <record id="view_invoice_importer_tree" model="ir.ui.view">
+        <field name="name">invoice.importer.tree</field>
+        <field name="model">invoice.importer</field>
+        <field name="arch" type="xml">
+            <tree string="Importadores de Facturas">
+                <field name="name"/>
+                <field name="import_type"/>
+                <field name="user_id"/>
+                <field name="date_import"/>
+                <field name="total_count"/>
+                <field name="success_count" decoration-success="success_count > 0"/>
+                <field name="error_count" decoration-danger="error_count > 0"/>
+                <field name="state"
+                       decoration-info="state == 'loaded'"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'error'"
+                       widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Search del Importador -->
+    <record id="view_invoice_importer_search" model="ir.ui.view">
+        <field name="name">invoice.importer.search</field>
+        <field name="model">invoice.importer</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Importador">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="state"/>
+                <separator/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Cargado" name="loaded" domain="[('state', '=', 'loaded')]"/>
+                <filter string="Completado" name="done" domain="[('state', '=', 'done')]"/>
+                <filter string="Con Errores" name="error" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter string="Facturas" name="invoices" domain="[('import_type', '=', 'invoice')]"/>
+                <filter string="Notas Crédito" name="credit_notes" domain="[('import_type', '=', 'credit_note')]"/>
+                <separator/>
+         
+                <group expand="0" string="Agrupar por">
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Tipo" name="group_type" context="{'group_by': 'import_type'}"/>
+                    <filter string="Usuario" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Fecha" name="group_date" context="{'group_by': 'date_import:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción del Importador -->
+    <record id="action_invoice_importer" model="ir.actions.act_window">
+        <field name="name">Importador de Facturas</field>
+        <field name="res_model">invoice.importer</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_invoice_importer"
+              name="Importador de Facturas"
+              parent="account.menu_finance_receivables"
+              action="action_invoice_importer"
+              sequence="50"/>
+
+    <!-- Vista Form para Líneas de Factura (para edición) -->
+    <record id="view_invoice_importer_line_form" model="ir.ui.view">
+        <field name="name">invoice.importer.line.form</field>
+        <field name="model">invoice.importer.line</field>
+        <field name="arch" type="xml">
+            <form string="Línea de Importación">
+                <header>
+                    <button name="action_refresh_lines" string="Recargar Líneas"
+                            type="object" class="btn-warning"
+                            icon="fa-refresh"
+                            help="Recarga las líneas de detalle desde el JSON"/>
+                    <button name="action_validate_all_lines" string="Validar Todo"
+                            type="object" class="btn-primary"
+                            icon="fa-check-circle"
+                            help="Valida productos, impuestos y datos RIPS de todas las líneas"/>
+                    <button name="action_view_detail_lines" string="Ver Todas las Líneas"
+                            type="object" class="btn-info"
+                            icon="fa-list"/>
+                    <field name="import_status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <!-- ALERTAS EN EL HEADER -->
+                    <div class="alert alert-warning" role="alert" invisible="not validation_alerts">
+                        <field name="validation_alerts" nolabel="1" widget="html"/>
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_detail_lines" type="object"
+                                class="oe_stat_button" icon="fa-list-ul">
+                            <field name="line_count" widget="statinfo" string="Líneas"/>
+                        </button>
+                        <button name="action_view_detail_lines" type="object"
+                                class="oe_stat_button" icon="fa-exclamation-triangle"
+                                invisible="missing_products_count == 0">
+                            <field name="missing_products_count" widget="statinfo"
+                                   string="Sin Producto"/>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" placeholder="Referencia de la factura"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Cliente">
+                            <field name="partner_id"/>
+                            <field name="partner_vat"/>
+                            <field name="partner_name"/>
+                        </group>
+                        <group string="Factura">
+                            <field name="invoice_date"/>
+                            <field name="date_due"/>
+                            <field name="amount_total"/>
+                            <field name="currency_code"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Estados">
+                            <field name="state"/>
+                            <field name="payment_state"/>
+                            <field name="rips_validation_status" widget="badge"/>
+                            <field name="rips_send_date" invisible="not rips_send_date"/>
+                        </group>
+                        <group string="Resultado">
+                            <field name="invoice_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Error" invisible="not error_message and not rips_error_message">
+                        <field name="error_message" nolabel="1" invisible="not error_message"/>
+                        <field name="rips_error_message" nolabel="1" invisible="not rips_error_message"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Líneas de Detalle">
+                            <field name="detail_line_ids">
+                                <tree editable="bottom"
+                                      decoration-danger="not has_product"
+                                      decoration-warning="validation_errors"
+                                      decoration-success="is_valid">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_code"/>
+                                    <field name="product_id" options="{'no_create': True}"/>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                    <field name="tax_amount"/>
+                                    <field name="patient_name"/>
+                                    <field name="patient_document"/>
+                                    <field name="diagnosis"/>
+                                    <field name="has_product" column_invisible="1"/>
+                                    <field name="is_valid" column_invisible="1"/>
+                                    <field name="validation_errors" optional="hide"/>
+                                    <button name="action_auto_assign_tax" string="Asignar Impuesto"
+                                            type="object" icon="fa-percent"
+                                            invisible="not product_id"/>
+                                    <button name="validate_line" string="Validar"
+                                            type="object" icon="fa-check"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Datos Crudos">
+                            <field name="raw_data" widget="ace" options="{'mode': 'json'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Form para Líneas de Nota Crédito -->
+    <record id="view_invoice_importer_credit_line_form" model="ir.ui.view">
+        <field name="name">invoice.importer.credit.line.form</field>
+        <field name="model">invoice.importer.credit.line</field>
+        <field name="arch" type="xml">
+            <form string="Línea de Nota Crédito">
+                <sheet>
+                    <group>
+                        <group string="Cliente">
+                            <field name="partner_id"/>
+                            <field name="partner_vat"/>
+                            <field name="partner_name"/>
+                        </group>
+                        <group string="Nota Crédito">
+                            <field name="origin_invoice_id"/>
+                            <field name="origin_invoice_ref"/>
+                            <field name="credit_date"/>
+                            <field name="amount_total"/>
+                            <field name="currency_code"/>
+                        </group>
+                    </group>
+                    <group string="Motivo">
+                        <field name="reason" nolabel="1"/>
+                    </group>
+                    <group>
+                        <group string="Resultado">
+                            <field name="import_status"/>
+                            <field name="credit_note_id"/>
+                        </group>
+                    </group>
+                    <group string="Error" invisible="not error_message">
+                        <field name="error_message" nolabel="1"/>
+                    </group>
+                    <group string="Datos Crudos">
+                        <field name="raw_data" widget="ace" options="{'mode': 'json'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Tree para Líneas de Detalle -->
+    <record id="view_invoice_importer_detail_line_tree" model="ir.ui.view">
+        <field name="name">invoice.importer.detail.line.tree</field>
+        <field name="model">invoice.importer.detail.line</field>
+        <field name="arch" type="xml">
+            <tree string="Líneas de Detalle" editable="bottom"
+                  decoration-danger="not has_product"
+                  decoration-warning="validation_errors"
+                  decoration-success="is_valid">
+                <field name="sequence" widget="handle"/>
+                <field name="importer_line_id" optional="hide"/>
+
+                <!-- Campos del Encabezado (ocultos por defecto) -->
+                <field name="header_partner_vat" optional="hide"/>
+                <field name="header_partner_name" optional="hide"/>
+                <field name="header_invoice_date" optional="hide"/>
+                <field name="header_date_due" optional="hide"/>
+                <field name="header_reference" optional="hide"/>
+                <field name="header_amount_total" optional="hide"/>
+                <field name="header_state" optional="hide"/>
+                <field name="header_payment_state" optional="hide"/>
+                <field name="header_journal_id" optional="hide"/>
+                <field name="header_contract_id" optional="hide"/>
+                <field name="header_invoice_type" optional="hide"/>
+
+                <!-- Campos de la Línea -->
+                <field name="product_code"/>
+                <field name="product_id" options="{'no_create': True}"/>
+                <field name="description"/>
+                <field name="quantity" sum="Total Cantidad"/>
+                <field name="price_unit"/>
+                <field name="price_subtotal" sum="Subtotal"/>
+                <field name="tax_ids" widget="many2many_tags"/>
+                <field name="tax_amount" sum="Total Impuestos"/>
+                <field name="patient_name"/>
+                <field name="patient_document"/>
+                <field name="patient_age" optional="hide"/>
+                <field name="diagnosis" optional="hide"/>
+                <field name="has_product" column_invisible="1"/>
+                <field name="is_valid" column_invisible="1"/>
+                <field name="validation_errors" optional="show"/>
+                <button name="action_auto_assign_tax" string="Asignar Impuesto"
+                        type="object" icon="fa-percent"
+                        invisible="not product_id"/>
+                <button name="validate_line" string="Validar"
+                        type="object" icon="fa-check"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form para Líneas de Detalle -->
+    <record id="view_invoice_importer_detail_line_form" model="ir.ui.view">
+        <field name="name">invoice.importer.detail.line.form</field>
+        <field name="model">invoice.importer.detail.line</field>
+        <field name="arch" type="xml">
+            <form string="Línea de Detalle">
+                <header>
+                    <button name="action_auto_assign_tax" string="Asignar Impuesto Automático"
+                            type="object" class="btn-primary"
+                            invisible="not product_id"/>
+                    <button name="validate_line" string="Validar Línea"
+                            type="object" class="btn-success"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="not validation_errors">
+                        <strong>Errores de Validación:</strong>
+                        <field name="validation_errors" nolabel="1"/>
+                    </div>
+
+                    <group>
+                        <group string="Producto">
+                            <field name="sequence"/>
+                            <field name="product_code"/>
+                            <field name="product_id"/>
+                            <field name="has_product" invisible="1"/>
+                        </group>
+                        <group string="Importación">
+                            <field name="importer_line_id" readonly="1"/>
+                            <field name="is_valid" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Descripción">
+                        <field name="description" nolabel="1"/>
+                    </group>
+
+                    <group>
+                        <group string="Cantidades y Precios">
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                        </group>
+                        <group string="Impuestos">
+                            <field name="tax_ids" widget="many2many_tags"/>
+                            <field name="tax_amount"/>
+                        </group>
+                    </group>
+
+                    <group string="Información del Paciente (RIPS)">
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="patient_name"/>
+                            <field name="patient_document"/>
+                            <field name="patient_birth_date"/>
+                            <field name="patient_age"/>
+                        </group>
+                        <group>
+                            <field name="diagnosis"/>
+                        </group>
+                    </group>
+
+                    <group string="Datos Crudos">
+                        <field name="raw_line_data" widget="ace" options="{'mode': 'json'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para Líneas de Detalle -->
+    <record id="action_invoice_importer_detail_line" model="ir.actions.act_window">
+        <field name="name">Líneas de Detalle de Importación</field>
+        <field name="res_model">invoice.importer.detail.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_missing_product': 1}</field>
+    </record>
+
+    <!-- Vista Search para Líneas de Detalle -->
+    <record id="view_invoice_importer_detail_line_search" model="ir.ui.view">
+        <field name="name">invoice.importer.detail.line.search</field>
+        <field name="model">invoice.importer.detail.line</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Líneas de Detalle">
+                <field name="product_code"/>
+                <field name="product_id"/>
+                <field name="description"/>
+                <field name="patient_name"/>
+                <field name="patient_document"/>
+                <separator/>
+                <filter string="Sin Producto" name="missing_product" domain="[('has_product', '=', False)]"/>
+                <filter string="Con Errores" name="with_errors" domain="[('validation_errors', '!=', False)]"/>
+                <filter string="Válidas" name="valid" domain="[('is_valid', '=', True)]"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Factura" name="group_invoice" context="{'group_by': 'importer_line_id'}"/>
+                    <filter string="Producto" name="group_product" context="{'group_by': 'product_id'}"/>
+                    <filter string="Paciente" name="group_patient" context="{'group_by': 'patient_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- MOTIVOS DE FACTURACIÓN -->
+        <record id="glosa_motivo_fac_101" model="glosa.motivo">
+            <field name="code">FAC.101</field>
+            <field name="name">Factura no cumple requisitos legales</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_102" model="glosa.motivo">
+            <field name="code">FAC.102</field>
+            <field name="name">Servicio ya cancelado</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_103" model="glosa.motivo">
+            <field name="code">FAC.103</field>
+            <field name="name">Facturación de servicios no prestados</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_104" model="glosa.motivo">
+            <field name="code">FAC.104</field>
+            <field name="name">Factura con datos incompletos del usuario</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_105" model="glosa.motivo">
+            <field name="code">FAC.105</field>
+            <field name="name">Servicio corresponde a otro plan o cobertura</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_106" model="glosa.motivo">
+            <field name="code">FAC.106</field>
+            <field name="name">Error de suma</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_107" model="glosa.motivo">
+            <field name="code">FAC.107</field>
+            <field name="name">Mayor valor cobrado en servicios</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <record id="glosa_motivo_fac_108" model="glosa.motivo">
+            <field name="code">FAC.108</field>
+            <field name="name">Cobro doble de un servicio</field>
+            <field name="category">facturacion</field>
+        </record>
+
+        <!-- MOTIVOS DE TARIFAS -->
+        <record id="glosa_motivo_tar_201" model="glosa.motivo">
+            <field name="code">TAR.201</field>
+            <field name="name">Tarifa mayor a la pactada</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_202" model="glosa.motivo">
+            <field name="code">TAR.202</field>
+            <field name="name">Tarifa no pactada</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_203" model="glosa.motivo">
+            <field name="code">TAR.203</field>
+            <field name="name">Diferencia en tarifa de estancia</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_204" model="glosa.motivo">
+            <field name="code">TAR.204</field>
+            <field name="name">Diferencia en tarifa de consulta</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_205" model="glosa.motivo">
+            <field name="code">TAR.205</field>
+            <field name="name">Diferencia en tarifa de procedimientos quirúrgicos</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_206" model="glosa.motivo">
+            <field name="code">TAR.206</field>
+            <field name="name">Diferencia en tarifa de honorarios profesionales</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_207" model="glosa.motivo">
+            <field name="code">TAR.207</field>
+            <field name="name">Diferencia en tarifa de derechos de sala</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_208" model="glosa.motivo">
+            <field name="code">TAR.208</field>
+            <field name="name">Diferencia en tarifa de medicamentos</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_209" model="glosa.motivo">
+            <field name="code">TAR.209</field>
+            <field name="name">Diferencia en tarifa de material e insumos</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <record id="glosa_motivo_tar_210" model="glosa.motivo">
+            <field name="code">TAR.210</field>
+            <field name="name">Diferencia en tarifa de ayudas diagnósticas</field>
+            <field name="category">tarifas</field>
+        </record>
+
+        <!-- MOTIVOS DE SOPORTES -->
+        <record id="glosa_motivo_sop_301" model="glosa.motivo">
+            <field name="code">SOP.301</field>
+            <field name="name">Falta de soportes</field>
+            <field name="category">soportes</field>
+        </record>
+
+        <record id="glosa_motivo_sop_302" model="glosa.motivo">
+            <field name="code">SOP.302</field>
+            <field name="name">Soportes incompletos o ilegibles</field>
+            <field name="category">soportes</field>
+        </record>
+
+        <record id="glosa_motivo_sop_303" model="glosa.motivo">
+            <field name="code">SOP.303</field>
+            <field name="name">Inconsistencia en historia clínica</field>
+            <field name="category">soportes</field>
+        </record>
+
+        <record id="glosa_motivo_sop_304" model="glosa.motivo">
+            <field name="code">SOP.304</field>
+            <field name="name">Falta de hoja de administración de medicamentos</field>
+            <field name="category">soportes</field>
+        </record>
+
+        <record id="glosa_motivo_sop_305" model="glosa.motivo">
+            <field name="code">SOP.305</field>
+            <field name="name">Falta documento de identidad</field>
+            <field name="category">soportes</field>
+        </record>
+
+        <record id="glosa_motivo_sop_306" model="glosa.motivo">
+            <field name="code">SOP.306</field>
+            <field name="name">Falta evidencia de suministro de medicamentos</field>
+            <field name="category">soportes</field>
+        </record>
+
+        <!-- MOTIVOS DE AUTORIZACIÓN -->
+        <record id="glosa_motivo_aut_401" model="glosa.motivo">
+            <field name="code">AUT.401</field>
+            <field name="name">Servicio no autorizado</field>
+            <field name="category">autorizacion</field>
+        </record>
+
+        <record id="glosa_motivo_aut_402" model="glosa.motivo">
+            <field name="code">AUT.402</field>
+            <field name="name">Autorización extemporánea</field>
+            <field name="category">autorizacion</field>
+        </record>
+
+        <record id="glosa_motivo_aut_403" model="glosa.motivo">
+            <field name="code">AUT.403</field>
+            <field name="name">Autorización para otro prestador</field>
+            <field name="category">autorizacion</field>
+        </record>
+
+        <record id="glosa_motivo_aut_404" model="glosa.motivo">
+            <field name="code">AUT.404</field>
+            <field name="name">Autorización para otro paciente</field>
+            <field name="category">autorizacion</field>
+        </record>
+
+        <record id="glosa_motivo_aut_405" model="glosa.motivo">
+            <field name="code">AUT.405</field>
+            <field name="name">Servicio prestado difiere de lo autorizado</field>
+            <field name="category">autorizacion</field>
+        </record>
+
+        <record id="glosa_motivo_aut_406" model="glosa.motivo">
+            <field name="code">AUT.406</field>
+            <field name="name">Autorización vencida</field>
+            <field name="category">autorizacion</field>
+        </record>
+
+        <!-- MOTIVOS DE COBERTURA -->
+        <record id="glosa_motivo_cob_501" model="glosa.motivo">
+            <field name="code">COB.501</field>
+            <field name="name">Servicio no cubierto por el plan</field>
+            <field name="category">cobertura</field>
+        </record>
+
+        <record id="glosa_motivo_cob_502" model="glosa.motivo">
+            <field name="code">COB.502</field>
+            <field name="name">Servicio corresponde a otro plan o cobertura</field>
+            <field name="category">cobertura</field>
+        </record>
+
+        <record id="glosa_motivo_cob_503" model="glosa.motivo">
+            <field name="code">COB.503</field>
+            <field name="name">Servicio excluido del plan de beneficios</field>
+            <field name="category">cobertura</field>
+        </record>
+
+        <record id="glosa_motivo_cob_504" model="glosa.motivo">
+            <field name="code">COB.504</field>
+            <field name="name">Servicio corresponde a otra entidad</field>
+            <field name="category">cobertura</field>
+        </record>
+
+        <record id="glosa_motivo_cob_505" model="glosa.motivo">
+            <field name="code">COB.505</field>
+            <field name="name">Paciente sin derecho a la atención</field>
+            <field name="category">cobertura</field>
+        </record>
+
+        <!-- MOTIVOS DE PERTINENCIA -->
+        <record id="glosa_motivo_per_601" model="glosa.motivo">
+            <field name="code">PER.601</field>
+            <field name="name">Servicio no pertinente</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_602" model="glosa.motivo">
+            <field name="code">PER.602</field>
+            <field name="name">Tratamiento no pertinente para el diagnóstico</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_603" model="glosa.motivo">
+            <field name="code">PER.603</field>
+            <field name="name">Frecuencia no pertinente</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_604" model="glosa.motivo">
+            <field name="code">PER.604</field>
+            <field name="name">Dosis no pertinente</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_605" model="glosa.motivo">
+            <field name="code">PER.605</field>
+            <field name="name">Vía de administración no pertinente</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_606" model="glosa.motivo">
+            <field name="code">PER.606</field>
+            <field name="name">Medicamento no pertinente para el diagnóstico</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_607" model="glosa.motivo">
+            <field name="code">PER.607</field>
+            <field name="name">Procedimiento diagnóstico no pertinente</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <record id="glosa_motivo_per_608" model="glosa.motivo">
+            <field name="code">PER.608</field>
+            <field name="name">Estancia no pertinente</field>
+            <field name="category">pertinencia</field>
+        </record>
+
+        <!-- MOTIVOS DE DEVOLUCIÓN/RESPUESTA -->
+        <record id="glosa_motivo_dev_701" model="glosa.motivo">
+            <field name="code">DEV.701</field>
+            <field name="name">Factura ya cancelada</field>
+            <field name="category">devolucion</field>
+        </record>
+
+        <record id="glosa_motivo_dev_702" model="glosa.motivo">
+            <field name="code">DEV.702</field>
+            <field name="name">Factura corresponde a otro pagador</field>
+            <field name="category">devolucion</field>
+        </record>
+
+        <record id="glosa_motivo_dev_703" model="glosa.motivo">
+            <field name="code">DEV.703</field>
+            <field name="name">Errores en documento original</field>
+            <field name="category">devolucion</field>
+        </record>
+
+        <record id="glosa_motivo_dev_704" model="glosa.motivo">
+            <field name="code">DEV.704</field>
+            <field name="name">Inconsistencia en RIPS</field>
+            <field name="category">devolucion</field>
+        </record>
+
+        <record id="glosa_motivo_dev_705" model="glosa.motivo">
+            <field name="code">DEV.705</field>
+            <field name="name">Factura devuelta previamente</field>
+            <field name="category">devolucion</field>
+        </record>
+
+        <!-- MOTIVOS GENERALES -->
+        <record id="glosa_motivo_gen_101" model="glosa.motivo">
+            <field name="code">GEN.101</field>
+            <field name="name">Falta de legitimación en la causa</field>
+            <field name="category">general</field>
+        </record>
+
+        <record id="glosa_motivo_gen_102" model="glosa.motivo">
+            <field name="code">GEN.102</field>
+            <field name="name">Documentación incompleta</field>
+            <field name="category">general</field>
+        </record>
+
+        <record id="glosa_motivo_gen_103" model="glosa.motivo">
+            <field name="code">GEN.103</field>
+            <field name="name">Error en datos administrativos</field>
+            <field name="category">general</field>
+        </record>
+
+        <record id="glosa_motivo_gen_104" model="glosa.motivo">
+            <field name="code">GEN.104</field>
+            <field name="name">Error en codificación de diagnóstico</field>
+            <field name="category">general</field>
+        </record>
+
+        <record id="glosa_motivo_gen_105" model="glosa.motivo">
+            <field name="code">GEN.105</field>
+            <field name="name">Error en codificación de procedimiento</field>
+            <field name="category">general</field>
+        </record>
+
+        <!-- Secuencia para Glosas Médicas -->
+        <record id="seq_glosa_medica" model="ir.sequence">
+            <field name="name">Glosa Médica</field>
+            <field name="code">glosa.medica</field>
+            <field name="prefix">GLM/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Etapas predefinidas para el proceso de glosa -->
+        <record id="etapa_recepcion" model="glosa.etapa">
+            <field name="name">Recepción y Radicación</field>
+            <field name="sequence">10</field>
+            <field name="state">recepcion</field>
+            <field name="fold">False</field>
+            <field name="descripcion">Registro y verificación inicial de la glosa y su documentación.</field>
+        </record>
+
+        <record id="etapa_clasificacion" model="glosa.etapa">
+            <field name="name">Clasificación y Distribución</field>
+            <field name="sequence">20</field>
+            <field name="state">clasificacion</field>
+            <field name="fold">False</field>
+            <field name="descripcion">Asignación del motivo legal y distribución a áreas correspondientes.</field>
+            <field name="requiere_motivo">True</field>
+        </record>
+
+        <record id="etapa_revision" model="glosa.etapa">
+            <field name="name">Revisión y Respuesta</field>
+            <field name="sequence">30</field>
+            <field name="state">revision</field>
+            <field name="fold">False</field>
+            <field name="descripcion">Evaluación por el equipo responsable y registro de la respuesta.</field>
+            <field name="requiere_respuesta">True</field>
+        </record>
+
+        <record id="etapa_conciliacion" model="glosa.etapa">
+            <field name="name">Conciliación</field>
+            <field name="sequence">40</field>
+            <field name="state">conciliacion</field>
+            <field name="fold">False</field>
+            <field name="descripcion">Reuniones con la entidad pagadora para resolver la glosa.</field>
+        </record>
+
+        <record id="etapa_rechazada" model="glosa.etapa">
+            <field name="name">Glosa Rechazada</field>
+            <field name="sequence">50</field>
+            <field name="state">rechazado</field>
+            <field name="fold">True</field>
+            <field name="descripcion">Glosa rechazada totalmente (resultado favorable para la institución).</field>
+            <field name="es_estado_final">True</field>
+            <field name="requiere_nota_cierre">True</field>
+        </record>
+
+        <record id="etapa_aceptada" model="glosa.etapa">
+            <field name="name">Glosa Aceptada</field>
+            <field name="sequence">60</field>
+            <field name="state">aceptado</field>
+            <field name="fold">True</field>
+            <field name="descripcion">Glosa aceptada totalmente (resultado desfavorable para la institución).</field>
+            <field name="es_estado_final">True</field>
+            <field name="requiere_nota_cierre">True</field>
+            <field name="permite_nota_credito">True</field>
+        </record>
+
+        <record id="etapa_parcial" model="glosa.etapa">
+            <field name="name">Glosa Parcial</field>
+            <field name="sequence">70</field>
+            <field name="state">parcial</field>
+            <field name="fold">True</field>
+            <field name="descripcion">Glosa parcialmente aceptada.</field>
+            <field name="es_estado_final">True</field>
+            <field name="requiere_nota_cierre">True</field>
+            <field name="permite_nota_credito">True</field>
+        </record>
+
+        <record id="etapa_resuelta" model="glosa.etapa">
+            <field name="name">Resuelto</field>
+            <field name="sequence">80</field>
+            <field name="state">resuelto</field>
+            <field name="fold">True</field>
+            <field name="descripcion">Glosa resuelta y documentación finalizada.</field>
+            <field name="es_estado_final">True</field>
+            <field name="requiere_nota_cierre">True</field>
+            <field name="permite_nota_credito">True</field>
+        </record>
+
+        <record id="etapa_cancelada" model="glosa.etapa">
+            <field name="name">Cancelado</field>
+            <field name="sequence">100</field>
+            <field name="state">cancelado</field>
+            <field name="fold">True</field>
+            <field name="descripcion">Glosa cancelada o anulada.</field>
+            <field name="es_estado_final">True</field>
+        </record>
+        <record id="action_server_export_liquidaciones_zip" model="ir.actions.server">
+            <field name="name">Exportar Liquidaciones a ZIP</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_export_liquidaciones_zip()</field>
+        </record>
+    </data>
+</odoo>

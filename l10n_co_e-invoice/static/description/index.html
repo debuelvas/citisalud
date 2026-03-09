@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información Completa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        .table tr:hover {
+            background-color: #ddd;
+        }
+        }
+        h1 {
+          font-size: 36px;
+          font-weight: bold;
+          margin-bottom: 20px;
+          border-bottom: 2px solid #0077b6;
+          padding-bottom: 10px;
+          color: #333333;
+        }
+
+        h2 {
+          font-size: 24px;
+          margin-top: 30px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #0077b6;
+          padding-bottom: 5px;
+          color: #333333;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Módulo de Facturación Electrónica para Colombia (l10n_co_e-invoice)</h1>
+    <p>El módulo de Facturación Electrónica para Colombia (l10n_co_e-invoice) es una solución que permite a las empresas colombianas generar, firmar y enviar facturas electrónicas en cumplimiento con los requisitos legales y técnicos establecidos por la DIAN (Dirección de Impuestos y Aduanas Nacionales) de Colombia.</p>
+
+    <p>Este módulo integra funcionalidades clave que facilitan la gestión de la facturación electrónica, entre las que se incluyen:</p>
+
+    <ol>
+        <li>Configuración de la empresa: Permite a los usuarios establecer y personalizar la información requerida por la DIAN, como la razón social, tipo de operación, certificado digital y otros detalles relevantes.</li>
+        <li>Gestión de secuencias: Permite configurar y asignar secuencias de numeración para las facturas, notas de crédito y notas de débito. Los usuarios pueden establecer prefijos, sufijos, tamaños de secuencia y próximos números a utilizar en los documentos generados.</li>
+        <li>Resolución DIAN: Facilita la configuración y el seguimiento de las resoluciones de facturación otorgadas por la DIAN, incluyendo información sobre el rango de números autorizados y fechas de validez.</li>
+        <li>Generación de documentos electrónicos: El módulo crea documentos electrónicos en formatos compatibles con los estándares de la DIAN, como XML y JSON. Estos documentos incluyen datos del emisor, receptor, productos, servicios e impuestos, entre otros.</li>
+        <li>Firma digital: Se encarga de firmar los documentos electrónicos con el certificado digital de la empresa, garantizando la autenticidad e integridad de la información.</li>
+        <li>Envío y respuesta de la DIAN: Permite el envío automático de documentos electrónicos a la DIAN y la recepción de las respuestas correspondientes, como la autorización o rechazo de las facturas.</li>
+        <li>Soporte de formato QR: El módulo genera códigos QR para incluir en las facturas impresas, facilitando la verificación de la información por parte de los clientes y la DIAN.</li>
+    </ol>
+
+    <p>El módulo l10n_co_e-invoice es una herramienta completa que simplifica el proceso de facturación electrónica en Colombia, facilitando el cumplimiento normativo y mejorando la eficiencia en la gestión de las empresas</p>
+    <h2>Requisitos previos y configuración</h2>
+    <p>Para utilizar el módulo l10n_co_e-invoice, es necesario cumplir con ciertos requisitos previos y realizar la configuración adecuada en la plataforma:</p>
+
+    <ul>
+        <li>Contar con un certificado digital válido para la empresa, que permita la firma de documentos electrónicos.</li>
+        <li>Obtener una resolución de facturación electrónica emitida por la DIAN, que autorice a la empresa a emitir facturas electrónicas.</li>
+        <li>Contar con acceso a los servicios web de la DIAN para el envío de documentos electrónicos y recepción de respuestas.</li>
+        <li>Realizar la configuración inicial en la plataforma, ingresando la información de la empresa, certificado digital, resolución de facturación y detalles de conexión a los servicios web de la DIAN.</li>
+    </ul>
+
+    <p>Una vez cumplidos los requisitos y realizada la configuración, el módulo l10n_co_e-invoice estará listo para generar, firmar y enviar facturas electrónicas en cumplimiento con las normas establecidas por la DIAN.</p>
+
+    <h2>Soporte y actualizaciones</h2>
+    <p>El módulo l10n_co_e-invoice cuenta con soporte técnico y actualizaciones periódicas, para garantizar el correcto funcionamiento y adaptación a las nuevas regulaciones y requerimientos técnicos de la DIAN. Es importante mantener el módulo actualizado y comunicarse con el soporte técnico en caso de presentar problemas o dudas en su funcionamiento.</p>
+
+    <p>La implementación del módulo l10n_co_e-invoice en una empresa colombiana permite mejorar la gestión de la facturación electrónica y garantizar el cumplimiento normativo, optimizando procesos y asegurando la eficiencia en el manejo de los documentos fiscales.</p>
+
+
+    <h1>Configuración de la Empresa</h1>
+
+    <h2>Configuración de la empresa en el módulo l10n_co_e-invoice</h2>
+	<p>La configuración de la empresa en el módulo l10n_co_e-invoice es esencial para asegurar que las facturas electrónicas sean válidas y se envíen correctamente a la DIAN. En esta configuración, se debe incluir información importante, como la razón social de la empresa, el tipo de operación DIAN, el certificado digital, el identificador del SET de pruebas, el ente emisor del certificado, el código de identificación del software, el PIN del software, la clave de ambiente, la clave del certificado P12, el código de semilla y la ruta de almacenamiento de archivos. Es importante asegurarse de que todos los campos estén correctamente completados y actualizados para garantizar la correcta emisión y recepción de facturas electrónicas.</p>
+
+	<h2>Objetivos de la configuración</h2>
+	<p>Los objetivos de esta configuración son los siguientes:</p>
+	<ul>
+		<li>Configurar los parámetros necesarios para la emisión de facturas electrónicas en cumplimiento de la normativa DIAN.</li>
+		<li>Establecer la información de la empresa necesaria para la emisión de facturas electrónicas, incluyendo la razón social, identificación tributaria, certificado digital y demás datos relevantes.</li>
+		<li>Establecer la secuencia de numeración de las facturas electrónicas, incluyendo el prefijo, sufijo, resolución DIAN y tamaño de secuencia.</li>
+		<li>Configurar los impuestos aplicables a las facturas electrónicas, incluyendo el IVA y cualquier otro impuesto requerido por la normativa DIAN.</li>
+		<li>Establecer los códigos DIAN necesarios para la emisión y validación de las facturas electrónicas.</li>
+		<li>Establecer los parámetros de envío y recepción de las facturas electrónicas, incluyendo la validación ante la DIAN y la generación de la respuesta correspondiente.</li>
+	</ul>
+    <h2>Uso</h2>
+    <p>Para acceder a la configuración de la compañía en Odoo, sigue estos pasos:</p>
+    <ol>
+      <li>Ingresa a tu instancia de Odoo con tus credenciales de inicio de sesión.</li>
+      <li>Haz clic en el botón de "Configuración" en la parte superior derecha de la pantalla.</li>
+      <li>En el menú desplegable, selecciona "Compañías".</li>
+      <li>Selecciona la compañía para la que deseas realizar la configuración.</li>
+      <li>En el menú de la izquierda, selecciona "Configuración de la compañía".</li>
+    </ol>
+    <p>Aquí encontrarás todas las opciones de configuración disponibles para la compañía seleccionada.</p>
+    <td rowspan="14"><img src="company.png" alt="Imagen Empresa" width="1000"></td>
+    <table class="table">
+        <tr>
+            <th>Elemento</th>
+            <th>Descripción</th>
+        </tr>
+        <tr>
+            <td>Razón social</td>
+            <td>[Nombre de tu empresa]</td>
+        </tr>
+        <tr>
+            <td>Tipo de operación DIAN</td>
+            <td>Estandar</td>
+        </tr>
+        <tr>
+            <td>Certificado digital público</td>
+            <td>(Proporciona un certificado digital en formato Base64)</td>
+        </tr>
+        <tr>
+            <td>Identificador del SET de pruebas</td>
+            <td>[UUID del SET de pruebas]</td>
+        </tr>
+        <tr>
+            <td>Ente emisor del certificado</td>
+            <td>[Información del ente emisor del certificado]</td>
+        </tr>
+        <tr>
+            <td>Serial del certificado</td>
+            <td>[Número de serie del certificado]</td>
+        </tr>
+        <tr>
+            <td>Código de identificación del software</td>
+            <td>[Código de identificación del software]</td>
+        </tr>
+        <tr>
+            <td>PIN del software</td>
+            <td>[PIN del software]</td>
+        </tr>
+        <tr>
+            <td>Clave de ambiente</td>
+            <td>[Clave de ambiente, generalmente "1" para pruebas y "2" para producción]</td>
+        </tr>
+        <tr>
+            <td>Clave del certificado P12</td>
+            <td>[Clave del certificado P12]</td>
+        </tr>
+        <tr>
+            <td>Código de semilla</td>
+            <td>[Código de semilla]</td>
+        </tr>
+        <tr>
+            <td>Ruta de almacenamiento de archivos</td>
+            <td>[Ruta de almacenamiento de archivos]</td>
+        </tr>
+        <tr>
+            <td>Archivo del certificado</td>
+            <td>(Proporciona un archivo de certificado en formato Base64)</td>
+        </tr>
+    </table>
+
+    <h1>Configuración de Impuestos</h1>
+    <div>
+      <p>La configuración de los impuestos es una parte crítica del proceso de facturación electrónica en Odoo. Los impuestos deben configurarse adecuadamente para garantizar que las facturas electrónicas sean válidas y cumplan con los requisitos de la normativa DIAN.</p>
+      <p>En la configuración de impuestos en Odoo, se pueden establecer los diferentes tipos de impuestos que aplican a las ventas y compras de la empresa, así como también se pueden configurar las cuentas contables asociadas a cada uno de ellos. Además, se pueden definir las tasas de impuestos aplicables, los códigos DIAN correspondientes y la inclusión en el análisis de costos.</p>
+      <p>Es importante asegurarse de que la configuración de impuestos se realice correctamente para evitar errores en la facturación y la presentación de declaraciones de impuestos a la DIAN. Una vez que se han configurado los impuestos, las facturas electrónicas se generarán automáticamente y se enviarán a la DIAN con la información fiscal correcta.</p>
+      <p>En resumen, la configuración de impuestos en Odoo es una parte vital del proceso de facturación electrónica, y debe realizarse con cuidado y atención para garantizar la precisión y la validez de las facturas electrónicas.</p>
+
+      <h3>Objetivos de la configuración de impuestos</h3>
+      <ul>
+        <li>Configurar los impuestos necesarios para el cumplimiento de las obligaciones fiscales de la empresa.</li>
+        <li>Establecer los tipos de impuestos aplicables a los productos o servicios que ofrece la empresa.</li>
+        <li>Configurar las tasas impositivas para cada tipo de impuesto.</li>
+        <li>Configurar la contabilización automática de los impuestos en las facturas y otros documentos contables.</li>
+        <li>Configurar la inclusión de los impuestos en el análisis de costos de los productos o servicios.</li>
+        <li>Configurar los códigos DIAN necesarios para la emisión y validación de las facturas electrónicas con impuestos.</li>
+        <li>Mantener actualizada la configuración de los impuestos de acuerdo con los cambios en la normativa fiscal o los requisitos de la DIAN.</li>
+      </ul>
+    </div>
+    <h2>Uso</h2>
+	<ol>
+		<li>Ingresa a tu instancia de Odoo con tus credenciales de inicio de sesión.</li>
+		<li>Haz clic en el botón de "Configuración" en la parte superior derecha de la pantalla.</li>
+		<li>En el menú desplegable, selecciona "Compañías".</li>
+		<li>Selecciona la compañía para la que deseas realizar la configuración de impuestos.</li>
+		<li>En el menú de la izquierda, selecciona "Impuestos".</li>
+		<li>Aquí podrás configurar los diferentes tipos de impuestos aplicables a las ventas y compras de la empresa, así como también las cuentas contables asociadas a cada uno de ellos.</li>
+		<li>Para agregar un nuevo impuesto, haz clic en el botón "Crear" y completa la información requerida, como el nombre, la tasa de impuesto y las cuentas contables asociadas.</li>
+		<li>Configura los códigos DIAN correspondientes para cada impuesto.</li>
+		<li>Configura la inclusión de los impuestos en el análisis de costos de los productos o servicios.</li>
+		<li>Una vez que hayas terminado de configurar los impuestos, guarda los cambios y verifica que todo esté funcionando correctamente.</li>
+	</ol>
+	<p>Es importante asegurarse de que la configuración de los impuestos se realice correctamente para evitar errores en la facturación y la presentación de declaraciones de impuestos a la DIAN. Una vez que se han configurado los impuestos, las facturas electrónicas se generarán automáticamente y se enviarán a la DIAN con la información fiscal correcta.</p>
+    <td rowspan="14"><img src="impuestos.png" alt="Imagen Empresa" width="1000"></td>
+    <table class="table">
+        <tr>
+            <th>Elemento</th>
+            <th>Descripción</th>
+        </tr>
+        <tr>
+            <td>Grupo de impuesto DIAN FE</td>
+            <td>DIAN FE</td>
+        </tr>
+        <tr>
+            <td>No aplica a DIAN FE</td>
+            <td>Tributo DIAN</td>
+        </tr>
+        <tr>
+            <td>Etiqueta en facturas</td>
+            <td>Grupo de impuestos</td>
+        </tr>
+        <tr>
+            <td>IVA 19%</td>
+            <td>Incluir en análisis de costos?</td>
+        </tr>
+        <tr>
+            <td>País</td>
+            <td>Colombia [CO]</td>
+        </tr>
+    </table>
+
+    <h1>Información Factura Electrónica</h1>
+    <table class="table">
+        <tr>
+            <th>Elemento</th>
+            <th>Descripción</th>
+        </tr>
+        <tr>
+            <td>Código DIAN</td>
+            <td>FE0395</td>
+        </tr>
+        <tr>
+            <td>Código QR</td>
+            <td>Archivo binario</td>
+        </tr>
+        <tr>
+            <td>CUFE</td>
+            <td>e5641f239f3cac17f038e6cbfb2d843b0df4b
+        <tr>
+            <td>Estado documento DIAN</td>
+            <td>Exitoso</td>
+        </tr>
+        <tr>
+            <td>Mensaje de respuesta DIAN</td>
+            <td>00 Procesado Correctamente. La Factura electrónica FE0395, ha sido autorizada.</td>
+        </tr>
+        <tr>
+            <td>Decisión del cliente</td>
+            <td>PENDIENTE</td>
+        </tr>
+        <tr>
+            <td>Motivo/s de rechazo</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Archivo adjunto xml de factura</td>
+            <td></td>
+        </tr>
+    </table>
+    <h2>Configuración de la Secuencia DIAN</h2>
+    <table class="table">
+        <tr>
+            <th>Elemento</th>
+            <th>Descripción</th>
+            <th>Descripción2</th>
+        </tr>
+        <tr>
+            <td>Secuencia</td>
+            <td>Next Number?</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Entry Sequence?</td>
+            <td>INV Sequence</td>
+        </tr>
+        <tr>
+            <td>Secuencia de Reembolso</td>
+            <td>Next Number?</td>
+            <td>73</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Entry Sequence?</td>
+            <td>INV: Refund Sequence</td>
+        </tr>
+        <tr>
+            <td>Secuencia de Nota de Débito</td>
+            <td>Dedicated Debit Note Sequence?</td>
+            <td></td>
+        </tr>
+        </table>
+        <h2>Configuración de la Resolución DIAN</h2>
+        <table class="table">
+            <tr>
+                <th>Elemento</th>
+                <th>Descripción</th>
+                <th>Descripción2</th>
+            </tr>
+            <tr>
+                <td>Secuencia</td>
+                <td>Prefijo?</td>
+                <td>FE</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Sufijo?</td>
+                <td>Utilizar subsecuencias por date_range</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Utilice resoluciones de control DIAN</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Tamaño de secuencia?</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Próximo número?</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Tipo</td>
+                <td>Factura generada por computadora</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Días restantes?</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Resolución DIAN</td>
+                <td>Número de resolución</td>
+                <td>18764024669508</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Número de rango inicial</td>
+                <td>253</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Número de rango final</td>
+                <td>884</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Fecha de inicio</td>
+                <td>28-01-2022</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Fecha de finalización</td>
+                <td>28-01-2024</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Código de control</td>
+                <td>68fb89d24e560a5ad7cb0857815ffd1396da9627ec9776fdf9cd5cc2fad18683</td>
+            </tr>
+    </table>
+</body>
+</html>

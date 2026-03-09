@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sh_import_lot_serial_picking_form" model="ir.ui.view">
+            <field name="name">sh.import.lot.serial.picking.form</field>
+            <field name="model">sh.import.lot.serial.picking</field>
+            <field name="arch" type="xml">
+                <form string="Importar Lote/Serie para Crear Pickings">
+                    <sheet>
+                        <!-- Alertas de estado e información -->
+                        <div class="alert alert-info" role="alert" invisible="not import_status">
+                            <field name="import_status" readonly="1"/>
+                        </div>
+                        <div class="alert alert-danger" role="alert" invisible="not error_log">
+                            <field name="error_log" readonly="1"/>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="import_type" widget="radio"/>
+                                <field name="lot_type" widget="radio"/>
+                                <field name="file" filename="file_name" required="1"/>
+                                <field name="file_name" invisible="1"/>
+                                <field name="picking_type_id" invisible="picking_type_id" required="not picking_type_id"/>
+                            </group>
+                            <group>
+                                <field name="display_is_create_lot" invisible="1"/>
+                                <field name="is_create_lot" invisible="not display_is_create_lot"/>
+                                <field name="use_general_contract"/>
+                                <field name="general_contract_id" invisible="not use_general_contract" required="use_general_contract"/>
+                                <field name="use_general_patient"/>
+                                <field name="general_patient_id" invisible="not use_general_patient" required="use_general_patient"/>
+                            </group>
+                        </group>
+
+                        <!-- Sección de pickings creados -->
+                        <group string="Pickings Creados" invisible="not created_picking_ids">
+                            <field name="created_picking_ids" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="patient_id"/>
+                                    <field name="contract_id"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <!-- Información de formato -->
+                        <div class="alert alert-info" role="alert">
+                            <p>Formato de archivo esperado:</p>
+                            <ul>
+                                <li>Columna A: Ubicación origen (ID, nombre)</li>
+                                <li>Columna B: Ubicación destino (ID, nombre)</li>
+                                <li>Columna C: Producto (ID, código de barras, referencia interna)</li>
+                                <li>Columna D: Cantidad</li>
+                                <li>Columna E: Unidad de medida (ID, nombre)</li>
+                                <li>Columna F: Cliente (ID, VAT, VAT_CO)</li>
+                                <li>Columna G: Paciente (ID, referencia)</li>
+                                <li>Columna H: Origen/Referencia</li>
+                                <li>Columna I: Lote/Número Serie</li>
+                            </ul>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <button name="import_lot_serial_apply" string="Importar" type="object"
+                        class="oe_highlight" invisible="created_picking_ids"/>
+                        <button string="Cerrar" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- Acción para abrir el wizard -->
+        <record id="action_sh_import_lot_serial_picking" model="ir.actions.act_window">
+            <field name="name">Importar Lote/Serie y Crear Pickings</field>
+            <field name="res_model">sh.import.lot.serial.picking</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking_type"/>
+            <field name="binding_view_types">form,list</field>
+        </record>
+
+        <!-- Menú principal en Inventario -->
+        <menuitem
+        id="menu_sh_import_lot_serial_picking"
+        name="Importar Lote/Serie"
+        action="action_sh_import_lot_serial_picking"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="100"/>
+
+        <!-- Acceso desde el botón de acción en los tipos de operación -->
+        <record id="sh_action_import_lot_serial_from_picking_type" model="ir.actions.act_window">
+            <field name="name">Importar con Lote/Serie</field>
+            <field name="res_model">sh.import.lot.serial.picking</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_picking_type_id': active_id}</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking_type"/>
+            <field name="binding_view_types">form</field>
+        </record>
+
+        <!-- Acceso desde el botón de acción en los albaranes -->
+        <record id="sh_action_import_lot_serial_from_picking" model="ir.actions.act_window">
+            <field name="name">Importar con Lote/Serie</field>
+            <field name="res_model">sh.import.lot.serial.picking</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_picking_type_id': picking_type_id}</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">form</field>
+        </record>
+    </data>
+</odoo>

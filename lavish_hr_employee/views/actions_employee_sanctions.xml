@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <!-- Sanciones -->
+        <record model="ir.actions.act_window" id="hr_employee_sanctions_action">
+            <field name="name">Sanciones empleados</field>
+            <field name="res_model">hr.employee.sanctions</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_employee_sanctions_company" model="ir.rule">
+            <field name="name">Permisos compañia Sanciones empleados</field>
+            <field name="model_id" ref="model_hr_employee_sanctions"/>
+            <field name="domain_force">['|',('employee_id.company_id','=',False),('employee_id.company_id', 'in',company_ids)]
+            </field>
+        </record>
+
+        <!-- Crear record rule para filtrar las sucursales -->
+        <record id="rule_hr_employee_sanctions_res_branch" model="ir.rule">
+            <field name="name">Permisos sucursales Sanciones empleados</field>
+            <field name="model_id" ref="model_hr_employee_sanctions"/>
+            <field name="domain_force">['|',('employee_id.branch_id','in',user.branch_ids.ids),('employee_id.branch_id','=',False)]</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_sanctions_view_tree">
+            <field name="name">Sanciones vista tree</field>
+            <field name="model">hr.employee.sanctions</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="type_fault_id"/>
+                    <field name="registration_date"/>
+                    <field name="name" optional="show"/>
+                    <field name="stage" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_sanctions_view_form">
+            <field name="name">Sanciones vista form</field>
+            <field name="model">hr.employee.sanctions</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Sanciones">
+                        <group>
+                            <group>
+                                <field name="employee_id" options="{'no_create': True}" required="1"/>
+                                <field name="company_id" readonly="1"/>
+                                <field name="work_contact_id" invisible="1"/>
+                                <field name="name" required="1"/>
+                                <field name="absence_id" options="{'no_create': True}" domain="[('employee_id','=',employee_id)]"/>
+                                <field name="document_id" options="{'no_create': True}" domain="[('partner_id','=',work_contact_id)]"/>
+                            </group>
+                            <group>
+                                <field name="type_fault_id" options="{'no_create': True}" required="1"/>
+                                <field name="registration_date" required="1"/>
+                                <field name="stage" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_sanctions_search_view">
+            <field name="name">hr_employee_sanctions_search_view</field>
+            <field name="model">hr.employee.sanctions</field>
+            <field name="arch" type="xml">
+                <search string="Sanciones">
+                    <field name="employee_id"/>
+                    <field name="type_fault_id"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

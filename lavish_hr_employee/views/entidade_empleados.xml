@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_setting_form_view" model="ir.ui.view">
+        <field name="name">hr.contract.setting.form</field>
+        <field name="model">hr.contract.setting</field>
+        <field name="arch" type="xml">
+            <form string="Configuración Nómina Entidades">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="contrib_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="date_change"/>
+                            <field name="is_transfer"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_contract_setting_tree_view" model="ir.ui.view">
+        <field name="name">hr.contract.setting.tree</field>
+        <field name="model">hr.contract.setting</field>
+        <field name="arch" type="xml">
+            <tree string="Configuración Nómina Entidades">
+                <field name="employee_id"/>
+                <field name="contrib_id"/>
+                <field name="partner_id"/>
+                <field name="date_change"/>
+                <field name="is_transfer"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_contract_setting_search_view" model="ir.ui.view">
+        <field name="name">hr.contract.setting.search</field>
+        <field name="model">hr.contract.setting</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Configuración">
+                <field name="employee_id"/>
+                <field name="contrib_id"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter string="Traslados" name="transfers" domain="[('is_transfer', '=', True)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Empleado" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Tipo Entidad" name="group_by_contrib" context="{'group_by': 'contrib_id'}"/>
+                    <filter string="Entidad" name="group_by_partner" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_contract_setting" model="ir.actions.act_window">
+        <field name="name">Configuración Nómina Entidades</field>
+        <field name="res_model">hr.contract.setting</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hr_contract_setting_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear nueva configuración de nómina para entidades
+            </p>
+        </field>
+    </record>
+
+    <record id="hr_contract_setting_history_form_view" model="ir.ui.view">
+        <field name="name">hr.contract.setting.history.form</field>
+        <field name="model">hr.contract.setting.history</field>
+        <field name="arch" type="xml">
+            <form string="Histórico Configuración Nómina Entidades">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="contrib_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="date_change"/>
+                            <field name="is_transfer"/>
+                            <field name="date_history"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for History -->
+    <record id="hr_contract_setting_history_tree_view" model="ir.ui.view">
+        <field name="name">hr.contract.setting.history.tree</field>
+        <field name="model">hr.contract.setting.history</field>
+        <field name="arch" type="xml">
+            <tree string="Histórico Configuración Nómina Entidades">
+                <field name="employee_id"/>
+                <field name="contrib_id"/>
+                <field name="partner_id"/>
+                <field name="date_change"/>
+                <field name="date_history"/>
+                <field name="is_transfer"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View for History -->
+    <record id="hr_contract_setting_history_search_view" model="ir.ui.view">
+        <field name="name">hr.contract.setting.history.search</field>
+        <field name="model">hr.contract.setting.history</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Histórico Configuración">
+                <field name="employee_id"/>
+                <field name="contrib_id"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter string="Traslados" name="transfers" domain="[('is_transfer', '=', True)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Empleado" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Tipo Entidad" name="group_by_contrib" context="{'group_by': 'contrib_id'}"/>
+                    <filter string="Entidad" name="group_by_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Fecha Histórico" name="group_by_date_history" context="{'group_by': 'date_history'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for History -->
+    <record id="action_hr_contract_setting_history" model="ir.actions.act_window">
+        <field name="name">Histórico Configuración Entidades</field>
+        <field name="res_model">hr.contract.setting.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hr_contract_setting_history_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay registros históricos disponibles
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu structure for both normal and history -->
+    <menuitem id="menu_hr_contract_setting_main"
+              name="Configuración Entidades"
+              parent="hr.menu_hr_root"
+              sequence="100"/>
+              
+    <menuitem id="menu_hr_contract_setting"
+              name="Configuración Actual"
+              parent="menu_hr_contract_setting_main"
+              action="action_hr_contract_setting"
+              sequence="10"/>
+              
+    <menuitem id="menu_hr_contract_setting_history"
+              name="Histórico"
+              parent="menu_hr_contract_setting_main"
+              action="action_hr_contract_setting_history"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,914 @@
+<odoo>
+    <data>
+
+        <record id="view_lavish_hr_holidays_tree" model="ir.ui.view">
+            <field name="name">hr.holidays.lavish.hr.leave.tree.inherit</field>
+            <field name="model">hr.leave</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="employee_company_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_lavish_hr_holidays_form" model="ir.ui.view">
+            <field name="name">hr.holidays.lavish.hr.leave.form.inherit</field>
+            <field name="model">hr.leave</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form" />
+            <field name="arch" type="xml">
+                <div name="title" position="inside">
+                    <h1 class="d-flex flex-row justify-content-between">
+                        <field name="sequence" readonly="1" force_save="1"/>
+                    </h1>
+                </div>
+                <button name="action_confirm" position="before">
+                    <button name="compute_line" string="Compute Line" type="object"/>
+                </button>
+                <xpath expr="//group[@name='col_left']" position="after">
+                    <group>
+                        <group name="entities" string="Novedad">
+                            <field name="contract_id" readonly="1" force_save="1" />
+                            <field name="is_recovery" invisible="not type_of_entity" />
+                            <field name="type_of_entity" invisible="not type_of_entity" />
+                            <field name="entity" invisible="not type_of_entity" />
+                            <field name="diagnostic" invisible="not type_of_entity" />
+                            <field name="radicado" invisible="not type_of_entity" />
+                            <field name="force_ibc" />
+                            <field name="force_porc" />
+                            <field name="ibc" force_save="1" readonly="force_ibc" />
+                            <field name="payroll_value" />
+                            <field name="days_used" />
+                            <field name="eps_value" invisible="not type_of_entity" />
+                            <field name="payment_date" />
+                            <field name="is_extension" invisible="not type_of_entity" />
+                            <field name="extension_id" invisible="not type_of_entity" />
+                        </group>
+                        <group string="Vacaciones" invisible="not is_vacation" col="4">
+                            <field name="business_days" readonly="1" force_save="1" />
+                            <field name="days_31_business" readonly="1" force_save="1" />
+                            <field name="holidays" readonly="1" force_save="1" />
+                            <field name="days_31_holidays" readonly="1" force_save="1" />
+                            <field name="is_vacation" invisible="1" />
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//sheet[1]" position="inside">
+                    <notebook>
+                        <page name="page_leave_line" string="Lineas de Ausencia">
+                            <field name="line_ids" force_save="1">
+                                <tree>
+                                    <field name="sequence" string="#" optional="hide" />
+                                    <field name="name" />
+                                    <field name="date" />
+                                    <field name="day" />
+                                    <field name="days_payslip" sum="Total Dias" />
+                                    <field name="hours" widget="float_time" sum="Total Horas" />
+                                    <field name="amount" sum="Total Pago" />
+                                    <field name="state" optional="hide" />
+                                    <field name="rule_id" optional="hide" />
+                                    <field name="payslip_id" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_lavish_hr_holidays_form_manager" model="ir.ui.view">
+            <field name="name">hr.holidays.lavish.hr.leave.form.manager.inherit</field>
+            <field name="model">hr.leave</field>
+            <field name="priority">10</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager" />
+            <field name="arch" type="xml">
+                <xpath expr="//widget[@name='hr_leave_stats']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]" position="before">
+                    <field name="alert_days_vacation" readonly="1" invisible="1" />
+                    <div class="alert alert-warning oe_edit_only" role="alert" invisible="not alert_days_vacation"> El empleado solo dispone de <field name="accumulated_vacation_days" readonly="1" />
+ días de vacaciones
+                        pendientes. </div>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="readonly">state not in ('draft', 'confirm')</attribute>
+                    <attribute name="force_save">True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_hr_leave_diagnostic">
+            <field name="name">Diagnosticos Ausencias</field>
+            <field name="res_model">hr.leave.diagnostic</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_leave_diagnostic_list">
+            <field name="name">hr leave diagnostic list</field>
+            <field name="model">hr.leave.diagnostic</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_leave_diagnostic_form">
+            <field name="name">hr leave diagnostic form</field>
+            <field name="model">hr.leave.diagnostic</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_leave_diagnostic_search" model="ir.ui.view">
+            <field name="name">hr leave diagnostic search</field>
+            <field name="model">hr.leave.diagnostic</field>
+            <field name="arch" type="xml">
+                <search string="Diagnosticos Ausencias">
+                    <field name="name" string="Nombre o Código" filter_domain="['|',('name', 'ilike', self), ('code', 'ilike', self)]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="view_lavish_hr_employee_form_contract2" model="ir.ui.view">
+            <field name="name">hr.contract.lavish.hr.employee.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="lavish_hr_employee.view_lavish_hr_employee_form_contract" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='retention_procedure']" position="before">
+                    <field name="contract_days" />
+                    <field name="ded_dependents" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_lavish_hr_employee_form_contract" model="ir.ui.view">
+            <field name="name">hr.contract.lavish.hr.employee.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page string="Historico" name="Historico">
+                        <group>
+                            <p>
+                                <strong> PRIMAS </strong>
+                            </p>
+                            <field name="prima_ids" colspan="2" nolabel="1">
+                                <tree string="Primas">
+                                    <field name="employee_id" />
+                                    <field name="contract_id" />
+                                    <field name="initial_accrual_date" />
+                                    <field name="final_accrual_date" />
+                                    <field name="settlement_date" />
+                                    <field name="base_value" />
+                                    <field name="time" />
+                                    <field name="bonus_value" />
+                                </tree>
+                            </field>
+                            <p>
+                                <strong> CESANTIA </strong>
+                            </p>
+                            <field name="cesantia_ids" colspan="2" nolabel="1">
+                                <tree string="Cesantia">
+                                    <field name="employee_id" />
+                                    <field name="contract_id" />
+                                    <field name="initial_accrual_date" />
+                                    <field name="final_accrual_date" />
+                                    <field name="settlement_date" />
+                                    <field name="base_value" />
+                                    <field name="time" />
+                                    <field name="severance_value" />
+                                    <field name="severance_interest_value" />
+                                </tree>
+                            </field>
+                            <p>1. La captura de acumulados iniciales permite incorporar los valores
+                                de conceptos De Vacaciones</p>
+                            <br />
+                            <p>2. Se Hace un regla de 3 simple</p>
+                            <br />
+                            <p>3. No esta teniendo en cuenta dias no habiles o festivo por la
+                                naturaleza de la operacion</p>
+                            <br />
+                            <p>4. No esta teniendo en cuenta el valor pagado</p>
+                            <br />
+                            <p>5. Si requiere algo mas detallado seria de manera manual, esta opcion
+                                es para cuando no existe forma de tener esa informacion</p>
+                            <group>
+
+                                <button name="get_holiday_book" type="object" string="Calculo vacaciones Saldo Inicial" class="oe_highlight" />
+                            </group>
+                            <group colspan="2">
+                                <field name="days_left" />
+                                <field name="days_total" />
+                                <field name="date_ref_holiday_book" />
+                            </group>
+                            <p>
+                                <strong> VACACIONES </strong>
+                            </p>
+                            <field name="vacaciones_ids">
+                                <tree string="Vacaciones">
+                                    <field name="employee_id" />
+                                    <field name="contract_id" />
+                                    <field name="initial_accrual_date" />
+                                    <field name="final_accrual_date" />
+                                    <field name="base_value" />
+                                    <field name="business_units" />
+                                    <field name="holiday_units" />
+                                    <field name="money_value" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_lavish_hr_employee_rtf_extension" model="ir.ui.view">
+            <field name="name">hr.contract.lavish.rtf.extension</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="lavish_hr_employee.view_lavish_hr_employee_form_contract"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='tributaria']/group" position="after">
+                    <div invisible="retention_procedure != '102'">
+                        <div class="o_horizontal_separator mb-3 mt-3">Cálculo de Retención Semestral (Artículo 383)</div>
+                        <group>
+                            <group>
+                                <field name="rtf_current_period" string="Periodo RTF Actual"/>
+                                <field name="rtf_date_from" string="Fecha Inicio RTF"/>
+                                <field name="rtf_date_to" string="Fecha Fin RTF"/>
+                                <field name="last_rtf_calculation" string="Última Fecha Cálculo RTF"/>
+                            </group>
+                            <group>
+                                <field name="rtf_rate" string="Porcentaje Retención Actual"/>
+                                <field name="rtf_rate_first_semester" string="% 1er Semestre (Dic-May)"/>
+                                <field name="rtf_rate_second_semester" string="% 2do Semestre (Jun-Nov)"/>
+                                <field name="ded_dependents" string="Dependientes"/>
+                                <field name="pr_rtf" string="Primer Cálculo"/>
+                            </group>
+                        </group>
+                        
+                        <div class="d-flex mb-3">
+                            <button name="action_auto_date_first_semester" string="Configurar 1er Semestre" type="object" class="btn btn-primary mr-2" icon="fa-calendar"/>
+                            <button name="action_auto_date_second_semester" string="Configurar 2do Semestre" type="object" class="btn btn-primary mr-2" icon="fa-calendar"/>
+                            <button name="compute_rtf2" string="Calcular RTF" type="object" class="btn btn-success mr-2" icon="fa-calculator"/>
+                            <button name="action_generate_excel" string="Generar Excel" type="object" class="btn btn-info" icon="fa-file-excel-o"/>
+                        </div>
+                        
+                        <group invisible="not excel_file">
+                            <field name="excel_filename" invisible="1"/>
+                            <field name="excel_file" filename="excel_filename" widget="binary"/>
+                        </group>
+                        
+                        <div class="o_horizontal_separator mb-3 mt-3">Detalle Cálculo RTF</div>
+                            <field name="rtf_log" invisible="not rtf_current_period" domain="[('calculation_period', '=', rtf_current_period)]">
+                                <tree decoration-info="concept_type=='income'" decoration-warning="concept_type=='deduction'" decoration-success="concept_type=='exempt'" decoration-danger="concept_type=='summary'" decoration-bf="concept_code in ('TOTAL_ING', 'TOTAL_INCRGO', 'NETO', 'TOTAL_DED', 'TOTAL_RE', 'BASE_RET', 'PORC_RET')">
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                    <field name="concept_type" column_invisible="1"/>
+                                    <field name="concept_code" column_invisible="1"/>
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="january" sum="Total" invisible="january == 0"/>
+                                    <field name="february" sum="Total" invisible="february == 0"/>
+                                    <field name="march" sum="Total" invisible="march == 0"/>
+                                    <field name="april" sum="Total" invisible="april == 0"/>
+                                    <field name="may" sum="Total" invisible="may == 0"/>
+                                    <field name="june" sum="Total" invisible="june == 0"/>
+                                    <field name="july" sum="Total" invisible="july == 0"/>
+                                    <field name="august" sum="Total" invisible="august == 0"/>
+                                    <field name="september" sum="Total" invisible="september == 0"/>
+                                    <field name="october" sum="Total" invisible="october == 0"/>
+                                    <field name="november" sum="Total" invisible="november == 0"/>
+                                    <field name="december" sum="Total" invisible="december == 0"/>
+                                </tree>
+                            </field>
+                        </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_contract_kanban_extended" model="ir.ui.view">
+            <field name="name">hr.contract.kanban.extended</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban[@class='o_kanban_small_column']" position="replace">
+                    <kanban class="o_kanban_small_column" default_order="date_end" sample="1">
+                        <field name="employee_id"/>
+                        <field name="activity_state"/>
+                        <field name="state"/>
+                        <field name="emp_identification_id"/>
+                        <field name="name"/>
+                        <field name="job_id"/>
+                        <field name="department_id"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="contract_type"/>
+                        <field name="subcontract_type"/>
+                        <field name="wage"/>
+                        <field name="sequence"/>
+                        <field name="risk_id"/>
+                        <field name="economic_activity_level_risk_id"/>
+                        <field name="contract_days"/>
+                        <field name="ley_2101"/>
+                        <field name="remote_work_allowance"/>
+                        <field name="minimum_wage"/>
+                        <field name="skip_commute_allowance"/>
+                        <field name="not_pay_overtime"/>
+                        <field name="pay_auxtransportation"/>
+                        <field name="method_schedule_pay"/>
+                        <field name="not_validate_top_auxtransportation"/>
+                        <field name="retention_procedure"/>
+                        <field name="proyectar_fondos"/>
+                        <field name="proyectar_ret"/>
+                        <field name="payslips_count"/>
+                        
+                        <progressbar field="activity_state" colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"/>
+                        
+                        <templates>
+                            <t t-name="kanban-box">
+                                <!-- Definir colores basados en tipo de contrato -->
+                                <t t-set="contract_color" t-value="record.contract_type.raw_value == 'fijo' || record.contract_type.raw_value == 'fijo_parcial' ? '#3498db' :                                                    record.contract_type.raw_value == 'obra' || record.contract_type.raw_value == 'obra_parcial' || record.contract_type.raw_value == 'obra_integral' ? '#e74c3c' :                                                    record.contract_type.raw_value == 'indefinido' ? '#2ecc71' :                                                    record.contract_type.raw_value == 'aprendizaje' ? '#f39c12' :                                                    record.contract_type.raw_value == 'temporal' ? '#9b59b6' : '#95a5a6'"/>
+                                                                    
+                                <div class="oe_kanban_card oe_kanban_global_click rounded-3 bg-white shadow-sm border contract-card" t-attf-style="border-top: 3px solid #{contract_color}">
+                                    <!-- Código de contrato con secuencia + nombre del contrato -->
+                                    <div class="d-flex flex-column p-2 border-bottom">
+                                        <div class="d-flex align-items-center mb-1">
+                                            <div class="rounded-pill bg-light px-2 py-1 me-2 small">
+                                                CL-<field name="sequence"/>
+                                            </div>
+                                            <div class="fw-bold text-truncate">
+                                                <field name="name"/>
+                                            </div>
+                                            <div class="ms-auto d-flex align-items-center">
+                                                <field name="kanban_state" widget="state_selection" class="me-1"/>
+                                                <div class="o_dropdown_kanban dropdown" t-if="!selection_mode" groups="hr_contract.group_hr_contract_manager">
+                                                    <a class="dropdown-toggle o-no-caret btn py-0 px-1 rounded-circle" role="button" data-bs-toggle="dropdown" data-bs-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                                        <span class="fa fa-ellipsis-v"/>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end rounded-3" role="menu">
+                                                        <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item fs-8">Editar Contrato</a></t>
+                                                        <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item fs-8">Eliminar</a></t>
+                                                        <a role="menuitem" class="dropdown-item fs-8" name="action_state_open" invisible="state != 'draft'">Activar</a>
+                                                        <a role="menuitem" class="dropdown-item fs-8" name="action_state_finished" invisible="state != 'open'">Finalizar por liquidar</a>
+                                                        <a role="menuitem" class="dropdown-item fs-8" name="action_state_cancel">Cancelar</a>
+                                                        <a role="menuitem" class="dropdown-item fs-8" name="generate_labor_certificate">Certificado Laboral</a>
+                                                        <a role="menuitem" class="dropdown-item fs-8" name="generate_report_severance">Carta retiro de cesantías</a>
+                                                        <a role="menuitem" class="dropdown-item fs-8" name="action_open_payslips">Ver nóminas</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="fw-medium text-truncate fs-7 employee-name">
+                                            <field name="employee_id"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Datos de empleado y CC -->
+                                    <div class="px-2 pt-2">
+                                        <!-- Tipo de contrato -->
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <span class="badge rounded-pill py-1 px-2 text-white me-1" t-attf-style="background-color: #{contract_color};">
+                                                    <i t-if="record.contract_type.raw_value == 'fijo' || record.contract_type.raw_value == 'fijo_parcial'" class="fa fa-calendar me-1"/>
+                                                    <i t-elif="record.contract_type.raw_value == 'obra' || record.contract_type.raw_value == 'obra_parcial' || record.contract_type.raw_value == 'obra_integral'" class="fa fa-wrench me-1"/>
+                                                    <i t-elif="record.contract_type.raw_value == 'indefinido'" class="fa fa-infinity me-1"/>
+                                                    <i t-elif="record.contract_type.raw_value == 'aprendizaje'" class="fa fa-graduation-cap me-1"/>
+                                                    <i t-elif="record.contract_type.raw_value == 'temporal'" class="fa fa-hourglass-half me-1"/>
+                                                    <i t-else="" class="fa fa-file-text-o me-1"/>
+                                                    
+                                                    <t t-if="record.contract_type.raw_value == 'fijo'">Fijo</t>
+                                                    <t t-elif="record.contract_type.raw_value == 'fijo_parcial'">Fijo P.</t>
+                                                    <t t-elif="record.contract_type.raw_value == 'obra'">Obra</t>
+                                                    <t t-elif="record.contract_type.raw_value == 'indefinido'">Indefinido.</t>
+                                                    <t t-elif="record.contract_type.raw_value == 'aprendizaje'">Aprendizaje.</t>
+                                                    <t t-elif="record.contract_type.raw_value == 'temporal'">Temporal.</t>
+                                                    <t t-else=""><field name="contract_type"/></t>
+                                                    
+                                                    <t t-if="record.subcontract_type.raw_value == 'obra_parcial'"> - Parcial</t>
+                                                    <t t-elif="record.subcontract_type.raw_value == 'obra_integral'"> - Integral</t>
+                                                    <t t-elif="record.subcontract_type.raw_value"> - <field name="subcontract_type"/></t>
+                                                </span>
+                                            </div>
+                                            <div class="text-muted small">
+                                                CC: <field name="emp_identification_id"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Alerta de fin de contrato -->
+                                        <t t-if="record.date_end.raw_value">
+                                            <t t-set="today" t-value="new Date()"/>
+                                            <t t-set="end_date" t-value="new Date(record.date_end.raw_value)"/>
+                                            <t t-set="days_left" t-value="Math.ceil((end_date - today) / (1000 * 60 * 60 * 24))"/>
+                                            <div t-if="days_left &gt; 15 &amp;&amp; days_left &gt; 40" class="alert alert-warning py-1 px-2 small rounded-pill mb-2 text-center">
+                                                <i class="fa fa-exclamation-triangle me-1"/> Crear actividad de finalización
+                                            </div>
+                                        </t>
+
+                                        <!-- Departamento y puesto solo si existen -->
+                                        <div class="d-flex flex-column mb-2">
+                                            <div t-if="record.department_id.raw_value" class="d-flex align-items-center text-muted small">
+                                                <i class="fa fa-building me-1 opacity-50 rounded-circle bg-light p-1"/>
+                                                <div class="text-truncate"><field name="department_id"/></div>
+                                            </div>
+                                            <div t-if="record.job_id.raw_value" class="d-flex align-items-center text-muted small">
+                                                <i class="fa fa-briefcase me-1 opacity-50 rounded-circle bg-light p-1"/>
+                                                <div class="text-truncate"><field name="job_id"/></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fechas compactas -->
+                                        <div class="d-flex justify-content-between small mb-2">
+                                            <div>
+                                                <div class="text-muted">Inicio</div>
+                                                <div><field name="date_start"/></div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="text-muted">Fin</div>
+                                                <div><field name="date_end"/></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Niveles e información técnica -->
+                                        <div class="d-flex flex-column mb-2">
+                                            <div t-if="record.risk_id.raw_value" class="d-flex align-items-center small">
+                                                <span class="badge rounded-pill bg-danger text-white me-1">ARL</span>
+                                                <span>Nivel <field name="risk_id"/> - <field name="economic_activity_level_risk_id"/></span>
+                                            </div>
+                                            <div t-if="record.retention_procedure.raw_value" class="d-flex align-items-center small">
+                                                <span class="badge rounded-pill bg-secondary text-white me-1">RET</span>
+                                                <span><field name="retention_procedure"/></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Indicadores en línea -->
+                                        <div class="d-flex flex-wrap gap-1 mb-2" style="font-size:10px">
+                                            <span t-if="record.ley_2101.raw_value" class="rounded-circle badge-icon bg-success text-white">LEY</span>
+                                            <span t-if="record.skip_commute_allowance.raw_value" class="rounded-circle badge-icon bg-danger text-white">SCO</span>
+                                            <span t-if="record.remote_work_allowance.raw_value" class="rounded-circle badge-icon bg-info text-white">REM</span>
+                                            <span t-if="record.minimum_wage.raw_value" class="rounded-circle badge-icon bg-warning text-dark">MIN</span>
+                                            <span t-if="record.not_validate_top_auxtransportation.raw_value" class="rounded-circle badge-icon bg-secondary text-white">NVT</span>
+                                            <span t-if="record.not_pay_overtime.raw_value" class="rounded-circle badge-icon bg-dark text-white">NHE</span>
+                                            <span t-if="record.pay_auxtransportation.raw_value" class="rounded-circle badge-icon bg-primary text-white">TRA</span>
+                                            <span t-if="record.proyectar_fondos.raw_value" class="rounded-circle badge-icon bg-violet text-white">FON</span>
+                                            <span t-if="record.proyectar_ret.raw_value" class="rounded-circle badge-icon bg-indigo text-white">RET</span>
+                                        </div>
+
+                                        <!-- Días y tipo de pago -->
+                                        <div class="d-flex justify-content-between align-items-center mb-1 small">
+                                            <div class="text-muted">
+                                                <t t-if="record.contract_days.raw_value == 0">
+                                                    <t t-set="days" t-value="Math.ceil((new Date() - new Date(record.date_start.raw_value)) / (1000 * 60 * 60 * 24))"/>
+                                                    <t t-esc="days"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <field name="contract_days"/>
+                                                </t>
+                                                días | <t t-if="record.method_schedule_pay.raw_value == 'bi-weekly'">Quincenal</t><t t-else="">Mensual</t>
+                                            </div>
+                                            <!-- Porcentaje de progreso -->
+                                            <t t-if="record.date_end.raw_value">
+                                                <t t-set="today" t-value="new Date().toISOString().split('T')[0]"/>
+                                                <t t-set="end_date" t-value="record.date_end.raw_value"/>
+                                                <t t-set="start_date" t-value="record.date_start.raw_value"/>
+                                                <t t-set="progress" t-value="((new Date(today) - new Date(start_date)) / (new Date(end_date) - new Date(start_date))) * 100"/>
+                                                <t t-set="progress_rounded" t-value="Math.min(100, Math.max(0, Math.round(progress)))"/>
+                                                <t t-set="days_to_next_payslip" t-value="record.method_schedule_pay.raw_value == 'bi-weekly' ? (15 - (Math.ceil((new Date() - new Date(record.date_start.raw_value)) / (1000 * 60 * 60 * 24)) % 15)) : (30 - (Math.ceil((new Date() - new Date(record.date_start.raw_value)) / (1000 * 60 * 60 * 24)) % 30))"/>
+                                                <span class="badge text-white rounded-pill" t-attf-style="background-color: #{progress_rounded &gt;= 100 ? '#e74c3c' : progress_rounded &gt;= 70 ? '#f39c12' : '#2ecc71'};">
+                                                    <t t-esc="progress_rounded"/>% 
+                                                    <i class="fa fa-calendar-check-o ms-1" t-attf-title="#{days_to_next_payslip} días para próxima nómina"/>
+                                                </span>
+                                            </t>
+                                        </div>
+
+                                        <!-- Barra de progreso -->
+                                        <div t-if="record.date_end.raw_value" class="progress rounded-pill mb-2" style="height: 4px; background-color: #f5f5f5;">
+                                            <div t-attf-class="progress-bar" t-attf-style="width: #{Math.min(100, Math.max(0, progress))}%; background-color: #{progress_rounded &gt;= 100 ? '#e74c3c' : progress_rounded &gt;= 70 ? '#f39c12' : '#2ecc71'};">
+                                            </div>
+                                        </div>
+
+                                        <!-- Acciones rápidas -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm rounded-circle btn-light border action-btn" name="action_state_open" invisible="state != 'draft'" type="object" title="Activar">
+                                                    <span class="action-text text-success">A</span>
+                                                </button>
+                                                <button class="btn btn-sm rounded-circle btn-light border action-btn" name="action_state_finished" type="object" invisible="state != 'open'" title="Finalizar por liquidar">
+                                                    <span class="action-text text-warning">F</span>
+                                                </button>
+                                                <button class="btn btn-sm rounded-circle btn-light border action-btn" name="action_state_cancel" type="object" title="Cancelar">
+                                                    <span class="action-text text-danger">C</span>
+                                                </button>
+                                                <button class="btn btn-sm rounded-circle btn-light border action-btn" name="generate_labor_certificate" type="object" title="Certificado Laboral">
+                                                    <span class="action-text text-info">CL</span>
+                                                </button>
+                                                <button class="btn btn-sm rounded-circle btn-light border action-btn" name="generate_report_severance" type="object" title="Carta retiro de cesantías">
+                                                    <span class="action-text text-primary">CR</span>
+                                                </button>
+                                                <button class="btn btn-sm rounded-circle btn-light border action-btn" name="action_open_payslips" type="object" groups="hr_payroll.group_hr_payroll_user" title="Ver nóminas">
+                                                    <span class="badge bg-primary rounded-pill text-white payslip-count"><field name="payslips_count"/></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Salario, avatar y actividades en footer -->
+                                        <div class="d-flex justify-content-between align-items-center border-top pt-2 pb-1">
+                                            <div class="fw-medium text-primary">
+                                                <field name="wage" widget="monetary"/> / <t t-if="record.method_schedule_pay.raw_value == 'bi-weekly'">Quinc.</t><t t-else="">Mes</t>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <field name="activity_ids" widget="kanban_activity"/>
+                                                <field name="employee_id" widget="many2one_avatar_employee" class="ms-2"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                        
+                        <style>
+                        body {
+                            font-family: Helvetica, Arial, sans-serif;
+                        }
+                        .contract-card {
+                            width: 270px !important;
+                            max-width: 270px !important;
+                            margin: 0.75rem !important;
+                            transition: all 0.2s ease;
+                            font-family: Helvetica, Arial, sans-serif !important;
+                            box-sizing: border-box !important;
+                        }
+                        .contract-card:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+                        }
+                        .employee-name {
+                            color: #555;
+                        }
+                        .card-content {
+                            font-size: 12px;
+                        }
+                        .status-circle {
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 50%;
+                        }
+                        .dropdown-item:hover {
+                            background-color: #f8f9fa;
+                            border-radius: 0.5rem;
+                        }
+                        .o_kanban_small_column {
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            padding: 0 0.5rem;
+                            font-family: Helvetica, Arial, sans-serif !important;
+                        }
+                        .o_kanban_record {
+                            margin: 0 0.5rem 1rem 0.5rem !important;
+                            max-width: 270px !important;
+                        }
+                        .badge-icon {
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 30px;
+                            height: 30px;
+                            font-size: 9px;
+                            font-weight: normal;
+                        }
+                        .bg-violet {
+                            background-color: #9b59b6;
+                        }
+                        .bg-indigo {
+                            background-color: #3498db;
+                        }
+                        .action-buttons {
+                            display: flex;
+                            gap: 5px;
+                        }
+                        .action-btn {
+                            width: 30px;
+                            height: 30px;
+                            padding: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .action-text {
+                            font-size: 11px;
+                            font-weight: bold;
+                        }
+                        .payslip-count {
+                            font-size: 10px;
+                            min-width: 16px;
+                        }
+                        </style>
+                    </kanban>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_leave_form_extended" model="ir.ui.view">
+            <field name="name">hr.leave.form.extended</field>
+            <field name="model">hr.leave</field>
+            <field name="arch" type="xml">
+                <form string="Solicitud de Ausencia">
+                    <field name="active" invisible="1"/>
+                    <field name="can_reset" invisible="1"/>
+                    <field name="can_approve" invisible="1"/>
+                    <field name="can_cancel" invisible="1"/>
+                    <field name="has_mandatory_day" invisible="1"/>
+                    <field name="payslip_state" invisible="1"/>
+                    <field name="tz_mismatch" invisible="1"/>
+                    <field name="leave_type_request_unit" invisible="1"/>
+                    <field name="is_vacation" invisible="1"/>
+                    <field name="is_vacation_money" invisible="1"/>
+                    <field name="alert_days_vacation" readonly="1" invisible="1"/>
+                    <field name="holiday_status_id" invisible="1"/>
+                    <field name="available_vacation_days" invisible="1" force_save="1"/>
+                    <field name="employee_company_id" invisible="1" force_save="1" />
+                    <field name="is_vacation_interrupted" invisible="1" force_save="1" />
+                    <field name="min_payment_message" invisible="1" force_save="1" />
+                    <field name="min_payment_warning" invisible="1" force_save="1" />
+                    <field name="holiday_warning_message" invisible="1" force_save="1" />
+                    <field name="holiday_warning" invisible="1" force_save="1" />
+                    <header>
+                        <button name="recompute_amounts" string="Regenera Montos" type="object" class="btn-secondary" help="Recalcular las líneas de ausencia"/>
+                        <button name="compute_line" string="Recalcular" type="object" class="btn-secondary" help="Recalcular las líneas de ausencia"/>
+                        <button string="Confirmar" name="action_confirm" type="object" class="oe_highlight" invisible="id == False or state != 'draft' or not active"/>
+                        <button string="Aprobar" name="action_approve" type="object" class="oe_highlight" invisible="not active or not can_approve or state != 'confirm'"/>
+                        <button string="Validar" name="action_validate" invisible="state != 'validate1'" type="object" class="oe_highlight"/>
+                        <button string="Trasladar al Siguiente Mes" name="action_report_to_next_month" type="object" class="oe_highlight" invisible="payslip_state != 'blocked' or state != 'validate'"/>
+                        <button string="Rechazar" name="action_refuse" type="object" invisible="not active or not can_approve or state not in ('confirm', 'validate1', 'validate')"/>
+                        <button string="Cancelar" name="action_cancel" type="object" invisible="not active or not can_cancel"/>
+                        <button string="Volver a Borrador" name="action_draft" type="object" invisible="not can_reset or state not in ['confirm', 'refuse']"/>
+                        <!-- <button string="Interrumpir" name="action_interrupt" type="object" class="btn-warning" invisible="not is_vacation or state != 'validate' or is_vacation_interrupted"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate" invisible="not active"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Cancelada" bg_color="text-bg-danger" invisible="active"/>
+                        <widget name="web_ribbon" title="Interrumpida" bg_color="text-bg-warning" invisible="not is_vacation_interrupted"/>
+                        <div class="alert alert-info" role="alert" invisible="not request_unit_hours or not tz_mismatch or holiday_type == 'category'">
+                            <span invisible="holiday_type != 'employee'">
+                                ¡El empleado tiene una zona horaria diferente a la suya! Aquí se muestran las fechas y horas en la zona horaria del empleado
+                            </span>
+                            <span invisible="holiday_type != 'department'">
+                                ¡La empresa del departamento tiene una zona horaria diferente a la suya! Aquí se muestran las fechas y horas en la zona horaria de la empresa
+                            </span>
+                            <span invisible="holiday_type != 'company'">
+                                ¡La empresa tiene una zona horaria diferente a la suya! Aquí se muestran las fechas y horas en la zona horaria de la empresa
+                            </span>
+                            (                        <field name="tz"/>
+    ).
+                        </div>
+
+                        <div class="alert alert-warning" role="alert" invisible="not alert_days_vacation">
+                            <strong>Advertencia:</strong> El empleado solo dispone de <field name="accumulated_vacation_days" readonly="1" class="oe_inline" force_save="1"/>
+    días de vacaciones pendientes.
+                        </div>
+
+                        <div class="alert alert-warning" role="alert" invisible="not min_payment_warning">
+                            <field name="min_payment_message" force_save="1"/>
+                        </div>
+
+                        <div class="alert alert-info" role="alert" invisible="not holiday_warning">
+                            <field name="holiday_warning_message" force_save="1"/>
+                        </div>
+                        <div class="oe_title">
+                            <span class="o_form_label">
+                                <field name="type_name" readonly="1" nolabel="1" force_save="1"/>
+                            </span>
+                            <h1>
+                                <field name="sequence" readonly="1" nolabel="1" force_save="1"/>
+                            </h1>
+                            <h3>
+                                <field name="display_name" placeholder="Descripción de la ausencia"/>
+                            </h3>
+                        </div>
+
+                        <group>
+                            <group name="employee_details">
+                                <field name="is_user_only_responsible" invisible="1"/>
+                                <field name="holiday_type" string="Modo" readonly="state not in ['confirm', 'draft']"/>
+                                <field name="mode_company_id" string="Compañía" invisible="holiday_type != 'company'" readonly="state not in ['confirm', 'draft']" required="holiday_type == 'company'"/>
+                                <field name="category_id" invisible="holiday_type != 'category'" readonly="state not in ['confirm', 'draft']" required="holiday_type == 'category'"/>
+                                <field name="department_id" invisible="holiday_type != 'department'" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']" required="holiday_type == 'department'"/>
+                                <field name="multi_employee" invisible="1" force_save="1"/>
+                                <field name="employee_id" invisible="holiday_type != 'employee' or state != 'validate' or not employee_id" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']" widget="many2one_avatar_user"/>
+                                <field name="employee_ids" invisible="holiday_type != 'employee' or (state == 'validate' and employee_id)" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']" required="holiday_type == 'employee' and state in ('draft', 'cancel', 'refuse')" widget="many2many_tags_avatar"/>
+                                <field name="employee_id" readonly="state != 'draft'"/>
+                                <field name="holiday_status_id" force_save="1" domain="['|', ('requires_allocation', '=', 'no'), '&amp;', ('has_valid_allocation', '=', True), '&amp;', ('virtual_remaining_leaves', '&gt;', 0), ('max_leaves', '&gt;', '0')]" context="{'employee_id':employee_id, 'default_date_from':date_from, 'default_date_to':date_to}" options="{'no_create': True, 'no_open': True, 'request_type':'leave'}"/>
+                                <field name="payroll_code" force_save="1"/>
+                                <field name="request_unit_half" readonly="state not in ('draft', 'confirm')"/>
+                                <field name="request_unit_hours" readonly="state == 'validate'"/>
+                                <label for="date_from" string="Fecha" invisible="not request_unit_hours"/>
+                                <div class="o_row" invisible="not request_unit_hours">
+                                    <span class="text-muted">Desde</span>
+                                    <field name="date_from" class="oe_inline" readonly="state not in ('draft', 'confirm')" required="not date_from or not date_to" widget="daterange" options="{'related_end_date': 'date_to'}"/>
+                                    <span class="text-muted">Hasta</span>
+                                    <field name="date_to" class="oe_inline" readonly="state not in ('draft', 'confirm')" required="not date_from or not date_to" widget="daterange" options="{'related_end_date': 'date_from'}"/>
+                                </div>
+                                <label for="request_date_from" invisible="request_unit_half or request_unit_hours" string="Fecha"/>
+                                <div class="o_row" invisible="request_unit_half or request_unit_hours">
+                                    <span class="text-muted">Desde</span>
+                                    <field name="request_date_from" class="oe_inline" readonly="state not in ('draft', 'confirm')" required="not date_from or not date_to" widget="daterange" options="{'related_end_date': 'request_date_to'}"/>
+                                    <span class="text-muted">Hasta</span>
+                                    <field name="request_date_to" class="oe_inline" readonly="state not in ('draft', 'confirm')" required="not date_from or not date_to" widget="daterange" options="{'related_end_date': 'request_date_from'}"/>
+                                </div>
+                                <label for="request_hour_from" string="" invisible="not request_unit_hours"/>
+                                <div class="o_row o_row_readonly" invisible="not request_unit_hours">
+                                    <label for="request_hour_from" string="From"/>
+                                    <field name="request_hour_from" invisible="not request_unit_hours" readonly="state == 'validate'" required="request_unit_hours"/>
+                                    <label for="request_hour_to" string="To"/>
+                                    <field name="request_hour_to" invisible="not request_unit_hours" readonly="state == 'validate'" required="request_unit_hours"/>
+                                </div>
+                                <field name="number_of_days_display" invisible="1" readonly="1" force_save="1"/>
+                                <field name="number_of_days" readonly="1" force_save="1"/>
+                                <field name="number_of_hours_display" widget="float_time" force_save="1"/>
+                            </group>
+
+                            <!-- Columna Derecha -->
+                            <group name="additional_info">
+                                <field name="contract_id" readonly="1" force_save="1"/>
+                                <field name="name" widget="text" placeholder="Descripción o motivo"/>
+                                <field name="return_date" readonly="1" force_save="1"/>
+                                <field name="ibc" force_save="1"/>
+                                <field name="ibc_pila" force_save="1"/>
+                                <field name="use_ibc_pila"/>
+                            </group>
+                        </group>
+
+                        <!-- Sección de Información General -->
+                        <group string="Información General">
+                            <group>
+                                <field name="apply_payslip_pay_31" readonly="state != 'draft'" force_save="1"/>
+                                <field name="force_ibc"/>
+                                <field name="force_porc"/>
+                                <field name="payroll_value" readonly="1" force_save="1"/>
+                                <field name="ibl_total" readonly="1" force_save="1"/>
+                                <field name="diferencia_ibc" readonly="1" force_save="1" invisible="diferencia_ibc == 0"/>
+                                <field name="pay_out_slip" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Información de la entidad" invisible="not type_of_entity">
+                                <field name="is_recovery" invisible="not type_of_entity"/>
+                                <field name="type_of_entity" invisible="not type_of_entity"/>
+                                <field name="entity" invisible="not type_of_entity"/>
+                                <field name="diagnostic" invisible="not type_of_entity"/>
+                                <field name="radicado" invisible="not type_of_entity"/>
+                                <field name="is_extension" invisible="not type_of_entity"/>
+                                <field name="extension_id" invisible="not is_extension"/>
+                                <field name="payroll_value_with_extension" readonly="1" force_save="1" invisible="not is_extension"/>
+                                <field name="eps_value_with_extension" readonly="1" force_save="1" invisible="not is_extension"/>
+                            </group>
+                        </group>
+
+                        <!-- Sección de interrupción de vacaciones -->
+                        <group string="Información de Interrupción" invisible="not is_vacation">
+                            <group>
+                                <field name="vacation_interruption_date" readonly="1" force_save="1"/>
+                                <field name="vacation_interruption_reason_id" readonly="1" force_save="1"/>
+                                <field name="vacation_days_returned" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="vacation_will_return" readonly="state != 'draft'"/>
+                                <field name="vacation_return_date" />
+                                <field name="vacation_interruption_detail" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+
+                        <!-- Sección de Vacaciones en Dinero -->
+                        <group>
+                            <group string="Vacaciones en Dinero" invisible="not is_vacation_money">
+                                <field name="number_of_vac_money_days" force_save="1"/>
+                                <field name="payed_vac" readonly="state != 'draft'" force_save="1"/>
+                                <field name="special_vac_base" readonly="state != 'draft'" force_save="1"/>
+                            </group>
+                            <!-- Sección de Vacaciones -->
+                            <group string="Detalle de Vacaciones" invisible="not is_vacation">
+                                <field name="business_days" readonly="1" force_save="1"/>
+                                <field name="days_31_business" readonly="1" force_save="1" invisible="not apply_payslip_pay_31"/>
+                                <field name="holidays" readonly="1" force_save="1"/>
+                                <field name="days_31_holidays" readonly="1" force_save="1" invisible="not apply_payslip_pay_31"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Líneas de Ausencia">
+                                <field name="line_ids" readonly="1">
+                                    <tree>
+                                        <field name="sequence" string="#"/>
+                                        <field name="date"/>
+                                        <field name="day"/>
+                                        <field name="days_payslip" sum="Total Días"/>
+                                        <field name="hours" widget="float_time" sum="Total Horas"/>
+                                        <field name="amount" sum="Total Pago"/>
+                                        <field name="is_unused" />
+                                        <field name="state" widget="badge" decoration-success="state == 'paid'" decoration-info="state == 'draft'" decoration-warning="state == 'unused'"/>
+                                        <field name="rule_id"/>
+                                        <field name="payslip_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Ausencias en el Mes">
+                                <div class="o_hr_leave_column col_right col-md-6 col-12">
+                                    <widget name="hr_leave_stats"/>
+                                </div>
+                            </page>
+                            <page string="Resumen" name="summary_page">
+                                <field name="resumen_calculo" readonly="1" nolabel="1" force_save="1" widget="html"/>
+                            </page>
+                        </notebook>
+
+                        <!-- Totales -->
+                        <group class="oe_subtotal_footer oe_right">
+                            <group string="Resumen de Días" name="days_summary">
+                                <field name="days_work_count" readonly="1" force_save="1" string="Días laborables"/>
+                                <field name="days_rest_count" readonly="1" force_save="1" string="Días de descanso"/>
+                                <field name="business_days" readonly="1" force_save="1" string="Días hábiles" invisible="not is_vacation"/>
+                                <field name="holidays" readonly="1" force_save="1" string="Días festivos" />
+                                <field name="days_31_business" readonly="1" force_save="1" string="Días 31 hábiles" invisible="not apply_payslip_pay_31"/>
+                                <field name="days_31_holidays" readonly="1" force_save="1" string="Días 31 festivos" invisible="not apply_payslip_pay_31"/>
+                            </group>
+                            <group string="Totales" name="totals_summary">
+                                <field name="number_of_days_temp" force_save="1" string="Total días"/>
+                                <field name="number_of_days_in_payslip" force_save="1" string="Días en nómina"/>
+                                <field name="number_of_hours" force_save="1" string="Total horas"/>
+                                <field name="number_of_hours_in_payslip" force_save="1" string="Horas en nómina"/>
+                                <field name="payroll_value" class="oe_subtotal_footer_separator" widget="monetary" force_save="1" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_hr_holidays_views" model="ir.actions.act_window">
+            <field name="name">Ausencias</field>
+            <field name="res_model">hr.leave</field>
+            <field name="view_mode">tree,kanban,calendar,gantt,form</field>
+            <field name="search_view_id" ref="hr_holidays.hr_leave_view_search_manager"/>
+            <field name="view_id" ref="view_hr_leave_form_extended"/>
+            <field name="context">{     
+                            'search_default_active_employee': 3,            
+                            'search_default_active_time_off': 4,            
+                            'hide_employee_name': 1,            
+                            'holiday_status_name_get': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                        Cree su primera solicitud de ausencia
+                </p>
+            </field>
+        </record>
+
+        <record id="action_hr_holidays_views_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="hr_holidays.hr_leave_view_tree"/>
+            <field name="act_window_id" ref="action_hr_holidays_views"/>
+        </record>
+
+        <record id="action_hr_holidays_views_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="hr_holidays.hr_leave_view_kanban"/>
+            <field name="act_window_id" ref="action_hr_holidays_views"/>
+        </record>
+
+        <record id="action_hr_holidays_views_calendar" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="hr_holidays.hr_leave_view_calendar"/>
+            <field name="act_window_id" ref="action_hr_holidays_views"/>
+        </record>
+
+        <record id="action_hr_holidays_views_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_hr_leave_form_extended"/>
+            <field name="act_window_id" ref="action_hr_holidays_views"/>
+        </record>
+
+
+    </data>
+</odoo>

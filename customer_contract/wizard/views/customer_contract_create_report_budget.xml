@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="customer_contract_create_report_budget_form" model="ir.ui.view">
+            <field name="name">customer.contract.create.report.budget.form</field>
+            <field name="model">customer.contract.create.report.budget</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="group_general">
+                            <group name="group_general_left">
+                                <field name="name" />
+                                <field name="amount" />
+                            </group>
+                            <group name="group_general_right">
+                                <field name="type" />
+                                <field name="file" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_customer_contract_report_budget" type="object" string="Crear documento" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_contract_create_report_budget_action" model="ir.actions.act_window">
+            <field name="name">Crear Documento</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.contract.create.report.budget</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

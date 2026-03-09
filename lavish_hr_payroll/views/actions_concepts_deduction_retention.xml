@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+		<!-- Tipos impuestos retención -->
+		<record model="ir.actions.act_window"  id="action_hr_type_tax_retention">
+				<field name="name">Tipos de impuestos</field>
+				<field name="res_model">hr.type.tax.retention</field>
+				<field name="view_mode">tree</field>
+		</record>
+        <record model="ir.ui.view" id="lavish_hr_payroll.list_hr_type_tax_retention">
+			    <field name="name">hr type tax retention list</field>
+			    <field name="model">hr.type.tax.retention</field>
+			    <field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="code"/>                
+					<field name="name"/>           					
+				</tree>
+			</field>
+		</record>
+		<!-- Detalle RteFte - Calculada -->
+		<record model="ir.actions.act_window"  id="action_hr_employee_rtefte">
+				<field name="name">Detalle RteFte - Calculada</field>
+				<field name="res_model">hr.employee.rtefte</field>
+				<field name="view_mode">tree,form</field>
+		</record>
+        <record model="ir.ui.view" id="lavish_hr_payroll.list_hr_employee_rtefte">
+			    <field name="name">hr type tax retention list</field>
+			    <field name="model">hr.employee.rtefte</field>
+			    <field name="arch" type="xml">
+					<form>
+						<group>
+							<group>
+									<field name="employee_id"/>                                            
+							</group>
+							<group>
+									<field name="year"/>
+									<field name="month"/>									
+							</group>							
+						</group>
+						<group string="Retención en la fuente">
+								<field name="deduction_retention" nolabel="1">    
+									<tree>
+										<field name="concept_deduction_id"/>									
+										<field name="concept_deduction_code"/>									
+										<field name="concept_deduction_order"/>									
+										<field name="result_base"/>									
+										<field name="result_calculation"/>									
+									</tree>
+								</field>                                    								
+						</group>	
+					</form>
+			</field>
+		</record>
+		<!-- Conceptos de deducción y retención -->
+        <record model="ir.actions.act_window"  id="action_hr_concepts_deduction_retention">
+				<field name="name">Reglas de deducción tributaria</field>
+				<field name="res_model">hr.concepts.deduction.retention</field>
+				<field name="view_mode">tree,form</field>
+		</record>
+        <record model="ir.ui.view" id="lavish_hr_payroll.list_hr_concepts_deduction_retention">
+			    <field name="name">hr concepts deduction retention list</field>
+			    <field name="model">hr.concepts.deduction.retention</field>
+			    <field name="arch" type="xml">
+				<tree>
+					<field name="code"/>                
+					<field name="name"/>           
+					<field name="type_tax"/> 					
+					<field name="order"/> 					
+				</tree>
+			</field>
+		</record>
+        <record model="ir.ui.view" id="lavish_hr_payroll.form_hr_concepts_deduction_retention">
+			<field name="name">hr concepts deduction retention form</field>
+			<field name="model">hr.concepts.deduction.retention</field>
+			<field name="arch" type="xml">
+				<form>
+                    <sheet>
+						<group>
+							<group>
+									<field name="code"/>
+									<field name="order"/>									
+									<field name="percentage"/>
+							</group>
+							<group>
+									<field name="name"/>
+									<field name="type_tax"/>									
+							</group>							
+						</group>						
+						<group string="Código python" style="border-style:solid; padding:10px">
+							<group colspan="4">
+								<field name="base"/>  
+							</group> 
+							<group colspan="4">
+								<field name="calculation"/>							
+							</group>	
+						</group>						 											
+                    </sheet>
+                </form>
+			</field>
+		</record>
+    </data>
+</odoo>

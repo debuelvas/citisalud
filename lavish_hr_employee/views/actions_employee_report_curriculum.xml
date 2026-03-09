@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="action_server_hr_employee_report_curriculum">
+            <field name="name">Generar informe configurable hoja de vida</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = env['hr.employee'].browse(env.context['id']).open_hr_employee_report_curriculum()
+            </field>
+        </record>
+
+        <record id="action_hr_employee_report_curriculum" model="ir.actions.act_window">
+            <field name="name">Informe configurable hoja de vida</field>
+            <field name="res_model">hr.employee.report.curriculum</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="form_hr_employee_report_curriculum">
+            <field name="name">form hr_employee_report_curriculum</field>
+            <field name="model">hr.employee.report.curriculum</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Informe configurable hoja de vida">
+                        <group>
+                            <field name="employee_ids" required="1" readonly="1" force_save="1" widget="many2many_tags"/>
+                            <field name="include_resume_curriculum"/>
+                        </group>
+                        <group>
+                            <field name="favorite_id"/>
+                            <field name="domain_documents" widget="domain" options="{'model': 'documents.document', 'in_dialog': True}"/>
+                            <field name="order_fields" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="save_favorite"/>
+                            </group>
+                            <group>
+                                <field name="name" required="save_favorite == True" invisible="save_favorite == False"/>
+                            </group>
+                        </group>
+                        <group string="Documentos">
+                            <field name="document_ids" nolabel="1" can_create="false">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="partner_id" readonly="1" force_save="1"/>
+                                    <field name="document_id" readonly="1" force_save="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="generate_pdf" class="oe_highlight" string="Generar" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

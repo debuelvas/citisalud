@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vistas para Health Coverage Plan -->
+    <record id="view_health_coverage_plan_form" model="ir.ui.view">
+        <field name="name">health.coverage.plan.form</field>
+        <field name="model">health.coverage.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Ej. 01" class="oe_inline"/> - 
+                            <field name="name" placeholder="Nombre del plan" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="requires_policy"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Descripción detallada..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_coverage_plan_tree" model="ir.ui.view">
+        <field name="name">health.coverage.plan.tree</field>
+        <field name="model">health.coverage.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="requires_policy"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_health_coverage_plan_search" model="ir.ui.view">
+        <field name="name">health.coverage.plan.search</field>
+        <field name="model">health.coverage.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vistas para Health Payment Mode -->
+    <record id="view_health_payment_mode_form" model="ir.ui.view">
+        <field name="name">health.payment.mode.form</field>
+        <field name="model">health.payment.mode</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Ej. 01" class="oe_inline"/> - 
+                            <field name="name" placeholder="Nombre de la modalidad" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="requires_period_dates"/>
+                        <field name="is_prospective"/>
+                        <field name="risk_level"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Descripción detallada..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_payment_mode_tree" model="ir.ui.view">
+        <field name="name">health.payment.mode.tree</field>
+        <field name="model">health.payment.mode</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="requires_period_dates"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_health_payment_mode_search" model="ir.ui.view">
+        <field name="name">health.payment.mode.search</field>
+        <field name="model">health.payment.mode</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vistas para Health Collection Concept -->
+    <record id="view_health_collection_concept_form" model="ir.ui.view">
+        <field name="name">health.collection.concept.form</field>
+        <field name="model">health.collection.concept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Ej. 01" class="oe_inline"/> - 
+                            <field name="name" placeholder="Nombre del concepto" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="applies_fev"/>
+                        <field name="applies_rips"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Descripción detallada..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_collection_concept_tree" model="ir.ui.view">
+        <field name="name">health.collection.concept.tree</field>
+        <field name="model">health.collection.concept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="applies_fev"/>
+                <field name="applies_rips"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_health_collection_concept_search" model="ir.ui.view">
+        <field name="name">health.collection.concept.search</field>
+        <field name="model">health.collection.concept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+   <!-- Formulario para Parámetros de Interoperabilidad -->
+   <record id="view_health_interoperability_param_form" model="ir.ui.view">
+        <field name="name">health.interoperability.param.form</field>
+        <field name="model">health.interoperability.param</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="param_type"/>
+                    <field name="name"/>
+                    <field name="value"/>
+                    <field name="sequence"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para Parámetros de Interoperabilidad -->
+    <record id="view_health_interoperability_param_tree" model="ir.ui.view">
+        <field name="name">health.interoperability.param.tree</field>
+        <field name="model">health.interoperability.param</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="param_type"/>
+                <field name="name"/>
+                <field name="value"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulario para Interoperabilidad PT -->
+    <record id="view_health_interoperability_pt_form" model="ir.ui.view">
+        <field name="name">health.interoperability.pt.form</field>
+        <field name="model">health.interoperability.pt</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="partner_id"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="description"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <notebook>
+                        <page string="URL de Descarga">
+                            <group>
+                                <field name="url_download"/>
+                                <field name="param_excel_file"/>
+                                <field name="param_text_file"/>
+                            </group>
+                            <field name="additional_download_params">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                    <field name="param_type" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Entrega de Documento">
+                            <group>
+                                <field name="web_service_url"/>
+                                <field name="otp_info"/>
+                            </group>
+                            <group string="Métodos Predefinidos">
+                                <field name="has_delivery_receipt"/>
+                                <field name="has_goods_delivered"/>
+                                <field name="has_rejection"/>
+                                <field name="has_acceptance"/>
+                                <field name="has_claims"/>
+                            </group>
+                            <field name="document_delivery_params">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                    <field name="param_type" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para Interoperabilidad PT -->
+    <record id="view_health_interoperability_pt_tree" model="ir.ui.view">
+        <field name="name">health.interoperability.pt.tree</field>
+        <field name="model">health.interoperability.pt</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="url_download"/>
+                <field name="web_service_url"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Búsqueda para Interoperabilidad PT -->
+    <record id="view_health_interoperability_pt_search" model="ir.ui.view">
+        <field name="name">health.interoperability.pt.search</field>
+        <field name="model">health.interoperability.pt</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="url_download"/>
+                <field name="web_service_url"/>
+                <filter string="Archivado" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Socio Comercial" name="partner_id" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Compañía" name="company_id" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Interoperabilidad PT -->
+    <record id="action_health_interoperability_pt" model="ir.actions.act_window">
+        <field name="name">Interoperabilidad PT</field>
+        <field name="res_model">health.interoperability.pt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear una nueva configuración de interoperabilidad
+            </p>
+            <p>
+                Define la configuración para la interoperabilidad entre partes
+                que se utilizará en las facturas del sector salud.
+            </p>
+        </field>
+    </record>
+
+
+
+    <!-- Acciones de ventana -->
+    <record id="action_health_coverage_plan" model="ir.actions.act_window">
+        <field name="name">Planes de Cobertura</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.coverage.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_health_coverage_plan_search"/>
+    </record>
+
+    <record id="action_health_payment_mode" model="ir.actions.act_window">
+        <field name="name">Modalidades de Pago</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.payment.mode</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_health_payment_mode_search"/>
+    </record>
+
+    <record id="action_health_collection_concept" model="ir.actions.act_window">
+        <field name="name">Conceptos de Recaudo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.collection.concept</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_health_collection_concept_search"/>
+    </record>
+
+    <!-- Menús -->
+    <menuitem id="menu_health_sector_config" 
+              name="Configuración Sector Salud" 
+              parent="account.menu_finance_configuration"
+              sequence="30"/>
+              
+    <menuitem id="menu_health_coverage_plan"
+              name="Planes de Cobertura"
+              parent="menu_health_sector_config"
+              action="action_health_coverage_plan"
+              sequence="10"/>
+              
+    <menuitem id="menu_health_payment_mode"
+              name="Modalidades de Pago"
+              parent="menu_health_sector_config"
+              action="action_health_payment_mode"
+              sequence="20"/>
+              
+    <menuitem id="menu_health_collection_concept"
+              name="Conceptos de Recaudo"
+              parent="menu_health_sector_config"
+              action="action_health_collection_concept"
+              sequence="30"/>
+    <menuitem id="menu_health_interoperability_pt"
+              name="Interoperabilidad PT"
+              parent="menu_health_sector_config"
+              action="action_health_interoperability_pt"
+              sequence="40"/>
+</odoo>

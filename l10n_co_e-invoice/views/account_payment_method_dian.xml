@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista Tree (Odoo 17) -->
+        <record id="account_payment_method_dian_view_tree" model="ir.ui.view">
+            <field name="name">account.payment.method.dian.tree</field>
+            <field name="model">account.payment.method.dian</field>
+            <field name="arch" type="xml">
+                <tree string="Métodos de Pago DIAN" editable="bottom">
+                    <field name="code" required="1"/>
+                    <field name="name" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista Form -->
+        <record id="account_payment_method_dian_view_form" model="ir.ui.view">
+            <field name="name">account.payment.method.dian.form</field>
+            <field name="model">account.payment.method.dian</field>
+            <field name="arch" type="xml">
+                <form string="Método de Pago DIAN">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" required="1"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista Search -->
+        <record id="account_payment_method_dian_view_search" model="ir.ui.view">
+            <field name="name">account.payment.method.dian.search</field>
+            <field name="model">account.payment.method.dian</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Método de Pago DIAN">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <filter string="Código" name="group_by_code" context="{'group_by': 'code'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="account_payment_method_dian_action" model="ir.actions.act_window">
+            <field name="name">Métodos de Pago DIAN</field>
+            <field name="res_model">account.payment.method.dian</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No hay métodos de pago DIAN registrados
+                </p>
+                <p>
+                    Cree un nuevo método de pago DIAN para la facturación electrónica.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menú -->
+        <menuitem
+            id="menu_payment_method_dian"
+            name="Métodos Pago DIAN"
+            parent="account.menu_finance_configuration"
+            action="account_payment_method_dian_action"
+            sequence="50"/>
+    </data>
+</odoo>

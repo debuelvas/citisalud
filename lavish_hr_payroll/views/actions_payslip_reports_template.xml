@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_hr_payslip_reports_template" model="ir.actions.act_window">
+            <field name="name">Configuración plantillas reportes de liquidación</field>
+            <field name="res_model">hr.payslip.reports.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Configuración plantillas reportes de liquidación
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_payroll.list_hr_payslip_reports_template">
+            <field name="name">list hr payslip reports template</field>
+            <field name="model">hr.payslip.reports.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_id"/>
+                    <field name="type_report"/>
+                    <field name="type_header_footer"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_payroll.form_hr_payslip_reports_template">
+            <field name="name">form hr payslip reports template</field>
+            <field name="model">hr.payslip.reports.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="company_id" required="1"/>
+                            <field name="type_report" widget="radio"/>
+                            <p>*El tipo de comprobante Nómina, tambien es utilizado
+                                para las firmas (Elaboró,Revisó y Aprobó) en el reporte de liquidación.</p>
+                            <field name="type_header_footer" widget="radio"/>
+                        </group>
+                        <group invisible="type_header_footer != 'custom'">
+                            <field name="header_custom" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                            <field name="footer_custom" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                        </group>
+                        <group>
+                            <field name="caption"/>
+                            <field name="notes"/>
+                            <field name="show_observation"/>
+                            <field name="hide_vacation_dates"/>
+                        </group>
+                        <group string="Firmas a solicitar">
+                            <group>
+                                <field name="signature_prepared"/>
+                                <field name="signature_reviewed"/>
+                                <field name="signature_approved"/>
+                                <field name="signature_employee"/>
+                            </group>
+                            <group>
+                                <field name="txt_signature_prepared" invisible="not signature_prepared"/>
+                                <field name="txt_signature_reviewed" invisible="not signature_reviewed"/>
+                                <field name="txt_signature_approved" invisible="not signature_approved"/>
+                                <field name="txt_signature_employee" invisible="not signature_employee"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

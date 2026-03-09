@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_e-payroll.hr_type_note_tree" model="ir.ui.view">
+            <field name="name">hr.type.note.tree</field>
+            <field name="model">hr.type.note</field>
+            <field name="arch" type="xml">
+                <tree string="Type of note" editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="l10n_co_e-payroll.hr_type_note_acion" model="ir.actions.act_window">
+            <field name="name">Type of Note</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.type.note</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Type of Note.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

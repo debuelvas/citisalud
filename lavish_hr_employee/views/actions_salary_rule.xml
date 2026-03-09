@@ -1,0 +1,94 @@
+<odoo>
+    <data>
+        <!-- Formulario Reglas salariales - ajustes-->
+        <record id="view_lavish_hr_employee_form_salary_rule" model="ir.ui.view">
+            <field name="name">hr.salary.rule.lavish.hr.employee.form.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='condition_python']" position="attributes">
+                    <attribute name="widget">ace</attribute>
+                    <attribute name="options">{'mode': 'python'}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_python_compute']" position="attributes">
+                    <attribute name="widget">ace</attribute>
+                    <attribute name="options">{'mode': 'python'}</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="attributes">
+                    <attribute name="row">8</attribute>
+                    <attribute name="string">Master</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                    <group colspan="12">
+                        <group string="Naturaleza">
+                            <field name="dev_or_ded" widget="radio" />
+                            <field name="deduction_applies_bonus"
+                                invisible="dev_or_ded != 'deduccion'" />
+                            <field name="is_leave" />
+                            <field name="is_recargo" />
+                        </group>
+                        <group string="Tipos de conceptos">
+                            <field name="type_concepts" />
+                            <field name="account_tax_id" />
+                            <field name="aplicar_cobro"
+                               invisible="type_concepts not in  ['ley','novedad']" />
+                            <field name="modality_value" widget="radio" />
+                            <field name="novedad_ded" widget="radio" />
+                        </group>
+                        <group string="Tipos Detalle">
+                            <field name="types_employee" widget="many2many_tags" />
+                            <field name="process" />
+                            <field name="proyectar_nom" />
+                            <field name="proyectar_ret" />
+                            <field name="deduct_deductions" widget="radio"
+                               invisible="is_leave ==  False" />
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page string="Conf. Adicional" name="conf_aditional">
+                        <group>
+                            <group name="base_prestaciones" string="Base de Prestaciones">
+                                <field name="descontar_suspensiones" />
+                                <field name="base_prima" />
+                                <field name="base_cesantias" />
+                                <field name="base_vacaciones" />
+                                <field name="base_vacaciones_dinero" />
+                                <field name="excluir_ret" />
+                                <field name="is_projectable_rtf" />
+                                <field name="liquidar_con_base" />
+                                <field name="base_intereses_cesantias" />
+                                <field name="base_auxtransporte_tope" />
+                                <field name="base_compensation" />
+                            </group>
+                            <group name="base_seguridad_social" string="Base de seguridad social">
+                                <field name="base_seguridad_social" />
+                                <field name="base_parafiscales" />
+                                <separator string="Reportes" />
+                                <field name="short_name" />
+                                <field name="display_days_worked" />
+                                <field name="not_include_flat_payment_file" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='description']" position="after">
+                    <page string="Contabilidad" name="accounting-ext">
+                        <field name="salary_rule_accounting" nolabel="1">
+                            <tree string="Configuracion" editable="bottom">
+                                <field name="department" />
+                                <field name="company" />
+                                <field name="work_location" />
+                                <field name="third_debit" />
+                                <field name="debit_account" />
+                                <field name="third_credit" />
+                                <field name="credit_account" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

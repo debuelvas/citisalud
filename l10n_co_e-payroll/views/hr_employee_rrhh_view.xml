@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_hr_empleado_view" model="ir.ui.view">
+        <field name="name">hr_employee_rrhh</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"></field>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[(@name='user_id')]" position="after">
+                <field name="salud_ids"/>
+                <field name="cesantias_ids"/>
+                <field name="pension_ids"/>
+                <field name="caja_compensacion_ids"/>
+            </xpath>
+
+        </field>
+    </record>
+    
+</odoo>

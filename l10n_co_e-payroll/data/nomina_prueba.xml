@@ -1,0 +1,40 @@
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing"
+            xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <s:Header>
+        <a:Action s:mustUnderstand="1">http://wcf.dian.colombia/IWcfDianCustomerServices/GetStatusZipResponse</a:Action>
+        <o:Security s:mustUnderstand="1"
+                    xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <u:Timestamp u:Id="_0">
+                <u:Created>2022-01-05T07:13:16.661Z</u:Created>
+                <u:Expires>2022-01-05T07:18:16.661Z</u:Expires>
+            </u:Timestamp>
+        </o:Security>
+    </s:Header>
+    <s:Body>
+        <GetStatusZipResponse xmlns="http://wcf.dian.colombia">
+            <GetStatusZipResult xmlns:b="http://schemas.datacontract.org/2004/07/DianResponse"
+                                xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:DianResponse>
+                    <b:ErrorMessage i:nil="true"/>
+                    <b:IsValid>false</b:IsValid>
+                    <b:StatusCode>ex</b:StatusCode>
+                    <b:StatusDescription>Error al procesar batch. ZipKey: 2d966c95-49f9-4c5a-812c-b7595cfafeea at
+                        System.Number.ParseDouble(String value, NumberStyles options, NumberFormatInfo numfmt)&#xD;
+                        at System.Double.Parse(String s)&#xD;
+                        at Gosocket.Dian.Services.Utils.Common.XmlParseNomina.ProcessXmlDocument(XmlDocument
+                        xmlDocument, String rootNodeName) in
+                        C:\agent\_work\34\s\Gosocket.Dian.Services\Utils\Common\XmlParseNomina.cs:line 301&#xD;
+                        at Gosocket.Dian.Services.Utils.Common.XmlParseNomina..ctor(Byte[] xmlContentBytes, XmlNode
+                        extensions) in C:\agent\_work\34\s\Gosocket.Dian.Services\Utils\Common\XmlParseNomina.cs:line 84&#xD;
+                        at Gosocket.Dian.Functions.Batch.ProcessBatchDocumentsZipFile.&lt;Run&gt;d__16.MoveNext()
+                    </b:StatusDescription>
+                    <b:StatusMessage i:nil="true"/>
+                    <b:XmlBase64Bytes i:nil="true"/>
+                    <b:XmlBytes i:nil="true"/>
+                    <b:XmlDocumentKey i:nil="true"/>
+                    <b:XmlFileName i:nil="true"/>
+                </b:DianResponse>
+            </GetStatusZipResult>
+        </GetStatusZipResponse>
+    </s:Body>
+</s:Envelope>

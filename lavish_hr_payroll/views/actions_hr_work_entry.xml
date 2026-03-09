@@ -1,0 +1,59 @@
+<odoo>
+
+        
+        <record model="ir.actions.act_window"  id="action_hr_work_entry_refresh">
+				<field name="name">Actualizar entradas de trabajo</field>
+				<field name="res_model">hr.work.entry.refresh</field>
+				<field name="view_mode">form</field>
+                <field name="target">new</field>
+		</record>
+
+        <record id="hr_work_entry_refresh_form" model="ir.ui.view">
+            <field name="name">Actualizar entradas de trabajo</field>
+            <field name="model">hr.work.entry.refresh</field>
+            <field name="arch" type="xml">
+                    <form string="Actualizar entradas de trabajo"> 
+                        <sheet>                            
+                            <group>
+                                <group>
+                                    <label for="date_start"></label>
+                                    <div name="date_start">
+                                        <div class="text-info" invisible="earliest_available_date_message == ''">
+                                            <i class="fa fa-info-circle me-1" title="Hint"/>
+                                            <field name="earliest_available_date_message" nolabel="1"/>
+                                        </div >
+                                        <field name="date_start"/>
+                                    </div>
+                                    <label for="date_stop"></label>
+                                    <div name="date_stop">
+                                        <div class="text-info" invisible="latest_available_date_message == ''">
+                                            <i class="fa fa-info-circle me-1" title="Hint"/>
+                                            <field name="latest_available_date_message" nolabel="1"/>
+                                        </div>
+                                        <field name="date_stop"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <div>
+                                <span class="text-muted">Advertencia: La regeneración de la entrada de trabajo eliminará todos los cambios manuales en el período seleccionado.</span>
+                            </div>  
+                            <group>                                      
+                                <field name="contract_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="employee_id"/>
+                                        <field name="date_start"/>                            
+                                    </tree>
+                                </field>                                           
+                            </group>                           
+                        </sheet>
+                        <footer>
+                            <button name="refresh_work_entry" string="Actualizar" type="object" class="oe_highlight"/>  
+                            <button name="cancel_button" string="Cancelar" class="btn-secondary" special="cancel"/>                                               
+                        </footer>
+                    </form>
+                </field>
+        </record>
+
+</odoo>
+      

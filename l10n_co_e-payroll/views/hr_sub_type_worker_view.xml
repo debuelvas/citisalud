@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_e-payroll.hr_sub_type_worker_tree" model="ir.ui.view">
+            <field name="name">hr.sub.type.worker.tree</field>
+            <field name="model">hr.sub.type.worker</field>
+            <field name="arch" type="xml">
+                <tree string="Sub Type of worker" editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="l10n_co_e-payroll.hr_sub_type_worker_acion" model="ir.actions.act_window">
+            <field name="name">Sub Type of worker</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.sub.type.worker</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Sub Type of worker.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

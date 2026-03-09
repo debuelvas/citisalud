@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista Formulario -->
+    <record id="view_rips_configuration_form" model="ir.ui.view">
+        <field name="name">rips.configuration.form</field>
+        <field name="model">rips.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Configuración RIPS">
+                <header>
+                    <button name="test_connection" 
+                            type="object" 
+                            string="Probar Conexión" 
+                            class="btn-primary"
+                            icon="fa-plug"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" 
+                                icon="fa-check-circle-o"
+                                invisible="not active">
+                            <field name="active" widget="boolean_button" 
+                                   options='{"terminology": "active"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Configuración RIPS..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información General">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="environment_type" widget="radio"/>
+                            <field name="api_url_base"/>
+                        </group>
+                        <group string="Estado">
+                            <field name="active"/>
+                            <field name="token_expiry" readonly="1" invisible="not auth_token"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Credenciales SISPRO" name="credentials">
+                            <group>
+                                <group string="Datos de Acceso">
+                                    <field name="sispro_tipo_documento" required="1"/>
+                                    <field name="sispro_numero_documento" required="1" password="True"/>
+                                    <field name="sispro_nit" required="1"/>
+                                    <field name="sispro_password" required="1" password="True"/>
+                                </group>
+                                <group string="Configuración Técnica">
+                                    <field name="timeout"/>
+                                    <field name="verify_ssl"/>
+                                </group>
+                            </group>
+                            <group string="Token de Autenticación" invisible="not auth_token">
+                                <field name="auth_token" readonly="1" widget="text" password="True"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_rips_configuration_tree" model="ir.ui.view">
+        <field name="name">rips.configuration.tree</field>
+        <field name="model">rips.configuration</field>
+        <field name="arch" type="xml">
+            <tree string="Configuraciones RIPS">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="environment_type"/>
+                <field name="sispro_nit"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="token_expiry"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_rips_configuration_search" model="ir.ui.view">
+        <field name="name">rips.configuration.search</field>
+        <field name="model">rips.configuration</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Configuración RIPS">
+                <field name="name"/>
+                <field name="sispro_nit"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <separator/>
+                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Producción" name="production" domain="[('environment_type', '=', 'production')]"/>
+                <filter string="Pruebas" name="test" domain="[('environment_type', '=', 'test')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Compañía" name="company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Ambiente" name="environment" context="{'group_by': 'environment_type'}"/>
+                    <filter string="Estado" name="active_state" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_rips_configuration" model="ir.actions.act_window">
+        <field name="name">Configuración RIPS</field>
+        <field name="res_model">rips.configuration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_rips_configuration_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure la conexión con RIPS SISPRO
+            </p>
+            <p>
+                Defina las credenciales y parámetros necesarios para conectar con el sistema RIPS del Ministerio de Salud.
+            </p>
+        </field>
+    </record>
+    <record id="view_move_form_inherit_rips" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.rips</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Botones en el header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_send_rips_to_minsalud" 
+                        type="object" 
+                        string="Enviar RIPS al MinSalud"
+                        class="btn-primary"
+                        invisible="move_type not in ['out_invoice', 'out_refund', 'in_refund'] or rips_validation_status == 'validated'"
+                        confirm="¿Está seguro de enviar este RIPS al Ministerio de Salud?"
+                        groups="account.group_account_invoice"/>
+                <button name="action_retry_rips_validation" 
+                        type="object" 
+                        string="Reintentar Envío"
+                        class="btn-warning"
+                        invisible="rips_validation_status not in ['rejected', 'error']"
+                        groups="account.group_account_invoice"/>
+                <button name="action_consult_cuv"
+                        type="object"
+                        string="Consultar Estado CUV"
+                        class="btn-success"
+                        icon="fa-search"
+                        invisible="not rips_cuv"
+                        groups="account.group_account_invoice"
+                        help="Consulta el estado actual del CUV en el Ministerio de Salud"/>
+                <button name="action_download_result_file"
+                        type="object"
+                        string="Descargar Resultado"
+                        class="btn-secondary"
+                        icon="fa-file-text-o"
+                        invisible="not rips_result_binary"
+                        groups="account.group_account_invoice"
+                        help="Descargar archivo con el resultado del envío RIPS"/>
+            </xpath>
+            <!-- Badge de estado junto al estado de la factura -->
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="rips_validation_status" 
+                    widget="badge" 
+                    invisible="move_type not in ['out_invoice', 'out_refund', 'in_refund']"
+                    decoration-success="rips_validation_status == 'validated'"
+                    decoration-danger="rips_validation_status in ['rejected', 'error']"
+                    decoration-warning="rips_validation_status == 'sent'"
+                    decoration-info="rips_validation_status in ['draft', 'generated']"/>
+            </xpath>
+            <!-- Campos invisibles necesarios -->
+            <xpath expr="//sheet" position="inside">
+                <field name="rips_generated" invisible="1"/>
+                <field name="is_adjustment_note" invisible="1"/>
+                <field name="is_voluntary_agreement" invisible="1"/>
+                <field name="is_total_credit_note" invisible="1"/>
+                <field name="rips_without_invoice" invisible="1"/>
+                <field name="rips_proceso_id" invisible="1"/>
+                <field name="rips_json" invisible="1"/>
+                <field name="rips_json_binary" invisible="1"/>
+                <field name="rips_json_filename" invisible="1"/>
+                <field name="rips_consultation_history" invisible="1"/>
+                <field name="rips_response_json" invisible="1"/>
+                <field name="rips_errors" invisible="1"/>
+                <field name="capita_type" invisible="1"/>
+                <field name="rips_result_binary" invisible="1"/>
+                <field name="rips_result_filename" invisible="1"/>
+                <field name="rips_errors_html_binary" invisible="1"/>
+                <field name="rips_errors_html_filename" invisible="1"/>
+                <field name="rips_errors_html" invisible="1"/>
+            </xpath>
+            <!-- Pestaña RIPS -->
+            <xpath expr="//notebook" position="inside">
+                <page string="RIPS" name="rips_info" invisible="move_type not in ['out_invoice', 'out_refund', 'in_refund']">
+                    <group col="4" string="Información RIPS">
+                        <!-- Columna izquierda: Estado y datos -->
+                        <group string="Estado de Validación">
+                            <field name="rips_validation_status" string="Estado" widget="badge" readonly="1"/>
+                            <field name="rips_cuv" string="CUV" invisible="not rips_cuv" readonly="1"/>
+                            <field name="rips_proceso_id" string="ID Proceso" invisible="not rips_proceso_id" readonly="1"/>
+                            <field name="rips_validation_date" string="Fecha Validación" invisible="not rips_validation_date" readonly="1"/>
+                            <field name="rips_last_load_type" string="Tipo de Carga" invisible="not rips_last_load_type" readonly="1"/>
+                        </group>
+                    <!-- Mensaje informativo cuando no hay RIPS generado -->
+                    <div invisible="rips_generated" 
+                         style="text-align: center; padding: 40px; background-color: #f8f9fa; border-radius: 8px; margin: 20px 0;">
+                        <i class="fa fa-file-text-o" style="font-size: 48px; color: #6c757d; margin-bottom: 16px;"/>
+                        <h4 style="color: #495057; margin-bottom: 8px;">No hay RIPS generado</h4>
+                        <p style="color: #6c757d; margin: 0;">
+                            Haga clic en <strong>"Enviar RIPS al MinSalud"</strong> para generar y enviar automáticamente el archivo RIPS.
+                        </p>
+                    </div>
+                        <!-- Columna derecha: Botones de descarga -->
+                        <group string="Archivos Disponibles">
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <button name="action_view_rips_json" 
+                                        type="object" 
+                                        string="Descargar JSON RIPS" 
+                                        class="btn-secondary btn-sm"
+                                        icon="fa-file-code-o"
+                                        invisible="not rips_generated"
+                                        style="text-align: left;"/>
+                                <button name="action_download_result_file" 
+                                        type="object" 
+                                        string="Descargar Resultado TXT" 
+                                        class="btn-secondary btn-sm"
+                                        icon="fa-file-text-o"
+                                        invisible="not rips_result_binary"
+                                        style="text-align: left;"/>
+                                <button name="action_view_rips_errors_html" 
+                                        type="object" 
+                                        string="Descargar Reporte HTML" 
+                                        class="btn-secondary btn-sm"
+                                        icon="fa-globe"
+                                        invisible="not rips_errors_html_binary"
+                                        style="text-align: left;"/>
+                                <button name="action_download_rips_files" 
+                                        type="object" 
+                                        string="Descargar Archivos RIPS" 
+                                        class="btn-secondary btn-sm"
+                                        icon="fa-download"
+                                        invisible="not rips_cuv or rips_validation_status != 'validated'"
+                                        style="text-align: left;"/>
+                            </div>
+                        </group>
+                    </group>
+                    <!-- Validación de estructura (opcional) -->
+                    <div invisible="rips_validation_status in ['validated', False] or not rips_generated" style="margin: 20px 0;">
+                        <separator string="Validación de Estructura (Opcional)"/>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <button name="validate_rips" 
+                                    type="object" 
+                                    string="Validar Estructura RIPS"
+                                    class="btn-info"
+                                    icon="fa-check-circle"
+                                    help="Valida la estructura y datos del RIPS antes de enviar al MinSalud"/>
+                        </div>
+                    </div>
+                    <!-- Resultados de validación -->
+                    <separator string="Resultados de Validación" invisible="not rips_response_json or (rips_validation_status == 'validated' and not rips_errors_html)"/>
+                    <!-- Mensaje de éxito -->
+                    <div invisible="rips_validation_status != 'validated' or rips_errors_html" 
+                         style="background-color: #dff0d8; border: 1px solid #d0e9c6; border-radius: 6px; padding: 16px; margin: 10px 0;">
+                        <h4 style="color: #3c763d; margin: 0 0 8px 0; font-size: 16px; font-weight: 600;">
+                            <i class="fa fa-check-circle" style="margin-right: 8px;"/> RIPS Validado Exitosamente
+                        </h4>
+                        <p style="color: #3c763d; margin: 0; font-size: 14px;">
+                            El RIPS ha sido validado correctamente por el Ministerio de Salud y se encuentra disponible para descarga.
+                        </p>
+                    </div>
+                    <!-- Visualización de errores HTML -->
+                    <div invisible="not rips_errors_html" style="margin: 16px 0;">
+                        <field name="rips_errors_html" readonly="1" widget="html" nolabel="1"/>
+                    </div>
+                    <!-- Configuración especial (modo desarrollador) -->
+                    <group string="Configuración Especial" invisible="move_type == 'out_invoice'" groups="base.group_no_one">
+                        <group>
+                            <field name="is_adjustment_note" invisible="move_type != 'out_refund'"/>
+                            <field name="is_voluntary_agreement" invisible="move_type != 'out_refund'"/>
+                            <field name="is_total_credit_note" invisible="move_type != 'out_refund'"/>
+                        </group>
+                        <group>
+                            <field name="capita_type" invisible="not capita_type"/>
+                            <field name="rips_without_invoice"/>
+                        </group>
+                    </group>
+                    <notebook invisible="not rips_response_json" groups="base.group_no_one">
+                        <page string="Respuesta MinSalud">
+                            <field name="rips_response_json" readonly="1" widget="ace" options="{'mode': 'json'}" nolabel="1"/>
+                        </page>
+                        <page string="Histórico" invisible="not rips_consultation_history">
+                            <field name="rips_consultation_history" readonly="1" widget="ace" options="{'mode': 'json'}" nolabel="1"/>
+                        </page>
+                        <page string="JSON RIPS" invisible="not rips_json">
+                            <field name="rips_json" readonly="1" widget="ace" options="{'mode': 'json'}" nolabel="1"/>
+                        </page>
+                    </notebook>
+                    <!-- Botones avanzados (modo desarrollador) -->
+                    <group string="Opciones Avanzadas de Envío" groups="base.group_no_one" invisible="not rips_generated" col="3">
+                        <button name="action_send_fev_rips" type="object" string="Factura+RIPS" class="btn-sm btn-secondary"/>
+                        <button name="action_send_nota_credito" type="object" string="Nota Crédito" class="btn-sm btn-secondary"/>
+                        <button name="action_send_nota_credito_total" type="object" string="NC Total" class="btn-sm btn-secondary"/>
+                        <button name="action_send_nota_debito" type="object" string="Nota Débito" class="btn-sm btn-secondary"/>
+                        <button name="action_send_nota_ajuste" type="object" string="Nota Ajuste" class="btn-sm btn-secondary"/>
+                        <button name="action_send_rips_sin_factura" type="object" string="RIPS sin Factura" class="btn-sm btn-secondary"/>
+                        <button name="action_send_nc_acuerdo_voluntades" type="object" string="NC Acuerdo" class="btn-sm btn-secondary"/>
+                        <button name="action_send_capita_inicial" type="object" string="Cápita Inicial" class="btn-sm btn-secondary"/>
+                        <button name="action_send_capita_periodo" type="object" string="Cápita Período" class="btn-sm btn-secondary"/>
+                        <button name="action_send_capita_final" type="object" string="Cápita Final" class="btn-sm btn-secondary"/>
+                    </group>
+                    <!-- Información de ayuda -->
+                    <div invisible="rips_generated or rips_errors_html" 
+                         style="background-color: #e8f4fd; border: 1px solid #c8e1ff; border-radius: 6px; padding: 16px; margin-top: 20px;">
+                        <h4 style="color: #0969da; margin: 0 0 8px 0; font-size: 16px; font-weight: 600;">
+                            <i class="fa fa-info-circle" style="margin-right: 8px;"/> Información RIPS
+                        </h4>
+                        <p style="color: #0969da; margin: 0; font-size: 14px;">
+                            Para enviar el RIPS al Ministerio de Salud, use el botón <strong>"Enviar RIPS al MinSalud"</strong> en la parte superior. 
+                            El sistema generará y enviará automáticamente el archivo RIPS.
+                        </p>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <!-- Vista de búsqueda para facturas con campos RIPS -->
+    <record id="view_account_invoice_filter_inherit_rips" model="ir.ui.view">
+        <field name="name">account.move.search.inherit.rips</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter string="Sector Salud" 
+                        name="health_sector" 
+                        domain="[('is_health_sector', '=', True)]"/>
+                <filter string="Con RIPS Generado" 
+                        name="with_rips" 
+                        domain="[('rips_generated', '=', True)]"/>
+                <filter string="RIPS Validado" 
+                        name="rips_validated" 
+                        domain="[('rips_validation_status', '=', 'validated')]"/>
+                <filter string="RIPS Rechazado" 
+                        name="rips_rejected" 
+                        domain="[('rips_validation_status', 'in', ['rejected', 'error'])]"/>
+                <separator/>
+                <field name="rips_cuv" string="CUV"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Estado RIPS" name="rips_status" context="{'group_by': 'rips_validation_status'}"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- Vista tree con campos RIPS -->
+    <record id="view_invoice_tree_inherit_rips" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.rips</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <!-- Campos RIPS adicionales -->
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="rips_validation_status"
+                       optional="hide"
+                       widget="badge"
+                       decoration-success="rips_validation_status == 'validated'"
+                       decoration-danger="rips_validation_status in ['rejected', 'error']"
+                       decoration-warning="rips_validation_status == 'sent'"
+                       decoration-info="rips_validation_status in ['draft', 'generated']"/>
+                <field name="rips_cuv" optional="hide"/>
+            </xpath>
+            <!-- Botón Consultar CUV en vista tree -->
+            <xpath expr="//tree" position="inside">
+                <button name="action_consult_cuv"
+                        type="object"
+                        string="Consultar CUV"
+                        icon="fa-search"
+                        title="Consultar estado del CUV en el Ministerio de Salud"
+                        invisible="not rips_cuv"
+                        groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- Menú raíz para Hospital RIPS -->
+    <menuitem id="menu_hospital_rips_root"
+              name="Hospital RIPS"
+              sequence="15"
+              parent="account.menu_finance_receivables"/>
+    <!-- Acción principal RIPS -->
+    <record id="action_hospital_rips" model="ir.actions.act_window">
+        <field name="name">RIPS</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('is_health_sector', '=', True), ('move_type', 'in', ['out_invoice', 'out_refund'])]</field>
+        <field name="context">{'default_move_type': 'out_invoice', 'default_is_health_sector': True}</field>
+        <field name="search_view_id" ref="view_account_invoice_filter_inherit_rips"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree una factura del sector salud
+            </p>
+            <p>
+                Las facturas del sector salud requieren información adicional para generar los archivos RIPS (Registro Individual de Prestación de Servicios de Salud).
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_action_hospital_rips" 
+              name="RIPS" 
+              action="action_hospital_rips" 
+              parent="menu_hospital_rips_root"
+              sequence="1"/>
+    <!-- Submenús RIPS -->
+    <menuitem id="menu_rips_configuration" 
+              name="Configuración RIPS" 
+              action="action_rips_configuration" 
+              parent="menu_hospital_rips_root"
+              sequence="10"
+              groups="account.group_account_manager"/>
+    <!-- Acciones de servidor para procesamiento masivo -->
+    <record id="action_server_generate_rips_bulk" model="ir.actions.server">
+        <field name="name">Generar RIPS</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    for record in records:
+        if record.is_health_sector and record.state == 'posted' and not record.rips_generated:
+            try:
+                record.generate_rips_json()
+            except Exception as e:
+                record.message_post(body=f"Error al generar RIPS: {str(e)}")
+        </field>
+    </record>
+    <record id="action_server_send_rips_bulk" model="ir.actions.server">
+        <field name="name">Enviar RIPS al MinSalud</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    for record in records:
+        if record.rips_generated and record.rips_validation_status in ['draft', 'generated']:
+            try:
+                record.action_send_rips_to_minsalud()
+            except Exception as e:
+                record.message_post(body=f"Error al enviar RIPS: {str(e)}")
+        </field>
+    </record>
+</odoo>

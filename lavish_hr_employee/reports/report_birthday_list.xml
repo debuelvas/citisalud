@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+
+        <record model="ir.actions.act_window"  id="action_hr_employee_report_birthday">
+				<field name="name">Listado de cumpleaños</field>
+				<field name="res_model">hr.birthday.list</field>
+				<field name="view_mode">form</field>
+                <field name="target">new</field>
+		</record>
+
+        <record id="hr_employee_report_birthday_form" model="ir.ui.view">
+            <field name="name">Listado de cumpleaños</field>
+            <field name="model">hr.birthday.list</field>
+            <field name="arch" type="xml">
+                    <form string="Listado de cumpleaños">
+                        <group>
+                            <group>
+                                <field name="company" widget="many2many_tags"/>
+                                <field name="month"/>
+                            </group>
+                            <group>
+                                <field name="branch" widget="many2many_tags"/>
+                                <field name="active_employee"/>
+                                <field name="show_dependent"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="generate_report" string="Generar PDF" type="object" class="oe_highlight"/>
+                            <button name="generate_birthday_excel" string="Generar EXCEL" type="object" class="oe_highlight"/>
+                        </footer>
+                    </form>
+                </field>
+        </record>
+
+        <record id="birthday_list" model="report.paperformat">
+            <field name="name">Lista de Cumpleaños</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">60</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>    
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+         <record id="report_birthday_list_action" model="ir.actions.report">
+           <field name="name">Lista de Cumpleaños</field>
+           <field name="model">hr.birthday.list</field>
+           <field name="report_type">qweb-pdf</field>
+           <field name="report_name">lavish_hr_employee.report_birthday_list</field>
+           <field name="report_file">lavish_hr_employee.report_birthday_list</field>
+           <field name="binding_model_id" ref="model_hr_birthday_list"/>
+        </record>
+
+        <record id="report_birthday_list_action" model="ir.actions.report">
+            <field name="paperformat_id" ref="lavish_hr_employee.birthday_list"/>
+        </record>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <!-- Menu seguridad social -->
+        <menuitem name="Cierre Mensual" id="lavish_hr_monthly_closure" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root" sequence="70"/>
+        <menuitem name="Seguridad social" id="lavish_hr_social_security_process" parent="lavish_hr_social_security.lavish_hr_monthly_closure" action="action_hr_payroll_social_security" sequence="3"/>
+        <menuitem name="Configuración contable cierre de nómina" id="lavish_hr_closing_configuration_menu" parent="lavish_hr_social_security.lavish_hr_monthly_closure" action="action_hr_closing_configuration"/>
+        <!-- Menú para acceder a las vistas -->
+        <menuitem id="menu_executing_social_security_line"
+            name="Seguridad Social Lineas"
+            parent="lavish_hr_social_security.lavish_hr_monthly_closure"
+            action="action_executing_social_security_line"
+            sequence="25"/>
+        <menuitem name="Sucursales seguridad social" id="lavish_hr_social_security_branches" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" action="action_hr_social_security_branches"/>
+        <menuitem name="Centros de trabajo seguridad social" id="lavish_hr_social_security_work_center" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" action="action_hr_social_security_work_center"/>
+        <menuitem name="Reporte entidades empleados" id="hr_entities_reports" parent="hr_payroll.menu_hr_payroll_report" action="action_hr_entities_reports" sequence="26"/>
+        <menuitem name="Reporte libro de vacaciones" id="lavish_hr_social_security.hr_vacation_book" parent="hr_payroll.menu_hr_payroll_report" action="action_hr_vacation_book_reports" sequence="23"/>
+        <!-- Menu Informe gastos por empleado-->
+    </data>
+</odoo>

@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_1">
+            <field name="range_initial">0</field>
+            <field name="range_finally">95</field>
+            <field name="subtract_uvt">0</field>
+            <field name="addition_uvt">0</field>
+            <field name="porc">0</field>
+        </record>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_2">
+            <field name="range_initial">95</field>
+            <field name="range_finally">150</field>
+            <field name="subtract_uvt">95</field>
+            <field name="addition_uvt">0</field>
+            <field name="porc">19</field>
+        </record>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_3">
+            <field name="range_initial">150</field>
+            <field name="range_finally">360</field>
+            <field name="subtract_uvt">150</field>
+            <field name="addition_uvt">10</field>
+            <field name="porc">28</field>
+        </record>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_4">
+            <field name="range_initial">360</field>
+            <field name="range_finally">640</field>
+            <field name="subtract_uvt">360</field>
+            <field name="addition_uvt">69</field>
+            <field name="porc">33</field>
+        </record>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_5">
+            <field name="range_initial">640</field>
+            <field name="range_finally">945</field>
+            <field name="subtract_uvt">640</field>
+            <field name="addition_uvt">162</field>
+            <field name="porc">35</field>
+        </record>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_6">
+            <field name="range_initial">945</field>
+            <field name="range_finally">2300</field>
+            <field name="subtract_uvt">94</field>
+            <field name="addition_uvt">268</field>
+            <field name="porc">37</field>
+        </record>
+        <record model="hr.calculation.rtefte.ordinary"
+            id="lavish_hr_payroll.hr_calculation_rtefte_ordinary_7">
+            <field name="range_initial">2300</field>
+            <field name="range_finally">100000</field>
+            <field name="subtract_uvt">2300</field>
+            <field name="addition_uvt">770</field>
+            <field name="porc">39</field>
+        </record>
+        <record id="ir_cron_anticipo_vencido_cron" model="ir.cron">
+            <field name="name">Anticipo Vencido y Alerta</field>
+            <field name="model_id" ref="model_hr_payroll_advance"/>
+            <field name="state">code</field>
+            <field name="code">model.anticipo_vencido_cron()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="action_lavish_retirement_severance_pay" model="ir.actions.act_window">
+            <field name="name">Carta retiro de cesantías</field>
+            <field name="res_model">lavish.retirement.severance.pay</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="form_lavish_retirement_severance_pay" model="ir.ui.view">
+            <field name="name">Carta retiro de cesantías form</field>
+            <field name="model">lavish.retirement.severance.pay</field>
+            <field name="arch" type="xml">
+                <form string="Generar Carta para retiro de cesantías">
+                    <group>
+                        <field name="contract_id" readonly="1" force_save="1"/>
+                        <field name="contrib_id" invisible="1"/>
+                        <field name="directed_to"/>
+                        <field name="withdrawal_type" widget="radio"/>
+                        <field name="withdrawal_concept_partial" invisible="withdrawal_type !=  'partial'"/>
+                        <field name="withdrawal_concept_total"  invisible="withdrawal_type !=  'termination'"/>
+                        <field name="withdrawal_value" invisible="withdrawal_type != 'partial'"/>
+                    </group>
+                    <footer>
+                        <button string="Generar carta" name="generate_report_severance_pay" type="object"
+                                class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

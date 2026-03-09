@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- PLANTILLA PARA FACTURAS DE SALUD -->
+    <record id="email_template_invoice_health" model="mail.template">
+        <field name="name">Factura de Salud - Envío al Cliente</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="subject">Factura de Salud ${object.name or 'Draft'} - ${object.company_id.name}</field>
+        <field name="email_from">${(object.invoice_user_id.email_formatted or user.email_formatted) | safe}</field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Estimado/a
+        <t t-if="object.partner_id.parent_id">
+            <t t-out="object.partner_id.name or ''">Brandon Freeman</t> (<t t-out="object.partner_id.parent_id.name or ''">Azure Interior</t>),
+        </t>
+        <t t-else="">
+            <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,
+        </t>
+        <br/><br/>
+
+        Adjuntamos su <strong>factura de servicios de salud</strong> correspondiente a:
+        <br/><br/>
+
+        <div style="background-color: #f0f8ff; border-left: 4px solid #007bff; padding: 15px; margin: 15px 0;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 5px;"><strong>Factura:</strong></td>
+                    <td style="padding: 5px;"><t t-out="object.name or ''">INV/2024/0001</t></td>
+                </tr>
+                <tr t-if="object.invoice_date">
+                    <td style="padding: 5px;"><strong>Fecha:</strong></td>
+                    <td style="padding: 5px;"><t t-out="format_date(object.invoice_date)">2024-01-15</t></td>
+                </tr>
+                <tr t-if="object.invoice_date_due">
+                    <td style="padding: 5px;"><strong>Vencimiento:</strong></td>
+                    <td style="padding: 5px;"><t t-out="format_date(object.invoice_date_due)">2024-02-15</t></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><strong>Total:</strong></td>
+                    <td style="padding: 5px; font-size: 16px; color: #007bff;">
+                        <strong><t t-out="format_amount(object.amount_total, object.currency_id)">$ 1,234,567</t></strong>
+                    </td>
+                </tr>
+                <tr t-if="object.authorization_number">
+                    <td style="padding: 5px;"><strong>Autorización:</strong></td>
+                    <td style="padding: 5px;"><t t-out="object.authorization_number or ''">AUTH-123456</t></td>
+                </tr>
+            </table>
+        </div>
+
+        <p style="margin-top: 20px;">
+            <strong>Información importante:</strong>
+        </p>
+        <ul>
+            <li>Esta factura incluye servicios de salud prestados según autorización médica</li>
+            <li>Los datos RIPS han sido enviados al Ministerio de Salud</li>
+            <li>Para cualquier inquietud, contáctenos a través de los canales oficiales</li>
+        </ul>
+
+        <p style="margin-top: 20px;">
+            Si tiene alguna pregunta, no dude en contactarnos.
+        </p>
+
+        <p style="margin-top: 20px;">
+            Atentamente,<br/>
+            <t t-out="object.company_id.name or ''">YourCompany</t>
+        </p>
+    </p>
+</div>
+        </field>
+        <field name="report_template_ids" eval="[(4, ref('account.account_invoices'))]"/>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- PLANTILLA PARA FACTURAS NO-SALUD (COMERCIAL) -->
+    <record id="email_template_invoice_commercial" model="mail.template">
+        <field name="name">Factura Comercial - Envío al Cliente</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="subject">Factura ${object.name or 'Draft'} - ${object.company_id.name}</field>
+        <field name="email_from">${(object.invoice_user_id.email_formatted or user.email_formatted) | safe}</field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Estimado/a
+        <t t-if="object.partner_id.parent_id">
+            <t t-out="object.partner_id.name or ''">Brandon Freeman</t> (<t t-out="object.partner_id.parent_id.name or ''">Azure Interior</t>),
+        </t>
+        <t t-else="">
+            <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,
+        </t>
+        <br/><br/>
+
+        Adjuntamos su <strong>factura</strong> por los productos y/o servicios prestados:
+        <br/><br/>
+
+        <div style="background-color: #f9f9f9; border: 2px solid #28a745; padding: 15px; margin: 15px 0; border-radius: 5px;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 5px;"><strong>Número de Factura:</strong></td>
+                    <td style="padding: 5px;"><t t-out="object.name or ''">INV/2024/0001</t></td>
+                </tr>
+                <tr t-if="object.invoice_date">
+                    <td style="padding: 5px;"><strong>Fecha de Emisión:</strong></td>
+                    <td style="padding: 5px;"><t t-out="format_date(object.invoice_date)">2024-01-15</t></td>
+                </tr>
+                <tr t-if="object.invoice_date_due">
+                    <td style="padding: 5px;"><strong>Fecha de Vencimiento:</strong></td>
+                    <td style="padding: 5px;"><t t-out="format_date(object.invoice_date_due)">2024-02-15</t></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><strong>Importe Total:</strong></td>
+                    <td style="padding: 5px; font-size: 18px; color: #28a745;">
+                        <strong><t t-out="format_amount(object.amount_total, object.currency_id)">$ 1,234,567</t></strong>
+                    </td>
+                </tr>
+                <tr t-if="object.payment_reference">
+                    <td style="padding: 5px;"><strong>Referencia de Pago:</strong></td>
+                    <td style="padding: 5px;"><t t-out="object.payment_reference or ''">REF-123456</t></td>
+                </tr>
+            </table>
+        </div>
+
+        <t t-if="object.amount_residual &gt; 0">
+            <p style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 15px 0;">
+                <strong>IMPORTANTE - Saldo Pendiente:</strong>
+                <t t-out="format_amount(object.amount_residual, object.currency_id)">$ 1,234,567</t>
+            </p>
+        </t>
+
+        <p style="margin-top: 20px;">
+            <strong>Formas de pago aceptadas:</strong>
+        </p>
+        <ul>
+            <li>Transferencia bancaria</li>
+            <li>Tarjeta de crédito/débito</li>
+            <li>Pago en efectivo en nuestras oficinas</li>
+        </ul>
+
+        <p style="margin-top: 20px;">
+            Para cualquier consulta sobre esta factura, por favor contáctenos.
+        </p>
+
+        <p style="margin-top: 20px;">
+            Cordialmente,<br/>
+            <strong><t t-out="object.company_id.name or ''">YourCompany</t></strong><br/>
+            <t t-if="object.company_id.phone">
+                Tel: <t t-out="object.company_id.phone or ''">+1 234 567 890</t><br/>
+            </t>
+            <t t-if="object.company_id.email">
+                Email: <t t-out="object.company_id.email or ''">info@company.com</t>
+            </t>
+        </p>
+    </p>
+</div>
+        </field>
+        <field name="report_template_ids" eval="[(4, ref('account.account_invoices'))]"/>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

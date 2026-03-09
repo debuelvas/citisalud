@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="customer_contract_create_annex_form" model="ir.ui.view">
+            <field name="name">customer.contract.create.annex.form</field>
+            <field name="model">customer.contract.create.annex</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="type" />
+                        </h1>
+                        <group name="group_general">
+                            <group name="group_general_left">
+                                <field name="file" widget="binary" />
+                                <field name="cdp_id" invisible="type == 'time'" options="{'no_create': True}" />
+                            </group>
+                            <group name="group_general_right">
+                                <field name="date" invisible="type == 'money'" required="type == 'time'" />
+                                <field name="amount" invisible="type == 'time'" required="type == 'money'" />
+                                <field name="rp_id" invisible="type == 'time'" options="{'no_create': True}" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_customer_contract_annex" type="object" string="Crear otrosí" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_contract_create_annex_action" model="ir.actions.act_window">
+            <field name="name">Crear Otrosí</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.contract.create.annex</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

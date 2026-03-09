@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="actions_hr_report_expenses_employee" model="ir.actions.act_window">
+            <field name="name">Informe de costos por empleado</field>
+            <field name="res_model">hr.report.expenses.employee</field>
+            <field name="view_mode">pivot</field>
+            <field name="target">current</field>
+            <field name="context">{'search_default_year_now': True}</field>
+        </record>
+
+        <record id="hr_report_expenses_employee_pivot" model="ir.ui.view">
+            <field name="name">Informe de costos por empleado</field>
+            <field name="model">hr.report.expenses.employee</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="estructura" type="row"/>
+                    <field name="categoria_regla" type="row"/>
+                    <field name="fecha_liquidacion" type="col" interval="month"/>
+                    <field name="valor" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="hr_report_expenses_employee_search" model="ir.ui.view">
+            <field name="name">hr.report.expenses.employee.search</field>
+            <field name="model">hr.report.expenses.employee</field>
+            <field name="arch" type="xml">
+                <search string="Buscar informe costos de empleado">
+                    <field name="estructura"/>
+                    <field name="categoria_regla"/>
+                    <field name="regla_salarial"/>
+                    <field name="sucursal"/>
+                    <field name="cuenta_analitica"/>
+                    <field name="ubicacion_laboral"/>
+                    <field name="proyecto"/>
+                    <filter string="Último Mes" name="last_month" domain="[('fecha_liquidacion', '&gt;=', (context_today() + relativedelta(months=-1)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="Último Trimestre" name="last_quarter" domain="[('fecha_liquidacion', '&gt;=', (context_today() + relativedelta(months=-3)).strftime('%Y-%m-%d'))]"/>
+<!--                    <filter string="Año Actual" name="year_now" domain="[('fecha_liquidacion', '&gt;=', str(context_today().year)+'-01-01'),('fecha_liquidacion', '&lt;=', str(context_today().year)+'-12-31')]"/>-->
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="sequence_view" model="ir.ui.view">
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view" />
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//form/sheet/notebook/page/group/group[1]"
+                    position="inside"
+                >
+                    <field name="use_dian_control" />
+                </xpath>
+                <xpath expr="//field[@name='number_increment']" position="replace">
+                    <field
+                        name="number_increment"
+                        invisible="use_dian_control == True"
+                    />
+                </xpath>
+                <xpath
+                    expr="//form/sheet/notebook/page/group/group[2]"
+                    position="inside"
+                >
+                    <field
+                        name="sequence_dian_type"
+                        invisible="use_dian_control == False"
+                    />
+                    <field
+                        name="remaining_numbers"
+                        invisible="use_dian_control == False"
+                    />
+                    <field
+                        name="remaining_days"
+                        invisible="use_dian_control == False"
+                    />
+                </xpath>
+                <xpath expr="//field[@name='date_range_ids']" position="after">
+                    <field
+                        name="dian_resolution_ids"
+                        invisible="use_dian_control == False"
+                    >
+                        <tree
+                            string="DIAN Resolutions"
+                            editable="top"
+                            default_order="id desc"
+                        >
+                            <field name="resolution_number" />
+                            <field name="number_from" />
+                            <field name="number_to" />
+                            <field name="number_next" attrs="{'readonly': False}" />
+                            <field name="date_from" />
+                            <field name="date_to" />
+                            <field name="active_resolution" />
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='advanced_settings']" position="after">
+                    <page name="sequence" string="Sequence">
+                        <group>
+                            <group string="Sequence">
+                                <field name="sequence_number_next"/>
+                                <field name="sequence_id" required="0"
+                                       context="{'default_name': name, 'default_company_id': company_id, 'default_implementation': 'no_gap',
+                                       'default_padding': 4, 'default_use_date_range': True, 'default_prefix': code + '/%%(range_year)s/'}"/>
+                            </group>
+                            <group string="Refund Sequence">
+                                <field name="refund_sequence_number_next"/>
+                                <field name="refund_sequence_id" required="0"
+                                       context="{'default_name': name, 'default_company_id': company_id, 'default_implementation': 'no_gap',
+                                        'default_padding': 4, 'default_use_date_range': True, 'default_prefix': 'R' + code + '/%%(range_year)s/'}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

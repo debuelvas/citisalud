@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="lavish_hr_payroll.PayslipDetailComponent" owl="1">
+        <div class="payslip-detail">
+            <t t-if="state.isLoading">
+                <div class="alert alert-info">Cargando datos de nómina...</div>
+            </t>
+            <t t-else="">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column justify-content-center">
+                                <h5 class="card-title"><i class="fa fa-calendar" /> Días Trabajados</h5>
+                                <p class="card-text">
+                                    <span class="h1">
+                                        <t t-esc="totalDiasTrabajados" />
+                                    </span>
+                                    <span class="text-muted">/ <t
+                                            t-esc="formattedTotalHorasTrabajadas" /> horas</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row h-100">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-money" /> Básico</h5>
+                                        <p class="card-text h4">
+                                            <t t-esc="formatCurrency(state.basico)" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-bus" /> Aux.
+                                            Transporte</h5>
+                                        <p class="card-text h4">
+                                            <t t-esc="formatCurrency(state.auxTransporte)" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-plus-circle" /> Otros
+                                            Devengos</h5>
+                                        <p class="card-text h4">
+                                            <t t-esc="formatCurrency(state.otrosDevengos)" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-medkit" /> Salud</h5>
+                                        <p class="card-text h4">
+                                            <t t-esc="formatCurrency(state.payslipData.salud)" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-user-circle-o" />
+                                            Pensión</h5>
+                                        <p class="card-text h4">
+                                            <t t-esc="formatCurrency(state.payslipData.pension)" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-percent" /> Retención</h5>
+                                        <p class="card-text h4">
+                                            <t t-esc="formatCurrency(state.payslipData.retencion)" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fa fa-plus" /> Total Devengado</h5>
+                                <p class="card-text h2">
+                                    <t
+                                        t-esc="formatCurrency(state.basico + state.auxTransporte + state.devengosSalariales + state.otrosDevengos)" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fa fa-money" /> Neto a Pagar</h5>
+                                <p class="card-text h2">
+                                    <t t-esc="formatCurrency(state.payslipData.neto_pagar)" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="days-bar mt-3 mb-3">
+                    <h4>Días del mes</h4>
+                    <div class="d-flex">
+                        <t t-foreach="state.daysInfo" t-as="day" t-key="day.day">
+                            <div class="day-segment"
+                                t-att-class="{
+                                     'bg-primary': day.type === 'out-of-contract',
+                                     'bg-info': day.type === 'vacation',
+                                     'bg-danger': day.type === 'incapacity',
+                                     'bg-success': day.type === 'regular'
+                                 }"
+                                t-att-title="day.tooltip">
+                            </div>
+                        </t>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <span>1</span>
+                        <span t-esc="state.daysInfo.length" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Devengos</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Cantidad</th>
+                                    <th>Tasa</th>
+                                    <th>Total</th>
+                                    <th>Base IBC</th>
+                                    <th>Base Provisiones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.payslipData.devengos" t-as="devengo"
+                                    t-key="devengo.id">
+                                    <PayslipLineComponent line="devengo"
+                                        currency="currency"
+                                        openModal="openModal" />
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="text-right mt-2">
+                            <button t-on-click="() => openModal('devengo', currency)"
+                                class="btn btn-primary"
+                                t-att-title="state.hasDevengoRules ? '' : 'No hay reglas de devengo disponibles'">
+                                <i class="fa fa-plus-circle text-success mr-2"></i> Devengo </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Deducciones</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Cantidad</th>
+                                    <th>Tasa</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.payslipData.deducciones" t-as="deduccion"
+                                    t-key="deduccion.id">
+                                    <PayslipLineComponent line="deduccion"
+                                        currency="currency"
+                                        openModal="openModal" />
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="text-right mt-2">
+                            <button t-on-click="() => openModal('deduccion', null, null, currency)"
+                                class="btn btn-primary"
+                                t-att-title="state.hasDeduccionRules ? '' : 'No hay reglas de deducción disponibles'">
+                                <i class="fa fa-minus-circle text-warning mr-2"></i> Deducción </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Horas Extras</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Cantidad</th>
+                                    <th>Tasa</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.payslipData.horasExtras" t-as="horaExtra"
+                                    t-key="horaExtra.id">
+                                    <PayslipLineComponent line="horaExtra"
+                                        currency="currency"
+                                        openModal="openModal" />
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="text-right mt-2">
+                            <button t-on-click="() => openModal('overtime', null, null, currency)"
+                                class="btn btn-secondary">
+                                + Hora Extra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <h3>Ausencias</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Días</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.payslipData.ausencias" t-as="ausencia"
+                                    t-key="ausencia.id">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="ausencia.holiday_status_id[1]" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ausencia.date_from" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ausencia.date_to" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ausencia.number_of_days" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <h3>
+                            <button t-on-click="toggleProvisiones" class="btn btn-link"> Provisiones <i
+                                    t-att-class="state.showProvisiones ? 'fa fa-caret-up' : 'fa fa-caret-down'" />
+                            </button>
+                        </h3>
+                        <div t-if="state.showProvisiones">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th>Cantidad</th>
+                                        <th>Tasa</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.payslipData.provisiones" t-as="provision"
+                                        t-key="provision.id">
+                                        <PayslipLineComponent line="provision"
+                                            currency="currency"
+                                            openModal="openModal" />
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+
+        <t t-set="active_class" t-value="'d-block'" />
+        <t t-set="inactive_class" t-value="'d-none fade'" />
+
+        <div class="modal" tabindex="-1"
+            t-attf-class="#{state.modal?.isVisible ? active_class : inactive_class}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"
+                            t-esc="state.modal.type === 'novelty' ? 'Agregar Novedad' : 'Agregar Hora Extra'" />
+                        <button type="button" t-on-click="closeModal" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <t t-if="['novelty', 'devengo', 'deduccion'].includes(state.modal.type)">
+                            <form>
+                                <div class="form-group">
+                                    <label for="employee">Empleado</label>
+                                    <input type="text" id="employee"
+                                        t-att-value="state.employeeName"
+                                        class="form-control bg-light" readonly="readonly" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="salary_rule">Regla Salarial</label>
+                                    <select id="salary_rule"
+                                        t-model="state.modal.noveltyData.salary_rule_id"
+                                        class="form-control" required="required">
+                                        <option value="">Seleccione una regla</option>
+                                        <t
+                                            t-foreach="state.modal.type === 'devengo' ? state.devengoRules : (state.modal.type === 'deduccion' ? state.deduccionRules : state.allRules)"
+                                            t-as="rule" t-key="rule.id">
+                                            <option t-att-value="rule.id" t-esc="rule.name" />
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount">Valor</label>
+                                    <div
+                                        t-attf-class="input-group {{ state.modal.type === 'deduccion' ? 'deduction-input' : '' }}">
+                                        <span t-if="state.modal.type === 'deduccion'"
+                                            class="input-group-text">-</span>
+                                        <input type="number" id="amount"
+                                            t-model.number="state.modal.noveltyData.amount"
+                                            class="form-control"
+                                            required="required"
+                                            t-att-min="0"
+                                            step="0.01" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <input type="text" id="description"
+                                        t-model="state.modal.noveltyData.description"
+                                        class="form-control" />
+                                </div>
+                                <t t-if="state.modal.type === 'novelty'">
+                                    <div class="form-group">
+                                        <label for="dev_or_ded">Tipo</label>
+                                        <select id="dev_or_ded"
+                                            t-model="state.modal.noveltyData.dev_or_ded"
+                                            class="form-control" required="required">
+                                            <option value="">Seleccione el tipo</option>
+                                            <option value="devengo">Devengo</option>
+                                            <option value="deduccion">Deducción</option>
+                                        </select>
+                                    </div>
+                                </t>
+                                <div class="form-group">
+                                    <label for="partner">Entidad</label>
+                                    <input type="text" id="partner"
+                                        t-model="state.modal.noveltyData.partner_id"
+                                        class="form-control" />
+                                </div>
+                            </form>
+                        </t>
+                        <t t-if="state.modal.type === 'overtime'">
+                            <form>
+                                <div class="form-group">
+                                    <label for="employee">Empleado</label>
+                                    <input type="text" id="employee"
+                                        t-att-value="state.employeeName"
+                                        class="form-control bg-light" readonly="readonly" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="department">Departamento</label>
+                                    <input type="text" id="department"
+                                        t-att-value="state.employeeDepartment[1]"
+                                        class="form-control bg-light" readonly="readonly" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Fecha</label>
+                                    <input type="date" id="date"
+                                        t-model="state.modal.overtimeData.date"
+                                        class="form-control bg-light" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_end">Fecha Fin</label>
+                                    <input type="date" id="date_end"
+                                        t-model="state.modal.overtimeData.date_end"
+                                        class="form-control bg-light" />
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="shift_hours">Horas del Turno</label>
+                                    <input type="number" id="shift_hours"
+                                        t-model="state.modal.overtimeData.shift_hours" step="0.01"
+                                        class="form-control bg-light" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="overtime_rn">Horas Recargo Nocturno</label>
+                                    <input type="number" id="overtime_rn"
+                                        t-model="state.modal.overtimeData.overtime_rn" step="0.01"
+                                        class="form-control bg-light" />
+                                </div>
+                                <div t-if="state.modal.showAllFields">
+                                    <div class="form-group">
+                                        <label for="overtime_ext_d">Horas Extra Diurnas</label>
+                                        <input type="number" id="overtime_ext_d"
+                                            t-model="state.modal.overtimeData.overtime_ext_d"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_ext_n">Horas Extra Nocturnas</label>
+                                        <input type="number" id="overtime_ext_n"
+                                            t-model="state.modal.overtimeData.overtime_ext_n"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_eddf">Horas Ed-D/F</label>
+                                        <input type="number" id="overtime_eddf"
+                                            t-model="state.modal.overtimeData.overtime_eddf"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_endf">Horas En-D/F</label>
+                                        <input type="number" id="overtime_endf"
+                                            t-model="state.modal.overtimeData.overtime_endf"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_dof">Horas DOF</label>
+                                        <input type="number" id="overtime_dof"
+                                            t-model="state.modal.overtimeData.overtime_dof"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_rndf">Horas RN-D/F</label>
+                                        <input type="number" id="overtime_rndf"
+                                            t-model="state.modal.overtimeData.overtime_rndf"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_rdf">Horas RD/F</label>
+                                        <input type="number" id="overtime_rdf"
+                                            t-model="state.modal.overtimeData.overtime_rdf"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="overtime_rnf">Horas RN-F</label>
+                                        <input type="number" id="overtime_rnf"
+                                            t-model="state.modal.overtimeData.overtime_rnf"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="days_actually_worked">Días Trabajados
+                                            Efectivamente</label>
+                                        <input type="number" id="days_actually_worked"
+                                            t-model="state.modal.overtimeData.days_actually_worked"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="days_snack">Días de Refrigerio</label>
+                                        <input type="number" id="days_snack"
+                                            t-model="state.modal.overtimeData.days_snack"
+                                            step="0.01" class="form-control bg-light" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="justification">Justificación</label>
+                                    <input type="text" id="justification"
+                                        t-model="state.modal.overtimeData.justification"
+                                        class="form-control bg-light" />
+                                </div>
+                                <div class="form-group">
+                                    <button t-on-click="toggleShowAllFields"
+                                        class="btn btn-secondary">
+                                        <t t-esc="state.modal.showAllFields ? 'Mostrar Menos' : 'Mostrar Más'" />
+                                    </button>
+                                </div>
+                            </form>
+                        </t>
+                    </div>
+                    <div class="modal-footer">
+                        <button t-on-click="closeModal" class="btn btn-secondary">Cancelar</button>
+                        <button t-on-click="handleAddition" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </t>
+
+
+    <t t-name="lavish_hr_payroll.PayslipLineComponent" owl="1">
+        <tr t-on-click="toggleExpand">
+            <td>
+                <t t-esc="props.line?.name" />
+            </td>
+            <td>
+                <t t-if="props.line?.code?.startsWith('HE')">
+                    <t t-esc="props.line?.number_of_hours" /> horas </t>
+                <t t-else="">
+                    <t t-esc="props.line?.quantity" />
+                </t>
+            </td>
+            <td>
+                <t t-esc="props.line?.rate" />
+            </td>
+            <td>
+                <t t-esc="formatMonetary(props.line?.total, { currencyId: props.currency?.[0] })" />
+            </td>
+            <td>
+                <i t-if="isBaseSeguridad" class="fa fa-check-circle text-success" />
+            </td>
+            <td>
+                <i t-if="isBaseProvisiones" class="fa fa-check-circle text-success" />
+            </td>
+        </tr>
+        <tr t-if="state.expanded">
+            <td colspan="6">
+                <div>
+                    <strong>Código:</strong>
+                    <t t-esc="props.line?.code" />
+                </div>
+                <div>
+                    <strong>Cantidad:</strong>
+                    <t t-esc="props.line?.quantity" />
+                </div>
+                <div>
+                    <strong>Tasa:</strong>
+                    <t t-esc="props.line?.rate" />
+                </div>
+                <div>
+                    <strong>Monto:</strong>
+                    <t
+                        t-esc="formatMonetary(props.line?.amount, { currencyId: props.currency?.[0] })" />
+                </div>
+            </td>
+        </tr>
+    </t>
+</templates>

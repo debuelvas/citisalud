@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="invoice_form_extended_ext" model="ir.ui.view">
+            <field name="name">documento DIAN de una factura</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='ref']" position="after">
+                    <field name="order_reference_date" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,142 @@
+.payslip-detail .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.payslip-detail .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.payslip-detail .card-title {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.payslip-detail .card-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.payslip-detail table {
+    font-size: 0.9em;
+}
+
+.payslip-detail th {
+    background-color: #f8f9fa;
+}
+
+.days-bar {
+    width: 100%;
+}
+
+.days-bar .d-flex {
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.day-segment {
+    flex-grow: 1;
+    height: 100%;
+}
+
+.day-segment:hover {
+    opacity: 0.8;
+}
+
+.deduction-input input[type="number"] {
+    text-align: right;
+    padding-left: 20px; /* Ajusta según sea necesario */
+}
+.deduction-input .input-group-text {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: none;
+    border: none;
+}
+
+.additional-fields {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.additional-fields.show {
+    max-height: 1000px; /* Ajusta este valor según sea necesario */
+    transition: max-height 0.5s ease-in;
+}
+
+
+.card-body {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+
+.h4 {
+    font-size: 1.2rem;
+}
+
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+
+
+.fa-plane, .fa-calendar, .fa-ban, .fa-medkit {
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.text-muted.small {
+    font-size: 0.8rem;
+}
+
+.h3 {
+    font-size: 1.3rem;
+}
+
+.bg-light-orange {
+    background-color: #FFCBA4;
+}
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+.card-body {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.icon {
+    font-family: 'FontAwesome';
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.text-muted.small {
+    font-size: 0.75rem;
+}
+
+.h3 {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .text-muted.small {
+        font-size: 0.7rem;
+    }
+    .h3 {
+        font-size: 1rem;
+    }
+}

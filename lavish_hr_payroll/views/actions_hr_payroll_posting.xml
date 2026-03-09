@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <!-- Proceso de generar contabilizar pago de nómina-->
+        <record model="ir.actions.act_window" id="action_hr_payroll_posting">
+            <field name="name">Contabilización del pago</field>
+            <field name="res_model">hr.payroll.posting</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_payroll_posting" model="ir.rule">
+            <field name="name">Permisos compañia contabilizacion de pago</field>
+            <field name="model_id" ref="model_hr_payroll_posting"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_payroll_posting_tree" model="ir.ui.view">
+            <field name="name">Contabilización del pago</field>
+            <field name="model">hr.payroll.posting</field>
+            <field name="arch" type="xml">
+                <tree string="Contabilización del pago">
+                    <field name="payment_type"/>
+                    <field name="journal_id"/>
+                    <field name="company_id"/>
+                    <field name="payslip_id"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_payroll_posting_form" model="ir.ui.view">
+            <field name="name">Contabilización del pago</field>
+            <field name="model">hr.payroll.posting</field>
+            <field name="arch" type="xml">
+                <form string="Contabilización del pago">
+                    <header>
+                        <button name="payroll_posting" type="object" invisible="state != 'draft'" string="Contabilizar" class="oe_highlight"/>
+                        <button name="payroll_rever_posting" type="object" invisible="state != 'done'" string="Reversar" class="oe_highlight"/>
+                        <button name="action_post" type="object" invisible="state != 'done'" string="Conciliar" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="payment_type" />
+                            <field name="journal_id" />
+                            <field name="source_information" widget="radio" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                             <field name="payment_date" readonly="state != 'draft'"/>
+                            <field name="disaggregate_counterparty" readonly="state != 'draft'"/>
+                            <field name="payslip_id" domain="[('definitive_plan', '=', False),('state', '=', 'close')]" invisible="source_information != 'lote'" required="source_information == 'lote'" readonly="state != 'draft'"/>
+                            <field name="payslip_id_run_ids" widget="many2many_tags" domain="[('definitive_plan', '=', False),('state', '=', 'close')]" invisible="source_information != 'lote'" required="source_information == 'lote'" readonly="state != 'draft'"/>
+                            <field name="liquidations_ids" widget="many2many_tags" domain="[('definitive_plan', '=', False)]" invisible="source_information == 'lote'" required="source_information != 'lote'" readonly="state != 'draft'"/>
+                            <field name="description" readonly="state != 'draft'"/>
+                            <field name="payroll_posting_distribution_ids" invisible="1" colspan="2">
+                                <tree editable="bottom">
+                                    <field name="partner_id" />
+                                    <field name="account_id" />
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Movimientos Contables" invisible="not payroll_posting_account_move_ids">
+                            <field name="payroll_posting_account_move_ids" nolabel="1" readonly="1" force_save="1" colspan="2">
+                                <tree>
+                                    <field name="journal_id" />
+                                    <field name="move_id" />
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
+      

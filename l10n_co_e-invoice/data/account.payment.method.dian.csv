@@ -1,0 +1,78 @@
+id,code,name
+code_1,10,Efectivo
+code_2,49,Tarjeta Débito
+code_3,42,Consiganción bancaria
+code_4,3,Débito ACH
+code_5,25,Cheque certificado
+code_6,26,Cheque Local
+code_7,24,Nota cambiaria esperando aceptación
+code_8,64,Nota promisoria firmada pro el banco
+code_9,65,Nota promisoria firmada por un banco avalada por otro banco
+code_10,66,Nota promisoria firmada
+code_11,67,"Nota promisoria firmada por un tercero avalada por un banco"
+code_12,2,Crédito ACH
+code_13,ZZZ,Otro*
+code_14,95,Giro formato abierto
+code_15,13,Crédito Ahorro
+code_16,14,Débito Ahorro
+code_17,39,Crédito Intercambio Corporativo (CTX)
+code_18,4,Reversión débito de demanda ACH
+code_19,5,Reversión crédito de demanda ACH
+code_20,6,Crédito de demanda ACH
+code_21,7,Débito de demanda ACH
+code_22,9,Clearing Nacional o Regional
+code_23,11,Reversión Crédito Ahorro
+code_24,12,Reversión Débito Ahorro
+code_25,18,Desembolso (CCD) débito
+code_26,19,Crédito Pago negocio corporativo (CTP)
+code_27,21,Poyecto bancario
+code_28,22,Proyecto bancario certificado
+code_29,27,Débito Pago Neogcio Corporativo (CTP)
+code_30,28,Crédito Negocio Intercambio Corporativo (CTX)
+code_31,29,Débito Negocio Intercambio Corporativo (CTX)
+code_32,30,Transferencia Crédito
+code_33,31,Transferencia Débito
+code_34,32,Desembolso Crédito plus (CCD+)
+code_35,33,Desembolso Débito plus (CCD+)
+code_36,34,Pago y depósito pre acordado (PPD)
+code_37,35,Desembolso Crédito (CCD)
+code_38,36,Desembolso Débito (CCD)
+code_39,48,Tarjeta Crédito
+code_40,47,Transferencia Débito Bancaria
+code_41,44,Nota cambiaria
+code_42,20,Cheque
+code_43,23,Cheque bancario de gerencia
+code_44,71,Bonos
+code_45,72,Vales
+code_46,61,Nota promisoria firmada por el acreedor
+code_47,62,"Nota promisoria firmada por el acreedor, avalada por el banco"
+code_48,63,"Nota promisoria firmada por el acreedor, avalada por un
+tercero"
+code_49,60,Nota promisoria
+code_50,96,Método de pago solicitado no usuado
+code_51,91,Nota bancaria transferible
+code_52,92,Cheque local transferible
+code_53,93,Giro referenciado
+code_54,94,Giro urgente
+code_55,40,Débito Intercambio Corporativo (CTX)
+code_56,41,Desembolso Crédito plus (CCD+)
+code_57,43,Desembolso Débito plus (CCD+)
+code_58,45,Transferencia Crédito Bancario
+code_59,46,Transferencia Débito Interbancario
+code_60,50,Postgiro
+code_61,51,Telex estándar bancario
+code_62,52,Pago comercial urgente
+code_63,53,Pago Tesorería Urgente
+code_64,15,Bookentry Crédito
+code_65,16,Bookentry Débito
+code_66,17,Desembolso Crédito (CCD)
+code_67,70,Retiro de nota por el por el acreedor
+code_68,74,Retiro de nota por el por el acreedor sobre un banco
+code_69,75,"Retiro de nota por el acreedor, avalada por otro banco"
+code_70,76,"Retiro de nota por el acreedor, sobre un banco avalada por un tercero"
+code_71,77,Retiro de una nota por el acreedor sobre un tercero
+code_72,78,Retiro de una nota por el acreedor sobre un tercero avalada por un banco
+code_73,1,Instrumento no definido
+code_74,37,Pago Negocio Corporativo Ahorros Crédito (CTP)
+code_75,38,Pago Negocio Corporativo Ahorros Débito (CTP)
+code_76,97,Clearing entre partners

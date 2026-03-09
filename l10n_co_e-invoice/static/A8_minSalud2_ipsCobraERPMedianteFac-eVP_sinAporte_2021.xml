@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+       	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+       	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+       	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+       	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+       	xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1"
+       	xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
+       	xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
+       	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       	xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<!--Estructura para reporte de información adicional específica para el sector salud-->
+			<ext:ExtensionContent>
+				<CustomTagGeneral>
+					<Name>Responsable</Name>
+					<Value>url www.minSalud.gov.co</Value>
+					<Name>Tipo, identificador:año del acto administrativo</Name>
+					<Value>Resolución 084:2021</Value>
+					<Interoperabilidad>
+						<Group schemeName="Sector Salud">
+							<Collection schemeName="Usuario">
+								<AdditionalInformation>
+									<Name>CODIGO_PRESTADOR<!-- IPS/REPS; IPS:= Institución Prestadora de Servicios de Salud; REPS:= Registro de Prestadores de Salud --><!-- ERP; ERP:= entidad responsable del pago;  -->
+									</Name>
+									<Value>ABC23345</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>TIPO_DOCUMENTO_IDENTIFICACION</Name>
+									<Value schemeID="Cédula de ciudadanía"
+     										schemeName="salud_identificación.gc">CC</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>NUMERO_DOCUMENTO_IDENTIFICACION</Name>
+									<Value>888999AAABBB</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>PRIMER_APELLIDO</Name>
+									<Value>Apellido-1</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>SEGUNDO_APELLIDO</Name>
+									<Value>Apellido-2</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>PRIMER_NOMBRE</Name>
+									<Value>Nombre-1</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>SEGUNDO_NOMBRE</Name>
+									<Value>Nombre-2</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>TIPO_USUARIO</Name>
+									<Value schemeID="01"
+     										schemeName="salud_tipo_usuario.gc">Contributivo Cotizante</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>MODALIDAD_CONTRATACION</Name>
+									<Value schemeID="06"
+     										schemeName="salud_modalidad_pago.gc">Pago por tipo de servicio</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>COBERTURA_PLAN_BENEFICIOS</Name>
+									<Value schemeID="10"
+     										schemeName="salud_cobertuta.gc">Plan Complementario de Salud</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>NUMERO_AUTORIZACION</Name>
+									<Value>9876543210987654321</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>NUMERO_MIPRES</Name>
+									<Value>999888777666555</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>NUMERO_ENTREGA_MIPRES</Name>
+									<Value>999888777666555</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>NUMERO_CONTRATO</Name>
+									<Value>A654123789</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>NUMERO_POLIZA</Name>
+									<Value>ZAS123654987</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<!-- revise y adecue desde aqui -->
+									<Name>COPAGO</Name>
+									<Value>0.00</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>CUOTA_MODERADORA</Name>
+									<Value>0.00</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>CUOTA_RECUPERACION</Name>
+									<Value>0.00</Value>
+								</AdditionalInformation>
+								<AdditionalInformation>
+									<Name>PAGOS_COMPARTIDOS</Name>
+									<Value>0.00</Value>
+								</AdditionalInformation>
+							</Collection>
+						</Group>
+					</Interoperabilidad>
+				</CustomTagGeneral>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+		<ext:UBLExtension>
+			<!--DianExtensions-->
+			<ext:ExtensionContent>
+				<sts:DianExtensions>
+					<sts:InvoiceControl>
+						<sts:InvoiceAuthorization>9000000500023999</sts:InvoiceAuthorization>
+						<sts:AuthorizationPeriod>
+							<cbc:StartDate>2019-03-10</cbc:StartDate>
+							<cbc:EndDate>2021-03-10</cbc:EndDate>
+						</sts:AuthorizationPeriod>
+						<sts:AuthorizedInvoices>
+							<sts:Prefix>BC</sts:Prefix>
+							<sts:From>100001</sts:From>
+							<sts:To>130000</sts:To>
+						</sts:AuthorizedInvoices>
+					</sts:InvoiceControl>
+					<sts:InvoiceSource>
+						<cbc:IdentificationCode listAgencyID="6"
+                      							listAgencyName="United Nations Economic Commission for Europe"
+                      							listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.1">CO</cbc:IdentificationCode>
+					</sts:InvoiceSource>
+					<sts:SoftwareProvider>
+						<sts:ProviderID schemeAgencyID="195"
+              							schemeAgencyName="CO, DIAN (Direccion de Impuestos y Aduanas Nacionales)"
+              							schemeID="9"
+              							schemeName="31">900508908</sts:ProviderID>
+						<sts:SoftwareID schemeAgencyID="195"
+              							schemeAgencyName="CO, DIAN (Direccion de Impuestos y Aduanas Nacionales)">6384b136-8eef-4aab-a51c-2645f1e715c1</sts:SoftwareID>
+					</sts:SoftwareProvider>
+					<sts:SoftwareSecurityCode schemeAgencyID="195"
+                        						schemeAgencyName="CO, DIAN (Direccion de Impuestos y Aduanas Nacionales)">6c575e7f3d7de4fa215698a778c3a057977bd2c7bea5c6a726b4f5ac403a5313d62c16e3c789632330824165b742662d</sts:SoftwareSecurityCode>
+					<sts:AuthorizationProvider>
+						<sts:AuthorizationProviderID schemeAgencyID="195"
+                           							schemeAgencyName="CO, DIAN (Direccion de Impuestos y Aduanas Nacionales)"
+                           							schemeID="4"
+                           							schemeName="31">800197268</sts:AuthorizationProviderID>
+					</sts:AuthorizationProvider>
+					<sts:QRCode>https://muisca.dian.gov.co/WebFacturaelectronica/paginas/VerificarFacturaElectronicaExterno.faces?TipoDocumento=1NroDocumento=PRUE980078932NITFacturador=890101815NumIdentAdquiriente=900108281Cufe=bf8b43bc09bdf01204dd2f1dcae2b51ea02e849f29257140fc00dc9b65aa953e</sts:QRCode>
+				</sts:DianExtensions>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<ds:signature/>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>SS-SinAporte</cbc:CustomizationID>
+	<cbc:ProfileID>DIAN 2.1</cbc:ProfileID>
+	<cbc:ProfileExecutionID>1</cbc:ProfileExecutionID>
+	<cbc:ID>BC103911</cbc:ID>
+	<cbc:UUID schemeID="1"
+        		schemeName="CUFE-SHA384">c19b58e4b7b08dd61d8c2f6af103eea370e23bcfd8db102536bbd7f5126892b6dfeeed99a7c8b5a03a2667e1e8c0e7ac</cbc:UUID>
+	<cbc:IssueDate>2019-03-11</cbc:IssueDate>
+	<cbc:IssueTime>12:53:36-05:00<!--hh:mm:dd-05:00-->
+	</cbc:IssueTime>
+	<cbc:DueDate>2019-04-04<!--ver uso en AT-->
+	</cbc:DueDate>
+	<cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
+	<cbc:Note/>
+	<cbc:TaxPointDate>2019-04-30<!--fecha de declaración y pago a la DIAN del IVA causado-->
+	</cbc:TaxPointDate>
+	<cbc:DocumentCurrencyCode>COP</cbc:DocumentCurrencyCode>
+	<cbc:LineCountNumeric>
+		<!--cantidad de items B/S incluidos en esta factura-->1
+	</cbc:LineCountNumeric>
+	
+			<cac:InvoicePeriod><!--fragmento obligatorio para el sector salud-->
+	<cbc:StartDate>9999-12-31</cbc:StartDate>
+	<cbc:StartTime>23:59:59-05:00</cbc:StartTime>
+	<cbc:EndDate>9999-12-31</cbc:EndDate>
+	<cbc:EndTime>23:59:59-05:00</cbc:EndTime>
+	</cac:InvoicePeriod>
+	
+	<cac:OrderReference>
+		<cbc:ID>526446332432</cbc:ID>
+	</cac:OrderReference>
+	<!-- se incluye para acreditar cuantías de aportes al Sistema de Salud recaudadas como anticipo
+	<cac:BillingReference/>
+-->
+	<cac:AccountingSupplierParty>
+		<cbc:CustomerAssignedAccountID/>
+		<cbc:AdditionalAccountID schemeAgencyID="195">
+			<!--1:=PJ; 2:=PN-->1
+		</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cbc:EndpointID/>
+			<cbc:IndustryClassificationCode/>
+			<cac:PartyName>
+				<cbc:Name>Nombre Tienda IPS</cbc:Name>
+			</cac:PartyName>
+			<cac:PartyName>
+				<cbc:Name>Establecimiento Principal</cbc:Name>
+			</cac:PartyName>
+			<cac:PartyName>
+				<cbc:Name>FACTURADOR ELECTRÓNICO DE EJEMPLO: IPS</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<!--dirección postal o electrónica de la tienda que atendió el despacho-->
+			</cac:PostalAddress>
+			<cac:PhysicalLocation>
+				<cac:Address>
+					<cbc:ID>05001</cbc:ID>
+					<cbc:CityName>Medellín</cbc:CityName>
+					<cbc:CountrySubentity>Antioquia</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>05</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>CR 9 A N0 99 - 07 OF 802</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name>Colombia</cbc:Name>
+					</cac:Country>
+				</cac:Address>
+			</cac:PhysicalLocation>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>FACTURADOR DE EJEMPLO IPS</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+             					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+             					schemeID="9"
+             					schemeName="31">_IPS-1_nit_</cbc:CompanyID>
+				<cbc:TaxLevelCode listName="05">O-99</cbc:TaxLevelCode>
+				<cac:RegistrationAddress>
+					<cbc:ID>11001</cbc:ID>
+					<cbc:CityName>Bogotá DC</cbc:CityName>
+					<cbc:CountrySubentity>Distrito Capital</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>11</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>CR 9 A N0 99 - 07 OF 802</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name>Colombia</cbc:Name>
+					</cac:Country>
+				</cac:RegistrationAddress>
+				<cac:TaxScheme>
+					<cbc:ID>01</cbc:ID>
+					<cbc:Name>IVA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>FACTURADOR DE EJEMPLO IPS</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+             					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+             					schemeID="9"
+             					schemeName="31">_IPS-1_nit_</cbc:CompanyID>
+				<cbc:TaxLevelCode listName="05">O-99</cbc:TaxLevelCode>
+				<cac:RegistrationAddress>
+					<cbc:ID>11001</cbc:ID>
+					<cbc:CityName>Bogotá DC</cbc:CityName>
+					<cbc:CountrySubentity>Distrito Capital</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>11</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>CR 9 A N0 99 - 07 OF 802</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name>Colombia</cbc:Name>
+					</cac:Country>
+				</cac:RegistrationAddress>
+				<cac:TaxScheme>
+					<cbc:ID>03</cbc:ID>
+					<cbc:Name>ICA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>FACTURADOR DE EJEMPLO IPS</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+             					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+             					schemeID="9"
+             					schemeName="31"
+             					schemeVersionID="NIT">_IPS-1_nit_
+				</cbc:CompanyID>
+				<cbc:SoleProprietorshipIndicator>false</cbc:SoleProprietorshipIndicator>
+				<cbc:CompanyLiquidationStatusCode/>
+			</cac:PartyLegalEntity>
+			<cac:PartyLegalEntity>
+				<cbc:CompanyID schemeAgencyName="CO, CCB (Cámara de Comercio de Bogotá)"
+             					schemeDataURI="URL www.rues.org.co"
+             					schemeVersionID="Matrícula Mercantil">1234567
+				</cbc:CompanyID>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Telephone>3XX9712311</cbc:Telephone>
+				<cbc:ElectronicMail>CxC@ips.com.co</cbc:ElectronicMail>
+				<cac:OtherCommunication>
+					<cbc:ChannelCode>Webservice</cbc:ChannelCode>
+					<cbc:Channel>Descargue Anexos Esta Factura; requiere referencia &amp; clave/token</cbc:Channel>
+					<cbc:Value>URL 'webService.ips.com.co' Método 'ws_d.cs' Parámetro-1 'facturaReferencia' Parámetro-2 'ipsToken'</cbc:Value>
+				</cac:OtherCommunication>
+				<cac:OtherCommunication/>
+			</cac:Contact>
+			<cac:Person>
+				<cbc:FirstName/>
+				<cbc:FamilyName/>
+				<cbc:MiddleName/>
+			</cac:Person>
+			<cac:AgentParty>
+				<!--Agente o representante-->
+			</cac:AgentParty>
+			<cac:ServiceProviderParty>
+				<cac:Party/>
+			</cac:ServiceProviderParty>
+			<cac:ServiceProviderParty>
+				<cac:Party/>
+			</cac:ServiceProviderParty>
+			<cac:ServiceProviderParty>
+				<cac:Party/>
+			</cac:ServiceProviderParty>
+			<cac:PowerOfAttorney>
+				<cac:AgentParty/>
+			</cac:PowerOfAttorney>
+		</cac:Party>
+		<cac:DespatchContact>
+			<cbc:ElectronicMail>
+				<!--dirección para recibir el ubl-AttachedDocument de mis compras como FE-->_reciboFacturas@fe.com.co_</cbc:ElectronicMail>
+			<cac:OtherCommunication/>
+		</cac:DespatchContact>
+		<cac:SellerContact>
+			<cbc:ElectronicMail/>
+			<cac:OtherCommunication/>
+		</cac:SellerContact>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<!-- ERP / EPS -->
+		<cbc:AdditionalAccountID>1</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID schemeAgencyID="195"
+             					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+             					schemeID="9"
+             					schemeName="31">_ERP_EPS_</cbc:CompanyID>
+				<cac:TaxScheme/>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:CompanyID schemeID="...">_erp_eps_nit_</cbc:CompanyID>
+			</cac:PartyLegalEntity>
+			<!-- vea ATv1.8:2020 xPath: Invoice/cac:AccountingCustomerParty -->
+		</cac:Party>
+		<cac:DeliveryContact/>
+		<cac:AccountingContact/>
+		<cac:BuyerContact/>
+	</cac:AccountingCustomerParty>
+	<cac:PayeeParty/>
+	<cac:BuyerCustomerParty>
+		<cbc:CustomerAssignedAccountID>
+			<!-- identificador del usuario dado por la ERP-->
+		</cbc:CustomerAssignedAccountID>
+		<cbc:SupplierAssignedAccountID>
+			<!-- identificador del usuario asignado por la IPS -->
+		</cbc:SupplierAssignedAccountID>
+		<cbc:AdditionalAccountID>
+			<!-- identificador del usuario ../Interoperabilidad[1]/Group[1]/Collection[1]/AdditionalInformation[3]/Value[1] o beneficiario del servicio de Salud; -->888999AAABBB
+		</cbc:AdditionalAccountID>
+	</cac:BuyerCustomerParty>
+	<cac:SellerSupplierParty/>
+	<cac:TaxRepresentativeParty/>
+	<cac:Delivery/>
+	<cac:DeliveryTerms/>
+	
+		<cac:PaymentMeans><cbc:ID>1<!--1 contado,2 credito; tabla 13.3.4.1--></cbc:ID>
+		<cbc:PaymentMeansCode><!-- tabla 13.3.4.2--></cbc:PaymentMeansCode>
+	</cac:PaymentMeans>
+	<cac:PaymentMeans><cbc:ID>2<!--1 contado,2 credito; tabla 13.3.4.1--></cbc:ID>
+		<cbc:PaymentMeansCode><!-- tabla 13.3.4.2--></cbc:PaymentMeansCode>
+	</cac:PaymentMeans>
+	
+	<cac:PaymentMeans>
+		<cbc:PaymentMeansCode/>
+	</cac:PaymentMeans>
+	<cac:PaymentMeans>
+		<cbc:PaymentMeansCode/>
+	</cac:PaymentMeans>
+	<cac:PaymentTerms>
+		<cbc:ID>
+			<!--identificador del término de pago asignado por la IPS -->
+		</cbc:ID>
+		<cbc:PrepaidPaymentReferenceID>_no_se_incluye_valor_en_el_reporte_</cbc:PrepaidPaymentReferenceID>
+		<cbc:Note>
+			<!--Explicación, si es necesaria-->
+		</cbc:Note>
+		<cbc:InvoicingPartyReference>
+			<!--Identificador del comprobante contable del FE con el cual reconoció y acreditó el recaudo realizado por quien recibió y le abonó el valor del anticipo. - El FE es el tercero beneficiario dela cuota moderadora.-->_comprobante_contable_ID_
+		</cbc:InvoicingPartyReference>
+	</cac:PaymentTerms>
+	<cac:PrepaidPayment>
+		<!-- el "SS-Reporte" ya encontró resuelto el traslado de pasivo-->
+		<cbc:ID schemeName="..."/>
+	</cac:PrepaidPayment>
+	<cac:AllowanceCharge>
+		<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+		<cbc:Amount currencyID="cop">0.00</cbc:Amount>
+	</cac:AllowanceCharge>
+	<cac:PaymentExchangeRate>
+		<cbc:SourceCurrencyCode/>
+		<cbc:TargetCurrencyCode/>
+	</cac:PaymentExchangeRate>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+	</cac:TaxTotal>
+	<cac:WithholdingTaxTotal>
+		<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+	</cac:WithholdingTaxTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="COP">100000.00</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="COP">100000.00</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="COP">100000.00</cbc:TaxInclusiveAmount>
+		<cbc:AllowanceTotalAmount currencyID="COP">0.00</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="COP">0.00</cbc:ChargeTotalAmount>
+		<cbc:PrepaidAmount currencyID="COP">0.00</cbc:PrepaidAmount>
+		<cbc:PayableAmount currencyID="COP">100000.00</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:UUID schemeName="contenido del elemento: identificador del usuario (beneficiario del servicio de salud) factura pagadera por la ERP/EPS">
+			<!-- identificador del usuario ../Interoperabilidad[1]/Group[1]/Collection[1]/AdditionalInformation[3]/Value[1] o beneficiario del servicio de Salud; podría o no coincidir con Invoice[1]/cac:AccountingCustomerParty[1]/cac:Party[1] quien será el pagador del valor facturado -->888999AAABBB
+		</cbc:UUID>
+		<cbc:InvoicedQuantity unitCode="EA">1.000000</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="COP">100000.00</cbc:LineExtensionAmount>
+		<cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
+		<cac:DocumentReference>
+			<cbc:ID/>
+		</cac:DocumentReference>
+		<cac:DocumentReference>
+			<cbc:ID>0</cbc:ID>
+		</cac:DocumentReference>
+		<cac:AllowanceCharge>
+			<cbc:ID>1</cbc:ID>
+			<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+			<cbc:Amount currencyID="COP">0.00</cbc:Amount>
+		</cac:AllowanceCharge>
+		<cac:AllowanceCharge>
+			<cbc:ID>2</cbc:ID>
+			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+			<cbc:Amount currencyID="COP">0.00</cbc:Amount>
+		</cac:AllowanceCharge>
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+			<cbc:RoundingAmount currencyID="COP">0.00</cbc:RoundingAmount>
+			<cbc:TaxEvidenceIndicator>false</cbc:TaxEvidenceIndicator>
+			<cbc:TaxIncludedIndicator>false</cbc:TaxIncludedIndicator>
+			<cac:TaxSubtotal>
+				<cbc:TaxableAmount currencyID="COP">0.00</cbc:TaxableAmount>
+				<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cac:TaxScheme/>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+		</cac:TaxTotal>
+		<cac:WithholdingTaxTotal>
+			<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+			<cbc:RoundingAmount currencyID="COP">0.00</cbc:RoundingAmount>
+			<cbc:TaxEvidenceIndicator>false</cbc:TaxEvidenceIndicator>
+			<cbc:TaxIncludedIndicator>false</cbc:TaxIncludedIndicator>
+			<cac:TaxSubtotal>
+				<cbc:TaxableAmount currencyID="COP">0.00</cbc:TaxableAmount>
+				<cbc:TaxAmount currencyID="COP">0.00</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cac:TaxScheme/>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+		</cac:WithholdingTaxTotal>
+		<cac:Item>
+			<cbc:Description>Cirugía ambulatoria</cbc:Description>
+			<cac:BuyersItemIdentification>
+				<cbc:ID schemeAgencyID="ABC23345"
+      					schemeName="AutorizaID-ERP/EPS">9876543210987654321</cbc:ID>
+			</cac:BuyersItemIdentification>
+			<cac:SellersItemIdentification>
+				<cbc:ID>AOHV84-225</cbc:ID>
+			</cac:SellersItemIdentification>
+			<cac:StandardItemIdentification>
+				<cbc:ID schemeAgencyName="195">6543542313534</cbc:ID>
+			</cac:StandardItemIdentification>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="COP">100000.00</cbc:PriceAmount>
+			<cbc:BaseQuantity unitCode="EA">1.000000</cbc:BaseQuantity>
+		</cac:Price>
+		<cac:SubInvoiceLine>
+			<cbc:ID/>
+			<cbc:LineExtensionAmount currencyID="COP">0.00</cbc:LineExtensionAmount>
+			<cac:Item/>
+		</cac:SubInvoiceLine>
+	</cac:InvoiceLine>
+</Invoice>

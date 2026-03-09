@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="l10n_co_e-payroll.hr_type_inability_view_tree" model="ir.ui.view">
+        <field name="name">hr.type.inability.tree</field>
+        <field name="model">hr.type.inability</field>
+        <field name="arch" type="xml">
+            <tree string="Tipo Incapacidad">
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="l10n_co_e-payroll.hr_type_inability_view_form" model="ir.ui.view">
+        <field name="name">hr.type.inability.form</field>
+        <field name="model">hr.type.inability</field>
+        <field name="arch" type="xml">
+            <form string="Tipo Incapacidad">
+                <group>
+                    <field name="code" />
+                    <field name="name" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="l10n_co_e-payroll.hr_type_inability_action" model="ir.actions.act_window">
+        <field name="name">Tipo Incapacidad</field>
+        <field name="res_model">hr.type.inability</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    
+</odoo>

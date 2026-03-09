@@ -1,0 +1,60 @@
+// Estilos básicos para la vista kanban de Glosa Médica
+.o_glosa_kanban {
+    // Usamos padding en lugar de margin para evitar problemas con Popper.js
+    padding-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+    border: none;
+}
+
+// Barra de estado en la parte inferior
+.o_glosa_kanban .o_status_bar {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+// Ajustes para el encabezado
+.o_glosa_kanban .o_kanban_record_top {
+    min-height: 40px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+// Mejoras en el diseño del contenido
+.o_glosa_kanban .o_kanban_record_title {
+    font-size: 16px;
+    color: #333333;
+}
+
+// Ajustes para las etiquetas y texto
+.o_glosa_kanban h6 {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+// Hover effect usando transform en lugar de box-shadow para mejor rendimiento
+.o_glosa_kanban:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+// Estilos específicos para las etapas en el encabezado
+.o_kanban_header .o_column_title {
+    font-weight: bold;
+    color: #495057;
+}
+
+// Solución para el problema de Popper - evitamos usar margins
+.o_dropdown_kanban .dropdown-menu {
+    padding: 0.5rem 0;
+}
+
+.o_dropdown_kanban .dropdown-item {
+    padding: 0.5rem 1rem;
+}

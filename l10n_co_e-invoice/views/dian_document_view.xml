@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista lista minimalista de documentos DIAN -->
+    <record id="dian_document_tree_view" model="ir.ui.view">
+        <field name="name">dian.document.tree</field>
+        <field name="model">dian.document</field>
+        <field name="arch" type="xml">
+            <tree string="Documentos DIAN"
+                  decoration-danger="state in ['error', 'rechazado']"
+                  decoration-success="state == 'exitoso'"
+                  decoration-info="state == 'por_validar'"
+                  decoration-warning="state == 'por_notificar'"
+                  create="false">
+                <!-- Campos esenciales visibles -->
+                <field name="dian_code" string="Código"/>
+                <field name="document_id" string="Factura"/>
+                <field name="customer_name" string="Cliente"/>
+                <field name="date_document" string="Fecha"/>
+                <field name="state" widget="badge" string="Estado DIAN"/>
+
+                <!-- Respuestas DIAN (opcional pero útil para ver errores) -->
+                <field name="shipping_response" string="Respuesta Envío" optional="show"/>
+                <field name="response_document_dian" string="Validación" optional="show"/>
+                <field name="transaction_description" string="Descripción Validación" optional="hide"/>
+
+                <!-- Estado de email -->
+                <field name="email_state" widget="badge" string="Email" optional="show"/>
+
+                <!-- Contingencias -->
+                <field name="contingency_3" string="Cont. 3" optional="hide" widget="boolean_toggle"/>
+                <field name="contingency_4" string="Cont. 4" optional="hide" widget="boolean_toggle"/>
+
+                <!-- Campos útiles ocultos por defecto -->
+                <field name="document_type" optional="hide"/>
+                <field name="date_document_dian" string="Fecha Envío DIAN" optional="hide"/>
+                <field name="count_error_DIAN" string="Intentos" optional="hide"/>
+
+                <!-- Archivos adjuntos -->
+                <field name="has_xml" string="XML" optional="hide" widget="boolean_toggle"/>
+                <field name="has_zip" string="ZIP" optional="hide" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista formulario simplificada -->
+    <record id="dian_document_form_view" model="ir.ui.view">
+        <field name="name">dian.document.form</field>
+        <field name="model">dian.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- Botón para actualizar datos desde XML -->
+                    <button name="action_reload_from_xml"
+                            string="Actualizar desde XML"
+                            type="object"
+                            class="btn-secondary"
+                            confirm="¿Está seguro de actualizar los datos desde el XML? Esto sobrescribirá algunos campos."
+                            invisible="not xml_document"
+                            help="Reprocesa el XML y actualiza los datos del documento"/>
+
+                    <!-- Botones comentados - métodos no implementados en el modelo
+                    <button name="action_get_status"
+                            string="Consultar Estado DIAN"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state == 'exitoso'"/>
+
+                    <button name="action_get_status_zip"
+                            string="Consultar ZIP"
+                            type="object"
+                            class="btn-primary"
+                            invisible="ZipKey == False"/>
+                    -->
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="por_notificar,por_validar,exitoso"/>
+                </header>
+
+                <sheet>
+                    <!-- Botones de descarga comentados - métodos no implementados
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_download_xml"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-code-o"
+                                invisible="has_xml == False">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Descargar XML</span>
+                            </div>
+                        </button>
+
+                        <button name="action_download_zip"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-archive-o"
+                                invisible="has_zip == False">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Descargar ZIP</span>
+                            </div>
+                        </button>
+                    </div>
+                    -->
+
+                    <!-- Alerta de error -->
+                    <div class="alert alert-danger" role="alert" invisible="state != 'error'">
+                        <strong>Error en validación DIAN</strong>
+                        <field name="message_json" readonly="1" nolabel="1"/>
+                    </div>
+
+                    <!-- Alerta de rechazo -->
+                    <div class="alert alert-warning" role="alert" invisible="state != 'rechazado'">
+                        <strong>Documento rechazado por DIAN</strong>
+                        <p>Revise la respuesta DIAN en la pestaña correspondiente.</p>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="dian_code" placeholder="Código DIAN"/>
+                        </h1>
+                        <h2>
+                            <field name="document_id"/>
+                        </h2>
+                    </div>
+
+                    <group>
+                        <group string="Información del Documento">
+                            <field name="document_type"/>
+                            <field name="customer_name"/>
+                            <field name="customer_email"/>
+                            <field name="date_document"/>
+                            <field name="cufe"/>
+                        </group>
+                        <group string="Estado DIAN">
+                            <field name="date_document_dian"/>
+                            <field name="date_request_dian"/>
+                            <field name="shipping_response"/>
+                            <field name="response_document_dian"/>
+                            <field name="ZipKey"/>
+                        </group>
+                    </group>
+
+                    <group string="Estado Email">
+                        <group>
+                            <field name="email_state" widget="badge"/>
+                            <field name="email_retry_count"/>
+                            <field name="date_email_send"/>
+                        </group>
+                        <group>
+                            <field name="email_response"/>
+                            <field name="date_email_acknowledgment"/>
+                            <field name="email_reject_reason" invisible="email_response != 'rejected'"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- Pestaña Respuesta DIAN - Información útil sin XML completo -->
+                        <page string="Respuesta DIAN" name="dian_response">
+                            <group>
+                                <group string="Transacción">
+                                    <field name="transaction_code"/>
+                                    <field name="transaction_description"/>
+                                </group>
+                                <group string="Opciones">
+                                    <field name="resend" widget="boolean_toggle" invisible="state != 'error'"/>
+                                    <field name="last_shipping" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+
+                            <!-- Mensaje formateado de errores -->
+                            <group string="Mensaje de Respuesta DIAN" invisible="not message_json">
+                                <field name="message_json" readonly="1" nolabel="1" widget="html"/>
+                            </group>
+
+                            <!-- Mensaje de texto simple -->
+                            <group string="Respuesta DIAN" invisible="not response_message_dian or message_json">
+                                <field name="response_message_dian" readonly="1" nolabel="1"/>
+                            </group>
+
+                            <!-- XML Técnicos - Separadores colapsables -->
+                            <separator string="XML de Respuesta DIAN" invisible="not xml_response_dian"/>
+                            <field name="xml_response_dian" readonly="1" widget="ace" options="{'mode': 'xml'}" invisible="not xml_response_dian"/>
+
+                            <separator string="XML de Consulta DIAN" invisible="not xml_send_query_dian"/>
+                            <field name="xml_send_query_dian" readonly="1" widget="ace" options="{'mode': 'xml'}" invisible="not xml_send_query_dian"/>
+                        </page>
+
+                        <!-- Pestaña Documento - Solo info útil, XML opcional -->
+                        <page string="Documento" name="document_xml">
+                            <group>
+                                <group string="Archivos">
+                                    <field name="xml_file_name" readonly="1"/>
+                                    <field name="zip_file_name" readonly="1"/>
+                                    <field name="has_xml" widget="boolean_toggle" readonly="1"/>
+                                    <field name="has_zip" widget="boolean_toggle" readonly="1"/>
+                                </group>
+                                <group string="Identificación">
+                                    <field name="cufe_seed" readonly="1"/>
+                                    <field name="ZipKey" readonly="1"/>
+                                </group>
+                            </group>
+
+                            <!-- QR Code visible -->
+                            <group string="Código QR" invisible="not QR_code">
+                                <field name="QR_code" widget="image" readonly="1" nolabel="1"/>
+                                <field name="qr_data" readonly="1" string="Datos del QR"/>
+                            </group>
+
+                            <!-- XML del documento con separador -->
+                            <separator string="Contenido XML del Documento" invisible="not xml_document"/>
+                            <field name="xml_document" readonly="1" widget="ace" options="{'mode': 'xml'}" invisible="not xml_document"/>
+                        </page>
+
+                        <!-- Pestaña Contingencia -->
+                        <page string="Contingencia" name="contingency" invisible="contingency_3 == False and contingency_4 == False">
+                            <group>
+                                <group>
+                                    <field name="contingency_3" widget="boolean_toggle" readonly="1"/>
+                                    <field name="contingency_4" widget="boolean_toggle" readonly="1"/>
+                                    <field name="state_contingency" widget="badge"/>
+                                </group>
+                            </group>
+
+                            <separator string="Respuesta Contingencia DIAN"/>
+                            <field name="xml_response_contingency_dian" readonly="1" widget="ace" options="{'mode': 'xml'}"/>
+                        </page>
+
+                        <!-- Pestaña Historial de Errores -->
+                        <page string="Historial de Errores" name="error_history" invisible="count_error_DIAN == 0">
+                            <group>
+                                <field name="count_error_DIAN" readonly="1"/>
+                            </group>
+
+                            <group string="Error 1" invisible="date_error_DIAN_1 == False">
+                                <field name="date_error_DIAN_1" readonly="1"/>
+                                <field name="message_error_DIAN_1" readonly="1"/>
+                            </group>
+
+                            <group string="Error 2" invisible="date_error_DIAN_2 == False">
+                                <field name="date_error_DIAN_2" readonly="1"/>
+                                <field name="message_error_DIAN_2" readonly="1"/>
+                            </group>
+
+                            <group string="Error 3" invisible="date_error_DIAN_3 == False">
+                                <field name="date_error_DIAN_3" readonly="1"/>
+                                <field name="message_error_DIAN_3" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Pestaña Archivos Adjuntos - Descarga directa -->
+                        <page string="Archivos" name="attachments">
+                            <group>
+                                <group string="Documentos Generados">
+                                    <field name="invoice_id"
+                                           string="XML Factura"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="zip_id"
+                                           string="Archivo ZIP"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                                <group string="Respuestas DIAN">
+                                    <field name="response_id"
+                                           string="Respuesta DIAN"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="attachment_id"
+                                           string="Adjunto DIAN"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                            </group>
+
+                            <!-- Info sobre archivos -->
+                            <group>
+                                <group string="Estados de Archivos">
+                                    <field name="has_xml" widget="boolean_toggle" readonly="1"/>
+                                    <field name="has_zip" widget="boolean_toggle" readonly="1"/>
+                                    <field name="has_response" widget="boolean_toggle" readonly="1"/>
+                                </group>
+                                <group string="Nombres de Archivos">
+                                    <field name="xml_file_name" readonly="1"/>
+                                    <field name="zip_file_name" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda simplificada -->
+    <record id="dian_document_search_view" model="ir.ui.view">
+        <field name="name">dian.document.search</field>
+        <field name="model">dian.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="dian_code"/>
+                <field name="document_id"/>
+                <field name="customer_name"/>
+                <field name="date_document"/>
+
+                <separator/>
+
+                <filter string="Por Notificar" name="filter_por_notificar"
+                        domain="[('state', '=', 'por_notificar')]"/>
+                <filter string="Por Validar" name="filter_por_validar"
+                        domain="[('state', '=', 'por_validar')]"/>
+                <filter string="Exitoso" name="filter_exitoso"
+                        domain="[('state', '=', 'exitoso')]"/>
+                <filter string="Error" name="filter_error"
+                        domain="[('state', '=', 'error')]"/>
+                <filter string="Rechazado" name="filter_rechazado"
+                        domain="[('state', '=', 'rechazado')]"/>
+
+                <separator/>
+
+                <filter string="Factura" name="filter_factura"
+                        domain="[('document_type', '=', 'f')]"/>
+                <filter string="Nota Crédito" name="filter_nc"
+                        domain="[('document_type', '=', 'c')]"/>
+                <filter string="Nota Débito" name="filter_nd"
+                        domain="[('document_type', '=', 'd')]"/>
+
+                <separator/>
+
+                <filter string="Con Contingencia 3" name="filter_contingency_3"
+                        domain="[('contingency_3', '=', True)]"/>
+                <filter string="Con Contingencia 4" name="filter_contingency_4"
+                        domain="[('contingency_4', '=', True)]"/>
+
+                <separator/>
+
+                <filter string="Último Envío" name="filter_last_shipping"
+                        domain="[('last_shipping', '=', True)]"/>
+
+                <separator/>
+
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Estado" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Tipo Documento" name="group_document_type"
+                            context="{'group_by': 'document_type'}"/>
+                    <filter string="Fecha Documento" name="group_date_document"
+                            context="{'group_by': 'date_document'}"/>
+                    <filter string="Estado Email" name="group_email_state"
+                            context="{'group_by': 'email_state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción de ventana -->
+    <record id="dian_document_action_view" model="ir.actions.act_window">
+        <field name="name">Documentos DIAN</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dian.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_por_validar': 1, 'search_default_filter_por_notificar': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay documentos DIAN registrados
+            </p>
+            <p>
+                Los documentos DIAN se crean automáticamente cuando se valida una factura con la DIAN.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="dian_document_menu"
+              name="Documentos DIAN"
+              action="dian_document_action_view"
+              parent="account.menu_finance_receivables"
+              sequence="99"/>
+
+</odoo>

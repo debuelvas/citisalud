@@ -1,0 +1,43 @@
+.o_contract_info {
+    .entities-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .entity-item {
+        .entity-name {
+            font-size: 0.8125rem;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+        
+        .entity-date {
+            font-size: 0.6875rem;
+            line-height: 1;
+            color: #6c757d;
+        }
+    }
+
+    .cotizante-info {
+        > div {
+            margin-bottom: 0.25rem;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .badge {
+        padding: 0.25em 0.5em;
+        font-size: 0.75rem;
+        font-weight: normal;
+    }
+
+    .text-truncate {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

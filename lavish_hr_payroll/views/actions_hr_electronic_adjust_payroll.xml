@@ -1,0 +1,118 @@
+<odoo>
+    <data>
+        <!-- Nómina Electrónica de ajuste-->
+        <record model="ir.actions.act_window" id="action_hr_electronic_adjust_payroll">
+            <field name="name">Nómina Electrónica de ajuste</field>
+            <field name="res_model">hr.electronic.adjust.payroll</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_electronic_adjust_payroll_company" model="ir.rule">
+            <field name="name">Permisos compañia Nómina Electrónica de ajuste</field>
+            <field name="model_id" ref="model_hr_electronic_adjust_payroll"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_electronic_adjust_payroll_list">
+            <field name="name">hr electronic adjust payroll list</field>
+            <field name="model">hr.electronic.adjust.payroll</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="electronic_payroll_id"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                    <field name="observations"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_electronic_adjust_payroll_form">
+            <field name="name">hr electronic adjust payroll form</field>
+            <field name="model">hr.electronic.adjust.payroll</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="executing_electronic_payroll" type="object" string="Crear XML" class="oe_highlight" states="draft"/>
+                        <button name="consume_ws" type="object" string="Enviar a WS" class="oe_highlight" states="xml"/>
+                        <button name="cancel_process" type="object" string="Cancelar" states="xml"/>
+                        <button name="consume_web_service_status_document_all" type="object" string="Actualizar estado DIAN" class="oe_highlight" states="ws"/>
+                        <button name="executing_electronic_payroll_failed" type="object" string="Actualizar XML (Fallidos)" states="ws"/>
+                        <button name="consume_ws_failed" type="object" string="Enviar a WS (Fallidos)" states="ws"/>
+                        <button name="convert_result_send_xml_all" type="object" string="Actualizar resultado envío" states="ws" invisible="1"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="electronic_payroll_id"/>
+                                <field name="prefix"/>
+                            </group>
+                            <group string="Observaciones">
+                                <field name="observations" nolabel="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="electronic_payroll_detail_ids">
+                                <tree>
+                                    <field name="employee_id"/>
+                                    <field name="sequence" optional="show"/>
+                                    <field name="status" optional="show"/>
+                                    <field name="transaction_id" optional="hide"/>
+                                </tree>
+                            </field>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <hr style="border-style:solid;border-width:2px;width:100%;"/>
+                        <h2 style="text-align:center">Proceso</h2>
+                        <notebook>
+                            <page string="Ejecución" name="ejecucion">
+                                <group>
+                                    <field name="qty_failed" readonly="1"/>
+                                    <field name="qty_done" readonly="1"/>
+                                </group>
+                                <field name="executing_electronic_adjust_payroll_ids" nolabel="1">
+                                    <tree>
+                                        <field name="employee_id" optional="show"/>
+                                        <field name="sequence" optional="show"/>
+                                        <field name="status" optional="show"/>
+                                        <field name="payslip_ids" optional="show" widget="many2many_tags"/>
+                                    </tree>
+                                    <!-- <form>
+                                        <sheet>
+                                            <group>
+                                                <field name="employee_id" readonly="1"/>
+                                                <field name="contract_id" readonly="1"/>
+                                                <field name="electronic_adjust_payroll_detail_id" readonly="1"/>
+                                                <field name="sequence" readonly="1"/>
+                                                <field name="payslip_ids" widget="many2many_tags" force_save="1" attrs="{'readonly': [('status', '=', 'ACCEPTED')]}"/>
+                                                <field name="result_upload_xml" readonly="1"/>
+                                                <field name="status" readonly="1"/>
+                                                <field name="result_status" readonly="1"/>
+                                            </group>
+                                            <group string="Procesos">
+                                                <group string="XML" attrs="{'invisible':[('status', '=', 'ACCEPTED')]}">
+                                                    <button name="get_xml" type="object" string="Crear/Actualizar XML"/>
+                                                    <button name="download_xml" type="object" string="Descargar XML"/>
+                                                    <br/><br/>
+                                                    <button name="convert_result_send_xml" type="object" string="Actualizar respuesta envío xml" invisible="1"/>
+                                                </group>
+                                                <group string="WS">
+                                                    <button name="consume_web_service_send_xml" type="object" string="Enviar XML" attrs="{'invisible':[('status', '=', 'ACCEPTED')]}"/>
+                                                    <button name="consume_web_service_status_document" type="object" string="Consultar Estado" attrs="{'invisible':[('status', '=', 'ACCEPTED')]}"/>
+                                                    <br/><br/>
+                                                    <field name="resource_type_document"/>
+                                                    <button name="consume_web_service_download_files" type="object" string="Descargar archivo"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form> -->
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

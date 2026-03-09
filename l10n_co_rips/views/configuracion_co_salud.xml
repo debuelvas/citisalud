@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vistas para Health Coverage Plan -->
+    <record id="view_health_coverage_plan_form" model="ir.ui.view">
+        <field name="name">health.coverage.plan.form</field>
+        <field name="model">health.coverage.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Ej. 01" class="oe_inline"/> - 
+                            <field name="name" placeholder="Nombre del plan" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="requires_policy"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Descripción detallada..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_coverage_plan_tree" model="ir.ui.view">
+        <field name="name">health.coverage.plan.tree</field>
+        <field name="model">health.coverage.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="requires_policy"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_health_coverage_plan_search" model="ir.ui.view">
+        <field name="name">health.coverage.plan.search</field>
+        <field name="model">health.coverage.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vistas para Health Payment Mode -->
+    <record id="view_health_payment_mode_form" model="ir.ui.view">
+        <field name="name">health.payment.mode.form</field>
+        <field name="model">health.payment.mode</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Ej. 01" class="oe_inline"/> - 
+                            <field name="name" placeholder="Nombre de la modalidad" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="requires_period_dates"/>
+                        <field name="is_prospective"/>
+                        <field name="risk_level"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Descripción detallada..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_payment_mode_tree" model="ir.ui.view">
+        <field name="name">health.payment.mode.tree</field>
+        <field name="model">health.payment.mode</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="requires_period_dates"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_health_payment_mode_search" model="ir.ui.view">
+        <field name="name">health.payment.mode.search</field>
+        <field name="model">health.payment.mode</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vistas para Health Collection Concept -->
+    <record id="view_health_collection_concept_form" model="ir.ui.view">
+        <field name="name">health.collection.concept.form</field>
+        <field name="model">health.collection.concept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Ej. 01" class="oe_inline"/> - 
+                            <field name="name" placeholder="Nombre del concepto" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="applies_fev"/>
+                        <field name="applies_rips"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description" placeholder="Descripción detallada..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_collection_concept_tree" model="ir.ui.view">
+        <field name="name">health.collection.concept.tree</field>
+        <field name="model">health.collection.concept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="applies_fev"/>
+                <field name="applies_rips"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_health_collection_concept_search" model="ir.ui.view">
+        <field name="name">health.collection.concept.search</field>
+        <field name="model">health.collection.concept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+   <!-- Formulario para Parámetros de Interoperabilidad -->
+   <record id="view_health_interoperability_param_form" model="ir.ui.view">
+        <field name="name">health.interoperability.param.form</field>
+        <field name="model">health.interoperability.param</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="param_type"/>
+                    <field name="name"/>
+                    <field name="value"/>
+                    <field name="sequence"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para Parámetros de Interoperabilidad -->
+    <record id="view_health_interoperability_param_tree" model="ir.ui.view">
+        <field name="name">health.interoperability.param.tree</field>
+        <field name="model">health.interoperability.param</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="param_type"/>
+                <field name="name"/>
+                <field name="value"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulario para Interoperabilidad PT -->
+    <record id="view_health_interoperability_pt_form" model="ir.ui.view">
+        <field name="name">health.interoperability.pt.form</field>
+        <field name="model">health.interoperability.pt</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="partner_id"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="description"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <notebook>
+                        <page string="URL de Descarga">
+                            <group>
+                                <field name="url_download"/>
+                                <field name="param_excel_file"/>
+                                <field name="param_text_file"/>
+                            </group>
+                            <field name="additional_download_params">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                    <field name="param_type" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Entrega de Documento">
+                            <group>
+                                <field name="web_service_url"/>
+                                <field name="otp_info"/>
+                            </group>
+                            <group string="Métodos Predefinidos">
+                                <field name="has_delivery_receipt"/>
+                                <field name="has_goods_delivered"/>
+                                <field name="has_rejection"/>
+                                <field name="has_acceptance"/>
+                                <field name="has_claims"/>
+                            </group>
+                            <field name="document_delivery_params">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                    <field name="param_type" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para Interoperabilidad PT -->
+    <record id="view_health_interoperability_pt_tree" model="ir.ui.view">
+        <field name="name">health.interoperability.pt.tree</field>
+        <field name="model">health.interoperability.pt</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="url_download"/>
+                <field name="web_service_url"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Búsqueda para Interoperabilidad PT -->
+    <record id="view_health_interoperability_pt_search" model="ir.ui.view">
+        <field name="name">health.interoperability.pt.search</field>
+        <field name="model">health.interoperability.pt</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="url_download"/>
+                <field name="web_service_url"/>
+                <filter string="Archivado" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Socio Comercial" name="partner_id" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Compañía" name="company_id" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Interoperabilidad PT -->
+    <record id="action_health_interoperability_pt" model="ir.actions.act_window">
+        <field name="name">Interoperabilidad PT</field>
+        <field name="res_model">health.interoperability.pt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear una nueva configuración de interoperabilidad
+            </p>
+            <p>
+                Define la configuración para la interoperabilidad entre partes
+                que se utilizará en las facturas del sector salud.
+            </p>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.rips.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="RIPS Avanzado" name="rips_advanced">
+                    <group>
+                        <group>
+                            <field name="rips_service_type"/>
+                            <field name="rips_code" 
+                                   invisible="rips_service_type == 'none'"
+                                   />
+                            
+                            <field name="rips_modalidad"
+                                   invisible="rips_service_type not in ['consulta', 'procedimiento']"
+                                   required="rips_service_type in ['consulta', 'procedimiento']"/>
+                            <field name="rips_grupo_servicio"
+                                   invisible="rips_service_type not in ['consulta', 'procedimiento']"
+                                   required="rips_service_type in ['consulta', 'procedimiento']"/>
+                            <field name="rips_cod_servicio"
+                                   invisible="rips_service_type not in ['consulta', 'procedimiento']"
+                                   required="rips_service_type in ['consulta', 'procedimiento']"/>
+                            <field name="rips_finalidad"
+                                   invisible="rips_service_type not in ['consulta', 'procedimiento']"
+                                   required="rips_service_type in ['consulta', 'procedimiento']"/>
+                            <field name="rips_causa_externa"
+                                   invisible="rips_service_type not in ['consulta', 'urgencia', 'hospitalizacion']"
+                                   required="rips_service_type in ['consulta', 'urgencia', 'hospitalizacion']"/>
+                            <field name="rips_tipo_diagnostico"
+                                   invisible="rips_service_type not in ['consulta', 'urgencia', 'hospitalizacion', 'recien_nacido']"
+                                   required="rips_service_type in ['consulta', 'urgencia', 'hospitalizacion', 'recien_nacido']"/>
+                        </group>
+                        <group>
+                            <field name="rips_tipo_medicamento"
+                                   invisible="rips_service_type != 'medicamento'"
+                                   required="rips_service_type == 'medicamento'"/>
+                            <field name="rips_forma_farmaceutica"
+                                   invisible="rips_service_type != 'medicamento'"
+                                   required="rips_service_type == 'medicamento'"/>
+                            <field name="rips_unidad_medida"
+                                   invisible="rips_service_type != 'medicamento'"
+                                   required="rips_service_type == 'medicamento'"/>
+                            <field name="rips_unidad_dispensacion"
+                                   invisible="rips_service_type != 'medicamento'"
+                                   required="rips_service_type == 'medicamento'"/>
+                                   
+                            <field name="rips_tipo_os"
+                                   invisible="rips_service_type != 'otro_servicio'"
+                                   required="rips_service_type == 'otro_servicio'"/>
+                                   
+                            <field name="rips_via_ingreso"
+                                   invisible="rips_service_type not in ['urgencia', 'hospitalizacion']"
+                                   required="rips_service_type in ['urgencia', 'hospitalizacion']"/>
+                            <field name="rips_destino_usuario"
+                                   invisible="rips_service_type not in ['urgencia', 'hospitalizacion', 'recien_nacido']"
+                                   required="rips_service_type in ['urgencia', 'hospitalizacion', 'recien_nacido']"/>
+
+                            <field name="rips_requires_authorization"
+                                   invisible="rips_service_type == 'none'"/>
+                            <field name="rips_requires_diagnosis"
+                                   invisible="rips_service_type == 'none'"/>
+                        </group>
+                    </group>
+                </page>
+                <page name="acs_kit_components" string="Kit Components" invisible="not is_kit_product">
+                    <field name="acs_kit_line_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Acciones de ventana -->
+    <record id="action_health_coverage_plan" model="ir.actions.act_window">
+        <field name="name">Planes de Cobertura</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.coverage.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_health_coverage_plan_search"/>
+    </record>
+
+    <record id="action_health_payment_mode" model="ir.actions.act_window">
+        <field name="name">Modalidades de Pago</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.payment.mode</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_health_payment_mode_search"/>
+    </record>
+
+    <record id="action_health_collection_concept" model="ir.actions.act_window">
+        <field name="name">Conceptos de Recaudo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.collection.concept</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_health_collection_concept_search"/>
+    </record>
+    <record id="view_rips_configuration_form" model="ir.ui.view">
+        <field name="name">rips.configuration.form</field>
+        <field name="model">rips.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Configuración RIPS">
+                <header>
+                    <button name="test_connection" 
+                            type="object" 
+                            string="Probar Conexión" 
+                            class="btn-primary"
+                            icon="fa-plug"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" 
+                                icon="fa-check-circle-o"
+                                invisible="not active">
+                            <field name="active" widget="boolean_button" 
+                                   options='{"terminology": "active"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Configuración RIPS..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información General">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="environment_type" widget="radio"/>
+                            <field name="api_url_base"/>
+                        </group>
+                        <group string="Estado">
+                            <field name="active"/>
+                            <field name="token_expiry" readonly="1" invisible="not auth_token"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Credenciales SISPRO" name="credentials">
+                            <group>
+                                <group string="Datos de Acceso">
+                                    <field name="sispro_tipo_documento" required="1"/>
+                                    <field name="sispro_numero_documento" required="1" password="True"/>
+                                    <field name="sispro_nit" required="1"/>
+                                    <field name="sispro_password" required="1" password="True"/>
+                                </group>
+                                <group string="Configuración Técnica">
+                                    <field name="timeout"/>
+                                    <field name="verify_ssl"/>
+                                </group>
+                            </group>
+                            <group string="Token de Autenticación" invisible="not auth_token">
+                                <field name="auth_token" readonly="1" widget="text" password="True"/>
+                            </group>
+                        </page>
+                       
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+
+    <record id="view_rips_configuration_tree" model="ir.ui.view">
+        <field name="name">rips.configuration.tree</field>
+        <field name="model">rips.configuration</field>
+        <field name="arch" type="xml">
+            <tree string="Configuraciones RIPS">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="environment_type"/>
+                <field name="sispro_nit"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="token_expiry"/>
+            </tree>
+        </field>
+    </record>
+    
+
+    <record id="view_rips_configuration_search" model="ir.ui.view">
+        <field name="name">rips.configuration.search</field>
+        <field name="model">rips.configuration</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Configuración RIPS">
+                <field name="name"/>
+                <field name="sispro_nit"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <separator/>
+                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivas" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Producción" name="production" domain="[('environment_type', '=', 'production')]"/>
+                <filter string="Pruebas" name="test" domain="[('environment_type', '=', 'test')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Compañía" name="company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Ambiente" name="environment" context="{'group_by': 'environment_type'}"/>
+                    <filter string="Estado" name="active_state" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_rips_configuration" model="ir.actions.act_window">
+        <field name="name">Configuración RIPS</field>
+        <field name="res_model">rips.configuration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_rips_configuration_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure la conexión con RIPS SISPRO
+            </p>
+            <p>
+                Defina las credenciales y parámetros necesarios para conectar con el sistema RIPS del Ministerio de Salud.
+            </p>
+        </field>
+    </record>
+    
+
+    <!-- Menús -->
+    <menuitem id="menu_action_hospital_rips" 
+              name="RIPS" 
+              action="action_hospital_rips" 
+              parent="account.menu_finance_receivables"
+              sequence="1"/>
+    
+    <!-- Submenús RIPS -->
+    <menuitem id="menu_rips_configuration" 
+              name="Configuración RIPS" 
+              action="action_rips_configuration" 
+              parent="account.menu_finance_receivables"
+              sequence="10"
+              groups="account.group_account_manager"/>
+
+    <menuitem id="menu_health_sector_config" 
+              name="Configuración Sector Salud" 
+              parent="account.menu_finance_configuration"
+              sequence="30"/>
+              
+    <menuitem id="menu_health_coverage_plan"
+              name="Planes de Cobertura"
+              parent="menu_health_sector_config"
+              action="action_health_coverage_plan"
+              sequence="10"/>
+              
+    <menuitem id="menu_health_payment_mode"
+              name="Modalidades de Pago"
+              parent="menu_health_sector_config"
+              action="action_health_payment_mode"
+              sequence="20"/>
+              
+    <menuitem id="menu_health_collection_concept"
+              name="Conceptos de Recaudo"
+              parent="menu_health_sector_config"
+              action="action_health_collection_concept"
+              sequence="30"/>
+    <menuitem id="menu_health_interoperability_pt"
+              name="Interoperabilidad PT"
+              parent="menu_health_sector_config"
+              action="action_health_interoperability_pt"
+              sequence="40"/>
+</odoo>

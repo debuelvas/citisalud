@@ -1,0 +1,97 @@
+<odoo>
+    <data>
+        <!-- Proceso de generar archivo plano de pago nómina -->
+        <record model="ir.actions.act_window" id="action_hr_payroll_report_lavish_filter">
+            <field name="name">Filtros - Informe de Liquidación</field>
+            <field name="res_model">hr.payroll.report.lavish.filter</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="hr_payroll_report_lavish_filter_form" model="ir.ui.view">
+            <field name="name">Liquidación</field>
+            <field name="model">hr.payroll.report.lavish.filter</field>
+            <field name="arch" type="xml">
+                <form string="Filtros Avanzados - Informe de Liquidación">
+                    <group>
+                        <group>
+                            <field name="payslip_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                            <field name="liquidations_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                        </group>
+                        <group>
+                            <field name="use_date_range"/>
+                            <field name="date_from" />
+                            <field name="date_to" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Filtros adicionales">
+                            <group>
+                                <group>
+                                    <field name="employee_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                    <field name="department_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                    <field name="job_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                    <field name="branch_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                </group>
+                                <group>
+                                    <field name="analytic_account_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                    <field name="rule_category_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                    <field name="salary_rule_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                                    <field name="group_by"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Opciones de visualización">
+                            <group>
+                                <group>
+                                    <field name="show_date_of_entry"/>
+                                    <field name="show_job_placement"/>
+                                    <field name="show_sectional"/>
+                                    <field name="show_department"/>
+                                    <field name="show_analytical_account"/>
+                                    <field name="show_job"/>
+                                    <field name="show_risk_level"/>
+                                    <field name="show_social_security"/>
+                                    <field name="show_provisions"/>
+                                </group>
+                                <group>
+                                    <field name="show_sena_code"/>
+                                    <field name="show_basic_salary"/>
+                                    <field name="show_dispersing_account"/>
+                                    <field name="show_bank_officer"/>
+                                    <field name="show_bank_account_officer"/>
+                                    <field name="not_show_rule_entity"/>
+                                    <field name="not_show_quantity"/>
+                                    <field name="show_individual_payslips"/>
+                                    <field name="show_all_in_one"/>
+                                </group>
+                            </group>
+                            <div class="oe_right">
+                                <button name="show_all_fields" string="Mostrar todos los campos" type="object" class="oe_highlight"/>
+                                <button name="not_show_all_fields" string="Ocultar todos los campos" type="object"/>
+                            </div>
+                        </page>
+                        <page string="Categorías y códigos">
+                            <group>
+                                <group>
+                                    <field name="earnings_codes"/>
+                                </group>
+                                <group>
+                                    <field name="deductions_codes"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    
+                    <footer>
+                        <button name="generate_excel" string="Generar Excel" type="object" class="oe_highlight"/>
+                        <button name="generate_pdf" string="Generar PDF" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
+      

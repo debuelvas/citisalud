@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Crear secuencia para historico de certificados laborales - Contratos -->
+        <record id="ir_seq_hr_labor_certificate_history" model="ir.sequence">
+            <field name="name">Certificados Laborales Generados</field>
+            <field name="code">hr.labor.certificate.history.seq</field>
+            <field name="prefix">CLG/</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+            <field name="use_date_range">True</field>
+            <field name="number_next_actual">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+        <record id="action_hr_labor_certificate_history" model="ir.actions.act_window">
+            <field name="name">Historico de certificados laborales generados</field>
+            <field name="res_model">hr.labor.certificate.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_labor_certificate_history">
+            <field name="name">lavish tree labor certificate history</field>
+            <field name="model">hr.labor.certificate.history</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" delete="false">
+                    <field name="sequence"/>
+                    <field name="contract_id"/>
+                    <field name="date_generation"/>
+                    <field name="info_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_labor_certificate_history" model="ir.ui.view">
+            <field name="name">hr labor certificate history form</field>
+            <field name="model">hr.labor.certificate.history</field>
+            <field name="arch" type="xml">
+                <form string="Generar certificado laboral">
+                    <group>
+                        <field name="contract_id" readonly="1" force_save="1"/>
+                        <field name="date_generation" readonly="1" force_save="1"/>
+                        <field name="info_to" readonly="pdf != False"/>
+                        <field name="pdf_name" invisible="1" readonly="1" force_save="1"/>
+                        <field name="pdf" filename="pdf_name" readonly="1" force_save="1"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-cogs" string="Generate" name="generate_report" type="object"
+                                class="oe_highlight" invisible="pdf != False"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

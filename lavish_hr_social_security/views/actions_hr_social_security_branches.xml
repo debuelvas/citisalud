@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!-- Sucursales seguridad social -->
+		<record model="ir.actions.act_window"  id="action_hr_social_security_branches">
+				<field name="name">Sucursales seguridad social</field>
+				<field name="res_model">hr.social.security.branches</field>
+				<field name="view_mode">tree</field>
+		</record>
+
+		<!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_social_security_branches_company" model="ir.rule">
+            <field name="name">Permisos compañia Sucursales seguridad social</field>
+            <field name="model_id" ref="model_hr_social_security_branches"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_social_security_branches_list">
+			    <field name="name">hr social security branches tree</field>
+			    <field name="model">hr.social.security.branches</field>
+			    <field name="arch" type="xml">
+				<tree editable="bottom"> 					           					
+                    <field name="code"/>                
+					<field name="name"/>
+					<field name="company_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Centros de trabajo seguridad social -->
+		<record model="ir.actions.act_window"  id="action_hr_social_security_work_center">
+				<field name="name">Centros de trabajo seguridad social</field>
+				<field name="res_model">hr.social.security.work.center</field>
+				<field name="view_mode">tree</field>
+		</record>
+
+        <record model="ir.ui.view" id="hr_social_security_work_center_list">
+			    <field name="name">hr social security work center tree</field>
+			    <field name="model">hr.social.security.work.center</field>
+			    <field name="arch" type="xml">
+				<tree editable="bottom"> 					           					
+                    <field name="code"/>                
+					<field name="name"/> 	
+					<field name="branch_social_security_id"/>
+					<field name="company_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Formulario de empleados - ajustes -->
+        <record id="view_lavish_hr_social_security_form_employee" model="ir.ui.view">
+            <field name="name">hr.employee.lavish.hr.social.security.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="priority">30</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='tipo_coti_id']" position="before">
+                    <field name="branch_social_security_id" domain="[('company_id', '=', company_id)]"/>
+                    <field name="work_center_social_security_id" domain="[('branch_social_security_id', '=', branch_social_security_id)]"/>
+                </xpath>                
+            </field>
+        </record>
+
+    </data>
+</odoo>

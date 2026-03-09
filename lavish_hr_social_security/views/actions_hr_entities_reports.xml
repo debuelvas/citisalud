@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="action_hr_entities_reports">
+            <field name="name">Reporte entidades</field>
+            <field name="res_model">hr.entities.reports</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="hr_entities_reports_form" model="ir.ui.view">
+            <field name="name">Reporte entidades</field>
+            <field name="model">hr.entities.reports</field>
+            <field name="arch" type="xml">
+                <form string="Reporte entidades">
+                    <sheet>
+                        <group string="Filtros">
+                            <field name="employee" widget="many2many_tags"/>
+                            <field name="type_of_entity" widget="many2many_tags"/>
+                            <field name="entities" widget="many2many_tags"/>
+                            <field name="analytic_account" widget="many2many_tags"/>
+                            <field name="branch" widget="many2many_tags"/>
+                            <field name="branch_social_security" widget="many2many_tags"/>
+                            <field name="work_center_social_security" widget="many2many_tags"/>
+                            <field name="show_history"/>
+                        </group>
+                        <footer>
+                            <button name="generate_entities_excel" string="Generar Excel" type="object" class="oe_highlight"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="lavish_hr_payroll.ContractInfoField">
+        <div class="o_contract_info">
+            <t t-set="info" t-value="this.getInfo()"/>
+            
+            <t t-if="info.contract">
+                <div class="card mt-2">
+                    <div class="card-header bg-light py-1 px-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa fa-info-circle"></i>
+                            <span class="fw-bold small">Información del Contrato</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body p-2">
+                        <!-- Entidades -->
+                        <div class="section mb-2">
+                            <div class="text-muted small mb-1">
+                                <i class="fa fa-building me-1"></i>Entidades
+                            </div>
+                            <div class="entities-grid">
+                                <t t-foreach="info.entities" t-as="entity" t-key="entity_index">
+                                    <div class="entity-item mb-1" t-if="entity.value">
+                                        <div class="d-flex p-1 border rounded bg-white">
+                                            <div class="me-2">
+                                                <i t-att-class="entity.icon + ' text-muted'"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="text-muted small" style="font-size: 0.7rem; line-height: 1;">
+                                                    <t t-esc="entity.label"/>
+                                                </div>
+                                                <div class="small text-truncate" style="line-height: 1.1;">
+                                                    <t t-esc="entity.value"/>
+                                                </div>
+                                                <div class="text-muted" style="font-size: 0.65rem;">
+                                                    <t t-esc="entity.date"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- Tipo y Subtipo Cotizante -->
+                        <div class="row g-1 mb-2">
+                            <div class="col-6">
+                                <div class="border rounded p-1 bg-white h-100">
+                                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">
+                                        <i class="fa fa-user-tag me-1"></i>Tipo Cotizante
+                                    </div>
+                                    <div class="small" style="line-height: 1.1;">
+                                        <t t-esc="info.tipoCotizante"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border rounded p-1 bg-white h-100">
+                                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">
+                                        <i class="fa fa-tags me-1"></i>Subtipo Cotizante
+                                    </div>
+                                    <div class="small" style="line-height: 1.1;">
+                                        <t t-esc="info.subtipoCotizante"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fechas -->
+                        <div class="row g-1 mb-2">
+                            <div class="col-6" t-if="info.contract.date_start">
+                                <div class="border rounded p-1 bg-white h-100">
+                                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">
+                                        <i class="fa fa-calendar me-1"></i>Fecha Inicio
+                                    </div>
+                                    <div class="small" style="line-height: 1.1;">
+                                        <t t-esc="this.formatDate(info.contract.date_start)"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" t-if="info.contract.date_end">
+                                <div class="border rounded p-1 bg-white h-100">
+                                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">
+                                        <i class="fa fa-calendar-times me-1"></i>Fecha Fin
+                                    </div>
+                                    <div class="small" style="line-height: 1.1;">
+                                        <t t-esc="this.formatDate(info.contract.date_end) || 'Indefinido'"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Salario -->
+                        <div class="row g-1 mb-2">
+                            <div class="col-6">
+                                <div class="border rounded p-1 bg-white h-100">
+                                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">
+                                        <i class="fa fa-money-bill me-1"></i>Salario Base
+                                    </div>
+                                    <div class="small" style="line-height: 1.1;">
+                                        <strong class="text-primary">
+                                            <t t-esc="this.formatMonetary(info.contract.wage, {
+                                                currencyId: props.record.data.currency_id?.[0]
+                                            })"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border rounded p-1 bg-white h-100">
+                                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">
+                                        <i class="fa fa-coins me-1"></i>Tipo de Salario
+                                    </div>
+                                    <div class="small" style="line-height: 1.1;">
+                                        <t t-esc="this.getSalaryTypeLabel(info.contract.modality_salary)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Otros detalles -->
+                        <div class="row g-1">
+                            <div class="col-12">
+                                <div class="border rounded p-1 bg-white">
+                                    <!-- Estado -->
+                                    <div class="mb-1">
+                                        <div class="text-muted small">
+                                            <i class="fa fa-check-circle me-1"></i>Estado
+                                        </div>
+                                        <span t-attf-class="badge {{ this.getStateClass(info.contract.state) }}">
+                                            <t t-esc="this.getStateLabel(info.contract.state)"/>
+                                        </span>
+                                    </div>
+                                    <!-- Tipo y Subtipo de Contrato -->
+                                    <div class="mb-1">
+                                        <div class="text-muted small">
+                                            <i class="fa fa-file me-1"></i>Tipo de Contrato
+                                        </div>
+                                        <div class="small">
+                                            <t t-esc="this.getContractTypeLabel(info.contract.contract_type)"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1" t-if="info.contract.subcontract_type">
+                                        <div class="text-muted small">
+                                            <i class="fa fa-file-alt me-1"></i>Subtipo de Contrato
+                                        </div>
+                                        <div class="small">
+                                            <t t-esc="this.getSubcontractTypeLabel(info.contract.subcontract_type)"/>
+                                        </div>
+                                    </div>
+                                    <!-- ARL y Retención -->
+                                    <div class="mb-1" t-if="info.contract.risk_info">
+                                        <div class="text-muted small">
+                                            <i class="fa fa-shield-alt me-1"></i>Nivel ARL
+                                        </div>
+                                        <div class="small">
+                                            <t t-esc="`${info.contract.risk_info.name} (${info.contract.risk_info.percent}%)`"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1" t-if="info.contract.retention_procedure">
+                                        <div class="text-muted small">
+                                            <i class="fa fa-percentage me-1"></i>Retención
+                                        </div>
+                                        <div class="small">
+                                            <t t-esc="this.getRetentionLabel(info.contract.retention_procedure)"/>
+                                        </div>
+                                    </div>
+                                    <!-- Actividad Económica -->
+                                    <div t-if="info.contract.economic_activity_level_risk_id">
+                                        <div class="text-muted small">
+                                            <i class="fa fa-industry me-1"></i>Actividad Económica
+                                        </div>
+                                        <div class="small">
+                                            <t t-esc="this.formatEconomicActivity()"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,110 @@
+<odoo>
+    <data>
+        <record id="hr.print_employee_badge" model="ir.ui.view">
+            <field name="name">report_print_badge</field>
+            <field name="arch" type="xml">
+                <t t-name="hr.print_employee_badge">
+                    <t t-foreach="inside_foreach_docs or docs" t-as="emp">
+                        <t t-set="template" t-value="emp.get_report_print_badge_template()"/>
+                        <t t-call="web.basic_layout">
+                            <t t-if="template.orientation == 'vertical'">
+                                <div style="width:5.5cm !important;height:8.6cm !important;border:none;margin-left:-15px;">
+                                    <img t-att-src="image_data_uri(template.img_header_file)"
+                                         style="width:5.5cm;height:8.6cm;position: absolute;"/>
+                                    <div class="row"
+                                         style="width:5.5cm !important;height:8.6cm !important;margin:0px auto;padding:100px 0px 0px 50px;position:absolute;">
+                                        <div style="height: 1.8cm;width: 3.5cm;float: left;">
+                                            <img t-att-src="image_data_uri(emp.image_1920)"
+                                                 style="height:110px !important;width:110px !important;margin:0px 0px 0px 30x;position: absolute;"
+                                                 alt="Employee Image"/>
+                                        </div>
+                                    </div>
+                                    <div class="row"
+                                         style="width:5.5cm !important;height:8.6cm !important;margin:0px auto;padding:220px 0px 0px 10px;position:absolute;">
+                                        <div style="height: 3cm;width: 5cm;text-align:center;font-size: xx-small">
+                                            <t t-if="template.with_extra_space == True">
+                                                <br/><br/>
+                                            </t>
+                                            <b>
+                                                <t t-esc="emp.work_contact_id.first_lastname"/>
+                                                <t t-esc="emp.work_contact_id.second_lastname"/>
+                                                <br/>
+                                                <t t-esc="emp.work_contact_id.firs_name"/>
+                                                <t t-esc="emp.work_contact_id.second_name"/>
+                                            </b>
+                                            <br/>
+                                            <t t-esc="str(emp.job_id.name).upper()"/>
+                                            <br/>
+                                            <t t-esc="emp.get_name_type_document()"/>:
+                                            <t t-esc="emp.work_contact_id.vat"/>
+                                            <br/>
+                                            RH.
+                                            <t t-esc="emp.get_name_rh()"/>&#160;&#160;&#160;&#160;&#160;&#160;
+                                            <t t-esc="emp.contract_id.date_start"/>
+                                            <br/>
+                                            <t t-esc="emp.branch_id.name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div style="width:10.8cm !important;height:7cm !important;border:none;margin-left:-15px;">
+                                    <img t-att-src="image_data_uri(template.img_header_file)"
+                                         style="width:10.8cm;height:7cm;position: absolute;"/>
+                                    <div class="row"
+                                         style="width:10.8cm !important;height:5.2cm !important;margin:0px 0px 0px 0px;padding:90px 0px 0px 0px;position:absolute;">
+                                        <div style="height: 4.5cm;width: 3.5cm;float: left;">
+                                            <img t-att-src="image_data_uri(emp.image_1920)"
+                                                 style="height:110px !important;width:110px !important;margin:0px 0px 0px 20px;position: absolute;"
+                                                 alt="Employee Image"/>
+                                        </div>
+                                        <div style="height: 4.5cm;width: 7cm;text-align:center;font-size: 80%;">
+                                            <t t-if="template.with_extra_space == True">
+                                                <br/><br/>
+                                            </t>
+                                            <b>
+                                                <t t-esc="emp.work_contact_id.firs_name"/>
+                                            </b>
+                                            <b>
+                                                <t t-esc="emp.work_contact_id.second_name"/>
+                                            </b>
+                                            <br/>
+                                            <t t-esc="emp.work_contact_id.first_lastname"/>
+                                            <t t-esc="emp.work_contact_id.second_lastname"/>
+                                            <br/>
+                                            <t t-esc="emp.get_name_type_document()"/>:
+                                            <t t-esc="emp.work_contact_id.vat"/>
+                                            <br/>
+                                            RH.
+                                            <t t-esc="emp.get_name_rh()"/>
+                                            <br/>
+                                            <b style="line-height:0;">
+                                                <t t-esc="str(emp.job_id.name).upper()"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="template.imgback_header_file">
+                                <div style="page-break-after: always;"/>
+                                <t t-if="template.orientation == 'vertical'">
+                                    <div style="width:5.5cm !important;height:8.6cm !important;border:none;margin-left:-15px;">
+                                        <img t-att-src="image_data_uri(template.imgback_header_file)"
+                                             style="width:5.5cm;height:8.6cm;position: absolute;"/>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <div style="width:10.8cm !important;height:7cm !important;border:none;margin-left:-15px;">
+                                        <img t-att-src="image_data_uri(template.imgback_header_file)"
+                                             style="width:10.8cm;height:7cm;position: absolute;"/>
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </field>
+        </record>
+
+    </data>
+</odoo>

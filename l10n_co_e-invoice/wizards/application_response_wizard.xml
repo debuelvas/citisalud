@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="application_response_wizard_view" model="ir.ui.view">
+            <field name="name">application.response.wizard,form</field>
+            <field name="model">application.response.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Registrar Eventos Dian">
+                    <group>
+                        <field name="event_type" invisible="1"/>
+                        <field name="response_code_invoice_received" attrs="{'invisible': [('event_type', '!=', 'invoice_received')]}"/>
+                        <field name="response_code_invoice_sent" attrs="{'invisible': [('event_type', '!=', 'invoice_sent')]}"/>
+                        
+                        <field name="ValorFEVavala" readonly="0" attrs="{'invisible':[('ValorFEVavala','=', False)]}"/>
+                        <field name="ValorFEV_TV" readonly="0" attrs="{'invisible':[('ValorFEV_TV','=', False)]}"/>
+                        <field name="ValorPagado" readonly="0" attrs="{'invisible':[('ValorPagado','=', False)]}"/>
+                        <field name="NuevoValorTV" readonly="0" attrs="{'invisible':[('NuevoValorTV','=', False)]}"/>
+                        <field name="ValorTotalEndoso" readonly="0" attrs="{'invisible':[('ValorTotalEndoso','=', False)]}"/>
+                        <field name="PrecioPagarseFEV" readonly="0" attrs="{'invisible':[('PrecioPagarseFEV','=', False)]}"/>
+                        <field name="TasaDescuento" readonly="0" attrs="{'invisible':[('TasaDescuento','=', False)]}"/>
+                        <field name="MedioPago" readonly="0" attrs="{'invisible':[('MedioPago','=', False)]}"/>
+                        <field name="ValorTV" readonly="0" attrs="{'invisible':[('ValorTV','=', False)]}"/>
+                        <field name="MontoMedidaCautelar" readonly="0" attrs="{'invisible':[('MontoMedidaCautelar','=', False)]}"/>
+                        <field name="ValorDeuda" readonly="0" attrs="{'invisible':[('ValorDeuda','=', False)]}"/>
+                        <field name="ValorLimitación" readonly="0" attrs="{'invisible':[('ValorLimitación','=', False)]}"/>
+                        <field name="ValorActualTituloValor" readonly="0" attrs="{'invisible':[('ValorActualTituloValor','=', False)]}"/>
+                        <field name="ValorPendienteTituloValor" readonly="0" attrs="{'invisible':[('ValorPendienteTituloValor','=', False)]}"/>
+                        <field name="ValorAceptado" readonly="0" attrs="{'invisible':[('ValorAceptado','=', False)]}"/>
+                        <field name="ValorPendiente" readonly="0" attrs="{'invisible':[('ValorPendiente','=', False)]}"/>
+                        <field name="ValorTransferenciaDerechos" readonly="0" attrs="{'invisible':[('ValorTransferenciaDerechos','=', False)]}"/>
+                        <field name="FactordeDescuento" readonly="0" attrs="{'invisible':[('FactordeDescuento','=', False)]}"/>
+                        
+                        
+                        <field name="note_1" readonly="0" attrs="{'invisible':[('note_1','=', False)]}"/>
+
+                        <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('note_2_info','=', False)]}">
+                                <span class="o_stat_text"><field name="note_2_info"/></span>
+                        </div>
+
+                        <field name="note_2" readonly="0" attrs="{'invisible':[('note_2','=', False)]}"/>
+
+                        <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('note_3_info','=', False)]}">
+                            <span class="o_stat_text"><field name="note_3_info"/></span>
+                        </div>
+
+                        <field name="note_3" readonly="0" attrs="{'invisible':[('note_3','=', False)]}"/>
+
+                        <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('note_4_info','=', False)]}">
+                            <span class="o_stat_text"><field name="note_4_info"/></span>
+                        </div>
+
+                        <field name="note_4" readonly="0" attrs="{'invisible':[('note_4','=', False)]}"/>
+                        <field name="note_5" readonly="0" attrs="{'invisible':[('note_5','=', False)]}"/>                        
+                    </group>
+                    
+                    <footer>
+                        <button
+                            string="Confirmar"
+                            name="validate_event"
+                            type="object"
+                            default_focus="1"
+                            class="btn-primary"
+                        />
+                        <button
+                            string="Cancelar"
+                            class="btn-default"
+                            special="cancel"
+                        />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_register_event_dian" model="ir.actions.act_window">
+            <field name="name">Registrar Eventos Dian</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">application.response.wizard</field>
+            <field name="binding_model_id" ref="model_recepcion_factura_dian" />
+            <field name="binding_view_types">tree,form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="action_account_move_register_event_dian" model="ir.actions.act_window">
+            <field name="name">Registrar Eventos Dian</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">application.response.wizard</field>
+            <field name="binding_model_id" ref="model_account_move" />
+            <field name="binding_view_types">tree,form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+		<!-- Acumulados de nómina -->
+		<record model="ir.actions.act_window"  id="action_hr_accumulated_payroll">
+				<field name="name">Acumulados de nómina</field>
+				<field name="res_model">hr.accumulated.payroll</field>
+				<field name="view_mode">tree</field>
+		</record>
+        <record model="ir.ui.view" id="lavish_hr_payroll.list_hr_accumulated_payroll">
+			    <field name="name">hr accumulated payroll list</field>
+			    <field name="model">hr.accumulated.payroll</field>
+			    <field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="employee_id" required="1"/>                
+					<field name="salary_rule_id"/>           					
+                    <field name="date"/>                					
+                    <field name="amount"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="hr_accumulated_payroll_view_search" model="ir.ui.view">
+                    <field name="name">hr.accumulated.payroll.view.search </field>
+                    <field name="model">hr.accumulated.payroll</field>
+                    <field name="arch" type="xml">
+                        <search string="Acumulados">
+                            <field name="employee_id"/>
+                            <field name="salary_rule_id"/>
+                        </search>
+                    </field>
+        </record>
+    </data>
+</odoo>

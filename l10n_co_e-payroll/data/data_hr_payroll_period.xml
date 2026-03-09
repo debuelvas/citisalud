@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="weekly" model="hr.payroll.period">
+            <field name="code">1</field>
+            <field name="name">Semanal</field>
+        </record>
+        <record id="decennial" model="hr.payroll.period">
+            <field name="code">2</field>
+            <field name="name">Decenal</field>
+        </record>
+        <record id="fourteen" model="hr.payroll.period">
+            <field name="code">3</field>
+            <field name="name">Catorcenal</field>
+        </record>
+        <record id="biweekly" model="hr.payroll.period">
+            <field name="code">4</field>
+            <field name="name">Quincenal</field>
+        </record>
+        <record id="month" model="hr.payroll.period">
+            <field name="code">5</field>
+            <field name="name">Mensual</field>
+        </record>
+        <record id="other" model="hr.payroll.period">
+            <field name="code">6</field>
+            <field name="name">Otro</field>
+        </record>
+    </data>
+</odoo>

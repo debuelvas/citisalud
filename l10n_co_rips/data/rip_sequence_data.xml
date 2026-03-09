@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_hospital_rips" model="ir.sequence">
+            <field name="name">RIPS CODE</field>
+            <field name="code">account.rips</field>
+            <field name="implementation">no_gap</field>
+            <field eval="6" name="padding"/>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+    </data>
+</odoo>

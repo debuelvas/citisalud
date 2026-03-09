@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_type_epayroll,type.epayroll,model_hr_payslip_edi,,1,1,1,1
+account_type_note_epayroll,type.note.epayroll,model_hr_payslip_edi_line,,1,1,1,1
+account_payment_method_epayrol,payment.method.epayrol,model_hr_payslip_edi_worked_days,,1,1,1,1
+account_payment_method_epayroll,payment.method.epayroll,model_hr_payslip_edi_run,,1,1,1,1
+account_hr_epayslips_by_edi_employees,payment.hr_epayslips_by_edi_employees,model_hr_epayslips_by_edi_employees,,1,1,1,1

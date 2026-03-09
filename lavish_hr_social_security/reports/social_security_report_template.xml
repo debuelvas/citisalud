@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="social_security_report_document">
+        <t t-call="web.html_container">
+            <t t-foreach="inside_foreach_docs or docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <h1 class="row text-center">
+                        <strong>Informe Seguridad Social</strong>
+                    </h1>
+                    <br/>
+                    <div class="table-responsive">
+                        <t t-set="dict_totals" t-value="o.info_totals()"></t>
+                        <table class="table table-borderless table-sm">
+                            <thead>
+                                <tr>
+                                    <td>Año:</td>
+                                    <td>
+                                        <span t-field="o.year"/>
+                                    </td>
+                                    <td>Total Aporte Empleados:</td>
+                                    <td>
+                                        <span t-esc="dict_totals.get('total_amount_employees',0)" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>Total Aportes:</td>
+                                    <td>
+                                        <span t-esc="dict_totals.get('total_amount_final',0)" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mes:</td>
+                                    <td>
+                                        <span t-field="o.month"/>
+                                    </td>
+                                    <td>Total Aporte Empresa:</td>
+                                    <td>
+                                        <span t-esc="dict_totals.get('total_amount_company',0)" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>Total de empleados:</td>
+                                    <td>
+                                        <span t-esc="dict_totals.get('total_employees',0)"/>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <br></br>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm" style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <td colspan="7">
+                                        <h4>SALUD</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ENTIDAD PRESTADORA DE SALUD</td>
+                                    <td>NIT</td>
+                                    <td>CÓDIGO PILA</td>
+                                    <td>NÚMERO EMPLEADOS</td>
+                                    <td>APORTE EMPLEADO</td>
+                                    <td>APORTE EMPRESA</td>
+                                    <td>DIFERENCIA REDONDEO</td>
+                                    <td>TOTAL</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="value_employees_total_eps" t-value="0"></t>
+                                <t t-set="value_company_total_eps" t-value="0"></t>
+                                <t t-set="dif_round_total_eps" t-value="0"></t>
+
+                                <tr t-foreach="o.get_info_eps()" t-as="l">
+                                    <td>
+                                        <span t-esc="l.get('name')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('identifcation')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('cod_pila')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('num_employees')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('value_employees')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        <t t-set="value_employees_total_eps" t-value="value_employees_total_eps + l.get('value_employees')"></t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('value_company')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        <t t-set="value_company_total_eps" t-value="value_company_total_eps + l.get('value_company')"></t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('dif_round')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        <t t-set="dif_round_total_eps" t-value="dif_round_total_eps + l.get('dif_round')"></t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.get('value_employees')+l.get('value_company') + l.get('dif_round')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">
+                                        <b>TOTALES</b>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(value_employees_total_eps))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(value_company_total_eps))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(dif_round_total_eps))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(value_employees_total_eps)) + float('{:.2f}'.format(value_company_total_eps)) + float('{:.2f}'.format(dif_round_total_eps))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm" style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <td colspan="7">
+                                        <h4>PENSIONES</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>FONDO DE PENSIONES</td>
+                                    <td>NIT</td>
+                                    <td>CÓDIGO PILA</td>
+                                    <td>NÚMERO EMPLEADOS</td>
+                                    <td>APORTE EMPLEADO</td>
+                                    <td>APORTE EMPRESA</td>
+                                    <td>DIFERENCIA REDONDEO</td>
+                                    <td>TOTAL</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="value_employees_total_pension" t-value="0"></t>
+                                <t t-set="value_company_total_pension" t-value="0"></t>
+                                <t t-set="dif_round_total_pension" t-value="0"></t>
+
+                                <tr t-foreach="o.get_info_pension()" t-as="p">
+                                    <td>
+                                        <span t-esc="p.get('name')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('identifcation')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('cod_pila')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('num_employees')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('value_employees')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        <t t-set="value_employees_total_pension" t-value="value_employees_total_pension + p.get('value_employees')"></t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('value_company')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        <t t-set="value_company_total_pension" t-value="value_company_total_pension + p.get('value_company')"></t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('dif_round')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        <t t-set="dif_round_total_pension" t-value="dif_round_total_pension + p.get('dif_round')"></t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.get('value_employees')+p.get('value_company') + p.get('dif_round')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">
+                                        <b>TOTALES</b>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(value_employees_total_pension))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(value_company_total_pension))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(dif_round_total_pension))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float('{:.2f}'.format(value_employees_total_pension)) + float('{:.2f}'.format(value_company_total_pension)) + float('{:.2f}'.format(dif_round_total_pension))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm" style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>FONDO SOLIDARIDAD</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FONDO DE SOLIDARIDAD</td>
+                                        <td>NIT</td>
+                                        <td>CÓDIGO PILA</td>
+                                        <td>NÚMERO EMPLEADOS</td>
+                                        <td>VALOR FONDO SOLIDARIDAD</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="value_employees_total_solidaridad" t-value="0"></t>
+
+                                    <tr t-foreach="o.get_info_solidaridad()" t-as="f">
+                                        <td>
+                                            <span t-esc="f.get('name')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="f.get('identifcation')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="f.get('cod_pila')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="f.get('num_employees')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="f.get('value_solidaridad')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                            <t t-set="value_employees_total_solidaridad" t-value="value_employees_total_solidaridad + f.get('value_solidaridad')"></t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right">
+                                            <b>TOTAL</b>
+                                        </td>
+                                        <td>
+                                            <span t-esc="float('{:.2f}'.format(value_employees_total_solidaridad))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm" style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>RIESGOS PROFESIONALES</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>INSTITUCIÓN - ARP</td>
+                                        <td>NIT</td>
+                                        <td>CÓDIGO PILA</td>
+                                        <td>NÚMERO EMPLEADOS</td>
+                                        <td>VALOR ARP</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="value_employees_total_arp" t-value="0"></t>
+
+                                    <tr t-foreach="o.get_info_arp()" t-as="a">
+                                        <td>
+                                            <span t-esc="a.get('name')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="a.get('identifcation')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="a.get('cod_pila')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="a.get('num_employees')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="a.get('value_arp')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                            <t t-set="value_employees_total_arp" t-value="value_employees_total_arp + a.get('value_arp')"></t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right">
+                                            <b>TOTAL</b>
+                                        </td>
+                                        <td>
+                                            <span t-esc="float('{:.2f}'.format(value_employees_total_arp))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm" style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>Caja de Compensación</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CAJA DE COMPENSACIÓN</td>
+                                        <td>NIT</td>
+                                        <td>CÓDIGO PILA</td>
+                                        <td>NÚMERO EMPLEADOS</td>
+                                        <td>VALOR CAJA DE COMPENSACIÓN</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="value_employees_total_compensacion" t-value="0"></t>
+
+                                    <tr t-foreach="o.get_info_compensacion()" t-as="c">
+                                        <td>
+                                            <span t-esc="c.get('name')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="c.get('identifcation')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="c.get('cod_pila')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="c.get('num_employees')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="c.get('value_cajacom')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                            <t t-set="value_employees_total_compensacion" t-value="value_employees_total_compensacion + c.get('value_cajacom')"></t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right">
+                                            <b>TOTAL</b>
+                                        </td>
+                                        <td>
+                                            <span t-esc="float('{:.2f}'.format(value_employees_total_compensacion))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm" style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>SENA</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SENA</td>
+                                        <td>NIT</td>
+                                        <td>CÓDIGO PILA</td>
+                                        <td>NÚMERO EMPLEADOS</td>
+                                        <td>VALOR SENA</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="value_employees_total_sena" t-value="0"></t>
+
+                                    <tr t-foreach="o.get_info_sena()" t-as="s">
+                                        <td>
+                                            <span t-esc="s.get('name')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="s.get('identifcation')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="s.get('cod_pila')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="s.get('num_employees')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="s.get('value_sena')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                            <t t-set="value_employees_total_sena" t-value="value_employees_total_sena + s.get('value_sena')"></t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right">
+                                            <b>TOTAL</b>
+                                        </td>
+                                        <td>
+                                            <span t-esc="float('{:.2f}'.format(value_employees_total_sena))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm" style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>ICBF</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ICBF</td>
+                                        <td>NIT</td>
+                                        <td>CÓDIGO PILA</td>
+                                        <td>NÚMERO EMPLEADOS</td>
+                                        <td>VALOR ICBF</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="value_employees_total_icbf" t-value="0"></t>
+
+                                    <tr t-foreach="o.get_info_icbf()" t-as="b">
+                                        <td>
+                                            <span t-esc="b.get('name')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="b.get('identifcation')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="b.get('cod_pila')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="b.get('num_employees')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="b.get('value_icbf')" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                            <t t-set="value_employees_total_icbf" t-value="value_employees_total_icbf + b.get('value_icbf')"></t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right">
+                                            <b>TOTAL</b>
+                                        </td>
+                                        <td>
+                                            <span t-esc="float('{:.2f}'.format(value_employees_total_icbf))" t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="social_security_report_template">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="inside_foreach_docs" t-value="o"/>
+                <t t-call="lavish_hr_social_security.social_security_report_document"/>
+            </t>
+        </template>
+
+    </odoo>

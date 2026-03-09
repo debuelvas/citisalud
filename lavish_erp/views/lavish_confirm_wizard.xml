@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_confirm_wizard" model="ir.actions.act_window">
+            <field name="name">Confirmar</field>
+            <field name="res_model">lavish.confirm.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_confirm_wizard_form">
+            <field name="name">confirm.wizard.form</field>
+            <field name="model">lavish.confirm.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirmar">
+                    <field name="yes_no" readonly="1" />
+                    <footer>
+                        <button class="oe_highlight" name="yes" string="Confirmar" type="object" />
+                        <button special="cancel" class="oe_link" string="Cancelar" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

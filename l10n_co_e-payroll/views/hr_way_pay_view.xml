@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="l10n_co_e-payroll.hr_way_pay_view_tree" model="ir.ui.view">
+        <field name="name">hr.way.pay.tree</field>
+        <field name="model">hr.way.pay</field>
+        <field name="arch" type="xml">
+            <tree string="Forma de Pago">
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="l10n_co_e-payroll.hr_way_pay_view_form" model="ir.ui.view">
+        <field name="name">hr.way.pay.form</field>
+        <field name="model">hr.way.pay</field>
+        <field name="arch" type="xml">
+            <form string="Forma de Pago">
+                <group>
+                    <field name="code" />
+                    <field name="name" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="l10n_co_e-payroll.hr_way_pay_action" model="ir.actions.act_window">
+        <field name="name">Forma de Pago</field>
+        <field name="res_model">hr.way.pay</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    
+</odoo>

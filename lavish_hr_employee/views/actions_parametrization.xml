@@ -1,0 +1,469 @@
+<odoo>
+    <data>
+        <!-- Estructura salariales herencia -->
+        <record id="hr_payroll_structure_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payroll.structure.form.inherit</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='schedule_pay']" position="after">
+                    <field name="regular_pay" string="Pago Estandar"/>
+                    <field name="regular_31" string="Pago dia 31"/>
+                    <field name="process" widget="radio"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_category_form_inherit" model="ir.ui.view">
+            <field name="name">hr.salary.rule.category.form.inherit</field>
+            <field name="model">hr.salary.rule.category</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="js_class">base_form</attribute>
+                </xpath>
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <field name="active" invisible="1"/>
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="group_payroll_voucher"/>
+                    <field name="sequence"/>
+                    <field name="category_type"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="lavish_menu_action_contract_risk" model="ir.actions.act_window">
+            <field name="name">Riesgos profesionales</field>
+            <field name="res_model">hr.contract.risk</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Riesgos Profesional
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_contract_risk">
+            <field name="name">lavish tree contract risk</field>
+            <field name="model">hr.contract.risk</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="percent"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Actividad económica por nivel de riesgo -->
+        <record id="lavish_menu_action_lavish_economic_activity_level_risk" model="ir.actions.act_window">
+            <field name="name">Actividad económica por nivel de riesgo</field>
+            <field name="res_model">lavish.economic.activity.level.risk</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_lavish_economic_activity_level_risk">
+            <field name="name">Actividad económica por nivel de riesgo tree</field>
+            <field name="model">lavish.economic.activity.level.risk</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="risk_class_id"/>
+                    <field name="code_ciiu_id"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Formulario de tipos de ausencia - ajustes -->
+        <record id="view_lavish_hr_employee_form_leave_type" model="ir.ui.view">
+            <field name="name">hr.leave.type.lavish.hr.employee.form.inherit</field>
+            <field name="model">hr.leave.type</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='leave_validation_type']" position="before">
+                    <field name="code" required="1"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                    <notebook>
+                        <page string="Configuración General" name="general_config">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <p><strong>Información:</strong> Configure el tipo de ausencia y su comportamiento básico.</p>
+                            </div>
+                            <group>
+                                <group name="group_basic_config" string="Tipo de Ausencia">
+                                    <field name="unpaid_absences"/>
+                                    <field name="is_vacation"/>
+                                    <field name="is_vacation_money"/>
+                                    <field name="novelty"/>
+                                    <field name="liquidacion_value"/>
+                                    <field name="eps_arl_input_id" help="Regla salarial que se usará para esta ausencia" invisible="rango_adicionales_enfermedad"/>
+                                    <field name="obligatory_attachment"/>
+                                </group>
+                                <group name="group_day_behavior" string="Comportamiento de Días">
+                                    <field name="sub_wd"/>
+                                    <field name="sub_not_aux"/>
+                                    <field name="apply_day_31"/>
+                                    <field name="discounting_bonus_days"/>
+                                    <field name="apply_publicholiday"/>
+                                    <field name="discount_rest_day"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group name="conf_eps_arl" string="Configuración de la EPS/ARL">
+                                    <field name="rango_adicionales_enfermedad" help="Habilita rangos adicionales por días de enfermedad"/>
+                                    <field name="num_days_no_assume" invisible="rango_adicionales_enfermedad" help="Días que no asume la EPS/ARL"/>
+                                    <field name="recognizing_factor_eps_arl" invisible="rango_adicionales_enfermedad" help="Porcentaje que reconoce la EPS/ARL"/>
+                                    <field name="periods_calculations_ibl" invisible="rango_adicionales_enfermedad" help="Períodos para cálculo de IBL"/>
+                                    <field name="eps_arl_input_id" invisible="rango_adicionales_enfermedad" help="Regla salarial para incapacidad"/>
+                                </group>
+                                <group name="conf_company" string="Configuración de la Empresa">
+                                    <field name="recognizing_factor_company" help="Porcentaje que reconoce la empresa"/>
+                                    <field name="periods_calculations_ibl_company" help="Períodos para cálculo de IBL empresa"/>
+                                    <field name="company_input_id" invisible="rango_adicionales_enfermedad" help="Regla salarial de incapacidad empresa"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Configuración Avanzada" name="advanced_config">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <p><strong>Información:</strong> Configure opciones avanzadas para incapacidades e interrupciones.</p>
+                            </div>
+                            <group>
+                                <group string="Configuración de Interrupciones">
+                                    <field name="allow_interruption" help="Permite interrumpir este tipo de ausencia"/>
+                                </group>
+                                <group string="Ajustes Adicionales">
+                                    <field name="completar_salario" help="La empresa completa el salario hasta 100% en incapacidades"/>
+                                    <field name="type_of_entity_association" help="Tipo de entidad asociada a esta ausencia" invisible="novelty not in ('ige', 'irl')"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Configuración EPS/ARL" name="eps_arl_config" invisible="novelty not in ('ige', 'irl')">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <p><strong>Información:</strong> Configure los parámetros para incapacidades de origen común (EPS) o laboral (ARL).</p>
+                            </div>
+                            <group invisible="not rango_adicionales_enfermedad">
+                                <group string="Rangos de Enfermedad">
+                                    <field name="gi_b2" string="Porcentaje 1 a 2 días" help="Porcentaje para días 1-2"/>
+                                    <field name="company_input_id" string="Regla 1 a 2 días" help="Regla salarial para días 1-2"/>
+                                </group>
+                                <group>
+                                    <field name="gi_b90" string="Porcentaje 3 a 90 días" help="Porcentaje para días 3-90"/>
+                                    <field name="eps_arl_input_id" string="Regla 3 a 90 días" help="Regla salarial para días 3-90"/>
+                                </group>
+                                <group>
+                                    <field name="gi_b180" string="Porcentaje 91 a 180 días" help="Porcentaje para días 91-180"/>
+                                    <field name="gi_b180_eps_arl_input_id" string="Regla 91 a 180 días" help="Regla salarial para días 91-180"/>
+                                </group>
+                                <group>
+                                    <field name="gi_a180" string="Porcentaje más de 180 días" help="Porcentaje para más de 180 días"/>
+                                    <field name="gi_a180_eps_arl_input_id" string="Regla más de 180 días" help="Regla salarial para más de 180 días"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="lavish_menu_action_annual_parameters" model="ir.actions.act_window">
+            <field name="name">Parámetros anuales</field>
+            <field name="res_model">hr.annual.parameters</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Parámetro anual
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_annual_parameters">
+            <field name="name">lavish tree annual parameters</field>
+            <field name="model">hr.annual.parameters</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="year"/>
+                    <field name="smmlv_monthly"/>
+                    <field name="transportation_assistance_monthly"/>
+                    <field name="min_integral_salary"/>
+                    <field name="hours_daily"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.form_annual_parameters">
+            <field name="name">lavish form annual parameters</field>
+            <field name="model">hr.annual.parameters</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_create_working_hours" string="Crear Distribución de Horas (Ley 2101)" 
+                                type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+                    </header>
+                    <sheet string="Parametros anuales">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="year"/>
+                                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Básicos" autofocus="autofocus">
+                                <group>
+                                    <group string="Salario Minimo" name="smlv" priority="1">
+                                        <field name="smmlv_monthly"/>
+                                        <field name="smmlv_daily"/>
+                                        <field name="top_four_fsp_smmlv"/>
+                                        <field name="top_twenty_five_smmlv"/>
+                                        <field name="top_ten_smmlv"/>
+                                    </group>
+                                    <group string="Auxilio de transporte" name="transportation" priority="2">
+                                        <field name="transportation_assistance_monthly"/>
+                                        <field name="transportation_assistance_daily"/>
+                                        <field name="top_max_transportation_assistance"/>
+                                    </group>
+                                    <group string="Salario Integral" name="integral_salary" priority="3">
+                                        <field name="min_integral_salary"/>
+                                        <field name="porc_integral_salary"/>
+                                        <field name="value_factor_integral_salary"/>
+                                        <field name="value_factor_integral_performance"/>
+                                    </group>
+                                    <group string="Horas Laborales" name="hours" priority="4">
+                                        <field name="hours_daily"/>
+                                        <field name="hours_weekly"/>
+                                        <field name="hours_fortnightly"/>
+                                        <field name="hours_monthly"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Seguridad Social">
+                                <group>
+                                    <group string="Salud" name="salud" priority="1">
+                                        <field name="value_porc_health_company"/>
+                                        <field name="value_porc_health_employee"/>
+                                        <field name="value_porc_health_total"/>
+                                        <field name="value_porc_health_employee_foreign"/>
+                                    </group>
+                                    <group string="Pensión" name="pension" priority="2">
+                                        <field name="value_porc_pension_company"/>
+                                        <field name="value_porc_pension_employee"/>
+                                        <field name="value_porc_pension_total"/>
+                                    </group>
+                                    <group string="Aportes parafiscales" name="aportes_parafiscales" priority="3">
+                                        <field name="value_porc_compensation_box_company"/>
+                                        <field name="value_porc_sena_company"/>
+                                        <field name="value_porc_icbf_company"/>
+                                    </group>
+                                    <group string="Provisiones prestaciones" name="provisiones_prestaciones" priority="4">
+                                        <field name="value_porc_provision_bonus"/>
+                                        <field name="value_porc_provision_cesantias"/>
+                                        <field name="value_porc_provision_intcesantias"/>
+                                        <field name="value_porc_provision_vacation"/>
+                                    </group>
+                                    <group string="Tope ley 1393" name="tope_ley_1393" priority="5">
+                                        <field name="value_porc_statute_1395"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Tributario">
+                                <group>
+                                    <group string="Retención en la fuente" name="retencion_fuente" priority="1">
+                                        <field name="value_uvt"/>
+                                        <field name="value_top_source_retention"/>
+                                    </group>
+                                    <group string="Incrementos" name="incrementos" priority="2">
+                                        <field name="value_porc_increment_smlv"/>
+                                        <field name="value_porc_ipc"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Certificado Ingresos y Retenciones">
+                                <group>
+                                    <group>
+                                        <field name="taxable_year"/>
+                                        <field name="gross_equity"/>
+                                        <field name="total_revenues"/>
+                                        <field name="credit_card"/>
+                                        <field name="purchases_and_consumption"/>
+                                    </group>
+                                </group>
+                                <notebook>
+                                    <page string="Configuración de reglas salariales">
+                                        <group colspan="2">
+                                            <p colspan="2">
+                                                Forma correcta de realizar la configuración dependiendo el campo Tipo Cálculo<br/><br/>
+                                                1. Si Tipo Cálculo es Información, se debe indicar el campo del cual se quiere la información en la columna información y su origen en la columna Origen Información<br/>
+                                                2. Si Tipo Cálculo es Sumatoria Reglas, se deben indicar las reglas a sumar en el campo Regla Salarial, si se debe tomar el acumulado del año anterior marca el check.<br/>
+                                                3. Si Tipo Cálculo es Sumatoria secuencias anteriores, se deben escribir las secuencias separadas por comas en el campo Sum secuncias. Ej: 36,37,38,39,40<br/>
+                                                4. Si Tipo Cálculo es Fecha expedición, no se debe ingresar nada más, el sistema detectara que en esa secuencia debe ir la fecha de generación del reporte<br/>
+                                                5. Si Tipo Cálculo es Fecha certificación inicial, no se debe ingresar nada más, el sistema detectara que en esa secuencia debe ir la fecha inicial del año que se reporta<br/>
+                                                6. Si Tipo Cálculo es Fecha certificación final, no se debe ingresar nada más, el sistema detectara que en esa secuencia debe ir la fecha final del año que se reporta<br/>
+                                                <br/>
+                                            </p>
+                                        </group>
+                                        <group>
+                                            <field name="conf_certificate_income_ids" nolabel="1" colspan="2">
+                                                <tree editable="bottom" default_order='sequence'>
+                                                    <field name="sequence"/>
+                                                    <field name="calculation"/>
+                                                    <field name="type_partner"/>
+                                                    <field name="information_fields_id"/>
+                                                    <field name="information_fields_relation" invisible="1"/>
+                                                    <field name="related_field_id"/>
+                                                    <field name="salary_rule_id" widget="many2many_tags"/>
+                                                    <field name="origin_severance_pay"/>
+                                                    <field name="accumulated_previous_year"/>
+                                                    <field name="sequence_list_sum"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </page>
+                                    <page string="Estructura Certificado ingresos y retenciones">
+                                        <group>
+                                            <field name="report_income_and_withholdings" colspan="2" nolabel="1" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page string="Políticas de Nómina">
+                                <group>
+                                    <group string="Cálculos de Nómina">
+                                        <field name="ded_round"/>
+                                        <field name="rtf_round"/>
+                                        <field name="aux_apr_prod"/>
+                                        <field name="complete_february_to_30"/>
+                                        <field name="month_change_policy"/>
+                                        <field name="aux_prst"/>
+                                        <field name="aus_prev"/>
+                                        <field name="positive_net"/>
+                                        <field name="nonprofit"/>
+                                        <field name="prst_wo_susp"/>
+                                    </group>
+                                    <group string="Contabilización">
+                                        <field name="accounting_method"/>
+                                        <field name="default_accounting_date"/>
+                                        <field name="overtime_calculation_method"/>
+                                        <field name="severance_pay_calculation"/>
+                                        <field name="store_payroll_history"/>
+                                        <field name="ibc_history_months"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Configuración de Horas Laborales">
+                                <group colspan="2">
+                                    <p class="text-muted" colspan="2">
+                                        La Ley 2101 de 2021 establece una reducción gradual de la jornada laboral máxima en Colombia:
+                                        <ul>
+                                            <li>Julio 2024: De 48 a 46 horas semanales</li>
+                                            <li>Julio 2025: De 46 a 44 horas semanales</li>
+                                            <li>Julio 2026: De 44 a 42 horas semanales</li>
+                                        </ul>
+                                        El botón "Crear Distribución de Horas" genera automáticamente la configuración para
+                                        cada mes del año según la normativa vigente.
+                                    </p>
+                                </group>
+                                <field name="working_hours_ids" nolabel="1" colspan="4">
+                                    <tree string="Configuración de Horas Laborales">
+                                        <field name="year"/>
+                                        <field name="month"/>
+                                        <field name="max_hours_per_week"/>
+                                        <field name="hours_per_month"/>
+                                        <field name="hours_to_pay"/>
+                                        <field name="effective_date"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_company_working_hours_tree" model="ir.ui.view">
+            <field name="name">hr.company.working.hours.tree</field>
+            <field name="model">hr.company.working.hours</field>
+            <field name="arch" type="xml">
+                <tree string="Horas Laborales por Empresa">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="max_hours_per_week"/>
+                    <field name="hours_per_month"/>
+                    <field name="hours_to_pay"/>
+                    <field name="effective_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista formulario para Horas Laborales -->
+        <record id="view_hr_company_working_hours_form" model="ir.ui.view">
+            <field name="name">hr.company.working.hours.form</field>
+            <field name="model">hr.company.working.hours</field>
+            <field name="arch" type="xml">
+                <form string="Horas Laborales por Empresa">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                <field name="year"/>
+                                <field name="month"/>
+                                <field name="effective_date"/>
+                            </group>
+                            <group>
+                                <field name="max_hours_per_week"/>
+                                <field name="hours_per_month"/>
+                                <field name="hours_to_pay"/>
+                                <field name="annual_parameter_id"/>
+                            </group>
+                        </group>
+                        <group string="Notas">
+                            <field name="notes" nolabel="1" placeholder="Observaciones adicionales..."/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para Horas Laborales -->
+        <record id="action_hr_company_working_hours" model="ir.actions.act_window">
+            <field name="name">Horas Laborales</field>
+            <field name="res_model">hr.company.working.hours</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un nuevo registro de horas laborales
+                </p>
+                <p>
+                    Configure las horas laborales máximas según la Ley 2101 de 2021
+                    que establece una reducción gradual de la jornada laboral en Colombia.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menú para Horas Laborales -->
+        <menuitem id="menu_hr_company_working_hours" 
+                name="Horas Laborales" 
+                parent="hr.menu_human_resources_configuration" 
+                action="action_hr_company_working_hours" 
+                sequence="100" 
+                groups="hr.group_hr_manager"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+		<!-- Historico de ausencias -->
+		<record model="ir.actions.act_window"  id="action_hr_absence_history">
+				<field name="name">Historico de ausencias</field>
+				<field name="res_model">hr.absence.history</field>
+				<field name="view_mode">tree</field>
+		</record>
+		
+        <record model="ir.ui.view" id="hr_absence_history_list">
+			    <field name="name">Historico de ausencias list</field>
+			    <field name="model">hr.absence.history</field>
+			    <field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="leave_type_id" readonly="1"/>
+					<field name="star_date" readonly="1"/>
+                    <field name="end_date" readonly="1"/>
+					<field name="days" readonly="1"/>
+					<field name="employee_id" readonly="1"/>
+                    <field name="description" readonly="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="hr_absence_history_search" model="ir.ui.view">
+			<field name="name">hr.absence.history.view.search</field>
+			<field name="model">hr.absence.history</field>
+			<field name="arch" type="xml">
+				<search string="Historico de ausencias">
+					<field name="employee_id"/>
+					<field name="leave_type_id"/>
+				</search>
+			</field>
+        </record>
+
+    </data>
+</odoo>

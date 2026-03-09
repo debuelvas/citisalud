@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario de producto con campos INVIMA -->
+        <record id="product_template_citisalud_form" model="ir.ui.view">
+            <field name="name">product.template.citisalud.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="inside">
+                    <group name="group_citisalud" string="Información CitiSalud" col="2">
+                        <field name="invima_register" placeholder="Ej: INVIMA-2024-001"/>
+                        <field name="is_invima"/>
+                        <field name="temperature_invima" placeholder="Ej: 2-8°C"/>
+                        <field name="city_salud_ext" placeholder="Referencia externa CitiSalud"/>
+                        <field name="cups_reference" placeholder="Código CUPS"/>
+                        <field name="test_field"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de formulario de variante de producto con categoría específica -->
+        <record id="product_variant_citisalud_form" model="ir.ui.view">
+            <field name="name">product.product.citisalud.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="specific_categ_id" 
+                           string="Categoría Específica"
+                           placeholder="Categoría específica para esta variante"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de lista de lotes con semaforización -->
+        <record id="stock_production_lot_citisalud_tree" model="ir.ui.view">
+            <field name="name">stock.lot.citisalud.tree</field>
+            <field name="model">stock.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="color_expiration" column_invisible="True"/>
+                    <field name="expiration_days" 
+                           string="Días para Caducar"
+                           decoration-danger="color_expiration == 'red'"
+                           decoration-warning="color_expiration == 'yellow'"
+                           decoration-success="color_expiration == 'green'"
+                           widget="integer"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de formulario de lotes con información de semaforización -->
+        <record id="stock_production_lot_citisalud_form" model="ir.ui.view">
+            <field name="name">stock.lot.citisalud.form</field>
+            <field name="model">stock.lot</field>
+            <field name="inherit_id" ref="product_expiry.view_move_form_expiry"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expiration_date']" position="after">
+                    <field name="expiration_days" readonly="1"/>
+                    <field name="color_expiration" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

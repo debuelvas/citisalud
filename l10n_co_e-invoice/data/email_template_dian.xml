@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template de Email para Factura Electrónica DIAN -->
+    <record id="email_template_edi_invoice_dian" model="mail.template">
+        <field name="name">Factura Electrónica DIAN</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="email_layout_xmlid">l10n_co_e-invoice.mail_notification_layout_no_button</field>
+        <field name="subject">
+            ${object.company_id.name} - Factura ${object.name or ''}
+        </field>
+        <field name="email_from">${(object.invoice_user_id.email_formatted or object.company_id.email or 'noreply@localhost')|safe}</field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #555555; width: 100%; border-collapse:separate;">
+    <tr>
+        <td align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" style="padding: 16px; background-color: white; color: #555555; border-collapse:separate;">
+                <!-- HEADER -->
+                <tr>
+                    <td align="center" style="min-width: 590px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                            <tr>
+                                <td valign="middle">
+                                    <span style="font-size: 10px;">Documento</span><br/>
+                                    <span style="font-size: 20px; font-weight: bold;">
+                                        ${object.name or ''}
+                                    </span>
+                                </td>
+                                <td valign="middle" align="right">
+                                    <t t-if="object.company_id.logo">
+                                        <img t-att-src="image_data_uri(object.company_id.logo)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.company_id.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align:center;">
+                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- SALUDO -->
+                <tr>
+                    <td align="center" style="min-width: 590px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                            <tr>
+                                <td valign="top" style="font-size: 13px;">
+                                    <div>
+                                        Estimado(a)
+                                        <strong><t t-out="object.partner_id.name or 'Cliente'">Cliente</t></strong>,
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        Adjunto encontrará su
+                                        <t t-if="object.move_type == 'out_invoice'">
+                                            <strong>Factura Electrónica</strong>
+                                        </t>
+                                        <t t-elif="object.move_type == 'out_refund'">
+                                            <strong>Nota Crédito</strong>
+                                        </t>
+                                        <t t-elif="object.is_debit_note">
+                                            <strong>Nota Débito</strong>
+                                        </t>
+                                        <t t-else="">
+                                            <strong>Documento</strong>
+                                        </t>
+                                        <strong><t t-out="object.name or ''">DOC-001</t></strong>
+                                        <t t-if="object.invoice_origin">
+                                            (Ref: <t t-out="object.invoice_origin">REF-001</t>)
+                                        </t>
+                                        con los siguientes detalles:
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- DETALLES DEL DOCUMENTO -->
+                <tr>
+                    <td align="center" style="min-width: 590px; padding-top: 16px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F8F9FA; padding: 16px; border-collapse:separate; border-radius: 5px;">
+                            <tr>
+                                <td style="padding: 4px 0px; font-size: 13px;">
+                                    <strong>Fecha:</strong> <t t-out="format_date(object.invoice_date)">2024-01-01</t>
+                                </td>
+                            </tr>
+                            <t t-if="object.invoice_date_due">
+                                <tr>
+                                    <td style="padding: 4px 0px; font-size: 13px;">
+                                        <strong>Fecha de Vencimiento:</strong> <t t-out="format_date(object.invoice_date_due)">2024-01-31</t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="object.cufe">
+                                <tr>
+                                    <td style="padding: 4px 0px; font-size: 11px; word-break: break-all;">
+                                        <strong>CUFE:</strong> <t t-out="object.cufe">CUFE-CODE-HERE</t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td style="padding: 8px 0px 4px 0px; font-size: 16px;">
+                                    <strong>Total:</strong>
+                                    <span style="font-size: 18px; color: #00A09D;">
+                                        <t t-out="format_amount(object.amount_total, object.currency_id)">$ 1,000,000</t>
+                                    </span>
+                                </td>
+                            </tr>
+                            <t t-if="object.amount_letters">
+                                <tr>
+                                    <td style="padding: 4px 0px; font-size: 12px; font-style: italic;">
+                                        <t t-out="object.amount_letters">UN MILLÓN DE PESOS</t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- INFORMACIÓN DIAN -->
+                <t t-if="object.state_dian_document == 'exitoso'">
+                    <tr>
+                        <td align="center" style="min-width: 590px; padding-top: 16px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #D4EDDA; padding: 12px; border-collapse:separate; border-radius: 5px;">
+                                <tr>
+                                    <td style="font-size: 13px; color: #155724;">
+                                        <strong>✓ Documento validado por la DIAN</strong><br/>
+                                        Este documento electrónico ha sido validado exitosamente por la DIAN.
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </t>
+
+                <!-- CÓDIGO QR -->
+                <t t-if="object.QR_code">
+                    <tr>
+                        <td align="center" style="min-width: 590px; padding-top: 16px;">
+                            <div style="padding: 12px; background-color: white; border: 1px solid #DEE2E6; border-radius: 5px;">
+                                <div style="font-size: 12px; margin-bottom: 8px;">
+                                    <strong>Código QR de Validación</strong>
+                                </div>
+                                <img t-att-src="image_data_uri(object.QR_code)" style="max-width: 150px; height: auto;" alt="Código QR"/>
+                            </div>
+                        </td>
+                    </tr>
+                </t>
+
+                <!-- MENSAJE ADICIONAL -->
+                <tr>
+                    <td align="center" style="min-width: 590px; padding-top: 16px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                            <tr>
+                                <td style="font-size: 13px;">
+                                    <br/>
+                                    Para cualquier consulta sobre este documento, no dude en contactarnos.
+                                    <br/><br/>
+                                    Atentamente,<br/>
+                                    <strong><t t-out="object.company_id.name">Empresa</t></strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- FOOTER -->
+                <tr>
+                    <td align="center" style="min-width: 590px; padding-top: 24px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F8F9FA; padding: 16px; border-collapse:separate;">
+                            <tr>
+                                <td style="text-align: center; font-size: 11px; color: #6C757D;">
+                                    <t t-if="object.company_id.phone">
+                                        <div>Tel: <t t-out="object.company_id.phone">123456789</t></div>
+                                    </t>
+                                    <t t-if="object.company_id.email">
+                                        <div>Email: <t t-out="object.company_id.email">email@empresa.com</t></div>
+                                    </t>
+                                    <t t-if="object.company_id.website">
+                                        <div>Web: <t t-out="object.company_id.website">www.empresa.com</t></div>
+                                    </t>
+                                    <div style="margin-top: 8px;">
+                                        <em>Este es un correo automático, por favor no responder.</em>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- DISCLAIMER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" style="padding: 8px; background-color: #F1F1F1; color: #999; border-collapse:separate;">
+                <tr>
+                    <td style="text-align: center; font-size: 10px;">
+                        Documento electrónico generado por <t t-out="object.company_id.name">Empresa</t>
+                        <br/>
+                        Facturación Electrónica DIAN - Colombia
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+        </field>
+        <field name="report_template_ids" eval="[(4, ref('account.account_invoices'))]"/>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

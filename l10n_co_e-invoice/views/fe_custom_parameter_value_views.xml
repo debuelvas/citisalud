@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================== -->
+    <!-- VISTAS PARA fe.custom.parameter.value              -->
+    <!-- ================================================== -->
+
+    <!-- Vista de Formulario (solo para debug/administración) -->
+    <record id="view_fe_custom_parameter_value_form" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.value.form</field>
+        <field name="model">fe.custom.parameter.value</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="parameter_id" options="{'no_create': True}"/>
+                            <field name="invoice_id"/>
+                        </group>
+                        <group>
+                            <field name="value"/>
+                        </group>
+                    </group>
+
+                    <group string="Valores Internos (Solo Lectura)" groups="base.group_no_one">
+                        <group>
+                            <field name="value_char" readonly="1"/>
+                            <field name="value_text" readonly="1"/>
+                            <field name="value_integer" readonly="1"/>
+                            <field name="value_float" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="value_date" readonly="1"/>
+                            <field name="value_datetime" readonly="1"/>
+                            <field name="value_boolean" readonly="1"/>
+                            <field name="value_selection" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de Lista (para usar embebida en facturas) -->
+    <record id="view_fe_custom_parameter_value_tree" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.value.tree</field>
+        <field name="model">fe.custom.parameter.value</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="parameter_id"
+                       domain="[('active', '=', True)]"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="value" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de Lista Completa (para administración) -->
+    <record id="view_fe_custom_parameter_value_tree_full" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.value.tree.full</field>
+        <field name="model">fe.custom.parameter.value</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0">
+                <field name="invoice_id"/>
+                <field name="parameter_id"/>
+                <field name="value"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de Búsqueda -->
+    <record id="view_fe_custom_parameter_value_search" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.value.search</field>
+        <field name="model">fe.custom.parameter.value</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="parameter_id"/>
+                <field name="invoice_id"/>
+                <field name="value"/>
+
+                <filter string="Facturas Cliente" name="invoice_customer"
+                        domain="[('invoice_id.move_type', '=', 'out_invoice')]"/>
+                <filter string="Notas Crédito Cliente" name="refund_customer"
+                        domain="[('invoice_id.move_type', '=', 'out_refund')]"/>
+                <separator/>
+                <filter string="Facturas Proveedor" name="invoice_vendor"
+                        domain="[('invoice_id.move_type', '=', 'in_invoice')]"/>
+                <filter string="Notas Crédito Proveedor" name="refund_vendor"
+                        domain="[('invoice_id.move_type', '=', 'in_refund')]"/>
+
+                <group expand="0" string="Agrupar por">
+                    <filter string="Parámetro" name="group_parameter" context="{'group_by': 'parameter_id'}"/>
+                    <filter string="Factura" name="group_invoice" context="{'group_by': 'invoice_id'}"/>
+                    <filter string="Fecha Creación" name="group_create_date" context="{'group_by': 'create_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción de Ventana (para debug/administración) -->
+    <record id="action_fe_custom_parameter_value" model="ir.actions.act_window">
+        <field name="name">Valores de Parámetros FE</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fe.custom.parameter.value</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_fe_custom_parameter_value_tree_full"/>
+        <field name="search_view_id" ref="view_fe_custom_parameter_value_search"/>
+        <field name="context">{'search_default_invoice_customer': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay valores de parámetros personalizados
+            </p>
+            <p>
+                Los valores de parámetros se crean automáticamente desde
+                las facturas cuando se asignan parámetros personalizados.
+            </p>
+            <p>
+                Esta vista es principalmente para auditoría y debugging.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menú de Administración (solo para usuarios avanzados) -->
+    <menuitem id="menu_fe_custom_parameter_values"
+              name="Valores de Parámetros (Debug)"
+              parent="menu_fe_config"
+              action="action_fe_custom_parameter_value"
+              sequence="20"
+              groups="base.group_no_one"/>
+
+</odoo>

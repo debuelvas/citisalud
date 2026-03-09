@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form" model="ir.ui.view">
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting_info_group']" position="inside">
+                    <field name="authorization_number"/>
+                    <field name="rip_id" readonly="1"/>
+                    <field name="amount_vat" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_tree_extended_fe" model="ir.ui.view">
+            <field name="name">documento DIAN de una factura</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="generate_pdf_zip"
+                        string="Descargar PDFs"
+                        type="object"
+                        class="btn-primary"/>
+                    <button name="mass_action_send_rips_to_min"
+                        string="Enviar RIPS al Ministerio"
+                        type="object"
+                        class="btn-success"
+                        icon="fa-paper-plane"
+                        help="Enviar facturas seleccionadas al Ministerio de Salud para validacion RIPS"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_server_queue_rips_validation" model="ir.actions.server">
+            <field name="name">Validar RIPS (Cola)</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model.action_queue_rips_validation()</field>
+        </record>
+
+        <record id="ir_cron_process_rips_queue" model="ir.cron">
+            <field name="name">RIPS: Procesar cola de validacion</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_process_rips_queue()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="priority">1</field>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="ir_cron_validate_pending_cuvs" model="ir.cron">
+            <field name="name">RIPS: Validar CUVs pendientes automaticamente</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_validate_pending_cuvs()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="priority">5</field>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+    </data>
+</odoo>

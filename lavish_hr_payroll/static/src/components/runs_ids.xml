@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="lavish_hr_payroll.PayslipRunComponent" owl="1">
+        <div class="payslip-run-detail">
+            <!-- Botones de acción principales -->
+            <div class="mb-3">
+                <button class="btn btn-primary me-2" t-on-click="printPayslipRun">
+                    <i class="fa fa-print"/> Imprimir Lote de Nóminas
+                </button>
+                <button class="btn btn-info me-2" t-on-click="goToPayslipRun">
+                    <i class="fa fa-arrow-right"/> Ir a Nóminas
+                </button>
+                <button class="btn btn-success" t-on-click="computeAllPayslips">
+                    <i class="fa fa-cog"/> Computar Todas
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" placeholder="Buscar por nombre o identificación" 
+                               t-on-input="onSearchInput" t-ref="searchInput"/>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" t-on-change="onDepartmentChange" t-ref="departmentSelect">
+                            <option value="">Todos los departamentos</option>
+                            <t t-foreach="state.departments" t-as="dept" t-key="dept.id">
+                                <option t-att-value="dept.id"><t t-esc="dept.name"/></option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="mt-4">
+                <h4 class="mb-3">Metricas De Asistencia</h4>
+                <div class="card bg-light-orange">
+                    <div class="card-body py-3">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-users fa-lg mr-2"></i>
+                                    <div>
+                                        <div class="text-muted small">Total Empleados</div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="h3 mb-0 font-weight-bold mr-2">
+                                                <t t-esc="formatDaysHours(state.summary.totalEmployees) || 0"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-plane fa-lg mr-2"></i>
+                                    <div>
+                                        <div class="text-muted small">En vacaciones</div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="h3 mb-0 font-weight-bold mr-2">
+                                                <t t-esc="formatDaysHours(state.summary.totalVacationDays) || 0"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-calendar fa-lg mr-2"></i>
+                                    <div>
+                                        <div class="text-muted small">De licencia</div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="h3 mb-0 font-weight-bold mr-2">
+                                                <t t-esc="formatDaysHours(state.summary.totalLeaveDays) || 0"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-ban fa-lg mr-2"></i>
+                                    <div>
+                                        <div class="text-muted small">Licencia no remunerada</div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="h3 mb-0 font-weight-bold mr-2">
+                                                <t t-esc="formatDaysHours(state.summary.totalUnpaidLeaveDays) || 0"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-medkit fa-lg mr-2"></i>
+                                    <div>
+                                        <div class="text-muted small">Incapacidades</div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="h3 mb-0 font-weight-bold mr-2">
+                                                <t t-esc="formatDaysHours(state.summary.totalDisabilityDays) || 0"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">                
+                <div class="col-md-4">
+                    <div class="card"> 
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-suitcase text-success"/> Total Básico</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalBasic)"/></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-bus text-info"/> Total Aux. Transporte</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalAux)"/></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-plus-circle text-warning"/> Total Devengos</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalEarned)"/></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-heartbeat text-danger"/> Total Salud</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalHealth)"/></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-blind text-warning"/> Total Pensión</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalPension)"/></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-percent text-info"/> Total Retención</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalRetention)"/></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-hand-holding-usd text-success"/> Total a Pagar</h5>
+                            <p class="card-text h3"><t t-esc="formatCurrency(state.summary.totalToPay)"/></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de nóminas -->
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Click</th>
+                        <th>Empleado</th>
+                        <th>Días/Horas</th>
+                        <th>Básico</th>
+                        <th>Aux. Transporte</th>
+                        <th>Total Devengado</th>
+                        <th>Salud</th>
+                        <th>Pensión</th>
+                        <th>Retención</th>
+                        <th>Neto a Pagar</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="paginatedPayslips" t-as="payslip" t-key="payslip.id">
+                        <tr t-on-click="() => this.togglePayslip(payslip.id)">
+                            <td>
+                                <input type="radio" t-att-checked="state.selectedPayslipId === payslip.id"
+                                       t-on-change="() => this.selectPayslip(payslip.id)"/>
+                            </td>
+                            <td><t t-esc="payslip.employee_id[1]"/></td>
+                            <td>
+                                <span t-esc="formatDaysHours(payslip.totalWorkedDays)"/> / 
+                                <span t-esc="formatDaysHours(payslip.totalWorkedHours)"/>
+                            </td>
+                            <td><t t-esc="formatCurrency(payslip.basicWage)"/></td>
+                            <td><t t-esc="formatCurrency(payslip.transportationAllowance)"/></td>
+                            <td><t t-esc="formatCurrency(payslip.totalEarned)"/></td>
+                            <td><t t-esc="formatCurrency(payslip.healthContribution)"/></td>
+                            <td><t t-esc="formatCurrency(payslip.pensionContribution)"/></td>
+                            <td><t t-esc="formatCurrency(payslip.retention)"/></td>
+                            <td><t t-esc="formatCurrency(payslip.netWage)"/></td>
+                            <td>
+                                <button t-on-click.stop="() => this.computePayslip(payslip.id)" 
+                                    class="btn btn-sm btn-primary me-1" 
+                                        title="Computar">
+                                <i class="fa fa-cog"/>
+                            </button>
+                            <button t-on-click.stop="() => this.printPayslip(payslip.id)" 
+                                    class="btn btn-sm btn-info me-1" 
+                                    title="Imprimir">
+                                <i class="fa fa-print"/>
+                            </button>
+                            <button t-on-click.stop="() => this.goToPayslip(payslip.id)" 
+                                    class="btn btn-sm btn-secondary" 
+                                    title="Ver">
+                                <i class="fa fa-eye"/>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr t-if="payslip.isExpanded">
+                        <td colspan="11">
+                            <PayslipDetailComponent payslip="payslip" value="payslip"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <!-- Paginación -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" t-att-class="{'disabled': state.currentPage === 1}">
+                        <a class="page-link" href="#" t-on-click.prevent="() => this.changePage(state.currentPage - 1)">Anterior</a>
+                    </li>
+                    <t t-foreach="pageNumbers" t-as="pageNum" t-key="pageNum">
+                        <li class="page-item" t-att-class="{'active': state.currentPage === pageNum}">
+                            <a class="page-link" href="#" t-on-click.prevent="() => this.changePage(pageNum)">
+                                <t t-esc="pageNum"/>
+                            </a>
+                        </li>
+                    </t>
+                    <li class="page-item" t-att-class="{'disabled': state.currentPage === totalPages}">
+                        <a class="page-link" href="#" t-on-click.prevent="() => this.changePage(state.currentPage + 1)">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Botones para acciones en la nómina seleccionada -->
+            <div class="mt-3" t-if="state.selectedPayslipId">
+                <button class="btn btn-primary me-2" t-on-click="() => this.printPayslip(state.selectedPayslipId)">
+                    <i class="fa fa-print"/> Imprimir Nómina Seleccionada
+                </button>
+                <button class="btn btn-info" t-on-click="() => this.goToPayslip(state.selectedPayslipId)">
+                    <i class="fa fa-arrow-right"/> Ir a Nómina Seleccionada
+                </button>
+            </div>
+        </div>
+    </t>
+</templates>

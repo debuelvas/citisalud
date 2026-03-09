@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_e-payroll.hr_payroll_period_tree" model="ir.ui.view">
+            <field name="name">hr.payroll.period.tree</field>
+            <field name="model">hr.payroll.period</field>
+            <field name="arch" type="xml">
+                <tree string="Payroll Period" editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="l10n_co_e-payroll.hr_payroll_period_acion" model="ir.actions.act_window">
+            <field name="name">Payroll Period</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payroll.period</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Type of worker.
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

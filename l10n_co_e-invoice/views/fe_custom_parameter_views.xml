@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================== -->
+    <!-- VISTAS PARA fe.custom.parameter                    -->
+    <!-- ================================================== -->
+
+    <!-- Vista de Formulario -->
+    <record id="view_fe_custom_parameter_form" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.form</field>
+        <field name="model">fe.custom.parameter</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Ej: Número de MIPRES"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información Básica">
+                            <field name="technical_name" placeholder="ej: mipres_number"/>
+                            <field name="sequence"/>
+                            <field name="parameter_type"/>
+                            <field name="data_type"/>
+                        </group>
+                        <group string="Configuración">
+                            <field name="required"/>
+                            <field name="apply_to_fe_types" widget="selection"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Descripción">
+                            <group>
+                                <field name="description" placeholder="Descripción detallada del parámetro..." nolabel="1"/>
+                                <field name="help_text" placeholder="Texto de ayuda para el usuario..."/>
+                            </group>
+                        </page>
+
+                        <page string="Configuración UBL">
+                            <group>
+                                <group string="Elemento XML">
+                                    <field name="ubl_element_name" placeholder="Ej: MipresNumber"/>
+                                    <field name="ubl_namespace"/>
+                                    <field name="ubl_xpath" placeholder="Ruta XPath (opcional)"/>
+                                </group>
+                                <group string="Estructura Avanzada">
+                                    <field name="ubl_structure" placeholder="Estructura XML compleja (JSON)"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Validación" invisible="data_type not in ['char', 'text']">
+                            <group>
+                                <field name="validation_regex" placeholder="Expresión regular (opcional)"/>
+                                <field name="validation_error_message" placeholder="Mensaje de error personalizado"/>
+                            </group>
+                            <div class="alert alert-info" role="alert">
+                                <p><strong>Ejemplos de expresiones regulares:</strong></p>
+                                <ul>
+                                    <li><code>^\d{15}$</code> - Exactamente 15 dígitos</li>
+                                    <li><code>^[A-Z0-9\-]{1,30}$</code> - Letras mayúsculas, números y guiones (1-30 caracteres)</li>
+                                    <li><code>^\d{3}-\d{6}-\d{1}$</code> - Formato: 001-123456-7</li>
+                                </ul>
+                            </div>
+                        </page>
+
+                        <page string="Opciones de Selección" invisible="data_type != 'selection'">
+                            <field name="selection_options" placeholder="Una opción por línea:&#10;value1|Etiqueta 1&#10;value2|Etiqueta 2" nolabel="1"/>
+                            <div class="alert alert-info" role="alert">
+                                <p><strong>Formato:</strong> Cada línea debe tener el formato: <code>valor|Etiqueta visible</code></p>
+                                <p><strong>Ejemplo:</strong></p>
+                                <pre>contributivo|Contributivo
+subsidiado|Subsidiado
+especial|Especial</pre>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de Lista -->
+    <record id="view_fe_custom_parameter_tree" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.tree</field>
+        <field name="model">fe.custom.parameter</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="parameter_type"/>
+                <field name="data_type"/>
+                <field name="ubl_namespace"/>
+                <field name="required"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de Búsqueda -->
+    <record id="view_fe_custom_parameter_search" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.search</field>
+        <field name="model">fe.custom.parameter</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="parameter_type"/>
+                <field name="data_type"/>
+
+                <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Obligatorios" name="required" domain="[('required', '=', True)]"/>
+                <separator/>
+                <filter string="Encabezado" name="header" domain="[('parameter_type', '=', 'header')]"/>
+                <filter string="Líneas" name="line" domain="[('parameter_type', '=', 'line')]"/>
+                <filter string="Terceros" name="party" domain="[('parameter_type', '=', 'party')]"/>
+                <filter string="Pago" name="payment" domain="[('parameter_type', '=', 'payment')]"/>
+                <filter string="Entrega" name="delivery" domain="[('parameter_type', '=', 'delivery')]"/>
+                <filter string="Extensiones" name="extension" domain="[('parameter_type', '=', 'extension')]"/>
+
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo de Parámetro" name="group_parameter_type" context="{'group_by': 'parameter_type'}"/>
+                    <filter string="Tipo de Dato" name="group_data_type" context="{'group_by': 'data_type'}"/>
+                    <filter string="Namespace UBL" name="group_namespace" context="{'group_by': 'ubl_namespace'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista Kanban -->
+    <record id="view_fe_custom_parameter_kanban" model="ir.ui.view">
+        <field name="name">fe.custom.parameter.kanban</field>
+        <field name="model">fe.custom.parameter</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="parameter_type" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="parameter_type"/>
+                <field name="data_type"/>
+                <field name="ubl_namespace"/>
+                <field name="required"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_content">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <br/>
+                                    <span class="text-muted">
+                                        <field name="technical_name"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_top_right">
+                                    <field name="active" widget="boolean_toggle"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="badge badge-pill">
+                                            <field name="data_type"/>
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="badge badge-pill badge-info">
+                                            <field name="ubl_namespace"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div t-if="record.required.raw_value" class="mt-2">
+                                    <span class="badge badge-danger">Obligatorio</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Acción de Ventana -->
+    <record id="action_fe_custom_parameter" model="ir.actions.act_window">
+        <field name="name">Parámetros Personalizados FE</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fe.custom.parameter</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_fe_custom_parameter_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo parámetro personalizado de FE
+            </p>
+            <p>
+                Los parámetros personalizados permiten agregar campos especiales
+                a las facturas electrónicas sin modificar código.
+            </p>
+            <p>
+                Defina el parámetro una vez y podrá usarlo en todas sus facturas.
+                El sistema generará automáticamente el XML UBL correspondiente.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menús -->
+    <menuitem id="menu_fe_config"
+              name="Facturación Electrónica"
+              parent="account.menu_finance_configuration"
+              sequence="25"/>
+
+    <menuitem id="menu_fe_custom_parameters"
+              name="Parámetros Personalizados"
+              parent="menu_fe_config"
+              action="action_fe_custom_parameter"
+              sequence="10"
+              groups="account.group_account_manager"/>
+
+</odoo>

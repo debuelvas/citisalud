@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hr_payslip_form_inherit" model="ir.ui.view">
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="model">hr.payslip</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_payslip_cancel']" position="after">
+                    <button name="compute_sheet_nes" string="Compute Hoja Electronica" type="object" />
+                    <button name="validate" string="Validar DIAN" type="object"
+                      invisible="not(state == 'done') or state_dian != 'por_notificar'"/>
+                    <button name="validate" string="Revisar status DIAN" type="object"
+                      invisible="not(state == 'done') or (state_dian in ('por_notificar', 'exitoso'))"/>
+                    <button name="test_xml" string="Test XML" type="object" groups="base.group_no_one"/>
+                </xpath>
+                <xpath expr="//field[@name='note']" position="before">
+                    <label for="note" string="Notas"/>
+                </xpath>
+                <xpath expr="//field[@name='credit_note']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payslip_run_id']" position="after">
+                    <field name="payment_date" required="1" invisible="state == 'done'"/>
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page string="Calculos Nomina Electronica">
+                        <field name="nes_dev_line_ids" colspan="4" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="sequence" readonly="1" widget="handle" force_save="1"/>
+                                <field name="name" />
+                                <field name="note" />
+                                <field name="leave_id" />
+                                <field name="code" optional="hide" />
+                                <field name="departure_date" optional="hide" />
+                                <field name="return_date" optional="hide" />
+                                <field name="category_id" optional="hide" />
+                                <field name="sequence" invisible="1" />
+                                <field name="quantity" optional="hide"  />
+                                <field name="salary_rule_id"  optional="hide" />
+                                <field name="amount" optional="hide" />
+                                <field name="total" />
+                                <field name="name_2" />
+                                <field name="code_2" optional="hide" />
+                                <field name="rate_2" optional="hide" />
+                                <field name="total_2" />
+                                <field name="is_rate" optional="hide" />
+                                <field name="is_note" optional="hide"  />
+                                <field name="is_total" optional="hide" />
+                                <field name="is_multi_rule" optional="hide" />
+                                <field name="is_multi_nodo" optional="hide" />
+                                <field name="is_nodo_principal" optional="hide" />
+                                <field name="sub_element" optional="hide" />  
+                            </tree>
+                        </field>
+                        <field name="nes_ded_line_ids" colspan="4" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="sequence" readonly="1" widget="handle" force_save="1"/>
+                                <field name="name" />
+                                <field name="note" />
+                                <field name="code" optional="hide" />
+                                <field name="category_id" optional="hide" />
+                                <field name="sequence" invisible="1" />
+                                <field name="quantity" optional="hide"  />
+                                <field name="salary_rule_id"  optional="hide" />
+                                <field name="amount" optional="hide" />
+                                <field name="total" />
+                                <field name="name_2" />
+                                <field name="code_2" optional="hide" />
+                                <field name="rate_2" optional="hide" />
+                                <field name="total_2" />
+                                <field name="is_rate" optional="hide" />
+                                <field name="is_note" optional="hide"  />
+                                <field name="is_total" optional="hide" />
+                                <field name="is_multi_rule" optional="hide" />
+                                <field name="is_multi_nodo" optional="hide" />
+                                <field name="is_nodo_principal" optional="hide" />
+                                <field name="sub_element" optional="hide" />  
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="dian" string="DIAN">
+                        <group>
+                            <field name="state_dian"/>
+                            <field name="refusal_reason"/>
+                          <field name="response_message_dian" invisible="state_dian == 'exitoso'"/>  <field name="current_cune" groups="base.group_no_one"/>
+                          <field name="previous_cune" groups="base.group_no_one" invisible="not credit_note"/>  
+                          <field name="type_note" invisible="not credit_note" required="credit_note"/>  </group>
+                    </page>
+                </xpath>
+                <xpath expr="//button[@name='refund_sheet']" position="replace">
+                    <button
+                    string="Refund"
+                    name="refund_sheet"
+                    invisible="context.get('credit_note') or context.get('state') == 'draft' or context.get('state_dian') != 'exitoso'"
+                    type="object"
+                />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_edi_form_inherit" model="ir.ui.view">
+            <field name="inherit_id" ref="epayroll.view_hr_payslip_edi_form"/>
+            <field name="model">hr.payslip.edi</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='update_data']" position="after">
+                    <button name="compute_sheet_nes" string="Compute Hoja Electronica" type="object"/>
+                    <button name="validate" string="Validar DIAN" type="object"
+                            invisible="context.get('state') in ['draft'] or context.get('state_dian') != 'por_notificar'"/>
+                    <button name="validate" string="Revisar status DIAN" type="object"
+                            invisible="context.get('state') in ['draft'] or context.get('state_dian') in ['por_notificar', 'exitoso']"/>
+                    <button name="test_xml" string="Test XML" type="object" groups="base.group_no_one"/>
+                    <button string="Refund"
+                            name="refund_sheet"
+                            invisible="context.get('credit_note') or context.get('state') == 'draft' or context.get('state_dian') != 'exitoso'"
+                            type="object"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='credit_note']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='payslip_run_id']" position="after">
+                    <field name="payment_date" required="1" readonly="context.get('state') == 'done'"/>
+                </xpath>
+                
+                <xpath expr="//page[last()]" position="after">
+                    <page string="Calculos Nomina Electronica">
+                        <field name="nes_dev_line_ids" colspan="4" readonly="1">
+                            <tree>
+                                <field name="sequence" widget="handle" force_save="1"/>
+                                <field name="name"/>
+                                <field name="note"/>
+                                <field name="leave_id"/>
+                                <field name="code" optional="hide"/>
+                                <field name="departure_date" optional="hide"/>
+                                <field name="return_date" optional="hide"/>
+                                <field name="category_id" optional="hide"/>
+                                <field name="sequence" column_invisible="1"/>
+                                <field name="quantity" optional="hide"/>
+                                <field name="salary_rule_id" optional="hide"/>
+                                <field name="amount" optional="hide"/>
+                                <field name="total"/>
+                                <field name="name_2"/>
+                                <field name="code_2" optional="hide"/>
+                                <field name="rate_2" optional="hide"/>
+                                <field name="total_2"/>
+                                <field name="is_rate" optional="hide"/>
+                                <field name="is_note" optional="hide"/>
+                                <field name="is_total" optional="hide"/>
+                                <field name="is_multi_rule" optional="hide"/>
+                                <field name="is_multi_nodo" optional="hide"/>
+                                <field name="is_nodo_principal" optional="hide"/>
+                                <field name="sub_element" optional="hide"/>
+                            </tree>
+                        </field>
+                        <field name="nes_ded_line_ids" colspan="4" readonly="1">
+                            <tree>
+                                <field name="sequence" widget="handle" force_save="1"/>
+                                <field name="name"/>
+                                <field name="note"/>
+                                <field name="code" optional="hide"/>
+                                <field name="category_id" optional="hide"/>
+                                <field name="sequence" column_invisible="1"/>
+                                <field name="quantity" optional="hide"/>
+                                <field name="salary_rule_id" optional="hide"/>
+                                <field name="amount" optional="hide"/>
+                                <field name="total"/>
+                                <field name="name_2"/>
+                                <field name="code_2" optional="hide"/>
+                                <field name="rate_2" optional="hide"/>
+                                <field name="total_2"/>
+                                <field name="is_rate" optional="hide"/>
+                                <field name="is_note" optional="hide"/>
+                                <field name="is_total" optional="hide"/>
+                                <field name="is_multi_rule" optional="hide"/>
+                                <field name="is_multi_nodo" optional="hide"/>
+                                <field name="is_nodo_principal" optional="hide"/>
+                                <field name="sub_element" optional="hide"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="dian" string="DIAN">
+                        <group>
+                            <field name="state_dian"/>
+                            <field name="refusal_reason"/>
+                            <field name="response_message_dian"/>
+                            <field name="xml_response_dian" invisible="context.get('state_dian') == 'exitoso'"/>
+                            <field name="current_cune" groups="base.group_no_one"/>
+                            <field name="previous_cune" groups="base.group_no_one"
+                                   invisible="not context.get('credit_note')"/>
+                            <field name="type_note"
+                                   invisible="not context.get('credit_note')"
+                                   required="context.get('credit_note')"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="hr_payslip_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.inherit.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_to']" position="after">
+                    <field name="state_dian"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

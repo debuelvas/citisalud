@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <!-- Proceso de generar archivo plano de Acumulados - Informes-->
+        <record model="ir.actions.act_window" id="action_hr_accumulated_reports">
+            <field name="name">Reporte acumulados</field>
+            <field name="res_model">hr.accumulated.reports</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="hr_accumulated_reports_form" model="ir.ui.view">
+            <field name="name">Reporte acumulados</field>
+            <field name="model">hr.accumulated.reports</field>
+            <field name="arch" type="xml">
+                <form string="Reporte acumulados">
+                    <sheet>
+                        <group>
+                            <group string="Período">
+                                <field name="initial_year"/>
+                                <field name="initial_month"/>
+                                <field name="final_year"/>
+                                <field name="final_month"/>
+                            </group>
+                            <group string="Filtros">
+                                <field name="employee" widget="many2many_tags"/>
+                                <field name="salary_rule" widget="many2many_tags"/>
+                                <field name="branch" widget="many2many_tags"/>
+                                <field name="analytic_account" widget="many2many_tags"/>
+                                <field name="entities" widget="many2many_tags"/>
+                            </group>
+                            <br></br>
+                            <button name="generate_excel" string="Generar Excel" type="object" class="oe_highlight"/>
+                        </group>
+                    </sheet>
+                    <footer></footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

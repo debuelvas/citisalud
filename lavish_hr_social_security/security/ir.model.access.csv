@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_social_security,hr.payroll.social.security,model_hr_payroll_social_security,,1,1,1,1
+access_hr_executing_provisions,hr.executing.provisions,model_hr_executing_provisions,,1,1,1,1
+access_hr_executing_provisions_details,hr.executing.provisions.details,model_hr_executing_provisions_details,,1,1,1,1
+access_hr_executing_social_security,hr.executing.social.security,model_hr_executing_social_security,,1,1,1,1
+access_hr_errors_social_security,hr.errors.social.security,model_hr_errors_social_security,,1,1,1,1
+access_hr_social_security_branches,hr.social.security.branches,model_hr_social_security_branches,,1,1,1,1
+access_hr_social_security_work_center,hr.social.security.work.center,model_hr_social_security_work_center,,1,1,1,1
+access_hr_closing_configuration_header,hr.closing.configuration.header,model_hr_closing_configuration_header,,1,1,1,1
+access_hr_closing_configuration_detail,hr.closing.configuration.detail,model_hr_closing_configuration_detail,,1,1,1,1
+access_hr_entities_reports,hr.entities.reports,model_hr_entities_reports,,1,1,1,1
+access_hr_vacation_book,access_hr_vacation_book,model_hr_vacation_book,,1,1,1,1
+access_hr_consolidated_provisions,hr.consolidated.provisions,model_hr_consolidated_provisions,,1,1,1,1
+access_hr_consolidated_provisions_detail,hr.consolidated.provisions.detail,model_hr_consolidated_provisions_detail,,1,1,1,1
+access_hr_closing_social_security_line_manager,hr_closing_social_security_line_manager,model_hr_closing_social_security_line,,1,1,1,1
+access_hr_ss_config_wizard_manager,hr_ss_config_wizard_manager,model_hr_ss_config_wizard,,1,1,1,1

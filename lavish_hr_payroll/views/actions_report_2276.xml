@@ -1,0 +1,95 @@
+
+<odoo>
+    <data>
+        <record id="view_hr_config_rule_exogena_form" model="ir.ui.view">
+            <field name="name">hr.config.rule.exogena.form</field>
+            <field name="model">hr.config.rule.exogena</field>
+            <field name="arch" type="xml">
+                <form string="Configuración de Reglas Exógena 2276">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+                        <notebook>
+                            <page string="Líneas de Configuración">
+                                <field name="config_rule_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="column_selection" />
+                                        <field name="calculation" />
+                                        <field name="salary_rule_id" widget="many2many_tags"
+                                            options="{'no_create': True}"/>
+                                        <field name="origin_severance_pay" />
+                                        <field name="accumulated_previous_year" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de árbol para hr.config.rule.exogena -->
+        <record id="view_hr_config_rule_exogena_tree" model="ir.ui.view">
+            <field name="name">hr.config.rule.exogena.tree</field>
+            <field name="model">hr.config.rule.exogena</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda para hr.config.rule.exogena -->
+        <record id="view_hr_config_rule_exogena_search" model="ir.ui.view">
+            <field name="name">hr.config.rule.exogena.search</field>
+            <field name="model">hr.config.rule.exogena</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="code" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para hr.config.rule.exogena -->
+        <record id="action_hr_config_rule_exogena" model="ir.actions.act_window">
+            <field name="name">Configuración Exógena 2276</field>
+            <field name="res_model">hr.config.rule.exogena</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Cree una nueva configuración de reglas para el reporte Exógena 2276
+                </p>
+            </field>
+        </record>
+
+        <!-- Vista de formulario para hr.report.2276.exogena.wizard -->
+        <record id="view_hr_report_2276_exogena_wizard_form" model="ir.ui.view">
+            <field name="name">hr.report.2276.exogena.wizard.form</field>
+            <field name="model">hr.report.2276.exogena.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generar Reporte Exógena 2276">
+                    <group>
+                        <field name="start_date" />
+                        <field name="end_date" />
+                        <field name="confi_id" />
+                    </group>
+                    <footer>
+                        <button name="generate_xlsx_report" string="Generar Reporte" type="object"
+                            class="btn-primary" />
+                        <button string="Cancelar" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_hr_report_2276_exogena_wizard" model="ir.actions.act_window">
+            <field name="name">Generar Reporte Exógena 2276</field>
+            <field name="res_model">hr.report.2276.exogena.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>    
+</odoo>

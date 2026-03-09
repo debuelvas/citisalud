@@ -1,0 +1,322 @@
+// static/src/scss/hr_payslip_line_kanban.scss
+
+// Variables de color azul cielo (consistentes con el tema IBC)
+$blue-sky: #87CEEB;
+$blue-steel: #4682B4;
+$blue-light: #E6F3FF;
+$blue-lighter: #F0F8FF;
+$blue-dark: #1E3A5F;
+$blue-accent: #5DADE2;
+
+// Estilos para la vista kanban de hr.payslip.line
+.o_kanban_view.o_kanban_mobile {
+    .o_kanban_record {
+        // Card principal
+        &.oe_kanban_global_click {
+            border: 1px solid rgba($blue-sky, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: white;
+            
+            &:hover {
+                border-color: $blue-steel;
+                box-shadow: 0 4px 12px rgba($blue-sky, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+        
+        // Header del kanban
+        .o_kanban_record_top {
+            border-bottom: 1px solid rgba($blue-sky, 0.2);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+        
+        // Título principal
+        .o_kanban_record_title {
+            color: $blue-dark;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        // Estilos para montos
+        .text-success {
+            color: #28a745 !important;
+            font-size: 1.2rem;
+        }
+        
+        .text-danger {
+            color: #dc3545 !important;
+            font-size: 1.2rem;
+        }
+        
+        // Details/Summary personalizados
+        details {
+            background-color: $blue-light;
+            border: 1px solid rgba($blue-steel, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            
+            summary {
+                padding: 8px 12px;
+                cursor: pointer;
+                user-select: none;
+                transition: background-color 0.2s ease;
+                
+                &:hover {
+                    background-color: rgba($blue-sky, 0.2);
+                }
+                
+                &::-webkit-details-marker {
+                    display: none;
+                }
+                
+                &::before {
+                    content: '▶';
+                    display: inline-block;
+                    margin-right: 6px;
+                    transition: transform 0.2s ease;
+                    color: $blue-steel;
+                }
+            }
+            
+            &[open] summary::before {
+                transform: rotate(90deg);
+            }
+            
+            // Contenido de los detalles
+            .small {
+                padding: 12px;
+                background-color: white;
+                
+                .formula-display {
+                    background-color: $blue-lighter;
+                    border: 1px solid rgba($blue-steel, 0.1);
+                    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                    font-size: 0.85rem;
+                    white-space: pre-wrap;
+                    word-break: break-all;
+                }
+                
+                .log-display {
+                    background-color: $blue-lighter;
+                    border: 1px solid rgba($blue-steel, 0.1);
+                    max-height: 150px;
+                    overflow-y: auto;
+                    
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                    }
+                    
+                    &::-webkit-scrollbar-track {
+                        background: $blue-lighter;
+                    }
+                    
+                    &::-webkit-scrollbar-thumb {
+                        background: $blue-steel;
+                        border-radius: 3px;
+                    }
+                }
+            }
+        }
+        
+        // Badges mejorados
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            font-weight: 500;
+            
+            &.bg-success {
+                background-color: #28a745;
+            }
+            
+            &.bg-info {
+                background-color: $blue-accent;
+            }
+            
+            &.bg-warning {
+                background-color: #ffc107;
+                color: #212529;
+            }
+            
+            &.bg-danger {
+                background-color: #dc3545;
+            }
+            
+            &.bg-secondary {
+                background-color: #6c757d;
+            }
+        }
+        
+        // Sección de información de seguridad social
+        .computation-details {
+            .row {
+                margin-top: 8px;
+                
+                span {
+                    font-size: 0.85rem;
+                    line-height: 1.4;
+                    
+                    &.d-block {
+                        margin-bottom: 4px;
+                    }
+                    
+                    strong {
+                        &.text-primary {
+                            color: $blue-steel !important;
+                        }
+                        
+                        &.text-info {
+                            color: $blue-accent !important;
+                        }
+                        
+                        &.text-warning {
+                            color: #f7931e !important;
+                        }
+                        
+                        &.text-danger {
+                            color: #dc3545 !important;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Bottom section
+        .o_kanban_record_bottom {
+            border-top: 1px solid rgba($blue-sky, 0.2);
+            padding-top: 8px;
+            margin-top: 8px;
+            
+            .text-muted {
+                color: #6c757d;
+                font-size: 0.85rem;
+            }
+        }
+        
+        // Tags section
+        .o_kanban_tags_section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            
+            .badge.rounded-pill {
+                font-size: 0.7rem;
+                padding: 3px 10px;
+            }
+        }
+    }
+}
+
+// Estilos para la vista tree mejorada
+.o_list_view {
+    &.o_list_table {
+        thead {
+            background: linear-gradient(135deg, $blue-sky 0%, $blue-steel 100%);
+            color: white;
+            
+            th {
+                border-color: rgba(255, 255, 255, 0.2);
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                letter-spacing: 0.5px;
+            }
+        }
+        
+        tbody {
+            tr {
+                transition: background-color 0.2s ease;
+                
+                &:hover {
+                    background-color: $blue-lighter;
+                }
+                
+                &.text-danger {
+                    background-color: rgba(220, 53, 69, 0.05);
+                }
+                
+                &.text-success {
+                    background-color: rgba(40, 167, 69, 0.05);
+                }
+                
+                &.text-info {
+                    background-color: rgba($blue-accent, 0.05);
+                }
+            }
+        }
+    }
+}
+
+// Animaciones
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.o_kanban_record {
+    animation: fadeIn 0.3s ease-out;
+}
+
+// Media queries para responsividad
+@media (max-width: 768px) {
+    .o_kanban_view.o_kanban_mobile {
+        .o_kanban_record {
+            margin: 8px 4px;
+            
+            .o_kanban_record_title {
+                font-size: 1rem;
+            }
+            
+            .text-success,
+            .text-danger {
+                font-size: 1.1rem;
+            }
+            
+            details {
+                .small {
+                    padding: 8px;
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+}
+
+// Modo oscuro (si está habilitado en Odoo)
+.o_dark_mode {
+    .o_kanban_record {
+        &.oe_kanban_global_click {
+            background: #2b2b2b;
+            border-color: rgba($blue-sky, 0.2);
+            
+            &:hover {
+                background: #333;
+            }
+        }
+        
+        .o_kanban_record_title {
+            color: #e9ecef;
+        }
+        
+        details {
+            background-color: rgba($blue-dark, 0.3);
+            
+            .small {
+                background-color: #1a1a1a;
+                
+                .formula-display,
+                .log-display {
+                    background-color: rgba($blue-dark, 0.2);
+                    color: #e9ecef;
+                }
+            }
+        }
+    }
+}

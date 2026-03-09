@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <data>
+                <menuitem
+                        id="nomina_electronica_menu"
+                        name="Nomina Electronica"
+                        parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"
+                        sequence="13" />
+                <menuitem name="Tipos Devengado" id="accrued_rule_item_menu"
+                        parent="l10n_co_e-payroll_ee.nomina_electronica_menu"
+                        action="l10n_co_e-payroll.hr_accrued_rule_action" />
+
+                <menuitem name="Tipos Deducciones" id="deduct_rule_item_menu"
+                        parent="l10n_co_e-payroll_ee.nomina_electronica_menu"
+                        action="l10n_co_e-payroll.hr_deduct_rule_action" />
+
+                <menuitem name="Método de Pago" id="payment_method_item_menu"
+                        parent="l10n_co_e-payroll_ee.nomina_electronica_menu"
+                        action="l10n_co_e-payroll.hr_payment_method_action" />
+
+                <menuitem name="Tipo de Notas" id="hr_type_note_item_menu"
+                        parent="l10n_co_e-payroll_ee.nomina_electronica_menu"
+                        action="l10n_co_e-payroll.hr_type_note_acion" />
+
+                <menuitem name="Forma de Pago" id="way_pay_item_menu"
+                        parent="l10n_co_e-payroll_ee.nomina_electronica_menu"
+                        action="l10n_co_e-payroll.hr_way_pay_action" />
+        </data>
+</odoo>

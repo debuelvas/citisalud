@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form" model="ir.ui.view"> 
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="acs_hms_base.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="physician_id" position="after">
+                <field name="ref_physician_id" readonly="state=='posted'"/>
+            </field>
+            <xpath expr="//field[@name='state']" position="before">
+                <button style="background: #f34e4e; border: black;" name="generate_rips_json" string="Generar RIPS" type="object" icon="fa-file-text-o" groups="account.group_account_invoice" class="oe_highlight"/>                
+            </xpath>
+            <group name="general_details" position="after">
+                <group name='appointment' string="Appointment Details">
+                    <field name="appointment_id" readonly="state=='posted'"/>
+                    <field name="procedure_id" readonly="state=='posted'"/>
+                </group>
+            </group>
+        </field>      
+    </record>
+    <record id="view_move_form_inherit_hms_treatment" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.hms.treatment</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="ref" position="after">
+                <field name="hospital_invoice_type" readonly="state != 'draft'"/>
+                <field name="invoice_type" readonly="state != 'draft'"/>
+            </field>
+
+            <notebook position="inside">
+                <page string="Información Médica" name="medical_info">
+                    <group>
+                        <group string="Información del Paciente">
+                            <field name="patient_id" readonly="state != 'draft'"/>
+                            <field name="physician_id" readonly="state != 'draft'"/>
+                            <field name="department_id" readonly="state != 'draft'"/>
+                            <field name="treatment_id" 
+                                   readonly="state != 'draft'"
+                                   invisible="hospital_invoice_type != 'treatment'"/>
+                        </group>
+                        <group string="Información Clínica">
+                            <field name="diagnosis_id" readonly="state != 'draft'"/>
+                            <field name="disease_status" readonly="state != 'draft'"/>
+                            <field name="disease_severity" readonly="state != 'draft'"/>
+                            <field name="finding" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Información de Contrato" name="contract_info">
+                    <group>
+                        <group string="Contrato y Autorización">
+                            <field name="contract_id" readonly="state != 'draft'"/>
+                            <field name="authorization_number" readonly="state != 'draft'"/>
+                            <field name="benefit_plan_ids" widget="many2many_tags" options="{'color_field': 'color'}" readonly="state != 'draft'"/>
+                            <field name="payment_method" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Facturas Relacionadas" 
+                               invisible="invoice_type == 'regular'">
+                            <field name="copay_invoice_id" 
+                                   readonly="1"
+                                   invisible="invoice_type != 'insurance'"/>
+                            <field name="insurance_invoice_id" 
+                                   readonly="1"
+                                   invisible="invoice_type != 'copay'"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">
+                <field name="patient_id" optional="show" 
+                       readonly="parent.state != 'draft'"
+                       force_save="1"/>
+                <field name="treatment_id" optional="show" 
+                       readonly="parent.state != 'draft'"
+                       force_save="1"/>
+            </xpath>
+     
+
+            <!-- Formulario emergente de línea de factura -->
+            <xpath expr="//field[@name='invoice_line_ids']/form//field[@name='product_id']" position="after">
+                <field name="patient_id" 
+                       readonly="parent.state != 'draft'"
+                       force_save="1"/>
+                <field name="treatment_id" 
+                       readonly="parent.state != 'draft'"
+                       force_save="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda -->
+    <record id="view_account_invoice_filter_inherit_hms" model="ir.ui.view">
+        <field name="name">account.move.select.inherit.hms</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Tipo de Factura" name="invoice_type" context="{'group_by': 'invoice_type'}"/>
+                <filter string="Paciente" name="patient" context="{'group_by': 'patient_id'}"/>
+                <filter string="Médico" name="physician" context="{'group_by': 'physician_id'}"/>
+                <filter string="Contrato" name="contract" context="{'group_by': 'contract_id'}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="patient_id"/>
+                <field name="physician_id"/>
+                <field name="authorization_number"/>
+                <field name="contract_id"/>
+            </xpath>
+            <filter name="posted" position="after">
+                <filter string="Facturas de Aseguradora" name="insurance_invoices" 
+                        domain="[('invoice_type', '=', 'insurance')]"/>
+                <filter string="Facturas de Copago" name="copay_invoices" 
+                        domain="[('invoice_type', '=', 'copay')]"/>
+            </filter>
+        </field>      
+    </record>
+
+</odoo>

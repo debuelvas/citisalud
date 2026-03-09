@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_e-payroll.hr_contract_inherit_view" model="ir.ui.view">
+            <field name="name">hr.conract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="type_contract"/>
+                </xpath>
+                <xpath expr="//page[@name='information']" position="after">
+                    <page name="contract_vacations" string="Vacaciones">
+                        <group>
+                            <field name="vacations_ids" nolabel="1" >
+                                <tree editable="bottom">
+                                    <field name="initial_period" />
+                                    <field name="final_period" />
+                                    <field name="accumulated_days" />
+                                    <field name="days_enjoyed" />
+                                    <field name="available_days" />
+                                    <field name="day_last_vacations" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="contract_bonus" string="Primas">
+                        <group>
+                            <field name="bonus_ids" nolabel="1" >
+                                <tree editable="bottom">
+                                    <field name="initial_period" />
+                                    <field name="final_period" />
+                                    <field name="accumulated_days" />
+                                    <field name="days_paids" />
+                                    <field name="available_days" />
+                                    <field name="day_last_bonus" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="contract_layoffs" string="Cesantias">
+                        <group>
+                            <field name="layoffs_ids" nolabel="1" >
+                                <tree editable="bottom">
+                                    <field name="initial_period" />
+                                    <field name="final_period" />
+                                    <field name="accumulated_days" />
+                                    <field name="days_paids" />
+                                    <field name="available_days" />
+                                    <field name="day_last_bonus" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="contract_layoffs_interests" string="Intereses Cesantias">
+                        <group>
+                            <field name="layoffs_interests_ids" nolabel="1" >
+                                <tree editable="bottom">
+                                    <field name="initial_period" />
+                                    <field name="final_period" />
+                                    <field name="accumulated_days" />
+                                    <field name="days_paids" />
+                                    <field name="available_days" />
+                                    <field name="day_last_bonus" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

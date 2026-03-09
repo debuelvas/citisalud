@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="validate_multiple_invoice_view" model="ir.ui.view">
+            <field name="name">ati.validate.invoice.form</field>
+            <field name="model">ati.validate.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Validar Facturas">
+                    <p class="oe_grey">
+                        Se validaran todas las facturas seleccionadas.
+                    </p>
+                    <footer>
+                        <button
+                            string="Confirmar"
+                            name="validate_invoice"
+                            type="object"
+                            default_focus="1"
+                            class="btn-primary"
+                        />
+                        <button
+                            string="Cancelar"
+                            class="btn-default"
+                            special="cancel"
+                        />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_validate_invoice" model="ir.actions.act_window">
+            <field name="name">Validar Facturas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ati.validate.invoice</field>
+            <field name="binding_model_id" ref="model_account_move" />
+            <field name="binding_view_types">tree</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_account_move_reversal" model="ir.ui.view">
+            <field name="name">view.account.move.reversal.form</field>
+            <field name="model">account.move.reversal</field>
+            <field name="inherit_id" ref="account.view_account_move_reversal" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='reason']" position="before">
+                    <field name="concepto_credit_note" />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_health_invoice_import_wizard_form" model="ir.ui.view">
+            <field name="name">health.invoice.import.wizard.form</field>
+            <field name="model">health.invoice.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Importar Facturas del Sector Salud">
+                    <sheet>
+                        <!-- Sección principal de carga de archivo -->
+                        <div class="oe_title">
+                            <h1>Importar Facturas desde Excel</h1>
+                        </div>
+                        
+                        <!-- Mostrar resultados si ya se procesó -->
+                        <div invisible="not has_errors and total_invoices_processed == 0">
+                            <separator string="Resultado de la Importación"/>
+                            
+                            <!-- Resumen de estadísticas -->
+                            <group col="4">
+                                <field name="total_invoices_processed" readonly="1" widget="statinfo" 
+                                    options="{'label_field': 'string', 'value_field': 'total_invoices_processed'}">
+                                    <span class="o_stat_text text-success">Facturas Creadas</span>
+                                </field>
+                                <field name="total_lines_processed" readonly="1" widget="statinfo">
+                                    <span class="o_stat_text text-success">Líneas Creadas</span>
+                                </field>
+                                <field name="total_invoices_failed" readonly="1" widget="statinfo">
+                                    <span class="o_stat_text text-danger">Facturas con Error</span>
+                                </field>
+                                <field name="total_lines_failed" readonly="1" widget="statinfo">
+                                    <span class="o_stat_text text-danger">Líneas con Error</span>
+                                </field>
+                            </group>
+                            
+                            <!-- Sección de errores si existen -->
+                            <div invisible="not has_errors" class="alert alert-warning" role="alert">
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-exclamation-triangle"/> Se encontraron errores durante la importación
+                                </h4>
+                                <p>Se detectaron <field name="error_count" readonly="1" nolabel="1"/> errores durante el proceso.</p>
+                                <p>Descargue el archivo de errores para ver el detalle completo:</p>
+                                <field name="error_log" filename="error_filename" readonly="1" widget="binary" 
+                                    options="{'no_open': True}"/>
+                                <field name="error_filename" invisible="1"/>
+                            </div>
+                            
+                            <!-- Mensaje de éxito si no hay errores -->
+                            <div invisible="has_errors or total_invoices_processed == 0" 
+                                class="alert alert-success" role="alert">
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-check-circle"/> Importación completada exitosamente
+                                </h4>
+                                <p>Todas las facturas fueron importadas sin errores.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Formulario de carga inicial -->
+                        <group invisible="has_errors or total_invoices_processed > 0">
+                            <group string="Archivo y Configuración Básica">
+                                <field name="file" filename="file_name" required="1" 
+                                    widget="binary"
+                                    help="Seleccione el archivo Excel con las facturas a importar"/>
+                                <field name="file_name" invisible="1"/>
+                                <field name="company_id" options="{'no_create': True}"/>
+                                <field name="journal_id" 
+                                    domain="[('type', '=', 'sale'), ('company_id', '=', company_id)]"
+                                    help="Diario a usar cuando no se especifique en el archivo"/>
+                                <field name="invoice_date" 
+                                    help="Fecha por defecto cuando no se especifique en el archivo"/>
+                            </group>
+                            
+                            <group string="Opciones de Creación Automática">
+                                <field name="create_missing_partners" 
+                                    help="Si está marcado, se crearán automáticamente los clientes que no existan"/>
+                                <field name="create_missing_products"
+                                    help="Si está marcado, se crearán automáticamente los productos que no existan"/>
+                                <field name="create_missing_patients"
+                                    help="Si está marcado, se crearán automáticamente los pacientes que no existan"/>
+                                <field name="default_account_id" 
+                                    invisible="not create_missing_products"
+                                    required="create_missing_products == True"
+                                    domain="[('deprecated', '=', False), ('company_id', '=', company_id)]"
+                                    help="Cuenta contable para productos creados automáticamente"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Información de ayuda -->
+                        <div invisible="has_errors or total_invoices_processed > 0" class="alert alert-info" role="alert">
+                            <h5><i class="fa fa-info-circle"/> Información importante:</h5>
+                            <ul>
+                                <li>El archivo Excel debe contener las columnas requeridas según la documentación</li>
+                                <li>Las facturas se agruparán por 'ID Factura Temporal'</li>
+                                <li>Si una factura tiene errores en cualquier línea, no se creará ninguna parte de esa factura</li>
+                                <li>Se generará un archivo de errores si se encuentran problemas durante la importación</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Campos ocultos para control -->
+                        <field name="has_errors" invisible="1"/>
+                        <field name="error_count" invisible="1"/>
+                    </sheet>
+                    
+                    <footer>
+                        <!-- Botón de importar (solo visible al inicio) -->
+                        <button name="action_import" 
+                                string="Importar Facturas" 
+                                type="object" 
+                                class="btn-primary"
+                                invisible="has_errors or total_invoices_processed > 0"
+                                confirm="¿Está seguro de importar las facturas? Este proceso validará todos los datos y solo creará las facturas que no tengan errores."/>
+                        
+                        <!-- Botón para nueva importación (solo visible después de procesar) -->
+                        <button string="Nueva Importación" 
+                                type="object"
+                                name="action_new_import"
+                                class="btn-primary"
+                                invisible="not has_errors and total_invoices_processed == 0"
+                                help="Realizar una nueva importación"/>
+                        
+                        <!-- Botón cancelar/cerrar -->
+                        <button string="Cancelar" 
+                                special="cancel" 
+                                class="btn-secondary"
+                                invisible="has_errors or total_invoices_processed > 0"/>
+                                
+                        <button string="Cerrar" 
+                                special="cancel" 
+                                class="btn-secondary"
+                                invisible="not has_errors and total_invoices_processed == 0"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+        
+        <record id="action_health_invoice_import_wizard" model="ir.actions.act_window">
+            <field name="name">Importar Facturas de Salud</field>
+            <field name="res_model">health.invoice.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">tree</field>
+        </record>
+        
+        <menuitem id="menu_health_invoice_import_wizard" 
+                name="Importar Facturas de Salud"
+                action="action_health_invoice_import_wizard"
+                parent="account.menu_finance_receivables"
+                sequence="25"/>
+              
+    </data>
+</odoo>

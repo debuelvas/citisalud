@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="custom_account_treasury.PaymentInfoButton" owl="1">
+        <div class="payment-info-widget">
+            <i class="fa fa-info-circle payment-info-icon" 
+               t-on-click="showPopup"
+               role="button"
+               aria-label="Información del Pago"/>
+        </div>
+    </t>
+
+    <t t-name="custom_account_treasury.PaymentInfoPopoverContent" owl="1">
+        <div class="payment-info-popover p-3">
+            <div class="info-section border-bottom pb-2 mb-2">
+                <div class="fw-bold fs-6 mb-2">Monto Original: <t t-esc="formattedOriginalAmount"/></div>
+                <t t-if="props.info.original_currency !== props.info.company_currency">
+                    <div class="text-muted small">Tasa de Cambio: <t t-esc="formattedExchangeRate"/></div>
+                    <div class="text-muted small">En Moneda de la Empresa: <t t-esc="formattedConvertedAmount"/></div>
+                </t>
+            </div>
+
+            <div class="info-section border-bottom pb-2 mb-2">
+                <div>Pagado: <t t-esc="formattedPaidAmount"/></div>
+                <div>Pendiente: <t t-esc="formattedResidualAmount"/></div>
+                <t t-if="props.info.original_currency !== props.info.company_currency">
+                    <div class="text-muted small">En Moneda de la Empresa: <t t-esc="formattedResidualAmountCompany"/></div>
+                </t>
+            </div>
+
+            <div t-if="props.info.tax_details and props.info.tax_details.length > 0" class="info-section">
+                <div class="fw-bold">Impuestos: <t t-esc="formatAmount(props.info.tax_amount)"/> <t t-esc="props.info.original_currency"/></div>
+                <div class="ps-2 text-muted small">
+                    <t t-foreach="props.info.tax_details" t-as="tax" t-key="tax.id">
+                        <div>
+                            <t t-esc="tax.name"/> 
+                            (<t t-esc="formatPercentage(tax.rate)"/>): 
+                            <t t-esc="formatAmount(tax.amount)"/> 
+                            <t t-esc="props.info.original_currency"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

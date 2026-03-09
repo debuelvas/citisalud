@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="action_hr_consolidated_provisions">
+            <field name="name">Consolidado Provisiones</field>
+            <field name="res_model">hr.consolidated.provisions</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_consolidated_provisions_company" model="ir.rule">
+            <field name="name">Permisos compañia consolidado provisiones</field>
+            <field name="model_id" ref="model_hr_consolidated_provisions"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_consolidated_provisions_list">
+            <field name="name">hr consolidated provisions tree</field>
+            <field name="model">hr.consolidated.provisions</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_id"/>
+                    <field name="year"/>
+                    <field name="provision"/>
+                    <field name="observations"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_consolidated_provisions_form">
+            <field name="name">hr consolidated provisions form</field>
+            <field name="model">hr.consolidated.provisions</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_done" type="object" string="Ejecutar" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="approved_provision" type="object" string="Aprobar" class="oe_highlight"
+                                invisible="state != 'done'"/>
+                        <button name="cancel_provision" type="object" string="Cancelar" invisible="state != 'done'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Periodo">
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="year" readonly="state in ['done', 'approved']"/>
+                                <field name="provision" readonly="state in ['done', 'approved']"/>
+                            </group>
+                            <group string="Observaciones">
+                                <field name="observations" nolabel="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Ejecución">
+                                <field name="details_ids" readonly="state == 'approved'">
+                                    <tree create="false" editable="bottom" delete="false">
+                                        <field name="employee_id" readonly="1" force_save="1"/>
+                                        <field name="total_provision" readonly="1" force_save="1"/>
+                                        <field name="total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

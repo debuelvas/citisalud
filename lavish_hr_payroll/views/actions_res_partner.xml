@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_payroll_res_partner_inherit" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='banks']" position="replace">
+                    <group string="Bank Accounts" name="banks" groups="account.group_account_invoice,account.group_account_readonly" colspan="4">
+                        <field name="bank_ids">
+                            <tree editable="bottom">
+                                <field name="company_id"/>
+                                <field name="bank_id"/>
+                                <field name="type_account"/>
+                                <field name="acc_number"/>
+                                <field name="payroll_dispersion_account"/>
+                                <field name="is_main"/>
+                            </tree>
+                        </field>
+                        <button type="action" class="btn-link" name="64" context="{'search_default_partner_id': id, 'default_partner_id': id, 'form_view_ref': 'account.view_company_partner_bank_form'}" string="View accounts detail" colspan="2"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <!-- Formulario de empleados - campo tercero -->
+        <record id="view_lavish_hr_payroll_form_employee_partner" model="ir.ui.view">
+            <field name="name">hr.payroll.lavish.hr.employee.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="priority">50</field>
+            <field name="inherit_id" ref="base.res_partner_view_form_private"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_ids']" position="replace">
+                    <field name="bank_ids">
+                        <tree editable="bottom">
+                            <field name="company_id"/>
+                            <field name="bank_id"/>
+                            <field name="type_account"/>
+                            <field name="acc_number"/>
+                            <field name="payroll_dispersion_account"/>
+                            <field name="is_main"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

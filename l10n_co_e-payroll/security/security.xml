@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	
+	<data noupdate="0">
+
+		<record id="payroll_electronic_invoice" model="res.groups">
+			<field name="name">Payroll Electronic Invoice</field>
+			<field name="comment">Payroll Electronic Invoic</field>
+		</record>
+
+
+		
+	</data>
+</openerp>

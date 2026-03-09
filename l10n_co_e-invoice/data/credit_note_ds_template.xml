@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="credit_note_ds_template">
+    <CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2" 
+        xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" 
+        xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
+        xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+        xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" 
+        xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1" 
+        xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" 
+        xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2 http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-CreditNote-2.1.xsd">
+        <ext:UBLExtensions>
+            <ext:UBLExtension>
+                <ext:ExtensionContent>
+                    <sts:DianExtensions>
+                        <sts:InvoiceControl>
+                            <sts:InvoiceAuthorization><t t-out="InvoiceAuthorization"/></sts:InvoiceAuthorization>
+                            <sts:AuthorizationPeriod>
+                                <cbc:StartDate><t t-out="StartDate"/></cbc:StartDate>
+                                <cbc:EndDate><t t-out="EndDate"/></cbc:EndDate>
+                            </sts:AuthorizationPeriod>
+                            <sts:AuthorizedInvoices>
+                                <sts:Prefix><t t-out="Prefix"/></sts:Prefix>
+                                <sts:From><t t-out="From"/></sts:From>
+                                <sts:To><t t-out="To"/></sts:To>
+                            </sts:AuthorizedInvoices>
+                        </sts:InvoiceControl>
+                        <sts:InvoiceSource>
+                            <cbc:IdentificationCode listAgencyID="6" listAgencyName="United Nations Economic Commission for Europe" listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.1">
+                                <t t-out="IdentificationCode"/>
+                            </cbc:IdentificationCode>
+                        </sts:InvoiceSource>
+                        <sts:SoftwareProvider>
+                            <sts:ProviderID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" t-att-schemeID="SoftwareProviderSchemeID" schemeName="31">
+                                <t t-out="SoftwareProviderID"/>
+                            </sts:ProviderID>
+                            <sts:SoftwareID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">
+                                <t t-out="SoftwareID"/>
+                            </sts:SoftwareID>
+                        </sts:SoftwareProvider>
+                        <sts:SoftwareSecurityCode schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">
+                            <t t-out="SoftwareSecurityCode"/>
+                        </sts:SoftwareSecurityCode>
+                        <sts:AuthorizationProvider>
+                            <sts:AuthorizationProviderID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="4" schemeName="31">800197268</sts:AuthorizationProviderID>
+                        </sts:AuthorizationProvider>
+                        <sts:QRCode>
+                            <t t-out="'NroFactura=%s\nNitFacturador=%s\nNitAdquiriente=%s\nFechaFactura=%s\nValorTotalFactura=%s\nCUFE=%s\nURL=%s=%s' % (InvoiceID,SoftwareProviderID,IDAdquiriente,IssueDate,PayableAmount,UUID,URLQRCode,UUID)"/>
+                        </sts:QRCode>
+                    </sts:DianExtensions>
+                </ext:ExtensionContent>
+            </ext:UBLExtension>
+            <ext:UBLExtension>
+                <ext:ExtensionContent/>
+            </ext:UBLExtension>
+        </ext:UBLExtensions> 
+        <cbc:UBLVersionID><t t-out="UBLVersionID"/></cbc:UBLVersionID>
+        <cbc:CustomizationID><t t-out="CustomizationID"/></cbc:CustomizationID>
+        <cbc:ProfileID><t t-out="ProfileID"/></cbc:ProfileID>
+        <cbc:ProfileExecutionID><t t-out="ProfileExecutionID"/></cbc:ProfileExecutionID>
+        <cbc:ID><t t-out="InvoiceID"/></cbc:ID>
+        <cbc:UUID t-att-schemeID="ProfileExecutionID" t-att-schemeName="'CUDS-SHA384'"><t t-out="UUID"/></cbc:UUID>
+        <cbc:IssueDate><t t-out="issue_date"/></cbc:IssueDate>
+        <cbc:IssueTime><t t-out="issue_time"/></cbc:IssueTime>
+        <cbc:CreditNoteTypeCode><t t-out="CreditNoteTypeCode"/></cbc:CreditNoteTypeCode>
+        <cbc:DocumentCurrencyCode><t t-out="DocumentCurrencyCode"/></cbc:DocumentCurrencyCode>
+        <cbc:LineCountNumeric><t t-out="LineCountNumeric"/></cbc:LineCountNumeric>
+
+        <cac:DiscrepancyResponse>
+            <cbc:ReferenceID><t t-out="reverse_reference_id"/></cbc:ReferenceID>
+            <cbc:ResponseCode><t t-out="reverse_response_code"/></cbc:ResponseCode>
+            <cbc:Description><t t-out="reverse_description"/></cbc:Description>
+        </cac:DiscrepancyResponse>
+
+        <cac:BillingReference>
+            <cac:InvoiceDocumentReference>
+                <cbc:ID><t t-out="billing_reference_vals_id"/></cbc:ID>
+                <cbc:UUID t-att-schemeName="'CUDS-SHA384'"><t t-out="billing_reference_vals_uuid"/></cbc:UUID>
+                <cbc:IssueDate><t t-out="billing_reference_vals_issue_date"/></cbc:IssueDate>
+            </cac:InvoiceDocumentReference>
+        </cac:BillingReference>
+
+        <cac:AccountingSupplierParty>
+            <cbc:AdditionalAccountID><t t-out="SupplierAdditionalAccountID"/></cbc:AdditionalAccountID>
+            <cac:Party>
+                <cbc:IndustryClassificationCode><t t-out="IndustryClassificationCode"/></cbc:IndustryClassificationCode>
+                <cac:PartyName>
+                    <cbc:Name><t t-out="SupplierPartyName"/></cbc:Name>
+                </cac:PartyName>
+                <cac:PhysicalLocation>
+                    <cac:Address>
+                        <cbc:ID><t t-out="SupplierCityCode"/></cbc:ID>
+                        <cbc:CityName><t t-out="SupplierCityName"/></cbc:CityName>
+                        <cbc:PostalZone><t t-out="document_id.partner_id.zip"/></cbc:PostalZone>
+                        <cbc:CountrySubentity><t t-out="SupplierCountrySubentity"/></cbc:CountrySubentity>
+                        <cbc:CountrySubentityCode><t t-out="SupplierCountrySubentityCode"/></cbc:CountrySubentityCode>
+                        <cac:AddressLine>
+                            <cbc:Line><t t-out="SupplierLine"/></cbc:Line>
+                        </cac:AddressLine>
+                        <cac:Country>
+                            <cbc:IdentificationCode><t t-out="SupplierCountryCode"/></cbc:IdentificationCode>
+                            <cbc:Name t-att-languageID="'es'"><t t-out="SupplierCountryName"/></cbc:Name>
+                        </cac:Country>
+                    </cac:Address>
+                </cac:PhysicalLocation>
+                <cac:PartyTaxScheme>
+                    <cbc:RegistrationName><t t-out="SupplierPartyName"/></cbc:RegistrationName>
+                    <cbc:CompanyID t-att-schemeAgencyID="'195'" t-att-schemeAgencyName="'CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)'" t-att-schemeID="schemeID" t-att-schemeName="'31'"><t t-out="ProviderID"/></cbc:CompanyID>
+                    <cbc:TaxLevelCode><t t-out="SupplierTaxLevelCode"/></cbc:TaxLevelCode>
+                    <cac:RegistrationAddress>
+                        <cbc:ID><t t-out="SupplierCityCode"/></cbc:ID>
+                        <cbc:CityName><t t-out="SupplierCityName"/></cbc:CityName>
+                        <cbc:CountrySubentity><t t-out="SupplierCountrySubentity"/></cbc:CountrySubentity>
+                        <cbc:CountrySubentityCode><t t-out="SupplierCountrySubentityCode"/></cbc:CountrySubentityCode>
+                        <cac:AddressLine>
+                            <cbc:Line><t t-out="SupplierLine"/></cbc:Line>
+                        </cac:AddressLine>
+                        <cac:Country>
+                            <cbc:IdentificationCode><t t-out="SupplierCountryCode"/></cbc:IdentificationCode>
+                            <cbc:Name t-att-languageID="'es'"><t t-out="SupplierCountryName"/></cbc:Name>
+                        </cac:Country>
+                    </cac:RegistrationAddress>
+                    <cac:TaxScheme>
+                        <cbc:ID><t t-out="TaxSchemeID"/></cbc:ID>
+                        <cbc:Name><t t-out="TaxSchemeName"/></cbc:Name>
+                    </cac:TaxScheme>
+                </cac:PartyTaxScheme>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName><t t-out="SupplierPartyName"/></cbc:RegistrationName>
+                    <cbc:CompanyID t-att-schemeAgencyID="'195'" t-att-schemeAgencyName="'CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)'" t-att-schemeID="schemeID" t-att-schemeName="'31'"><t t-out="ProviderID"/></cbc:CompanyID>
+                    <cac:CorporateRegistrationScheme>
+                        <cbc:ID><t t-out="Prefix"/></cbc:ID>
+                    </cac:CorporateRegistrationScheme>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                    <cbc:ElectronicMail><t t-out="SupplierElectronicMail"/></cbc:ElectronicMail>
+                </cac:Contact>
+            </cac:Party>
+        </cac:AccountingSupplierParty>
+
+        <cac:AccountingCustomerParty>
+            <cbc:AdditionalAccountID><t t-out="CustomerAdditionalAccountID"/></cbc:AdditionalAccountID>
+            <cac:Party>
+                <cac:PartyIdentification>
+                    <cbc:ID t-att-schemeName="SchemeNameAdquiriente" t-att-schemeID="SchemeIDAdquiriente"><t t-out="IDAdquiriente"/></cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                    <cbc:Name><t t-out="CustomerPartyName"/></cbc:Name>
+                </cac:PartyName>
+                <cac:PhysicalLocation>
+                    <cac:Address>
+                        <cbc:ID><t t-out="CustomerCityCode"/></cbc:ID>
+                        <cbc:CityName><t t-out="CustomerCityName"/></cbc:CityName>
+                        <cbc:CountrySubentity><t t-out="CustomerCountrySubentity"/></cbc:CountrySubentity>
+                        <cbc:CountrySubentityCode><t t-out="CustomerCountrySubentityCode"/></cbc:CountrySubentityCode>
+                        <cac:AddressLine>
+                            <cbc:Line><t t-out="CustomerLine"/></cbc:Line>
+                        </cac:AddressLine>
+                        <cac:Country>
+                            <cbc:IdentificationCode><t t-out="CustomerCountryCode"/></cbc:IdentificationCode>
+                            <cbc:Name t-att-languageID="'es'"><t t-out="CustomerCountryName"/></cbc:Name>
+                        </cac:Country>
+                    </cac:Address>
+                </cac:PhysicalLocation>
+                <cac:PartyTaxScheme>
+                    <cbc:RegistrationName><t t-out="CustomerPartyName"/></cbc:RegistrationName>
+                    <cbc:CompanyID t-att-schemeAgencyID="'195'" t-att-schemeAgencyName="'CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)'" t-att-schemeID="CustomerschemeID" t-att-schemeName="'31'"><t t-out="CustomerID"/></cbc:CompanyID>
+                    <cbc:TaxLevelCode><t t-out="CustomerTaxLevelCode"/></cbc:TaxLevelCode>
+                    <cac:RegistrationAddress>
+                        <cbc:ID><t t-out="CustomerCityCode"/></cbc:ID>
+                        <cbc:CityName><t t-out="CustomerCityName"/></cbc:CityName>
+                        <cbc:CountrySubentity><t t-out="CustomerCountrySubentity"/></cbc:CountrySubentity>
+                        <cbc:CountrySubentityCode><t t-out="CustomerCountrySubentityCode"/></cbc:CountrySubentityCode>
+                        <cac:AddressLine>
+                            <cbc:Line><t t-out="CustomerLine"/></cbc:Line>
+                        </cac:AddressLine>
+                        <cac:Country>
+                            <cbc:IdentificationCode><t t-out="CustomerCountryCode"/></cbc:IdentificationCode>
+                            <cbc:Name t-att-languageID="'es'"><t t-out="CustomerCountryName"/></cbc:Name>
+                        </cac:Country>
+                    </cac:RegistrationAddress>
+                    <cac:TaxScheme>
+                        <cbc:ID><t t-out="TaxSchemeID"/></cbc:ID>
+                        <cbc:Name><t t-out="TaxSchemeName"/></cbc:Name>
+                    </cac:TaxScheme>
+                </cac:PartyTaxScheme>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName><t t-out="CustomerPartyName"/></cbc:RegistrationName>
+                    <cbc:CompanyID t-att-schemeAgencyID="'195'" t-att-schemeAgencyName="'CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)'" t-att-schemeID="CustomerschemeID" t-att-schemeName="'31'"><t t-out="CustomerID"/></cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                    <cbc:ElectronicMail><t t-out="CustomerElectronicMail"/></cbc:ElectronicMail>
+                </cac:Contact>
+                <cac:Person>
+                    <cbc:FirstName><t t-out="Firstname"/></cbc:FirstName>
+                </cac:Person>
+            </cac:Party>
+        </cac:AccountingCustomerParty>
+
+        <cac:PaymentMeans>
+            <cbc:ID><t t-out="PaymentMeansID"/></cbc:ID>
+            <cbc:PaymentMeansCode><t t-out="PaymentMeansCode"/></cbc:PaymentMeansCode>
+            <cbc:PaymentDueDate><t t-out="PaymentDueDate"/></cbc:PaymentDueDate>
+            <cbc:PaymentID>1234</cbc:PaymentID>
+        </cac:PaymentMeans>
+        <t t-if="CurrencyID != 'COP'">
+            <cac:PaymentExchangeRate>
+                <cbc:SourceCurrencyCode><t t-out="CurrencyID"/></cbc:SourceCurrencyCode>
+                <cbc:SourceCurrencyBaseRate>1.00</cbc:SourceCurrencyBaseRate>
+                <cbc:TargetCurrencyCode>COP</cbc:TargetCurrencyCode>
+                <cbc:TargetCurrencyBaseRate>1.00</cbc:TargetCurrencyBaseRate>
+                <cbc:CalculationRate><t t-out="CalculationRate"/></cbc:CalculationRate>
+                <cbc:Date><t t-out="DateRate"/></cbc:Date>
+            </cac:PaymentExchangeRate>
+        </t>
+
+        <t t-if="tax_total_values">
+            <t t-foreach="tax_total_values.items()" t-as="tax_item">
+                <t t-set="tax_id" t-value="tax_item[0]"/>
+                <t t-set="data" t-value="tax_item[1]"/>
+                <cac:TaxTotal>
+                    <cbc:TaxAmount t-att-currencyID="source_currency_name"><t t-out="'{:.2f}'.format(float(data.get('total', 0)))"/></cbc:TaxAmount>
+                    <cbc:RoundingAmount t-att-currencyID="source_currency_name">0.00</cbc:RoundingAmount>
+                    <t t-if="data.get('info')">
+                        <t t-foreach="data['info'].items()" t-as="info_item">
+                            <t t-set="amount" t-value="info_item[0]"/>
+                            <t t-set="info" t-value="info_item[1]"/>
+                            <cac:TaxSubtotal>
+                                <cbc:TaxableAmount t-att-currencyID="source_currency_name"><t t-out="'{:.2f}'.format(float(info.get('taxable_amount', 0)))"/></cbc:TaxableAmount>
+                                <cbc:TaxAmount t-att-currencyID="source_currency_name"><t t-out="'{:.2f}'.format(float(info.get('value', 0)))"/></cbc:TaxAmount>
+                                <cac:TaxCategory>
+                                    <cbc:Percent><t t-out="'{:.2f}'.format(float(amount))"/></cbc:Percent>
+                                    <cac:TaxScheme>
+                                        <cbc:ID><t t-out="tax_id"/></cbc:ID>
+                                        <cbc:Name><t t-out="info.get('technical_name', '')"/></cbc:Name>
+                                    </cac:TaxScheme>
+                                </cac:TaxCategory>
+                            </cac:TaxSubtotal>
+                        </t>
+                    </t>
+                </cac:TaxTotal>
+            </t>
+        </t>  
+        <cac:LegalMonetaryTotal>
+            <cbc:LineExtensionAmount t-att-currencyID="CurrencyID"><t t-out="TotalLineExtensionAmount"/></cbc:LineExtensionAmount>
+            <cbc:TaxExclusiveAmount t-att-currencyID="CurrencyID"><t t-out="TotalTaxExclusiveAmount"/></cbc:TaxExclusiveAmount>
+            <cbc:TaxInclusiveAmount t-att-currencyID="CurrencyID"><t t-out="TotalTaxInclusiveAmount"/></cbc:TaxInclusiveAmount>
+            <cbc:PayableAmount t-att-currencyID="CurrencyID"><t t-out="PayableAmount"/></cbc:PayableAmount>
+        </cac:LegalMonetaryTotal>
+
+        <t t-foreach="invoice_lines" t-as="line">
+            <cac:CreditNoteLine>
+                <cbc:ID t-att-schemeID="0"><t t-out="int(line.get('id', 0))"/></cbc:ID>
+                <cbc:Note><t t-out="line.get('note', '')"/></cbc:Note>
+                <cbc:CreditedQuantity t-att-unitCode="line['uom_product_id'].dian_uom_id.dian_code if line.get('uom_product_id') and line['uom_product_id'].dian_uom_id else 'EA'">
+                    <t t-out="line['invoiced_quantity']"/>
+                </cbc:CreditedQuantity>
+                <cbc:LineExtensionAmount t-att-currencyID="source_currency_name"><t t-out="line['line_extension_amount']"/></cbc:LineExtensionAmount>
+                
+                <t t-if="float(line['line_extension_amount']) == 0">
+                    <cac:PricingReference>
+                        <cac:AlternativeConditionPrice>
+                            <cbc:PriceAmount t-att-currencyID="source_currency_name"><t t-out="line['line_price_reference']"/></cbc:PriceAmount>
+                            <cbc:PriceTypeCode><t t-out="line['line_trade_sample_price']"/></cbc:PriceTypeCode>
+                        </cac:AlternativeConditionPrice>
+                    </cac:PricingReference>
+                </t>
+                
+                <t t-foreach="line['tax_info']" t-as="tax_id">
+                    <t t-set="data" t-value="line['tax_info'][tax_id]"/>
+                    <cac:TaxTotal>
+                        <cbc:TaxAmount t-att-currencyID="source_currency_name"><t t-out="data['total']"/></cbc:TaxAmount>
+                        <cbc:RoundingAmount t-att-currencyID="source_currency_name">0</cbc:RoundingAmount>
+                        <t t-foreach="data['info']" t-as="amount">
+                            <t t-set="info" t-value="data['info'][amount]"/>
+                            <cac:TaxSubtotal>
+                                <cbc:TaxableAmount t-att-currencyID="source_currency_name"><t t-out="info['taxable_amount']"/></cbc:TaxableAmount>
+                                <cbc:TaxAmount t-att-currencyID="source_currency_name"><t t-out="info['value']"/></cbc:TaxAmount>
+                                <cac:TaxCategory>
+                                    <cbc:Percent><t t-out="'{:0.2f}'.format(float(amount))"/></cbc:Percent>
+                                    <cac:TaxScheme>
+                                        <cbc:ID><t t-out="tax_id"/></cbc:ID>
+                                        <cbc:Name><t t-out="info['technical_name']"/></cbc:Name>
+                                    </cac:TaxScheme>
+                                </cac:TaxCategory>
+                            </cac:TaxSubtotal>
+                        </t>
+                    </cac:TaxTotal>
+                </t>
+                
+                <t t-if="float(line.get('line_extension_amount', 0)) > 0 and float(line.get('discount', 0)) > 0">
+                    <cac:AllowanceCharge>
+                        <cbc:ID>1</cbc:ID>
+                        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+                        <cbc:AllowanceChargeReasonCode><t t-out="line.get('discount_code')"/></cbc:AllowanceChargeReasonCode>
+                        <cbc:AllowanceChargeReason><t t-out="line.get('discount_text')"/></cbc:AllowanceChargeReason>
+                        <cbc:MultiplierFactorNumeric><t t-out="line.get('discount_percentage')"/></cbc:MultiplierFactorNumeric>
+                        <cbc:Amount t-att-currencyID="source_currency_name"><t t-out="line.get('discount')"/></cbc:Amount>
+                        <cbc:BaseAmount t-att-currencyID="source_currency_name"><t t-out="float(line['line_extension_amount']) + float(line['discount'])"/></cbc:BaseAmount>
+                    </cac:AllowanceCharge>
+                </t>
+                
+                <cac:Item>
+                    <cbc:Description><t t-out="line['item_description']"/></cbc:Description>
+                    <cac:SellersItemIdentification>
+                        <cbc:ID><t t-out="line['product_id'].default_code"/></cbc:ID>
+                    </cac:SellersItemIdentification>
+                    <cac:StandardItemIdentification>
+                        <cbc:ID t-att-schemeID="line['StandardItemIdentificationschemeID']" 
+                                t-att-schemeAgencyID="line['StandardItemIdentificationschemeAgencyID']" 
+                                t-att-schemeName="line['StandardItemIdentificationschemeName']">
+                            <t t-out="line['StandardItemIdentificationID']"/>
+                        </cbc:ID>
+                    </cac:StandardItemIdentification>
+                </cac:Item>
+                
+                <cac:Price>
+                    <cbc:PriceAmount t-att-currencyID="source_currency_name"><t t-out="line['price']"/></cbc:PriceAmount>
+                    <cbc:BaseQuantity t-att-unitCode="line['uom_product_id'].dian_uom_id.dian_code if line.get('uom_product_id') and line['uom_product_id'].dian_uom_id else 'EA'">
+                        <t t-out="line['invoiced_quantity']"/>
+                    </cbc:BaseQuantity>
+                </cac:Price>
+            </cac:CreditNoteLine>
+        </t>
+    </CreditNote>
+</template>
+
+</odoo>

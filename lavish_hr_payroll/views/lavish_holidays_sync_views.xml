@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View lavish.holidays.sync View Tree -->
+    <record id="view_lavish_holidays_sync_tree" model="ir.ui.view">
+        <field name="name">view.lavish.holidays.sync.tree</field>
+        <field name="model">lavish.holidays.sync</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View lavish.holidays.sync form -->
+    <record id="view_lavish_holidays_sync_form" model="ir.ui.view">
+        <field name="name">view.lavish.holidays.sync.form</field>
+        <field name="model">lavish.holidays.sync</field>
+        <field name="arch" type="xml">
+            <form string="Lavish Holidays Sync">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="year"/>
+                        <h1>
+                            <field name="year" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View lavish.holidays.sync search -->
+    <record id="view_lavish_holidays_sync_search" model="ir.ui.view">
+        <field name="name">view.lavish.holidays.sync.search</field>
+        <field name="model">lavish.holidays.sync</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="year" name="year" domain="[]" context="{'group_by':'year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action lavish.holidays.sync -->
+    <record id="action_lavish_holidays_sync" model="ir.actions.act_window">
+        <field name="name">Lavish Holidays Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">lavish.holidays.sync</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Lavish Holidays Sync.
+            </p>
+        </field>
+    </record>
+
+</odoo>

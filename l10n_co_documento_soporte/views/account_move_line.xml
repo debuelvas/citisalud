@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_move_form_ds" model="ir.ui.view">
+            <field name="name">documento DIAN de una factura</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <form>
+                    <field name="is_ds" invisible="1" />
+                </form>
+                <xpath expr="//field[@name='invoice_line_ids']//field[@name='account_id']" position="after">
+                    <field name="forma_generacion_ds" column_invisible="parent.move_type not in ['in_invoice','in_refund'] or not parent.is_ds"
+                    required="parent.move_type == 'in_invoice' and parent.is_ds" force_save="1"/>
+
+                    <field name="purchase_date" column_invisible="parent.move_type not in ['in_invoice','in_refund'] or not parent.is_ds"
+                    required="parent.move_type == 'in_invoice' and parent.is_ds" force_save="1"/>
+
+                    <field name="note_ds" column_invisible="parent.move_type not in ['in_invoice','in_refund'] or not parent.is_ds" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//field[@name='account_id']" position="after">
+                    <field name="forma_generacion_ds" column_invisible="1"/>
+                    <field name="purchase_date" column_invisible="1" />
+                    <field name="note_ds" column_invisible="1" />
+                </xpath>
+
+                <xpath expr="//field[@name='to_check']" position="after">
+                    <field name="nc_discrepancy_response" invisible="move_type not in ['in_refund'] or not is_ds"
+                    required="move_type == 'in_refund' and is_ds" />
+                    <field name="nc_naturaleza_correccion" />
+                </xpath>
+            </field>
+
+        </record>
+
+    </data>
+</odoo>

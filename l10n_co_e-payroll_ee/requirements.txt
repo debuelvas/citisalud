@@ -1,0 +1,9 @@
+xmltodict
+PyQRCode
+pypng
+crypto
+phonenumbers
+openpyxl
+img2pdf
+fpdf
+num2words

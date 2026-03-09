@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+        <!-- Proceso de generar archivo plano de pago nómina backup --> 
+        <record model="ir.actions.act_window"  id="action_lavish_payroll_flat_file_backup">
+				<field name="name">Archivo plano de pago de nómina - Copia de seguridad</field>
+				<field name="res_model">lavish.payroll.flat.file.backup</field>
+				<field name="view_mode">tree,form</field>
+		</record>
+
+        <record id="lavish_payroll_flat_file_backup_tree" model="ir.ui.view">
+            <field name="name">Archivo plano de pago de nómina tree - Copia de seguridad</field>
+            <field name="model">lavish.payroll.flat.file.backup</field>
+            <field name="arch" type="xml">
+                <tree string="Archivo plano de pago de nómina - Copia de seguridad" create="false">
+                    <field name="generation_date" />
+                    <field name="company_id" />
+                    <field name="payslip_id" />
+                    <field name="transmission_date" />
+                    <field name="application_date" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="lavish_payroll_flat_file_backup_form" model="ir.ui.view">
+            <field name="name">Archivo plano de pago de nómina form - Copia de seguridad</field>
+            <field name="model">lavish.payroll.flat.file.backup</field>
+            <field name="arch" type="xml">
+                    <form string="Archivo plano de pago de nómina - Copia de seguridad" create="false"> 
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="generation_date" />
+                                    <field name="journal_id" />
+                                    <field name="payment_type" />
+                                    <field name="company_id" />
+                                    <field name="payslip_id" />
+                                    <!-- <field name="liquidations_ids" widget="many2many_tags"/> -->
+                                    <field name="transmission_date" />
+                                    <field name="application_date" />
+                                    <field name="description" />
+                                </group>   
+                                <group>
+                                    <field name="txt_file_name" invisible="1"/>
+                                    <field name="txt_file" filename="txt_file_name"/>
+                                </group>                                                   
+                            </group>    
+                        </sheet>                    
+                    </form>
+                </field>
+        </record>
+    </data>
+</odoo>
+      

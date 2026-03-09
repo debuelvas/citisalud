@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- códigos de tipos de cotizante -->
+        <record model="hr.indicador.especial.pila" id="lavish_hr_employee.hr_indicador_actividad_alto_riesgo">
+            <field name="name">1: Actividades de alto riesgo</field>
+            <field name="code">1</field>
+        </record>
+        <record model="hr.indicador.especial.pila" id="lavish_hr_employee.hr_indicador_actividad_senador">
+            <field name="name">2: Senadores</field>
+            <field name="code">2</field>
+        </record>
+        <record model="hr.indicador.especial.pila" id="lavish_hr_employee.hr_indicador_actividad_cti">
+            <field name="name">3: CTI</field>
+            <field name="code">3</field>
+        </record>
+        <record model="hr.indicador.especial.pila" id="lavish_hr_employee.hr_indicador_actividad_aviadores">
+            <field name="name">4: Aviadores</field>
+            <field name="code">4</field>
+        </record>
+        <record model="hr.indicador.especial.pila" id="lavish_hr_employee.hr_indicador_actividad_sin_riesgo">
+            <field name="name">5: Sin riesgo</field>
+            <field name="code">5</field>
+        </record>
+
+
+
+
+
+        <!-- <record id="hr_holidays.holiday_status_sl" model="hr.leave.type">
+            <field name="name">Ausencias por enfermedad</field>
+            <field name="code">EGA</field>
+            <field name="request_unit">day</field>
+            <field name="num_days_no_assume">2</field>
+            <field name="recognizing_factor_eps_arl">0.66670</field>
+            <field name="recognizing_factor_company">1</field>
+        </record> -->
+
+        <!-- <record id="holiday_status_no_pay" model="hr.leave.type">
+            <field name="name">No remunerada</field>
+            <field name="code">LICENCIA_NO_REMUNERADA</field>
+            <field name="request_unit">day</field>
+        </record>
+        <record id="work_entry_vac" model="hr.work.entry.type">
+            <field name="name">VACACIONES DISFRUTADAS</field>
+            <field name="color">4</field>
+            <field name="code">VACDISFRUTADAS</field>
+            <field name="round_days">HALF</field>
+            <field name="is_leave">yes</field>
+        </record> -->
+        <record id="work_entry_prev_pay" model="hr.work.entry.type">
+            <field name="name">Dias liquidados en otras nominas</field>
+            <field name="color">4</field>
+            <field name="code">PREV_PAYS</field>
+            <field name="round_days">HALF</field>
+            <field name="is_leave">no</field>
+        </record>
+        <record id="work_entry_WORK_D" model="hr.work.entry.type">
+            <field name="name">Dias trabajados</field>
+            <field name="color">4</field>
+            <field name="code">WORK_D</field>
+            <field name="round_days">HALF</field>
+            <field name="is_leave">no</field>
+        </record>
+        <record id="work_entry_WORK_D_31" model="hr.work.entry.type">
+            <field name="name">Dias 31</field>
+            <field name="color">4</field>
+            <field name="code">WORK131</field>
+            <field name="round_days">HALF</field>
+            <field name="is_leave">no</field>
+        </record>
+        <!-- <record id="work_entry_MAT" model="hr.work.entry.type">
+            <field name="name">Licencia De Maternidad o Paternidad</field>
+            <field name="color">4</field>
+            <field name="code">MAT</field>
+            <field name="round_days">HALF</field>
+            <field name="is_leave">yes</field>
+        </record> -->
+        <!-- <record id="holiday_status_MAT" model="hr.leave.type">
+            <field name="name">Licencia De Maternidad o Paternidad</field>
+            <field name="code">MAT</field>
+            <field name="requires_allocation">yes</field>
+            <field name="employee_requests">yes</field>
+            <field name="leave_validation_type">manager</field>
+            <field name="allocation_validation_type">officer</field>
+            <field name="request_unit">day</field>
+            <field name="work_entry_type_id" ref="lavish_hr_employee.work_entry_MAT"></field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="icon_id" ref="hr_holidays.icon_14"/>
+            <field name="color">4</field>
+        </record>
+        <record id="holiday_status_MAT" model="hr.leave.type">
+            <field name="name">Licencia De Maternidad o Paternidad</field>
+            <field name="code">MAT</field>
+            <field name="requires_allocation">yes</field>
+            <field name="employee_requests">yes</field>
+            <field name="leave_validation_type">manager</field>
+            <field name="allocation_validation_type">officer</field>
+            <field name="request_unit">day</field>
+            <field name="work_entry_type_id" ref="lavish_hr_employee.work_entry_MAT"></field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="icon_id" ref="hr_holidays.icon_14"/>
+            <field name="color">4</field>
+        </record>
+        <record id="holiday_status_vac" model="hr.leave.type">
+            <field name="name">Vacaciones disfrutadas</field>
+            <field name="code">VACDISFRUTADAS</field>
+            <field name="requires_allocation">yes</field>
+            <field name="employee_requests">yes</field>
+            <field name="leave_validation_type">manager</field>
+            <field name="allocation_validation_type">officer</field>
+            <field name="request_unit">day</field>
+            <field name="work_entry_type_id" ref="lavish_hr_employee.work_entry_vac"></field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="icon_id" ref="hr_holidays.icon_14"/>
+            <field name="color">4</field>
+        </record>
+        <record id="hr_work_entry_contract.work_entry_type_sick_leave" model="hr.work.entry.type">
+            <field name="name">Ausencias por enfermedad</field>
+            <field name="code">EGA</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+        <record id="hr_work_entry_contract.work_entry_type_unpaid_leave" model="hr.work.entry.type">
+            <field name="name">No remunerada</field>
+            <field name="color">6</field>
+            <field name="code">LICENCIA_NO_REMUNERADA</field>
+            <field name="is_leave">True</field>
+        </record> -->
+    </data>
+
+</odoo>

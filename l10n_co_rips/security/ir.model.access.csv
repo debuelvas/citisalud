@@ -1,0 +1,21 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hospital_rips_all,Hospital RIPS,model_hospital_rips,,1,1,1,1
+access_hospital_rips_jso,Hospital RIPS JSON,model_rips_export,,1,1,1,1
+
+access_l10_co_medfix_doctor_contract_insurer,access_doctor_contract_insurer,model_doctor_contract_insurer,base.group_user,1,1,1,1
+
+access_glosa_medica_user,glosa.medica.user,model_glosa_medica,account.group_account_invoice,1,1,1,0
+access_glosa_medica_manager,glosa.medica.manager,model_glosa_medica,account.group_account_manager,1,1,1,1
+access_glosa_motivo_user,glosa.motivo.user,model_glosa_motivo,account.group_account_invoice,1,0,0,0
+access_glosa_motivo_manager,glosa.motivo.manager,model_glosa_motivo,account.group_account_manager,1,1,1,1
+access_glosa_etapa_user,glosa.etapa.user,model_glosa_etapa,account.group_account_invoice,1,0,0,0
+access_glosa_etapa_manager,glosa.etapa.manager,model_glosa_etapa,account.group_account_manager,1,1,1,1
+access_generar_nota_credito_wizard_user,generar.nota.credito.wizard.user,model_generar_nota_credito_wizard,account.group_account_invoice,1,1,1,0
+access_generar_nota_credito_wizard_manager,generar.nota.credito.wizard.manager,model_generar_nota_credito_wizard,account.group_account_manager,1,1,1,1
+access_rips_configuration_manager,rips_configuration_manager,model_rips_configuration,,1,1,1,1
+access_rips_error_viewer_wizard_manager,rips_error_viewer_wizard_manager,model_rips_error_viewer_wizard,,1,1,1,1
+
+access_invoice_importer,invoice.importer,model_invoice_importer,base.group_user,1,1,1,1
+access_invoice_importer_line,invoice.importer.line,model_invoice_importer_line,base.group_user,1,1,1,1
+access_invoice_importer_detail_line,invoice.importer.detail.line,model_invoice_importer_detail_line,base.group_user,1,1,1,1
+access_invoice_importer_credit_line,invoice.importer.credit.line,model_invoice_importer_credit_line,base.group_user,1,1,1,1

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="no_done" model="hr.sub.type.worker">
+            <field name="code">00</field>
+            <field name="name">No Aplica</field>
+        </record>
+        <record id="depends_pension" model="hr.sub.type.worker">
+            <field name="code">01</field>
+            <field name="name">Dependiente pensionado por vejez activo</field>
+        </record>
+    </data>
+</odoo>

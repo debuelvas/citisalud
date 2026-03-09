@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="acs_hms_base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='patient_data']" position="after">
+                <block title="Patient" name="patient_setting_container">
+                    <setting help="Set this service as default service for Patient Registration Invoice." id="default_service_for_patient_registration_invoice_setting">
+                        <field name="patient_registration_product_id" class="o_light_label"/>
+                    </setting>
+                    <setting help="Create Patient Registration Invoicing." id="default_patient_registration_invoice_setting">
+                        <field name="group_patient_registartion_invoicing" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set the default Patient Weight measure." id="default_patient_weight_measure_setting">
+                        <field name="patient_weight_measure_uom" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set the default Patient Height measure." id="default_patient_height_measure_setting">
+                        <field name="patient_height_measure_uom" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set the default Patient Temp measure." id="default_patient_temp_measure_setting">
+                        <field name="patient_temp_measure_uom" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set the default Patient SpO2 measure." id="default_patient_spo2_measure_setting">
+                        <field name="patient_spo2_measure_uom" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set the default Patient RBS measure." id="default_patient_rbs_measure_setting">
+                        <field name="patient_rbs_measure_uom" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set the default Patient Head Circumference measure." id="default_patient_head_circumference_measure_setting">
+                        <field name="patient_head_circum_measure_uom" class="o_light_label"/>
+                    </setting>
+                </block>
+
+                <block title="Patient Procedure" name="patient_procedure_setting_container">
+                    <setting help="Location to take consumed products in Patient Procedures." id="procedure_stock_location_id_setting">
+                        <field name="procedure_stock_location_id" class="o_light_label"/>
+                    </setting>
+                    <setting help="Location to manage consumed products in Patient Procedure." id="procedure_usage_location_id_setting">
+                        <field name="procedure_usage_location_id" class="o_light_label"/>
+                    </setting>
+                    <setting help="Location to manage consumed products in Patient Procedure." id="procedure_usage_location_id_setting">
+                        <field name="procedure_usage_location_id" class="o_light_label"/>
+                    </setting>
+                </block>
+            </xpath>
+
+            <xpath expr="//div[@id='prescription_data']" position="before">
+                <block title="Prescription" name="prescription_setting_container">
+                    <setting string="Prescription Authentication" help="Allow user to Autheticate prescription by scanning QrCode from report." id="acs_prescription_qrcode_setting">
+                        <field name="acs_prescription_qrcode"/>
+                    </setting>
+                </block>
+
+                <block title="Treatment" name="treatment_setting_container">
+                    <setting help="Set this service as default service for Treatment Registration Invoice." id="treatment_registration_product_id_setting">
+                        <field name="treatment_registration_product_id" class="o_light_label"/>
+                    </setting>
+                    <setting string="Treatment Invoicing" help="Treatment Invoicing" id="group_treatment_invoicing_setting">
+                        <field name="group_treatment_invoicing"/>
+                    </setting>
+                </block>
+
+            </xpath>
+            
+            <xpath expr="//div[@id='appointment_data']" position="before">
+                <block title="Appointment" name="appointment_setting_container">
+                    <setting string="Consultation Service" help="Set this service as default Consultation Service." id="consultation_product_id_setting">
+                        <field name="consultation_product_id"/><br/>
+                        <span class="o_form_label">Auto Follow-up Date</span>
+                        <div class="text-muted">
+                            Cofigure days to set Auto followup days on appointment.
+                        </div>
+                        <div class="text-muted">
+                            <field name="auto_followup_days"/>
+                        </div>
+                    </setting>
+                    <setting string="Follow-up Service" help="Set this service as default Follow-up Service." id="followup_product_id_setting">
+                        <field name="followup_product_id"/><br/>
+                        <span class="o_form_label">Follow-up Days</span>
+                        <div class="text-muted">
+                            Set days to consider next appointment as follow-up if less than given days.
+                        </div>
+                        <div class="text-muted">
+                            <field name="followup_days"/>
+                        </div>
+                    </setting>
+                    <setting string="Invoice Policy" help="Set to manage invoicing option on appointment." id="appointment_invoice_policy_setting">
+                        <field name="appointment_invoice_policy"/>
+                    </setting>
+                    <setting string="Check Payment Status" help="Do not allow to accept request before completion of payment." id="acs_check_appo_payment_setting" invisible="appointment_invoice_policy!='advance'">
+                        <field name="acs_check_appo_payment"/>
+                    </setting>
+                    <setting string="Folloup Activity" help="Auto Folloup activity for responsible person for reminder of followup (Before one day of followup Date)." id="acs_followup_activity_type_id_setting">
+                        <field name="acs_followup_activity_type_id"/>
+                    </setting>
+                    <setting string="Auto Cancel Old Appointment" help="Auto cancel the draft and confirm appointments created before today." id="acs_cancel_old_appointment_setting">
+                        <field name="acs_cancel_old_appointment"/>
+                    </setting>
+                    <setting string="Auto Send Appointment Confirmation Mail" help="Send appointment confirmation mail on appointment confirmation." id="acs_auto_appo_confirmation_mail_setting">
+                        <field name="acs_auto_appo_confirmation_mail"/>
+                    </setting>
+                    <setting string="Stock Usage Location" help="Location to manage consumed products in Consultation." id="appointment_usage_location_id_setting">
+                        <field name="appointment_usage_location_id"/>
+                    </setting>
+                    <setting string="Stock Location" help="Location to take consumed products in Consultation." id="appointment_stock_location_id_setting">
+                        <field name="appointment_stock_location_id"/>
+                    </setting>
+                    <setting string="Reminder" help="Send patient appointment reminder." id="acs_reminder_setting">
+                        <field name="acs_reminder_day"/>
+                        <span>Days</span>
+                        <field name="acs_reminder_hours"/>
+                        <span>Hours</span>
+                    </setting>
+                    <setting string="Cancellation Flag" help="Show flag on patient when total cancelled appointments are more than configured number." id="acs_flag_setting">
+                        <field name="acs_flag_days"/>
+                        <span>Days</span>
+                        <field name="acs_flag_count_limit"/>
+                        <span>Cancelled Appointments</span>
+                    </setting>
+                    <setting string="Default planned duration for appointments" help="Set Default planned duration for appointments" id="acs_appointment_planned_duration_setting">
+                        <field name="acs_appointment_planned_duration"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

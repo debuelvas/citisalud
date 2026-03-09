@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_category_taxes_form" model="ir.ui.view">
+            <field name="name">product.category.taxes.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="account.view_category_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                </xpath>
+                <group name="account_property" position="inside">
+                    <group name="account_taxes" >
+                        <group string="Taxes Properties" groups="account.group_account_user">
+                            <field name="taxes_ids" widget="many2many_tags"/>
+                            <field name="supplier_taxes_ids"  widget="many2many_tags"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+        <record id="product_category_list_view_inherit" model="ir.ui.view">
+            <field name="name">product.category.list.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="arch" type="xml">
+                <list position="attributes">
+                    <attribute name="action">action_archive</attribute>
+                </list>
+            </field>
+        </record>
+
+        <record id="product_category_search_view_inherit" model="ir.ui.view">
+            <field name="name">product.category.search.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_search_view"/>
+            <field name="arch" type="xml">
+                <search position="inside">
+                    <filter string="Archivado" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

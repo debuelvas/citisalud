@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Vista de producto template - Pestaña FE DIAN -->
+    <record id="product_template_form_view_fe_dian" model="ir.ui.view">
+        <field name="name">product.template.form.fe.dian</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="fe_dian" string="Facturación Electrónica DIAN">
+                    <group>
+                        <group string="Información DIAN">
+                            <field name="operation_type"/>
+                            <field name="line_price_reference"/>
+                            <field name="enable_charges"/>
+                            <field name="ref_nominal_tax" invisible="enable_charges == False"/>
+                        </group>
+                        <group string="Clasificación UNSPSC">
+                            <field name="product_UNSPSC_id"/>
+                            <field name="segment_name" readonly="1"/>
+                            <field name="family_name" readonly="1"/>
+                            <field name="class_name" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Marca y Modelo">
+                            <field name="brand_id"/>
+                            <field name="model_id"/>
+                        </group>
+                        <group string="Impuestos Saludables">
+                            <field name="has_health_taxes" readonly="1" widget="boolean_toggle"/>
+                            <field name="has_icl" widget="boolean_toggle"/>
+                            <field name="has_icui" widget="boolean_toggle"/>
+                            <field name="has_ibua" widget="boolean_toggle"/>
+                            <field name="has_inpp" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+
+                    <!-- Detalles ICL -->
+                    <group string="ICL - Impuesto al Consumo de Licores" invisible="has_icl == False">
+                        <group>
+                            <field name="product_type" required="has_icl == True"/>
+                            <field name="alcohol_degree" required="has_icl == True"/>
+                        </group>
+                        <group>
+                            <field name="volume_ml" required="has_icl == True"/>
+                        </group>
+                    </group>
+
+                    <!-- Detalles IBUA -->
+                    <group string="IBUA - Impuesto Bebidas Azucaradas" invisible="has_ibua == False">
+                        <group>
+                            <field name="ml_ibua" required="has_ibua == True"/>
+                        </group>
+                        <group>
+                            <field name="grams_ibua" required="has_ibua == True"/>
+                        </group>
+                    </group>
+
+                    <!-- Detalles INPP -->
+                    <group string="INPP - Impuesto Productos Plásticos" invisible="has_inpp == False">
+                        <field name="grams_inpp" required="has_inpp == True"/>
+                    </group>
+
+                    <!-- Información Arancelaria -->
+                    <group string="Información Arancelaria" invisible="hs_code == False">
+                        <group>
+                            <field name="hs_code"/>
+                        </group>
+                        <group>
+                            <field name="tariff_rate"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista precio de referencia en formulario estándar -->
+    <record id="product_template_form_price_reference" model="ir.ui.view">
+        <field name="name">product.template.form.price.reference</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_standard_price']" position="inside">
+                <label for="line_price_reference"/>
+                <div name="Precio de referencia">
+                    <field name="line_price_reference"
+                           class="oe_inline"
+                           widget="monetary"
+                           options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de producto variante - Pestaña FE DIAN -->
+    <record id="product_normal_form_view_fe_dian" model="ir.ui.view">
+        <field name="name">product.product.form.fe.dian</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="fe_dian" string="Facturación Electrónica DIAN">
+                    <group>
+                        <group string="Información DIAN">
+                            <field name="operation_type"/>
+                            <field name="line_price_reference"/>
+                        </group>
+                        <group string="Clasificación UNSPSC">
+                            <field name="product_UNSPSC_id"/>
+                            <field name="segment_name" readonly="1"/>
+                            <field name="family_name" readonly="1"/>
+                            <field name="class_name" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Marca y Modelo">
+                            <field name="brand_id"/>
+                            <field name="model_id"/>
+                        </group>
+                        <group string="Cargos">
+                            <field name="enable_charges"/>
+                            <field name="ref_nominal_tax" invisible="enable_charges == False"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista lista con indicadores de impuestos -->
+    <record id="product_template_tree_view_health_taxes" model="ir.ui.view">
+        <field name="name">product.template.tree.health.taxes</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='list_price']" position="after">
+                <field name="has_health_taxes" optional="show" widget="boolean_toggle"/>
+                <field name="operation_type" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda con filtros -->
+    <record id="product_template_search_view_fe_dian" model="ir.ui.view">
+        <field name="name">product.template.search.fe.dian</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_to_sell']" position="after">
+                <separator/>
+                <filter string="Con Impuestos Saludables"
+                        name="has_health_taxes"
+                        domain="[('has_health_taxes', '=', True)]"/>
+                <filter string="ICL"
+                        name="has_icl"
+                        domain="[('has_icl', '=', True)]"/>
+                <filter string="ICUI"
+                        name="has_icui"
+                        domain="[('has_icui', '=', True)]"/>
+                <filter string="IBUA"
+                        name="has_ibua"
+                        domain="[('has_ibua', '=', True)]"/>
+                <filter string="INPP"
+                        name="has_inpp"
+                        domain="[('has_inpp', '=', True)]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Tipo de Operación DIAN"
+                        name="groupby_operation_type"
+                        domain="[]"
+                        context="{'group_by': 'operation_type'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

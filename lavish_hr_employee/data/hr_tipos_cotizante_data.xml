@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    
+    <data>
+        <!-- códigos de tipos de cotizante -->
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0111">
+            <field name="name">1: Dependiente</field>
+            <field name="code">01</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0113">
+            <field name="name">12: Aprendiz del SENA en etapa lectiva</field>
+            <field name="code">12</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0114">
+            <field name="name">19: Aprendiz del SENA en etapa productiva</field>
+            <field name="code">19</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0115">
+            <field name="name">2: Empleada Domestica</field>
+            <field name="code">02</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0116">
+            <field name="name">3: Independiente</field>
+            <field name="code">03</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0117">
+            <field name="name">16: Independiente Agremiado ó Asociado</field>
+            <field name="code">16</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0118">
+            <field name="name">15: Desempleado con subsidio</field>
+            <field name="code">15</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0119">
+            <field name="name">17: Afiliado con requisitos cumplidos para Pensión</field>
+            <field name="code">17</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0120">
+            <field name="name">18: Funcionarios públicos sin tope Maximo en el IBC</field>
+            <field name="code">18</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0121">
+            <field name="name">20: Estudiantes (Régimen Especial-Ley 789/2002)</field>
+            <field name="code">20</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0122">
+            <field name="name">21: Estudiantes de postgrado en salud</field>
+            <field name="code">21</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0123">
+            <field name="name">22: Profesor</field>
+            <field name="code">22</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0124">
+            <field name="name">6: Ninguno</field>
+            <field name="code">06</field>
+        </record>
+        <record model="hr.tipo.cotizante" id="lavish_hr_employee.hr_tipo_cotizante_0125">
+            <field name="name">51: Trabajador de tiempo parcial</field>
+            <field name="code">51</field>
+        </record>
+        <record model="hr.types.employee" id="lavish_hr_employee.hr_type_employee_1">
+            <field name="name">Regular</field>
+            <field name="code">01</field>
+        </record>
+        <!-- códigos de subtipos de cotizante -->
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0110">
+            <field name="name">1: Dependiente pensionado por vejez activo</field>
+            <field name="not_contribute_pension" eval="True" />
+            <field name="code">01</field>
+        </record>
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0111">
+            <field name="name">2: Independiente pensionado por vejez activo</field>
+            <field name="not_contribute_pension" eval="True" />
+            <field name="code">02</field>
+        </record>
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0112">
+            <field name="name">3: Cotizante no obligado a cotización a pensiones por edad</field>
+            <field name="not_contribute_pension" eval="True" />
+            <field name="code">03</field>
+        </record>
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0113">
+            <field name="name">4: Cotizante con requisitos cumplidos para pensión</field>
+            <field name="not_contribute_pension" eval="True" />
+            <field name="code">04</field>
+        </record>
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0114">
+            <field name="name">5: Cotizante a quien se la ha reconocido indemnización sustitutiva</field>
+            <field name="not_contribute_pension" eval="True" />
+            <field name="code">5</field>
+        </record>
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0115">
+            <field name="name">6: Cotizante perteneciente a un régimen exceptuado de pensiones</field>
+            <field name="not_contribute_pension" eval="True" />
+            <field name="code">06</field>
+        </record>
+        <record model="hr.subtipo.cotizante" id="lavish_hr_employee.hr_subtipo_cotizante_0116">
+            <field name="name">0: Ninguno</field>
+            <field name="code">00</field>
+        </record>
+        <record model="hr.contract.risk" id="lavish_hr_employee.hr_Nivel_0">
+            <field name="name">Nivel 0</field>
+            <field name="code">0</field>
+            <field name="percent">0.000</field>
+        </record>
+        <record model="hr.contract.risk" id="lavish_hr_employee.hr_Nivel_1">
+            <field name="name">Nivel 1</field>
+            <field name="code">1</field>
+            <field name="percent">0.522</field>
+        </record>
+        <record model="hr.contract.risk" id="lavish_hr_employee.hr_Nivel_2">
+            <field name="name">Nivel 2</field>
+            <field name="code">2</field>
+            <field name="percent">1.044</field>
+        </record>
+        <record model="hr.contract.risk" id="lavish_hr_employee.hr_Nivel_3">
+            <field name="name">Nivel 3</field>
+            <field name="code">3</field>
+            <field name="percent">2.436</field>
+        </record>
+        <record model="hr.contract.risk" id="lavish_hr_employee.hr_Nivel_4">
+            <field name="name">Nivel 4</field>
+            <field name="code">4</field>
+            <field name="percent">4.350</field>
+        </record>
+        <record model="hr.contract.risk" id="lavish_hr_employee.hr_Nivel_5">
+            <field name="name">Nivel 5</field>
+            <field name="code">5</field>
+            <field name="percent">6.960</field>
+        </record>
+
+
+
+        <record model="hr.annual.parameters" id="lavish_hr_employee.hr_2025_anual">
+            <field name="year">2025</field>
+            <field name="smmlv_monthly">1423500</field>
+            <field name="transportation_assistance_monthly">200000</field>
+            <field name="porc_integral_salary">70</field>
+            <field name="hours_daily">8</field>
+            <field name="value_porc_statute_1395">40</field>
+            <field name="value_porc_health_employee">4</field>
+            <field name="value_porc_health_company">8.5</field>
+            <field name="value_porc_pension_employee">4</field>
+            <field name="value_porc_health_employee_foreign">4</field>
+            <field name="value_porc_sena_company">2</field>
+            <field name="value_porc_icbf_company">3</field>
+            <field name="value_porc_ipc">5</field>
+            <field name="value_porc_pension_company">12</field>
+            <field name="value_porc_compensation_box_company">4</field>
+            <field name="value_porc_provision_bonus">8.33</field>
+            <field name="value_porc_provision_cesantias">8.33</field>
+            <field name="value_porc_provision_intcesantias">1</field>
+            <field name="value_porc_provision_vacation">4.17</field>
+            <field name="value_uvt">49799</field>
+            <field name="value_top_source_retention">4730905</field>
+            <field name="value_porc_increment_smlv">16</field>
+        </record>
+        
+        <record id="lavish_hr_employee.DEV_SALARIAL" model="hr.salary.rule.category">
+            <field name="name">Devengo Salarial</field>
+            <field name="code">DEV_SALARIAL</field>
+            
+            <field name="note">El devengado corresponde a todos los conceptos por los que un empleado recibe una remuneración, como son el Salario, horas extras, comisiones, Auxilio de transporte, recargos nocturnos y diurnos, etc. La sumatoria de estos valores conforma lo que se llama total devengado, que es la totalidad de los ingresos que recibe un empleado como remuneración por su trabajo.</field>
+        </record>
+
+        <record id="lavish_hr_employee.DEV_NO_SALARIAL" model="hr.salary.rule.category">
+            <field name="name">Devengo No Salarial</field>
+            <field name="code">DEV_NO_SALARIAL</field>
+            
+            <field name="note">No constituyen salario las sumas que ocasionalmente y por mera liberalidad recibe el trabajador del empleador, como primas, bonificaciones o gratificaciones ocasionales, participación de utilidades, excedentes de las empresas de economía solidaria y lo que recibe en dinero o en especie no para su beneficio, ni para enriquecer su patrimonio, sino para desempeñar a cabalidad sus funciones, como gastos de representación, medios de transporte, elementos de trabajo y otros semejantes. Tampoco las prestaciones sociales de que tratan los títulos VIII y IX de la Ley 1393 de 2010 , ni los beneficios o auxilios habituales u ocasionales acordados convencional o contractualmente u otorgados en forma extralegal por el (empleador), cuando las partes hayan dispuesto expresamente que no constituyen salario en dinero o en especie, tales como la alimentación, habitación o vestuario, las primas extralegales, de vacaciones, de servicios o de navidad</field>
+        </record>
+
+        <record id="lavish_hr_employee.VACACIONES" model="hr.salary.rule.category">
+            <field name="name">Vacaciones</field>
+            <field name="code">VACACIONES</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_SALARIAL"/>
+            <field name="note">El derecho a las vacaciones se adquiere al cumplirse el año de servicio y deben ser concedidas oficiosamente o a petición del trabajador, por el superior respectivo, a la mayor brevedad posible, durante el año siguiente a la fecha en que se causa el derecho, salvo los casos de acumulación antes previstos, de acuerdo con la organización de los trabajos y sin perjudicar el normal funcionamiento de la entidad respectiva.</field>
+        </record>
+        <record id="lavish_hr_employee.HEYREC" model="hr.salary.rule.category">
+            <field name="name">Horas Extras Y Recargos</field>
+            <field name="code">HEYREC</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_SALARIAL"/>
+            <field name="note">La seguridad social es el conjunto armónico de entidades públicas y privadas, normas y procedimientos y está conformado por los regímenes generales establecidos para pensiones, salud, riesgos laborales, subsidio familiar y los servicios sociales complementarios que se definen en la ley. Este es un sistema que cubre eventualidades como la de alteración a la salud, incapacidad laboral, desempleo, vejez y muerte, para cuya protección se establecieron los sistemas de Salud, Pensiones, Riesgos Laborales y de Subsidio Familiar.</field>
+        </record>
+        <record id="lavish_hr_employee.INCAPACIDAD" model="hr.salary.rule.category">
+            <field name="name">Incapacidad</field>
+            <field name="code">INCAPACIDAD</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_SALARIAL"/>
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.LICENCIA_REMUNERADA" model="hr.salary.rule.category">
+            <field name="name">Licencia Remunerada</field>
+            <field name="code">LICENCIA_REMUNERADA</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_SALARIAL"/>
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.LICENCIA_MATERNIDAD" model="hr.salary.rule.category">
+            <field name="name">Licencia Maternidad</field>
+            <field name="code">LICENCIA_MATERNIDAD</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_SALARIAL"/>
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.ACCIDENTE_TRABAJO" model="hr.salary.rule.category">
+            <field name="name">Accidente Trabajo</field>
+            <field name="code">ACCIDENTE_TRABAJO</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_SALARIAL"/>
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.AUX" model="hr.salary.rule.category">
+            <field name="name">Auxilio De Transporte</field>
+            <field name="code">AUX</field>
+            <field name="parent_id" ref="lavish_hr_employee.DEV_NO_SALARIAL"/>
+            <field name="note">El auxilio de transporte es un pago que se realiza a los trabajadores que tienen un sueldo de hasta dos salarios mínimos mensuales,</field>
+        </record>
+
+
+
+        <record id="lavish_hr_employee.AUS" model="hr.salary.rule.category">
+            <field name="name">Ausencia</field>
+            <field name="code">AUS</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.COMISIONES" model="hr.salary.rule.category">
+            <field name="name">Comisiones</field>
+            <field name="code">COMISIONES</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.INTVIV" model="hr.salary.rule.category">
+            <field name="name">Intviv</field>
+            <field name="code">INTVIV</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.DEDDEP" model="hr.salary.rule.category">
+            <field name="name">Deddep</field>
+            <field name="code">DEDDEP</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.TOTALDEV" model="hr.salary.rule.category">
+            <field name="name">Total Devengo</field>
+            <field name="code">TOTALDEV</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.TOTALDED" model="hr.salary.rule.category">
+            <field name="name">Total Deducciones</field>
+            <field name="code">TOTALDED</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.LICENCIA_NO_REMUNERADA" model="hr.salary.rule.category">
+            <field name="name">Licencia No Remunerada</field>
+            <field name="code">LICENCIA_NO_REMUNERADA</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.PRESTACIONES_SOCIALES" model="hr.salary.rule.category">
+            <field name="name">Prestaciones Sociales</field>
+            <field name="code">PRESTACIONES_SOCIALES</field>
+            
+            <field name="note">Prestación social es lo que debe el patrono al trabajador en dinero, especie, servicios u otros beneficios, por ministerio de la ley, o por haberse pactado en convenciones colectivas o en pactos colectivos, o en el contrato de trabajo, o establecida en el reglamento interno del trabajo, en fallos arbitrales o en cualquier acto unilateral del patrono, para cubrir los riesgos o necesidades del trabajador que se originan durante la relación de trabajo o con motivo de la misma. Se diferencia del salario en que no es retributiva de los servicios prestados y de las indemnizaciones laborales en que no reparan perjuicios causados por el patrono</field>
+        </record>
+        <record id="lavish_hr_employee.ALW" model="hr.salary.rule.category">
+            <field name="name">Prima</field>
+            <field name="code">ALW</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.GROSS" model="hr.salary.rule.category">
+            <field name="name">Bruto</field>
+            <field name="code">GROSS</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.NET" model="hr.salary.rule.category">
+            <field name="name">Neto</field>
+            <field name="code">NET</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.COMP" model="hr.salary.rule.category">
+            <field name="name">Parte De La Empresa</field>
+            <field name="code">COMP</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.PROV" model="hr.salary.rule.category">
+            <field name="name">Provisiones de nomina</field>
+            <field name="code">PROV</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.PRIMA" model="hr.salary.rule.category">
+            <field name="name">Prima Legal</field>
+            <field name="code">PRIMA</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.BASE_SEC" model="hr.salary.rule.category">
+            <field name="name">Base Seguridad Social</field>
+            <field name="code">BASE_SEC</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.BASE_OTROS" model="hr.salary.rule.category">
+            <field name="name">Subtotal Otros devengos</field>
+            <field name="code">BASE_OTROS</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.VACACIONES-DIAS" model="hr.salary.rule.category">
+            <field name="name">Vacaciones</field>
+            <field name="code">VACACIONES-DIAS</field>
+            
+            <field name="note"></field>
+        </record>
+        <record id="lavish_hr_employee.SANCIONES" model="hr.salary.rule.category">
+            <field name="name">Sanciones</field>
+            <field name="code">SANCIONES</field>
+            
+            <field name="note"></field>
+        </record>
+    </data>
+</odoo>
+        

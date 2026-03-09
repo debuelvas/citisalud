@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="attached_document_template">
+    <AttachedDocument xmlns="urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2" 
+                      xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" 
+                      xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
+                      xmlns:ccts="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2" 
+                      xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+                      xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" 
+                      xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" 
+                      xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#">
+        <cbc:UBLVersionID><t t-esc="UBLVersionID"/></cbc:UBLVersionID>
+        <cbc:CustomizationID><t t-esc="CustomizationID"/></cbc:CustomizationID>
+        <cbc:ProfileID><t t-esc="ProfileID"/></cbc:ProfileID>
+        <cbc:ProfileExecutionID><t t-esc="ProfileExecutionID"/></cbc:ProfileExecutionID>
+        <cbc:ID><t t-esc="InvoiceID"/></cbc:ID>
+        <cbc:IssueDate><t t-esc="IssueDate"/></cbc:IssueDate>
+        <cbc:IssueTime><t t-esc="IssueTime"/></cbc:IssueTime>
+        <cbc:DocumentType>Contenedor de Factura Electrónica</cbc:DocumentType>
+        <cbc:ParentDocumentID><t t-esc="InvoiceID"/></cbc:ParentDocumentID>
+        <cac:SenderParty>
+            <cac:PartyTaxScheme>
+                <cbc:RegistrationName><t t-esc="SupplierPartyName"/></cbc:RegistrationName>
+                <cbc:CompanyID t-att-schemeAgencyID="'195'" t-att-schemeID="schemeID" t-att-schemeName="'31'"><t t-esc="ProviderID"/></cbc:CompanyID>
+                <cbc:TaxLevelCode t-att-listName="'48'"><t t-esc="SupplierTaxLevelCode"/></cbc:TaxLevelCode>
+                <cac:TaxScheme>
+                   <cbc:ID><t t-esc="TaxSchemeID"/></cbc:ID>
+                   <cbc:Name><t t-esc="TaxSchemeName"/></cbc:Name>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+        </cac:SenderParty>
+        <cac:ReceiverParty>
+            <cac:PartyTaxScheme>
+                <cbc:RegistrationName><t t-esc="CustomerPartyName"/></cbc:RegistrationName>
+                <cbc:CompanyID t-if="SchemeNameAdquiriente == '31'" schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" t-att-schemeID="CustomerschemeID" t-att-schemeName="SchemeNameAdquiriente"><t t-esc="CustomerID"/></cbc:CompanyID>
+                <cbc:CompanyID t-if="SchemeNameAdquiriente != '31'" schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" t-att-schemeName="SchemeNameAdquiriente"><t t-esc="CustomerID"/></cbc:CompanyID>
+                <cbc:TaxLevelCode t-att-listName="'48'"><t t-esc="CustomerTaxLevelCode"/></cbc:TaxLevelCode>
+                <cac:TaxScheme>
+                   <cbc:ID><t t-esc="TaxSchemeID"/></cbc:ID>
+                   <cbc:Name><t t-esc="TaxSchemeName"/></cbc:Name>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+        </cac:ReceiverParty>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:MimeCode>text/xml</cbc:MimeCode>
+                <cbc:EncodingCode>UTF-8</cbc:EncodingCode>
+                <cbc:Description><![CDATA[<t t-esc="document_xml"/>]]></cbc:Description>
+            </cac:ExternalReference>
+        </cac:Attachment>
+        <cac:ParentDocumentLineReference>
+            <cbc:LineID>1</cbc:LineID>
+            <cac:DocumentReference>
+                <cbc:ID><t t-esc="InvoiceID"/></cbc:ID>
+                <cbc:UUID t-att-schemeName="'CUFE-SHA384'"><t t-esc="UUID"/></cbc:UUID>
+                <cbc:IssueDate><t t-esc="IssueDate"/></cbc:IssueDate>
+                <cbc:DocumentType>ApplicationResponse</cbc:DocumentType>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:MimeCode>text/xml</cbc:MimeCode>
+                        <cbc:EncodingCode>UTF-8</cbc:EncodingCode>
+                        <cbc:Description><![CDATA[<t t-esc="ApplicationResponse"/>]]></cbc:Description>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+                <cac:ResultOfVerification>
+                    <cbc:ValidatorID>Unidad Especial Dirección de Impuestos y Aduanas Nacionales</cbc:ValidatorID>
+                    <cbc:ValidationResultCode><t t-esc="ValidationResultCode"/></cbc:ValidationResultCode>
+                    <cbc:ValidationDate><t t-esc="ValidationDate"/></cbc:ValidationDate>
+                    <cbc:ValidationTime><t t-esc="ValidationTime"/></cbc:ValidationTime>
+                </cac:ResultOfVerification>
+            </cac:DocumentReference>
+        </cac:ParentDocumentLineReference>
+    </AttachedDocument>
+</template>
+</odoo>

@@ -1,0 +1,298 @@
+<!-- //////////////////////////////// Parameterization VIEWS //////////////////////////////// -->
+<odoo>
+    <data>
+        <!-- BRANCH / SUCURSALES VIEWS -->
+        <record id="lavish_menu_action_branch" model="ir.actions.act_window">
+            <field name="name">Sucursales</field>
+            <field name="res_model">lavish.res.branch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Sucursal
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_branch">
+            <field name="name">lavish list branch</field>
+            <field name="model">lavish.res.branch</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.form_branch">
+            <field name="name">lavish form branch</field>
+            <field name="model">lavish.res.branch</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Sucursal">
+                        <group>
+                            <field name="code"/>
+                            <newline/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- FECHAS CONMEMORATIVAS VIEWS -->
+        <record id="lavish_menu_action_dates_commemorated" model="ir.actions.act_window">
+            <field name="name">Fechas conmemorativas</field>
+            <field name="res_model">lavish.dates.commemorated</field>
+            <field name="view_mode">calendar,tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear fecha conmemorativa
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_commemorated">
+            <field name="name">lavish list commemorated</field>
+            <field name="model">lavish.dates.commemorated</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.calendar_commemorated">
+            <field name="name">lavish calendar commemorated</field>
+            <field name="model">lavish.dates.commemorated</field>
+            <field name="arch" type="xml">
+                <calendar date_start="date" date_stop="date" string="Fecha conmemorativa" mode="month"></calendar>
+            </field>
+        </record>
+        <!-- DIAS FESTIVOS VIEWS -->
+        <record id="lavish_menu_action_holidays" model="ir.actions.act_window">
+            <field name="name">Días Festivos</field>
+            <field name="res_model">lavish.holidays</field>
+            <field name="view_mode">calendar,tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear día festivo
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_holidays">
+            <field name="name">lavish list holidays</field>
+            <field name="model">lavish.holidays</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.calendar_holidays">
+            <field name="name">lavish calendar holidays</field>
+            <field name="model">lavish.holidays</field>
+            <field name="arch" type="xml">
+                <calendar date_start="date" date_stop="date" string="Días Festivos" mode="month"></calendar>
+            </field>
+        </record>
+        <!-- CITY VIEWS -->
+        <record id="lavish_menu_action_city" model="ir.actions.act_window">
+            <field name="name">Ciudad</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear ciudad
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_city">
+            <field name="name">lavish list city</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="state_id"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- SECTORS VIEWS -->
+        <record id="lavish_menu_action_sectors" model="ir.actions.act_window">
+            <field name="name">Sectores</field>
+            <field name="res_model">lavish.sectors</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear sector
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_sectors">
+            <field name="name">lavish list sector</field>
+            <field name="model">lavish.sectors</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- vinculation_types VIEWS -->
+        <record id="lavish_menu_action_vinculation_types" model="ir.actions.act_window">
+            <field name="name">Tipos de vinculación</field>
+            <field name="res_model">lavish.vinculation_types</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear tipos de vinculación
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_vinculation_types">
+            <field name="name">lavish list vinculation_types</field>
+            <field name="model">lavish.vinculation_types</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <!-- responsibilities_rut VIEWS -->
+        <record id="lavish_menu_action_responsibilities_rut" model="ir.actions.act_window">
+            <field name="name">Responsabilidades RUT</field>
+            <field name="res_model">lavish.responsibilities_rut</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear responsabilidad RUT
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_responsibilities_rut">
+            <field name="name">lavish list responsibilities_rut</field>
+            <field name="model">lavish.responsibilities_rut</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="description"/>
+                    <field name="valid_for_fe"/>
+                </tree>
+            </field>
+        </record>
+        <!-- contact_types VIEWS -->
+        <record id="lavish_menu_action_contact_types" model="ir.actions.act_window">
+            <field name="name">Tipos de contacto</field>
+            <field name="res_model">lavish.contact_types</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear tipo de contacto
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_contact_types">
+            <field name="name">lavish list contact_types</field>
+            <field name="model">lavish.contact_types</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- job_title VIEWS -->
+        <record id="lavish_menu_action_job_title" model="ir.actions.act_window">
+            <field name="name">Cargos</field>
+            <field name="res_model">lavish.job_title</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear cargo
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_job_title">
+            <field name="name">lavish list job_title</field>
+            <field name="model">lavish.job_title</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- areas VIEWS -->
+        <record id="lavish_menu_action_areas" model="ir.actions.act_window">
+            <field name="name">Áreas</field>
+            <field name="res_model">lavish.areas</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear área
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_areas">
+            <field name="name">lavish list areas</field>
+            <field name="model">lavish.areas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Grupos de Trabajo VIEWS -->
+        <record id="lavish_menu_action_work_groups" model="ir.actions.act_window">
+            <field name="name">Grupos de trabajo</field>
+            <field name="res_model">lavish.work_groups</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Grupo de trabajo
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lavish_erp.list_work_groups">
+            <field name="name">lavish list work groups</field>
+            <field name="model">lavish.work_groups</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- CIIU VIEWS -->
+        <record model="ir.actions.act_window" id="action_hierarchy_ciiu">
+            <field name="name">CIIU</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lavish.ciiu</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_form_CIIU" model="ir.ui.view">
+            <field name="name">CIIU Form</field>
+            <field name="model">lavish.ciiu</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="porcent_ica"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_ciiu" model="ir.ui.view">
+            <field name="name">CIIU Tree</field>
+            <field name="model">lavish.ciiu</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

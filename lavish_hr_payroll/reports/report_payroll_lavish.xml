@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="report_payroll_lavish_action" model="ir.actions.report">
+           <field name="name">Informe de Liquidación</field>
+           <field name="model">hr.payroll.report.lavish.filter</field>
+           <field name="report_type">qweb-pdf</field>
+           <field name="report_name">lavish_hr_payroll.report_payroll_lavish</field>
+           <field name="report_file">lavish_hr_payroll.report_payroll_lavish</field>
+           <field name="binding_model_id" ref="lavish_hr_payroll.model_hr_payroll_report_lavish_filter"/>
+        </record>
+        <template id="lavish_hr_payroll.report_payroll_lavish_v2">
+             <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="article lh-sm" style="font-size: 11px;font-family: 'Helvetica', 'Arial', sans-serif;">
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 120px;" alt="Logo"/>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <h4>
+                                        <span t-field="o.company_id.name"/>
+                                    </h4>
+                                    <p>NIT: 
+                                        
+                                        <span t-field="o.company_id.vat"/>
+                                    </p>
+                                    <h5>
+                                        <t t-esc="dict({                                     'nomina': 'LIQUIDACIÓN DE NÓMINA',                                     'vacaciones': 'LIQUIDACIÓN DE VACACIONES',                                     'prima': 'LIQUIDACIÓN DE PRIMA',                                     'cesantias': 'LIQUIDACIÓN DE CESANTÍAS',                                     'intereses_cesantias': 'LIQUIDACIÓN DE INTERESES DE CESANTÍAS',                                     'contrato': 'LIQUIDACIÓN DE CONTRATO',                                     'otro': 'LIQUIDACIÓN'                                 }).get(o.struct_process, 'LIQUIDACIÓN DE NÓMINA')"/>
+                                    </h5>
+                                </div>
+                                <div class="col-3 text-end">
+                                    <p>ODOO - LAVISHSOFT</p>
+                                    <p>
+                                        <strong>Fecha de impresión: </strong>
+                                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%b./%Y %H:%M:%S')"/>
+                                    </p>
+                                    <strong>LIQUIDACION No.</strong>
+                                <span t-field="o.number"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Employee Info -->
+                        <div class="row">
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    
+                                    <tr>
+                                        <td>
+                                            <strong>NOMBRE DE EMPLEADOR</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.company_id.partner_id.display_name" style="text-transform: uppercase;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>NOMBRE DE TRABAJADOR</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.employee_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>TIPO DE CONTRATO</strong>
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: uppercase;" t-esc="dict({                                         'Contrato por Obra o Labor': 'OBRA',                                         'Contrato de Trabajo a Término Fijo': 'FIJO',                                         'Contrato de Trabajo a Término Fijo Tiempo Parcial': 'PARCIAL',                                         'Contrato de Trabajo a Término Indefinido': 'INDEF',                                         'Contrato de Aprendizaje': 'APREND',                                         'Contrato Temporal, ocasional o accidental': 'TEMP'                                     }).get(o.contract_id.contract_type, o.contract_id.contract_type)"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>CARGO</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.employee_id.job_id"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td>
+                                            <strong>CONTRATO No.</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.contract_id.sequence"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>IDENTIFICACION</strong>
+                                        </td>
+                                    <td>
+                                        <span t-esc="dict({                                     '11': 'RC', '12': 'TI', '13': 'CC', '21': 'TE',                                     '22': 'CE', '31': 'NIT', '41': 'PP', '42': 'DE',                                     '47': 'PEP', '50': 'NV', '91': 'NUIP'                                 }).get(o.employee_id.l10n_latam_identification_type_id.dian_code, o.employee_id.work_contact_id.l10n_latam_identification_type_id.dian_code)"/> - <span t-field="o.employee_id.identification_id" class="mx-1"/>DE <span t-field="o.employee_id.work_contact_id.city"/>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>MODALIDAD</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.contract_id.modality_salary" style="text-transform: uppercase;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>DEPENDENCIA</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.employee_id.department_id" style="text-transform: uppercase;"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Time Info -->
+                        <div class="row" style="background-color: #f2f2f2;">
+                            <div class="col-12">
+                                <strong>TIEMPO TRANSCURRIDO</strong>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm table-borderless">
+                                
+                                    <tr>
+                                        <td width="25%">FECHA DE INICIO:</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-field="o.date_from"/>
+                                        </td>
+                                        <td width="25%">TIEMPO LABORADO:</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-esc="sum([i.number_of_days for i in o.worked_days_line_ids.filtered(lambda x: x.code == 'WORK_D')])"/> días
+                                        
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">FECHA DE FIN:</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-field="o.date_to"/>
+                                        </td>
+                                        <td width="25%">TIEMPO DE AUSENCIA:</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-esc="sum([i.days_payslip for i in o.leave_days_ids])"/> días
+                                        
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <t t-if="o.leave_days_ids.leave_id and (any(leave.is_vacation or leave.is_vacation_money for leave in o.leave_days_ids.leave_id))" t-foreach="o.leave_days_ids.leave_id" t-as="leave">
+                            <div class="container-fluid mb-3">
+                                <div class="row" style="background-color: #f2f2f2;">
+                                    <div class="col-12">
+                                        <strong>INFORMACION VACACIONES</strong>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div><strong>FECHA DE INICIO:</strong> <span t-esc="leave.date_from" t-options='{"widget": "date"}'/></div>
+                                            <div><strong>FECHA DE FIN:</strong> <span t-esc="leave.date_to" t-options='{"widget": "date"}'/></div>
+                                            <div t-if="leave.return_date">
+                                                <strong>FECHA RETORNO:</strong> <span t-esc="leave.return_date" t-options='{"widget": "date"}'/></div>
+                                        </div>
+                                        
+                                        <div class="col-3">
+                                            <div><strong>TIEMPO DE AUSENCIA:</strong> <span t-esc="leave.holidays"/> días</div>
+                                        </div>
+                                        
+                                        <div class="col-3">
+                                            <div t-if="leave.business_days">
+                                                <strong>DÍAS HÁBILES:</strong>
+                                                <div><span t-esc="leave.business_days"/> días</div>
+                                            </div>
+                                            <div t-if="leave.holidays">
+                                                <strong>DÍAS FESTIVOS:</strong>
+                                                <div><span t-esc="leave.holidays"/> días</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-3">
+                                            <div t-if="leave.ibc">
+                                                <strong>IBC:</strong>
+                                                <div><span t-esc="'{:,.2f}'.format(leave.ibc)"/></div>
+                                            </div>
+                                            <div t-if="leave.is_vacation or leave.is_vacation_money">
+                                                <strong>TIPO:</strong>
+                                                <div>
+                                                    <span t-if="leave.is_vacation">Disfrutada</span>
+                                                    <span t-if="leave.is_vacation_money">Dinero</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <div class="row" style="background-color: #f2f2f2;" t-if="o.struct_process == 'contrato'">
+                            <div class="col-12">
+                                <strong>DATO DE LIQUIDACION</strong>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="row"  t-if="o.struct_process == 'contrato'">
+                            <div class="col-12">
+                                <table class="table table-sm table-borderless">
+                                
+                                    <tr>
+                                        <td width="25%">FECHA DE LIQUIDACION</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-field="o.date_liquidacion"/>
+                                        </td>
+                                      <td width="25%">MOTIVO DE RENUNCIA</td>
+                                    <td class="text-right" width="25%">
+                                        <t t-if="o.have_compensation">RENUNCIA SIN JUSTA CAUSA</t>
+                                        <t t-else="">RENUNCIA CON JUSTA CAUSA</t>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">FECHA DE FIN CONTRACTO</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-field="o.contract_id.date_end"/>
+                                        </td>
+                                       <td width="25%">DETALLE</td>
+                                        <td class="text-right" width="25%">
+                                            <span t-field="o.reason_retiro"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Basic Info -->
+                        <div class="row" style="background-color: #f2f2f2;">
+                            <div class="col-12">
+                                <strong>DETALLE DE LA LIQUIDACION</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td>SALARIO BASICO ACTUAL:</td>
+                                        <td class="text-right">
+                                            <span t-field="o.contract_id.wage" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td>SALARIO BASE/AUXILIO DE SOSTENIMIENTO:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.category_id.code == 'BASIC').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AUXILIO DE TRASNPORTE:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code == 'AUX000').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Settlement Details -->
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <!--<th>CÓDIGO</th>-->
+                                            <th>CONCEPTO</th>
+                                            <th>VR BASE</th>
+                                            <th>CANT / DÍAS</th>
+                                            <th>DESDE</th>
+                                            <th>HASTA</th>
+                                            <th>(+) DEVENGOS</th>
+                                            <th>(-) DEDUCCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="sorted_lines" t-value="sorted([l for l in o.line_ids if l.salary_rule_id.appears_on_payslip], key=lambda l: l.salary_rule_id.sequence)"/>
+                                        <tr t-foreach="sorted_lines" t-as="line" t-att-class="(line.code.startswith('TOTAL') or line.code.startswith('NET')) and 'fw-bold bg-light'">
+                                            <!--<td><span t-field="line.code"/></td>-->
+                                            <td>
+                                                <span t-esc="line.name.upper()"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-if="line.leave_id">
+                                                    <span t-field="line.leave_id.ibc" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                                </t>
+                                                <t t-elif="line.category_id.code in ['SSOCIAL', 'HEYREC', 'BASIC']">
+                                                    <span t-field="line.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-field="line.amount_base" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
+                                                </t>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.quantity" t-options="{&quot;precision&quot;: 2}"/>
+                                                <t t-if="line.category_id.code in ['HEYREC', 'HED', 'HEN', 'HEDDF', 'HENDF']">
+                                                    /Horas
+                                                </t>
+                                                <t t-elif="line.category_id.code in ['HE', 'HED', 'HEN', 'HEDDF', 'HENDF']">
+                                                    /Dias
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.initial_accrual_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.final_accrual_date"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-if="line.total &gt;= 0" t-esc="abs(line.total)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-if="line.total &lt; 0" t-esc="abs(line.total)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Totals -->
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>LIQUIDACION</strong>
+                                <table class="table table-sm table-hover">
+                                    <tr t-if="sum(o.line_ids.filtered(lambda l: l.code == 'CESANTIAS').mapped('total')) != 0">
+                                        <td>VR TOTAL CESANTÍAS:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code == 'CESANTIAS').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="sum(o.line_ids.filtered(lambda l: l.code in ('INTCESANTIAS','INTCES_YEAR')).mapped('total')) != 0">
+                                        <td>VR TOTAL INTERESES DE CESANTÍAS:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code in ('INTCESANTIAS','INTCES_YEAR')).mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="sum(o.line_ids.filtered(lambda l: l.code == 'PRIMA').mapped('total')) != 0">
+                                        <td>VR TOTAL PRIMA:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code == 'PRIMA').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="sum(o.line_ids.filtered(lambda l: l.code == 'VACCONTRATO').mapped('total')) != 0">
+                                        <td>VR TOTAL VACACIONES:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code == 'VACCONTRATO').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <strong>'</strong>
+                                <table class="table table-sm table-hover">
+                                    <tr>
+                                        <td>(+) VR TOTAL DEVENGADO POR NOMINA:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code == 'TOTALDEV').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>(-) VR TOTAL DEDUCCIONES:</td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(o.line_ids.filtered(lambda l: l.code == 'TOTALDED').mapped('total'))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>VALOR NETO A PAGAR=&gt;</td>
+                                        <td class="text-right">
+                                            <span class="text-right" t-field="o.net_wage" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div>
+                                    <td class="text-justify" colspan="2">
+                                        <span t-esc="o.contract_id.get_amount_text(o.line_ids.filtered(lambda line: line.code == 'NET').total).lower().capitalize()"/>
+                                                        pesos 
+                                    </td>
+                                </div>
+                                <tr>
+                                    <td style="border:none;">
+                                        <b>Cuenta:</b>
+                                    </td>
+                                    <td style="border:none;">
+                                        <span t-esc="o.employee_id.work_contact_id.bank_ids.filtered(lambda bank: bank.is_main == True and bank.company_id == o.employee_id.company_id).display_name"/>
+                                    
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+                        <!-- Signatures -->
+                        <div class="row mt-5">
+                            <div class="col-4 text-center">
+                                <hr/>
+                                <p>EMPLEADOR</p>
+                            </div>
+                            <div class="col-4 text-center">
+                                <hr/>
+                                <p>FIRMA DEL TRABAJADOR</p>
+                                <p>C.C.</p>
+                            </div>
+                            <div class="col-4 text-center">
+                                <hr/>
+                                <p>REVISOR</p>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <p class="text-right">Elaborado por: 
+                                    
+                                    <span t-field="o.contract_id.hr_responsible_id"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+       <record id="report_views_lavish_v2" model="ir.actions.report">
+            <field name="name">Lavish Nomina</field>
+            <field name="model">hr.payslip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">lavish_hr_payroll.report_payroll_lavish_v2</field>
+            <field name="report_file">lavish_hr_payroll.report_payroll_lavish_v2</field>
+            <field name="print_report_name">'NOMINA - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_hr_payslip"/>
+            <field name="binding_type">report</field>
+            <!-- Erase fields to avoid double PDF posting -->
+            <field name="attachment"></field>
+            <field name="attachment_use" eval="False"/>
+        </record>
+
+        <template id="lavish_hr_payroll.report_payroll_lavish">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.basic_layout">
+                        <style>
+                            #table-report {
+                                font-size: 6px;
+                            }
+                        </style>
+                        <div class="page">
+                            <span t-esc="doc.pdf_report_payroll"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="report_payroll_lavish_paperformat" model="report.paperformat">
+            <field name="name">Formato Informe de Liquidación lavish</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="report_payroll_lavish_action" model="ir.actions.report">
+            <field name="paperformat_id" ref="lavish_hr_payroll.report_payroll_lavish_paperformat"/>
+        </record>
+
+    </data>
+</odoo>

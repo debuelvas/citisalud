@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="replace" model="hr.type.note">
+            <field name="code">1</field>
+            <field name="name">Reemplazar</field>
+        </record>
+        <record id="delete" model="hr.payroll.period">
+            <field name="code">2</field>
+            <field name="name">Eliminar</field>
+        </record>
+    </data>
+</odoo>

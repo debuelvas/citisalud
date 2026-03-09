@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Layout de Email Personalizado SIN botón del portal -->
+    <template id="mail_notification_layout_no_button" name="Email Layout - Sin Botón Portal">
+        <html t-att-lang="lang">
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            </head>
+            <body style="margin: 0; padding: 0; background-color: #F1F1F1;">
+                <!-- Contenido del mensaje sin botón del portal -->
+                <t t-out="message.body"/>
+            </body>
+        </html>
+    </template>
+</odoo>

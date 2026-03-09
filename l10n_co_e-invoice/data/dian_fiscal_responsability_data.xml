@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+
+
+
+        <record id="fiscal_responsability_O-13" model="dian.fiscal.responsability">
+            <field name="code">O-13</field>
+            <field name="name">Gran contribuyente</field>
+        </record>
+
+        <record id="fiscal_responsability_O-15" model="dian.fiscal.responsability">
+            <field name="code">O-15</field>
+            <field name="name">Autorretenedor</field>
+        </record>
+
+        <record id="fiscal_responsability_O-23" model="dian.fiscal.responsability">
+            <field name="code">O-23</field>
+            <field name="name">Agente de retención IVA</field>
+        </record>
+
+        <record id="fiscal_responsability_O-47" model="dian.fiscal.responsability">
+            <field name="code">O-47</field>
+            <field name="name">Régimen Simple de Tributación</field>
+        </record>
+
+        <record id="fiscal_responsability_O-48" model="dian.fiscal.responsability">
+            <field name="code">O-48</field>
+            <field name="name">Impuesto sobre las ventas (Doc Soporte)</field>
+        </record>
+
+        <record id="fiscal_responsability_O-49" model="dian.fiscal.responsability">
+            <field name="code">O-49</field>
+            <field name="name">No responsable de IVA (Doc Soporte)</field>
+        </record>
+
+        <record id="fiscal_responsability_R-99-PN" model="dian.fiscal.responsability">
+            <field name="code">R-99-PN</field>
+            <field name="name">No responsable</field>
+        </record>
+
+
+    </data>
+</odoo>

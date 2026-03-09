@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="lavish_erp_action_alerts" model="ir.actions.act_window">
+            <field name="name">Alertas</field>
+            <field name="res_model">lavish.custom.alerts</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Alerta
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_erp.list_custom_alerts">
+            <field name="name">lavish list custom alerts</field>
+            <field name="model">lavish.custom.alerts</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="model_name"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>        
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_erp.form_custom_alerts">
+            <field name="name">lavish form custom alerts</field>
+            <field name="model">lavish.custom.alerts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Alertas personalizadas">
+                        <group>                        
+                            <field name="name" required="1"/>
+                            <field name="description"/>
+                            <field name="active"/>
+                            <field name="type_alert" widget="radio"/>
+                            <field name="model_id" can_create="true" can_write="true" required="1"/>
+                            <field name="model_name" invisile="1"/>
+                            <field name="action_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}"/>
+                            <field name="model_fields" widget="many2many_tags"/>
+                            <field name="txt_model_fields"/>
+                            <field name="model_field_email"/>
+                            <field name="email_from"/>
+                            <field name="subject"/>
+                            <separator/>
+                            <field name="body_html" nolabel="1" class="oe_read_only" widget="html"/>
+                            <field name="body_arch" nolabel="1" class="o_mail_body oe_edit_only" widget="mass_mailing_html"/>                            
+                        </group>
+                        <button name="send_alert" string="Enviar alerta" type="object"/>                         
+                    </sheet>
+                </form>
+            </field>
+        </record>        
+    
+    </data>
+</odoo>

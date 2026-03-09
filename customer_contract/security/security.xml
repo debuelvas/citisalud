@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="manager_customer_contract" model="res.groups">
+            <field name="name">Contratos de clientes</field>
+            <field name="category_id" ref="base.module_category_usability" />
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        </record>
+
+    </data>
+</odoo>

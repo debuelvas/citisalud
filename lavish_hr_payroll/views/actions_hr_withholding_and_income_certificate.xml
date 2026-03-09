@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- Certificado ingreso y retenciones-->
+        <record model="ir.actions.act_window" id="action_hr_withholding_and_income_certificate">
+            <field name="name">Certificado ingreso y retenciones</field>
+            <field name="res_model">hr.withholding.and.income.certificate</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="hr_withholding_and_income_certificate_form" model="ir.ui.view">
+            <field name="name">Certificado ingreso y retenciones</field>
+            <field name="model">hr.withholding.and.income.certificate</field>
+            <field name="arch" type="xml">
+                <form string="Certificado ingreso y retenciones">
+                            <group>
+                                <field name="year"/>
+                            </group>
+                            <group>
+                                <field name="employee_ids" widget="many2many_tags"/>
+                            </group>
+                        <group>
+                        <field name="save_documents"/>
+                    </group>
+                    <p>Al guardar en documentos, no se descargará el archivo PDF.</p>
+                    <footer>
+                        <button name="generate_certificate" string="Generar PDF" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="action_hr_transfers_of_entities">
+            <field name="name">Traslados de entidades</field>
+            <field name="res_model">hr.transfers.of.entities</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_transfers_of_entities_form">
+            <field name="name">Traslados de entidades</field>
+            <field name="model">hr.transfers.of.entities</field>
+            <field name="arch" type="xml">
+                <form string="Traslado de Entidades">
+                    <sheet>
+                        <group>
+                            <field name="employee_id"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="type_of_entity"/>
+                            </group>
+                            <group>
+                                <field name="entity_actually" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Traslado">
+                            <group>
+                                <field name="new_entity"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="process_transfer" string="Trasladar" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

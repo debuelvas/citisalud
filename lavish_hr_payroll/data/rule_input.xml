@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="payslip_input_type_IBC" model="hr.payslip.input.type">
+            <field name="name">IBC MES ANTERIOR</field>
+            <field name="code">IBC</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_HE" model="hr.payslip.input.type">
+            <field name="name">Horas Extras</field>
+            <field name="code">HE</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_HR" model="hr.payslip.input.type">
+            <field name="name">Recargo</field>
+            <field name="code">HR</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_AUXT" model="hr.payslip.input.type">
+            <field name="name">Auxilio de transporte</field>
+            <field name="code">AUXT</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_SL" model="hr.payslip.input.type">
+            <field name="name">Sueldo</field>
+            <field name="code">SL</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DL" model="hr.payslip.input.type">
+            <field name="name">Cantidad de dias Laborados</field>
+            <field name="code">DL</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DA" model="hr.payslip.input.type">
+            <field name="name">Cantidad de dias ausencias</field>
+            <field name="code">DA</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_COM" model="hr.payslip.input.type">
+            <field name="name">Comisiones</field>
+            <field name="code">COM</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DNS" model="hr.payslip.input.type">
+            <field name="name">Devengo No Salarial</field>
+            <field name="code">DNS</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DS" model="hr.payslip.input.type">
+            <field name="name">Devengo Salarial</field>
+            <field name="code">DS</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_IBC12" model="hr.payslip.input.type">
+            <field name="name">IBC MES ANTERIOR12</field>
+            <field name="code">IBC12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_HE12" model="hr.payslip.input.type">
+            <field name="name">Horas Extras 12</field>
+            <field name="code">HE12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_HR12" model="hr.payslip.input.type">
+            <field name="name">Recargo 12</field>
+            <field name="code">HR12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_AUXT12" model="hr.payslip.input.type">
+            <field name="name">Auxilio de transporte 12</field>
+            <field name="code">AUXT12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_SL12" model="hr.payslip.input.type">
+            <field name="name">Sueldo 12</field>
+            <field name="code">SL12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DL12" model="hr.payslip.input.type">
+            <field name="name">Cantidad de dias Laborados 12</field>
+            <field name="code">DL12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DA12" model="hr.payslip.input.type">
+            <field name="name">Cantidad de dias ausencias 12</field>
+            <field name="code">DA12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_COM12" model="hr.payslip.input.type">
+            <field name="name">Comisiones 12</field>
+            <field name="code">COM12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DNS12" model="hr.payslip.input.type">
+            <field name="name">Devengo No Salarial 12</field>
+            <field name="code">DNS12</field>
+            <field name="struct_ids"  eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+        <record id="payslip_input_type_DS12" model="hr.payslip.input.type">
+            <field name="name">Devengo Salarial 12</field>
+            <field name="code">DS12</field>
+            <field name="struct_ids" eval="[(6, 0, [ref('lavish_hr_employee.hr_payroll_structure_contrato'),ref('lavish_hr_employee.hr_payroll_structure_Nonima_base'),ref('lavish_hr_employee.hr_payroll_structure_cesantias'), ref('lavish_hr_employee.hr_payroll_structure_prima'), ref('lavish_hr_employee.hr_payroll_structure_vacaciones')])]" />
+        </record>
+    </data>
+</odoo>

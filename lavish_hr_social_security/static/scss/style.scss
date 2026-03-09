@@ -1,0 +1,251 @@
+.o_hr_social_security_kanban {
+    // Ajustes para que ocupe todo el ancho
+    .o_kanban_view {
+        padding: 0 !important;
+    }
+    
+    .o_kanban_record {
+        padding: 0 !important;
+        margin: 0 0 10px 0 !important;
+        width: 100% !important;
+    }
+    
+    // Estilos de las tarjetas
+    .o_hr_social_security_card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        overflow: hidden;
+        
+        &.o_kanban_green {
+            border-left: 6px solid #28a745;
+        }
+        
+        &.o_kanban_blue {
+            border-left: 6px solid #17a2b8;
+        }
+    }
+    
+    // Encabezado
+    .o_hr_social_security_header {
+        padding: 8px 12px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        
+        .o_hr_employee_header {
+            strong {
+                display: block;
+                font-size: 14px;
+            }
+            
+            .o_hr_employee_details {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin-top: 5px;
+                
+                .o_hr_detail_badge {
+                    display: inline-block;
+                    font-size: 11px;
+                    color: #6c757d;
+                    background-color: #f1f3f5;
+                    padding: 2px 8px;
+                    border-radius: 3px;
+                    margin-right: 5px;
+                    margin-bottom: 5px;
+                }
+                
+                .o_badge_ingreso {
+                    color: #28a745;
+                    background-color: rgba(40, 167, 69, 0.1);
+                }
+                
+                .o_badge_retiro {
+                    color: #dc3545;
+                    background-color: rgba(220, 53, 69, 0.1);
+                }
+            }
+        }
+        
+        // Sección de días
+        .o_hr_days_section {
+            margin-top: 8px;
+            border-top: 1px dashed #dee2e6;
+            padding-top: 8px;
+            
+            .o_hr_days_title {
+                font-weight: bold;
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+            
+            .o_hr_days_badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                
+                .badge {
+                    font-size: 11px;
+                    padding: 3px 6px;
+                    border-radius: 3px;
+                    white-space: normal;
+                    text-align: left;
+                    line-height: 1.3;
+                }
+                
+                .o_badge_liquidado {
+                    background-color: #28a745;
+                    color: white;
+                }
+                
+                .o_badge_vacaciones {
+                    background-color: #007bff;
+                    color: white;
+                }
+                
+                .o_badge_incapacidad {
+                    background-color: #fd7e14;
+                    color: white;
+                }
+                
+                .o_badge_incapacidad_arp {
+                    background-color: #e83e8c;
+                    color: white;
+                }
+                
+                .o_badge_licencia {
+                    background-color: #6c757d;
+                    color: white;
+                }
+                
+                .o_badge_licencia_rem {
+                    background-color: #20c997;
+                    color: white;
+                }
+                
+                .o_badge_maternidad {
+                    background-color: #17a2b8;
+                    color: white;
+                }
+                
+                .o_badge_horas {
+                    background-color: #6610f2;
+                    color: white;
+                }
+            }
+        }
+    }
+    
+    // Contenido principal
+    .o_hr_social_security_content {
+        padding: 0;
+        overflow-x: auto;
+    }
+    
+    // Tabla horizontal
+    .o_hr_horizontal_table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            white-space: nowrap;
+        }
+        
+        th {
+            font-weight: bold;
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        
+        .o_hr_concept {
+            min-width: 180px;
+            font-weight: bold;
+        }
+        
+        .o_hr_base,
+        .o_hr_value,
+        .o_hr_total {
+            text-align: right;
+            min-width: 100px;
+        }
+        
+        .o_hr_percent {
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .o_hr_entity {
+            min-width: 150px;
+        }
+        
+        .o_hr_total {
+            font-weight: bold;
+        }
+        
+        // Colores para los conceptos
+        .o_hr_row_salud .o_hr_concept {
+            color: #007bff;
+        }
+        
+        .o_hr_row_pension .o_hr_concept {
+            color: #28a745;
+        }
+        
+        .o_hr_row_arl .o_hr_concept {
+            color: #fd7e14;
+        }
+        
+        .o_hr_row_ccf .o_hr_concept,
+        .o_hr_row_sena .o_hr_concept,
+        .o_hr_row_icbf .o_hr_concept {
+            color: #dc3545;
+        }
+        
+        // Filas alternadas
+        tbody tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        // Hover sobre las filas
+        tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+    
+    // Pie de tarjeta
+    .o_hr_social_security_footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 6px 12px;
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        
+        button {
+            font-size: 12px;
+            padding: 3px 8px;
+        }
+    }
+    
+    // Estilos para pantallas pequeñas
+    @media (max-width: 767px) {
+        .o_hr_horizontal_table {
+            font-size: 11px;
+            
+            th, td {
+                padding: 6px 4px;
+            }
+        }
+        
+        .o_hr_employee_details {
+            flex-direction: column;
+        }
+    }
+}

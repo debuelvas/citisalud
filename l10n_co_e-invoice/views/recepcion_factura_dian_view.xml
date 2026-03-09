@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="recepcion_factura_dian_view_tree" model="ir.ui.view">
+        <field name="name">recepcion.factura.dian.view.tree</field>
+        <field name="model">recepcion.factura.dian</field>
+        <field name="arch" type="xml">
+            <tree string="recepcion_factura_dian">
+                <field name="name" />
+                <field name="zip_file" />
+                <field name="application_response_ids" string="Eventos Dian" widget="many2many_tags"/>
+                <field name="tiene_eventos" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="recepcion_factura_dian_view_form" model="ir.ui.view">
+        <field name="name">recepcion.factura.dian.view.form</field>
+        <field name="model">recepcion.factura.dian</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button type="object" name="read_zip" string="Extraer ZIP"  invisible="state in ['read','send','procces']"/>
+                    <button type="object" name="process_xml" string="Procesar XML"  invisible="state in  ['draft','send','procces']"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="supplier_id" />
+                            <field name="cufe" />
+                            <field name="zip_file"  readonly="state in ['read','send']"/>
+                        </group>
+                        <group>
+                            <field name="n_invoice" />
+                            <field name="date_invoice" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="line_invoice" string="Lineas de factura">
+                            <field name="order_line_ids" readonly="1">
+                                <tree string="Lineas de factura" editable="bottom">
+                                    <field name="name" />
+                                    <field name="qty" />
+                                    <field name="uom" />
+                                    <field name="price" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                            <group>
+                                <group>
+                                </group>
+                                <group>
+                                    <field name="total_tax" readonly="1"/>
+                                    <field name="total_untax" readonly="1"/>
+                                    <field name="total" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="pdf_view" string="Factura" invisible="pdf_file ==  False">
+                            <field name="pdf_file" widget="pdf_viewer"/>
+                        </page>
+                        <page name="invoice_xml" string="XML Factura">
+                            <field name="invoice_xml" readonly="1"/>
+                        </page>
+                        <page name="xml_text" string="XML Completo">
+                            <field name="xml_text" readonly="1"/>
+                        </page>
+                        <page name="dian_events" string="Eventos DIAN">
+                            <group col="1">
+                                <button name="add_application_response" type="object" string="Enviar Acuse de recibo" context="{'response_code': '030'}"/>
+                                <button name="add_application_response" type="object" string="Enviar Recibo del bien y/o servicio" context="{'response_code': '032'}"/>
+                                <button name="add_application_response" type="object" string="Enviar Aceptación expresa" context="{'response_code': '033'}"/>
+                                <!-- <button name="action_register_event" type="object" string="Registrar Otro Evento"/> -->
+                            </group>
+                            <field name="application_response_ids" readonly="1">
+                                <tree>
+                                    <field name="id"/>
+                                    <field name="response_code"/>
+                                    <field name="user_id" string='Usuario'/>
+                                    <field name="status"/>
+                                    <field name="response_message_dian"/>
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="recepcion_factura_dian_action" model="ir.actions.act_window">
+        <field name="name">Recepcion Factura Dian</field>
+        <field name="res_model">recepcion.factura.dian</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="recepcion_factura_dian_menu"
+        name="Recepcion Facturas Dian"
+        action="recepcion_factura_dian_action"
+        parent="account.menu_finance_payables"
+        sequence="10"/>
+
+</odoo>

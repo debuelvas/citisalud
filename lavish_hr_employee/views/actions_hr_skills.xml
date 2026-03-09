@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <!-- Habilidades-->
+        <record id="view_lavish_hr_skills" model="ir.ui.view">
+            <field name="name">hr.skills.form.inherit</field>
+            <field name="model">hr.skill.type</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_skills.hr_employee_skill_type_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/group[1]/field[@name='skill_ids']/tree[1]/field[@name='name']"
+                       position="after">
+                    <field name="is_other" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Tipo de resume-->
+        <record id="view_hr_resume_line_type" model="ir.ui.view">
+            <field name="name">hr.resume.line.type.inherit</field>
+            <field name="model">hr.resume.line.type</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_skills.hr_resume_line_type_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="type_resume"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

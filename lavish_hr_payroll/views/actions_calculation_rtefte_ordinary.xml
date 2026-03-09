@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+		<!-- Tipos impuestos retención -->
+		<record model="ir.actions.act_window"  id="action_hr_calculation_rtefte_ordinary">
+				<field name="name">Cálculo RteFte Ordinario</field>
+				<field name="res_model">hr.calculation.rtefte.ordinary</field>
+				<field name="view_mode">tree</field>
+		</record>
+        <record model="ir.ui.view" id="lavish_hr_payroll.list_hr_calculation_rtefte_ordinary">
+			    <field name="name">hr calculation rtefte ordinary list</field>
+			    <field name="model">hr.calculation.rtefte.ordinary</field>
+			    <field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="range_initial"/>                
+					<field name="range_finally"/>           					
+                    <field name="subtract_uvt"/>                
+					<field name="addition_uvt"/>           					
+                    <field name="porc"/>
+				</tree>
+			</field>
+		</record>
+    </data>
+</odoo>

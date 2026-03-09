@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="instrumento_no_definido" model="hr.payment.method">
+            <field name="code">1</field>
+            <field name="name">Instrumento no definido</field>
+        </record>
+        <record id="credito_ach" model="hr.payment.method">
+            <field name="code">2</field>
+            <field name="name">Crédito ACH</field>
+        </record>
+        <record id="debito_ach" model="hr.payment.method">
+            <field name="code">3</field>
+            <field name="name">Débito ACH</field>
+        </record>
+        <record id="reversion_debito_de_demanda_ach" model="hr.payment.method">
+            <field name="code">4</field>
+            <field name="name">Reversión débito de demanda ACH</field>
+        </record>
+        <record id="reversion_credito_de_demanda_ach" model="hr.payment.method">
+            <field name="code">5</field>
+            <field name="name">Reversión crédito de demanda ACH</field>
+        </record>
+        <record id="credito_de_demanda_ach" model="hr.payment.method">
+            <field name="code">6</field>
+            <field name="name">Crédito de demanda ACH</field>
+        </record>
+        <record id="debito_de_demanda_ach" model="hr.payment.method">
+            <field name="code">7</field>
+            <field name="name">Débito de demanda ACH</field>
+        </record>
+        <record id="mantener" model="hr.payment.method">
+            <field name="code">8</field>
+            <field name="name">Mantener</field>
+        </record>
+        <record id="clearing_nacional_o_regional" model="hr.payment.method">
+            <field name="code">9</field>
+            <field name="name">Clearing Nacional o Regional</field>
+        </record>
+        <record id="efectivo" model="hr.payment.method">
+            <field name="code">10</field>
+            <field name="name">Efectivo</field>
+        </record>
+        <record id="reversion_credito_ahorro" model="hr.payment.method">
+            <field name="code">11</field>
+            <field name="name">Reversión Crédito Ahorro</field>
+        </record>
+        <record id="reversion_debito_ahorro" model="hr.payment.method">
+            <field name="code">12</field>
+            <field name="name">Reversión Débito Ahorro</field>
+        </record>
+        <record id="credito_ahorro" model="hr.payment.method">
+            <field name="code">13</field>
+            <field name="name">Crédito Ahorro</field>
+        </record>
+        <record id="debito_ahorro" model="hr.payment.method">
+            <field name="code">14</field>
+            <field name="name">Débito Ahorro</field>
+        </record>
+        <record id="bookentry_credito" model="hr.payment.method">
+            <field name="code">15</field>
+            <field name="name">Bookentry Crédito</field>
+        </record>
+        <record id="bookentry_debito" model="hr.payment.method">
+            <field name="code">16</field>
+            <field name="name">Bookentry Débito</field>
+        </record>
+        <record id="concentración_de_la_demanda_en_efectivo_desembolso_credito_ccd" model="hr.payment.method">
+            <field name="code">17</field>
+            <field name="name">Concentración de la demanda en efectivo
+/Desembolso Crédito (CCD)</field>
+        </record>
+        <record id="concentración_de_la_demanda_en_efectivo_desembolso_ccd_debito" model="hr.payment.method">
+            <field name="code">18</field>
+            <field name="name">Concentración de la demanda en efectivo /
+Desembolso (CCD) débito</field>
+        </record>
+        <record id="credito_pago_negocio_corporativo_ctp" model="hr.payment.method">
+            <field name="code">19</field>
+            <field name="name">Crédito Pago negocio corporativo (CTP)</field>
+        </record>
+        <record id="debito_negocio_intercambio_corporativo_ctx" model="hr.payment.method">
+            <field name="code">40</field>
+            <field name="name">Débito Negocio Intercambio Corporativo (CTX)</field>
+        </record>
+        <record id="concentracion_efectivodesembolso_credito_plus_ccd" model="hr.payment.method">
+            <field name="code">41</field>
+            <field name="name">Concentración efectivo/Desembolso Crédito
+plus (CCD+)</field>
+        </record>
+        <record id="consignación_bancaria" model="hr.payment.method">
+            <field name="code">42</field>
+            <field name="name">Consignación bancaria</field>
+        </record>
+        <record id="concentracion_efectivo__desembolso_debito_plus_ccd" model="hr.payment.method">
+            <field name="code">43</field>
+            <field name="name">Concentración efectivo / Desembolso Débito
+plus (CCD+)</field>
+        </record>
+        <record id="nota_cambiaria" model="hr.payment.method">
+            <field name="code">44</field>
+            <field name="name">Nota cambiaria</field>
+        </record>
+        <record id="transferencia_credito_bancario" model="hr.payment.method">
+            <field name="code">45</field>
+            <field name="name">Transferencia Crédito Bancario</field>
+        </record>
+        <record id="transferencia_debito_interbancario" model="hr.payment.method">
+            <field name="code">46</field>
+            <field name="name">Transferencia Débito Interbancario</field>
+        </record>
+        <record id="transferencia_debito_bancaria" model="hr.payment.method">
+            <field name="code">47</field>
+            <field name="name">Transferencia Débito Bancaria</field>
+        </record>
+        <record id="tarjeta_credito" model="hr.payment.method">
+            <field name="code">48</field>
+            <field name="name">Tarjeta Crédito</field>
+        </record>
+        <record id="tarjeta_debito" model="hr.payment.method">
+            <field name="code">49</field>
+            <field name="name">Tarjeta Débito</field>
+        </record>
+        <record id="postgiro" model="hr.payment.method">
+            <field name="code">50</field>
+            <field name="name">Postgiro</field>
+        </record>
+        <record id="telex_estándar_bancario_frances" model="hr.payment.method">
+            <field name="code">51</field>
+            <field name="name">Telex estándar bancario francés</field>
+        </record>
+        <record id="pago_comercial_urgente" model="hr.payment.method">
+            <field name="code">52</field>
+            <field name="name">Pago comercial urgente</field>
+        </record>
+        <record id="pago_tesorería_urgente" model="hr.payment.method">
+            <field name="code">53</field>
+            <field name="name">Pago Tesorería Urgente</field>
+        </record>
+        <record id="nota_promisoria" model="hr.payment.method">
+            <field name="code">60</field>
+            <field name="name">Nota promisoria</field>
+        </record>
+        <record id="nota_promisoria_firmada_por_el_acreedor" model="hr.payment.method">
+            <field name="code">61</field>
+            <field name="name">Nota promisoria firmada por el acreedor</field>
+        </record>
+        <record id="nota_promisoria_firmada_por_el_acreedor_avalada_por_el_banco" model="hr.payment.method">
+            <field name="code">62</field>
+            <field name="name">Nota promisoria firmada por el acreedor,
+avalada por el banco</field>
+        </record>
+        <record id="nota_promisoria_firmada_por_el_acreedor_avalada_por_un_tercero" model="hr.payment.method">
+            <field name="code">63</field>
+            <field name="name">Nota promisoria firmada por el acreedor,
+avalada por un tercero</field>
+        </record>
+        <record id="nota_promisoria_firmada_por_el_banco" model="hr.payment.method">
+            <field name="code">64</field>
+            <field name="name">Nota promisoria firmada por el banco</field>
+        </record>
+        <record id="cheque" model="hr.payment.method">
+            <field name="code">20</field>
+            <field name="name">Cheque</field>
+        </record>
+        <record id="proyecto_bancario" model="hr.payment.method">
+            <field name="code">21</field>
+            <field name="name">Proyecto bancario</field>
+        </record>
+        <record id="proyecto_bancario_certificado" model="hr.payment.method">
+            <field name="code">22</field>
+            <field name="name">Proyecto bancario certificado</field>
+        </record>
+        <record id="cheque_bancario" model="hr.payment.method">
+            <field name="code">23</field>
+            <field name="name">Cheque bancario</field>
+        </record>
+        <record id="nota_cambiaria_esperando_aceptación" model="hr.payment.method">
+            <field name="code">24</field>
+            <field name="name">Nota cambiaria esperando aceptación</field>
+        </record>
+        <record id="cheque_certificado" model="hr.payment.method">
+            <field name="code">25</field>
+            <field name="name">Cheque certificado</field>
+        </record>
+        <record id="nota_promisoria_firmada_por_un_banco_avalada_por_otro_banco" model="hr.payment.method">
+            <field name="code">65</field>
+            <field name="name">Nota promisoria firmada por un banco avalada
+por otro banco</field>
+        </record>
+        <record id="nota_promisoria_firmada" model="hr.payment.method">
+            <field name="code">66</field>
+            <field name="name">Nota promisoria firmada</field>
+        </record>
+        <record id="nota_promisoria_firmada_por_un_tercero_avalada_por_un_banco" model="hr.payment.method">
+            <field name="code">67</field>
+            <field name="name">Nota promisoria firmada por un tercero avalada
+por un banco</field>
+        </record>
+        <record id="retiro_de_nota_por_el_por_el_acreedor" model="hr.payment.method">
+            <field name="code">70</field>
+            <field name="name">Retiro de nota por el por el acreedor</field>
+        </record>
+        <record id="bonos" model="hr.payment.method">
+            <field name="code">71</field>
+            <field name="name">Bonos</field>
+        </record>
+        <record id="vales" model="hr.payment.method">
+            <field name="code">72</field>
+            <field name="name">Vales</field>
+        </record>
+        <record id="cheque_local" model="hr.payment.method">
+            <field name="code">26</field>
+            <field name="name">Cheque Local</field>
+        </record>
+        <record id="debito_pago_negocio_corporativo_ctp" model="hr.payment.method">
+            <field name="code">27</field>
+            <field name="name">Débito Pago Negocio Corporativo (CTP)</field>
+        </record>
+        <record id="credito_negocio_intercambio_corporativo_ctx" model="hr.payment.method">
+            <field name="code">28</field>
+            <field name="name">Crédito Negocio Intercambio Corporativo
+(CTX)</field>
+        </record>
+        <record id="debito_negocio_intercambio_corporativo_ctx" model="hr.payment.method">
+            <field name="code">29</field>
+            <field name="name">Débito Negocio Intercambio Corporativo
+(CTX)</field>
+        </record>
+        <record id="transferencia_credito" model="hr.payment.method">
+            <field name="code">30</field>
+            <field name="name">Transferencia Crédito</field>
+        </record>
+        <record id="transferencia_debito" model="hr.payment.method">
+            <field name="code">31</field>
+            <field name="name">Transferencia Débito</field>
+        </record>
+        <record id="concentración_efectivo__desembolso_credito_plus_ccd" model="hr.payment.method">
+            <field name="code">32</field>
+            <field name="name">Concentración Efectivo / Desembolso
+Crédito plus (CCD+)</field>
+        </record>
+        <record id="concentración_efectivo__desembolso_debito_plus_ccd" model="hr.payment.method">
+            <field name="code">33</field>
+            <field name="name">Concentración Efectivo / Desembolso
+Débito plus (CCD+)</field>
+        </record>
+        <record id="pago_y_depósito_pre_acordado_ppd" model="hr.payment.method">
+            <field name="code">34</field>
+            <field name="name">Pago y depósito pre acordado (PPD)</field>
+        </record>
+        <record id="concentración_efectivo_ahorros_desembolso_credito_ccd" model="hr.payment.method">
+            <field name="code">35</field>
+            <field name="name">Concentración efectivo ahorros /
+Desembolso Crédito (CCD)</field>
+        </record>
+        <record id="concentración_efectivo_ahorros_desembolso_credito_ccd" model="hr.payment.method">
+            <field name="code">36</field>
+            <field name="name">Concentración efectivo ahorros /
+Desembolso Crédito (CCD)</field>
+        </record>
+        <record id="pago_negocio_corporativo_ahorros_credito_ctp" model="hr.payment.method">
+            <field name="code">37</field>
+            <field name="name">Pago Negocio Corporativo Ahorros Crédito
+(CTP)</field>
+        </record>
+        <record id="pago_negocio_corporativo_ahorros_debito_ctp" model="hr.payment.method">
+            <field name="code">38</field>
+            <field name="name">Pago Negocio Corporativo Ahorros Débito
+(CTP)</field>
+        </record>
+        <record id="credito_negocio_intercambio_corporativo_ctx" model="hr.payment.method">
+            <field name="code">39</field>
+            <field name="name">Crédito Negocio Intercambio Corporativo
+(CTX)</field>
+        </record>
+        <record id="retiro_de_nota_por_el_por_el_acreedor_sobre_un_banco" model="hr.payment.method">
+            <field name="code">74</field>
+            <field name="name">Retiro de nota por el por el acreedor sobre un
+banco</field>
+        </record>
+        <record id="retiro_de_nota_por_el_acreedor_avalada_por_otro_banco" model="hr.payment.method">
+            <field name="code">75</field>
+            <field name="name">Retiro de nota por el acreedor, avalada por otro
+banco</field>
+        </record>
+        <record id="retiro_de_nota_por_el_acreedor_sobre_un_banco_avalada_por_un_tercero" model="hr.payment.method">
+            <field name="code">76</field>
+            <field name="name">Retiro de nota por el acreedor, sobre un banco
+avalada por un tercero</field>
+        </record>
+        <record id="retiro_de_una_nota_por_el_acreedor_sobre_un_tercero" model="hr.payment.method">
+            <field name="code">77</field>
+            <field name="name">Retiro de una nota por el acreedor sobre un
+tercero</field>
+        </record>
+        <record id="retiro_de_una_nota_por_el_acreedor_sobre_un_tercero_avalada_por_un_banco" model="hr.payment.method">
+            <field name="code">78</field>
+            <field name="name">Retiro de una nota por el acreedor sobre un
+tercero avalada por un banco</field>
+        </record>
+        <record id="nota_bancaria_transferible" model="hr.payment.method">
+            <field name="code">91</field>
+            <field name="name">Nota bancaria transferible</field>
+        </record>
+        <record id="cheque_local_trasferible" model="hr.payment.method">
+            <field name="code">92</field>
+            <field name="name">Cheque local trasferible</field>
+        </record>
+        <record id="giro_referenciado" model="hr.payment.method">
+            <field name="code">93</field>
+            <field name="name">Giro referenciado</field>
+        </record>
+        <record id="giro_urgente" model="hr.payment.method">
+            <field name="code">94</field>
+            <field name="name">Giro urgente</field>
+        </record>
+        <record id="giro_formato_abierto" model="hr.payment.method">
+            <field name="code">95</field>
+            <field name="name">Giro formato abierto</field>
+        </record>
+        <record id="metodo_de_pago_solicitado_no_usado" model="hr.payment.method">
+            <field name="code">96</field>
+            <field name="name">Método de pago solicitado no usado</field>
+        </record>
+        <record id="clearing_entre_partners" model="hr.payment.method">
+            <field name="code">97</field>
+            <field name="name">Clearing entre partners</field>
+        </record>
+        <record id="cuentas_de_ahorro_de_tramite_simplificado_catsnequi_daviplata" model="hr.payment.method">
+            <field name="code">98</field>
+            <field name="name">Cuentas de Ahorro de Tramite Simplificado
+(CATS)(Nequi, Daviplata, etc)</field>
+        </record>
+        <record id="acuerdo_mutuo" model="hr.payment.method">
+            <field name="code">ZZZ</field>
+            <field name="name">Acuerdo mutuo</field>
+        </record>
+    </data>
+</odoo>

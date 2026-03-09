@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="customer_contract_search_view" model="ir.ui.view">
+            <field name="name">customer.contract.search</field>
+            <field name="model">customer.contract</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Contrato" filter_domain="['|', '|', ('name', 'ilike', self), ('partner_id', 'ilike', self), ('description', 'ilike', self)]"/>
+                    <field name="partner_id"/>
+                    <field name="products_ids"/>
+                    <field name="benefit_plan_ids"/>
+                    
+                    <filter string="Contratos Activos" 
+                            name="active_contracts" 
+                            domain="[('end_date', '>=', context_today())]"/>
+                    <filter string="Contratos Vencidos" 
+                            name="expired_contracts" 
+                            domain="[('end_date', '&lt;', context_today())]"/>
+                    <filter string="Vence este mes" 
+                            name="expire_this_month" 
+                            domain="[
+                                ('end_date', '>=', context_today()),
+                                ('end_date', '&lt;=', (context_today() + relativedelta(months=1, days=-1)))
+                            ]"/>
+                    
+                    <separator/>
+                    <filter string="Empresa Pública" 
+                            name="public_company" 
+                            domain="[('type_company', '=', 'pub')]"/>
+                    <filter string="Empresa Privada" 
+                            name="private_company" 
+                            domain="[('type_company', '=', 'prv')]"/>
+                    
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Cliente" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Tipo de Empresa" name="group_type" context="{'group_by': 'type_company'}"/>
+                        <filter string="Método de Pago" name="group_payment" context="{'group_by': 'payment_method'}"/>
+                        <separator/>
+                        <filter string="Mes de Inicio" name="group_start_month" context="{'group_by': 'start_date:month'}"/>
+                        <filter string="Mes de Fin" name="group_end_month" context="{'group_by': 'end_date:month'}"/>
+                        <filter string="Año de Inicio" name="group_start_year" context="{'group_by': 'start_date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="customer_contract_form" model="ir.ui.view">
+            <field name="name">customer.contract.form</field>
+            <field name="model">customer.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contrato de clientes">
+                    <header>
+                        <button name="%(customer_contract_create_annex_action)d" type="action" string="Crear Otrosí"/>
+                        <button name="%(customer_contract_delete_annex_action)d" type="action" string="Eliminar Otrosí"/>
+                        <button name="%(customer_contract_create_report_budget_action)d" type="action" string="Crear Documentos" invisible="type_company == 'prv'"/>
+                        <button name="%(customer_contract_delete_report_budget_action)d" type="action" string="Eliminar Documentos" invisible="type_company == 'prv'"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_sale_orders" 
+                                    type="object" 
+                                    class="oe_stat_button" 
+                                    icon="fa-usd">
+                                <field name="sale_order_count" widget="statinfo" string="Ventas"/>
+                            </button>
+                            <button name="action_view_invoices" 
+                                    type="object" 
+                                    class="oe_stat_button" 
+                                    icon="fa-file-text-o">
+                                <field name="invoice_count" widget="statinfo" string="Facturas"/>
+                            </button>
+                        </div>
+                        <div name="title">
+                            <h1>
+                                <field name="name" placeholder="Número"/>
+                            </h1>
+                        </div>
+                        <group name="group_general">
+                            <group name="group_general_1">
+                                <field name="partner_id"/>
+                                <span class="o_form_label o_td_label" name="label_dates">Duración</span>
+                                <div name="div_dates">
+                                    <field name="start_date" nolabel="1" placeholder="Inicio" style="text-align: center; float: left; width: 50%;"/>
+                                    <field name="end_date" nolabel="1" placeholder="Fin" style="text-align: center; float: left; width: 50%;"/>
+                                </div>
+                            </group>
+                            <group name="group_general_2">
+                                <field name="type_company"/>
+                                <field name="payment_method"/>
+                                <field name="amount"/>
+                                <field name="invoiced_value"/>
+                                <field name="final_percentage" widget="percent" string="Diferencia Porcentual.%"/>
+                                <!-- <field name="sale_order_id"/> -->
+                                <field name="benefit_plan_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="diagnostics_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_description" string="Descripción">
+                                <field name="description"/>
+                            </page>
+                          
+                            <page name="page_documents" string="Documentos" invisible="type_company == 'prv'">
+                                <group>
+                                    <group name="group_cdps" string="Certificados de disponibilidad presupuestal">
+                                        <field name="report_budget_cdp_ids" nolabel="1" colspan="2"/>
+                                    </group>
+                                    <group name="group_rps" string="Registros Presupuestal de Compromiso">
+                                        <field name="report_budget_rp_ids" nolabel="1" colspan="2"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_annexes" string="Otrosí">
+                                <group>
+                                    <group name="group_title_annex_time" string="Prórroga">
+                                        <field name="annex_time_ids" nolabel="1" context="{'tree_view_ref': 'customer_contract.customer_contract_annex_time_tree'}" colspan="2"/>
+                                    </group>
+                                    <group name="group_title_annex_money" string="Adición">
+                                        <field name="annex_money_ids" nolabel="1" context="{'tree_view_ref': 'customer_contract.customer_contract_annex_money_tree'}" colspan="2"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_polices" string="Pólizas">
+                                <field name="policy_ids"/>
+                            </page>
+                            <page name="page_products" string="Productos/Servicios">
+                                <field name="products_ids"/>
+                            </page>  
+                            <page name="page_pricing" string="Precios y Tarifas">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button name="action_create_pricelist" 
+                                            type="object" 
+                                            class="btn btn-primary me-2" 
+                                            string="Crear Lista de Precios"
+                                            invisible="pricelist_id"/>
+                                    <button name="action_update_pricelist_items" 
+                                            type="object" 
+                                            class="btn btn-secondary" 
+                                            string="Actualizar Precios"
+                                            invisible="not pricelist_id"/>
+                                </div>
+                                <group>
+                                    <field name="pricelist_id"/>
+                                </group>
+                                <notebook>
+                                    <page string="Reglas de lista de precios">
+                                        <field name="item_ids" context="{'default_contract_id': active_id, 'default_pricelist_id': pricelist_id}">
+                                            <tree editable="bottom">
+                                                <field name="product_id"/>
+                                                <field name="min_quantity"/>
+                                                <field name="fixed_price"/>
+                                                <field name="date_start"/>
+                                                <field name="date_end"/>
+                                                <field name="company_id" readonly="True"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page string="Reglas de fijación de precios">
+                                        <field name="product_pricing_ids" context="{'default_contract_id': active_id, 'default_pricelist_id': pricelist_id}">
+                                            <tree string="Rental Pricelist Rules" editable="bottom">
+                                                <field name="product_template_id" string="Productos" options="{'no_create': 1}" required="1"/>
+                                                <field name="product_variant_ids" widget="many2many_tags" string="Variantes" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_template_id)]" options="{'no_create': 1}"/>
+                                                <field name="recurrence_id" string="Periodo"/>
+                                                <field name="currency_id" column_invisible="True"/>
+                                                <field name="price" widget="monetary"/>
+                                                <field name="company_id" optional="hide"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="customer_contract_tree" model="ir.ui.view">
+            <field name="name">customer.contract.tree</field>
+            <field name="model">customer.contract</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="type_company"/>
+                    <field name="payment_method"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="sale_order_count" string="Ventas"/>
+                    <field name="invoice_count" string="Facturas"/>
+                    <field name="pricelist_id"/>
+                    <field name="benefit_plan_ids" widget="many2many_tags" optional="hide"/>
+                    <field name="diagnostics_ids" widget="many2many_tags" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="customer_contract_action" model="ir.actions.act_window">
+            <field name="name">Contratos de clientes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="customer_contract_search_view"/>
+            <field name="context">{
+                'search_default_active_contracts': 1,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un nuevo contrato de cliente
+                </p>
+                <p>
+                    Gestione los contratos de sus clientes, incluyendo condiciones, 
+                    productos, precios y documentación relacionada.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="customer_contract_menu_act" name="Contratos de clientes" parent="customer_contract_menu_categ" action="customer_contract_action" sequence="5" />
+    </data>
+</odoo>

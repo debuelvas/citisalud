@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.payroll.lavish</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="46"/>
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='hr_payroll_localization']" position="after">
+                <div class="row mt16 o_settings_container" id="hr_payroll_accountant_lavish">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="module_hr_payroll_batch_account"/>
+                            <div class="text-muted">
+                                Elige la modalidad para contabilizar en lote
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="module_hr_payroll_batch_account" class="o_light_label" widget="radio"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="round_payroll"/>
+                            <field name="addref_work_address_account_moves"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="round_payroll"/>
+                            <label for="addref_work_address_account_moves"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//block[@id='hr_payroll_localization']" position="after">
+                <!--<h2>Nómina eletrónica</h2>
+                <div class="row mt16 o_settings_container" id="attributes_vacations">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <div class="row">
+                                <label for="payroll_electronic_operator" class="col-lg-3 o_light_label"/>
+                                <field name="payroll_electronic_operator"/>
+                            </div>
+                            <div class="row">
+                                <label for="payroll_electronic_username_ws" class="col-lg-3 o_light_label"/>
+                                <field name="payroll_electronic_username_ws"/>
+                            </div>
+                            <div class="row">
+                                <label for="payroll_electronic_password_ws" class="col-lg-3 o_light_label"/>
+                                <field name="payroll_electronic_password_ws"/>
+                            </div>
+                            <div class="row">
+                                <label for="payroll_electronic_company_id_ws" class="col-lg-3 o_light_label"/>
+                                <field name="payroll_electronic_company_id_ws"/>
+                            </div>
+                            <div class="row">
+                                <label for="payroll_electronic_account_id_ws" class="col-lg-3 o_light_label"/>
+                                <field name="payroll_electronic_account_id_ws"/>
+                            </div>
+                            <div class="row">
+                                <label for="payroll_electronic_service_ws" class="col-lg-3 o_light_label"/>
+                                <field name="payroll_electronic_service_ws"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <h2>Vacaciones</h2>
+                <div class="row mt16 o_settings_container" id="attributes_vacations">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pay_vacations_in_payroll"/>
+                            <field name="pay_primas_in_payroll"/>
+                            <field name="prst_wo_susp"/>
+                            <field name="pay_cesantias_in_payroll"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">¿Liquidar vacaciones en nómina?</span>
+                             <br/>
+                             <span class="o_form_label">¿Liquidar Primas en nómina?</span>
+                             <br/>
+                            <span class="o_form_label">No descontar suspensiones de prima</span>
+                            <br/>
+                            <span class="o_form_label">¿Liquidar Cesantias en nómina?</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <span class="o_form_label">Días de vacaciones para calcular deducciones</span>
+                                <field name="vacation_days_calculate_absences" class="o_light_label mt16"/>
+                            </div>
+                            <div class="text-muted">
+                                Calcular deducciones en liquidación de vacaciones cuando estas superen la cantidad de
+                                días indicados
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Cesantías</h2>
+                <div class="row mt16 o_settings_container" id="attributes_cesantias">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="cesantias_salary_take"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Promediar salario</span>
+                            <div class="text-muted">
+                                Si NO esta marcado:
+                                    Se tomara el salario vigente del empleado.
+                                <br/>
+                                Si esta marcado:
+                                    Se promedia el salario de los últimos 3 meses.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Prima</h2>
+                <div class="row mt16 o_settings_container" id="attributes_prima">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="prima_salary_take"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Promediar salario</span>
+                            <div class="text-muted">
+                                Si NO esta marcado:
+                                    Se tomara el salario vigente del empleado.
+                                <br/>
+                                Si esta marcado:
+                                    Se promedia el salario de los últimos 6 meses.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Contabilización de Pago</h2>
+                <div class="row mt16 o_settings_container" id="attributes_payroll_posting">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Cuenta débito valor no incluido</span>
+                            <field name="payroll_peoplepass_debit_account_id"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Diario valor no incluido</span>
+                            <field name="payroll_peoplepass_journal_id"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Cuenta crédito valor no incluido</span>
+                            <field name="payroll_peoplepass_credit_account_id"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_company_form_inherit_payroll_categories" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.payroll.categories</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Configuración de Nómina" name="payroll_config">
+                    <group>
+                        <group>
+                            <button string="Configurar Categorías de Nómina" 
+                                    name="action_setup_salary_categories" 
+                                    type="object" 
+                                    class="oe_highlight"/>
+                            <button string="Configurar Reglas de Nómina" 
+                                    name="action_generate_salary_rules" 
+                                    type="object" 
+                                    class="oe_highlight"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <!--    Documentos Nomina-->
+    <!-- <record id="res_config_settings_view_form_documents" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.payroll.documents.lavish</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="46"/>
+        <field name="inherit_id" ref="documents_hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='documents_hr_payslips_tags']" position="after">
+                <label for="validated_certificate" class="col-sm-3 o_light_label"/>
+                    <field name="validated_certificate" domain="[('folder_id','=', documents_hr_folder)]"/>
+                </xpath>
+        </field>
+    </record> -->
+
+</odoo>

@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <!-- Reporte Consolidados-->
+        <record model="ir.actions.act_window" id="action_hr_consolidated_reports">
+            <field name="name">Reporte Consolidados</field>
+            <field name="res_model">hr.consolidated.reports</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="hr_consolidated_reports_form" model="ir.ui.view">
+            <field name="name">Reporte Consolidados</field>
+            <field name="model">hr.consolidated.reports</field>
+            <field name="arch" type="xml">
+                <form string="Reporte Consolidados">
+                    <sheet>
+                        <group>
+                            <group string="Tipo de Consolidado">
+                                <field name="type_of_consolidation" widget="radio" nolabel="1"/>
+                            </group>
+                            <group string="Período">
+                                <field name="year"/>
+                                <field name="month"/>
+                            </group>
+                        </group>
+                        <group string="Filtros">
+                            <field name="employee" widget="many2many_tags"/>
+                            <field name="branch" widget="many2many_tags"/>
+                            <field name="analytic_account" widget="many2many_tags"/>
+                        </group>
+                        <br></br>
+                        <button name="generate_excel" string="Generar Excel" type="object" class="oe_highlight"/>
+                    </sheet>
+                    <footer></footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_e-payroll.hr_type_contract_tree" model="ir.ui.view">
+            <field name="name">hr.type.contract.tree</field>
+            <field name="model">hr.type.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Type of Contract" editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="l10n_co_e-payroll.hr_type_contract_acion" model="ir.actions.act_window">
+            <field name="name">Type of Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.type.contract</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Type of Contract.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

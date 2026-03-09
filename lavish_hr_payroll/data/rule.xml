@@ -1,0 +1,2192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_AT">
+            <field name="name">Accidente De Trabajo</field>
+            <field name="code">AT</field>
+            <field name="sequence">4</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.ACCIDENTE_TRABAJO" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_EP">
+            <field name="name">Enfermedad Profesional</field>
+            <field name="code">EP</field>
+            <field name="sequence">4</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.ACCIDENTE_TRABAJO" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_AUX000">
+            <field name="name">Auxilio De Transporte</field>
+            <field name="code">AUX000</field>
+            <field name="sequence">2</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.AUX" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">True</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Auxilio de transporte</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_BASIC">
+            <field name="name">Sueldo Basico</field>
+            <field name="code">BASIC</field>
+            <field name="sequence">1</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="hr_payroll.BASIC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">True</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Sueldo Basico</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_RETFTE001">
+            <field name="name">Retencion En La Fuente</field>
+            <field name="code">RETFTE001</field>
+            <field name="sequence">205</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="hr_payroll.DED" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('RETFTE001',employee.type_employee.id) if obj_salary_rule
+                and contract.contract_type != 'aprendizaje': day_initial_payrroll =
+                payslip.date_from.day day_end_payrroll = 30 if payslip.date_to.month == 2 and
+                payslip.date_to.day in (28,29) else payslip.date_to.day aplicar = 0 if
+                obj_salary_rule.aplicar_cobro=='30' and inherit_contrato!=0 else
+                int(obj_salary_rule.aplicar_cobro) if (aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll):
+                if contract.retention_procedure != 'fixed':
+                if categories.DEV_SALARIAL + categories.DEV_NO_SALARIAL>=
+                annual_parameters.value_top_source_retention:
+                localdict = { 'categories': categories, 'rules_computed': rules_computed, 'payslip':
+                payslip, 'employee': employee, 'contract': contract,
+                'annual_parameters':annual_parameters } obj_retention =
+                payslip.get_deduction_retention(employee.id,
+                payslip.date_to,contract.retention_procedure, localdict) result =
+                (obj_retention.result_calculation) * -1 else: result =
+                (contract.fixed_value_retention_procedure) * -1</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('RETFTE001',employee.type_employee.id) if obj_salary_rule
+                and contract.contract_type != 'aprendizaje': day_initial_payrroll =
+                payslip.date_from.day day_end_payrroll = 30 if payslip.date_to.month == 2 and
+                payslip.date_to.day in (28,29) else payslip.date_to.day aplicar = 0 if
+                obj_salary_rule.aplicar_cobro=='30' and inherit_contrato!=0 else
+                int(obj_salary_rule.aplicar_cobro) if (aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll):
+                if contract.retention_procedure != 'fixed':
+                if categories.DEV_SALARIAL + categories.DEV_NO_SALARIAL>=
+                annual_parameters.value_top_source_retention:
+                localdict = { 'categories': categories, 'rules_computed': rules_computed, 'payslip':
+                payslip, 'employee': employee, 'contract': contract,
+                'annual_parameters':annual_parameters } obj_retention =
+                payslip.get_deduction_retention(employee.id,
+                payslip.date_to,contract.retention_procedure, localdict) result =
+                (obj_retention.result_calculation) * -1 else: result =
+                (contract.fixed_value_retention_procedure) * -1</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name">Retenciin en la fuente</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_RET_PRIMA">
+            <field name="name">Retencion Prima Base</field>
+            <field name="code">RET_PRIMA</field>
+            <field name="sequence">210</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">True</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="hr_payroll.DED" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_prima" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_MEDPRE">
+            <field name="name">Medpre</field>
+            <field name="code">MEDPRE</field>
+            <field name="sequence">214</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="hr_payroll.DED" />
+            <field name="condition_select">none</field>
+            <field name="condition_python">
+                # Available variables:
+                #----------------------
+                # payslip: object containing the payslips
+                # employee: hr.employee object
+                # contract: hr.contract object
+                # rules: object containing the rules code (previously computed)
+                # categories: object containing the computed salary rule categories (sum of amount
+                of all rules belonging to that category).
+                # worked_days: object containing the computed worked days
+                # inputs: object containing the computed inputs
+
+                # Note: returned value have to be set in the variable 'result'
+
+                result = rules.NET > categories.NET * 0.10</field>
+            <field name="amount_python_compute">
+                # Available variables:
+                #----------------------
+                # payslip: object containing the payslips
+                # employee: hr.employee object
+                # contract: hr.contract object
+                # rules: object containing the rules code (previously computed)
+                # categories: object containing the computed salary rule categories (sum of amount
+                of all rules belonging to that category).
+                # worked_days: object containing the computed worked days.
+                # inputs: object containing the computed inputs.
+
+                # Note: returned value have to be set in the variable 'result'
+
+                result = contract.wage * 0.10</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name">MEDPRE</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_IND">
+            <field name="name">Indemnizacion Contrato Diferente A Termino Fijo</field>
+            <field name="code">IND</field>
+            <field name="sequence">70</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.DEV_NO_SALARIAL" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_contrato" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_AUX110">
+            <field name="name">Auxilio De Alimentacion</field>
+            <field name="code">AUX110</field>
+            <field name="sequence">73</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.DEV_NO_SALARIAL" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">fijo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">AUXILIO DE ALIMENTACION</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded">cont</field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_COMISIONES">
+            <field name="name">Comisiones</field>
+            <field name="code">COMISIONES</field>
+            <field name="sequence">27</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.DEV_SALARIAL" />
+            <field name="condition_select">none</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">COMISIONES</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded">Noved</field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_RETRO">
+            <field name="name">Retroactivo</field>
+            <field name="code">RETRO</field>
+            <field name="sequence">30</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.DEV_SALARIAL" />
+            <field name="condition_select">none</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Retroactivo</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC007">
+            <field name="name">Horas Dominicales (1.75%)</field>
+            <field name="code">HEYREC007</field>
+            <field name="sequence">60</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC007',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_dof' and overtime.overtime_dof > 0 and
+                overtime.state == 'approved': r_qty += overtime.overtime_dof result =
+                round((contract.wage /240)*1.75) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC007',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_dof' and overtime.overtime_dof > 0 and
+                overtime.state == 'approved': r_qty += overtime.overtime_dof result =
+                round((contract.wage /240)*1.75) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas dominicales</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC001">
+            <field name="name">Horas Extra Diurnas (125%)</field>
+            <field name="code">HEYREC001</field>
+            <field name="sequence">61</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC001',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_ext_d' and overtime.overtime_ext_d > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_ext_d result =
+                round((contract.wage /240)*1.25) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC001',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_ext_d' and overtime.overtime_ext_d > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_ext_d result =
+                round((contract.wage /240)*1.25) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas Extra Diurnas (125%)</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC002">
+            <field name="name">Horas Extra Diurnas Dominical / Festiva (200%)</field>
+            <field name="code">HEYREC002</field>
+            <field name="sequence">62</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC002',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_eddf' and overtime.overtime_eddf > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_eddf result =
+                round((contract.wage /240)*2) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC002',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_eddf' and overtime.overtime_eddf > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_eddf result =
+                round((contract.wage /240)*2) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas extra diurnas dominical / festiva (200%)</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC003">
+            <field name="name">Horas Extra Nocturna (175%)</field>
+            <field name="code">HEYREC003</field>
+            <field name="sequence">63</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC003',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_ext_n' and overtime.overtime_ext_n > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_ext_n result =
+                round((contract.wage /240)*1.75) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC003',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_ext_n' and overtime.overtime_ext_n > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_ext_n result =
+                round((contract.wage /240)*1.75) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas extra nocturna (175%)</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC005">
+            <field name="name">Horas Recargo Nocturno (35%)</field>
+            <field name="code">HEYREC005</field>
+            <field name="sequence">64</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC005',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_rn' and overtime.overtime_rn > 0 and
+                overtime.state == 'approved': r_qty += overtime.overtime_rn result =
+                round((contract.wage /240)*0.35) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC005',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_rn' and overtime.overtime_rn > 0 and
+                overtime.state == 'approved': r_qty += overtime.overtime_rn result =
+                round((contract.wage /240)*0.35) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas Recargo Nocturno (35%)</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC004">
+            <field name="name">Horas Recargo Festivo (0.75)</field>
+            <field name="code">HEYREC004</field>
+            <field name="sequence">65</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC004',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id, payslip.date_from, payslip.date_to,
+                inherit_contrato, aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_rdf' and overtime.overtime_rdf > 0 and
+                overtime.state == 'approved': r_qty += overtime.overtime_rdf result =
+                round((contract.wage / 240) * 0.75) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC004',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id, payslip.date_from, payslip.date_to,
+                inherit_contrato, aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_rdf' and overtime.overtime_rdf > 0 and
+                overtime.state == 'approved': r_qty += overtime.overtime_rdf result =
+                round((contract.wage / 240) * 0.75) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas recargo festivo</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC006">
+            <field name="name">Horas Extra Nocturna Dominical / Festiva (250%)</field>
+            <field name="code">HEYREC006</field>
+            <field name="sequence">66</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC006',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_endf' and overtime.overtime_endf > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_endf result =
+                round((contract.wage /240)*2.5) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC006',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_endf' and overtime.overtime_endf > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_endf result =
+                round((contract.wage /240)*2.5) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas extra nocturna dominical / festiva (250%)</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_HEYREC008">
+            <field name="name">Horas De Recargo Nocturno Dominical/Festivo (1.1%)</field>
+            <field name="code">HEYREC008</field>
+            <field name="sequence">67</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.HEYREC" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC008',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_rndf' and overtime.overtime_rndf > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_rndf result =
+                round((contract.wage /240)*1.1) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('HEYREC008',employee.type_employee.id) aplicar =
+                int(obj_salary_rule.aplicar_cobro) day_initial_payrroll = payslip.date_from.day
+                day_end_payrroll = 30 if payslip.date_to.month == 2 and payslip.date_to.day in
+                (28,29) else payslip.date_to.day if ((aplicar == 0) or (aplicar >=
+                day_initial_payrroll and aplicar &lt;= day_end_payrroll)) or (inherit_contrato!=0):
+                if obj_salary_rule:
+                obj_type_overtime = payslip.get_type_overtime(obj_salary_rule.id)
+                obj_overtime = payslip.get_overtime(employee.id,payslip.date_from, payslip.date_to,
+                inherit_contrato,aplicar)
+                if len(obj_overtime)> 0: r_qty = 0 for overtime in obj_overtime: if
+                obj_type_overtime.type_overtime == 'overtime_rndf' and overtime.overtime_rndf > 0
+                and overtime.state == 'approved': r_qty += overtime.overtime_rndf result =
+                round((contract.wage /240)*1.1) if r_qty > 0 else 0 result_qty = r_qty</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Horas de Recargo nocturno dominical/festivo</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_INCAPACIDAD001">
+            <field name="name">Incapacidad Eps</field>
+            <field name="code">INCAPACIDAD001</field>
+            <field name="sequence">3</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.INCAPACIDAD" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('INCAPACIDAD001',employee.type_employee.id) if
+                obj_salary_rule: if worked_days.EGA != 0.0 and leaves.EGA &lt;= 90:
+                obj_leave_type = payslip.get_leave_type('EGA')
+                if obj_leave_type.eps_arl_input_id.id == obj_salary_rule.id:
+                salario_minimo = annual_parameters.smmlv_monthly
+                ibc_real = (contract.wage * obj_leave_type.recognizing_factor_eps_arl)
+                ibc_real = salario_minimo if contract.modality_salary != 'sostenimiento' and
+                (contract.wage * obj_leave_type.recognizing_factor_eps_arl) &lt; salario_minimo else
+                (contract.wage * obj_leave_type.recognizing_factor_eps_arl)
+                days= worked_days.EGA.number_of_days - obj_leave_type.num_days_no_assume if
+                worked_days.EGA.number_of_days>= leaves.EGA else worked_days.EGA.number_of_days days
+                = days if days >=
+                0 else 0 result = (ibc_real) /30 result_qty = days</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('INCAPACIDAD001',employee.type_employee.id) if
+                obj_salary_rule: if worked_days.EGA != 0.0 and leaves.EGA &lt;= 90:
+                obj_leave_type = payslip.get_leave_type('EGA')
+                if obj_leave_type.eps_arl_input_id.id == obj_salary_rule.id:
+                salario_minimo = annual_parameters.smmlv_monthly
+                ibc_real = (contract.wage * obj_leave_type.recognizing_factor_eps_arl)
+                ibc_real = salario_minimo if contract.modality_salary != 'sostenimiento' and
+                (contract.wage * obj_leave_type.recognizing_factor_eps_arl) &lt; salario_minimo else
+                (contract.wage * obj_leave_type.recognizing_factor_eps_arl)
+                days= worked_days.EGA.number_of_days - obj_leave_type.num_days_no_assume if
+                worked_days.EGA.number_of_days>= leaves.EGA else worked_days.EGA.number_of_days days
+                = days if days >=
+                0 else 0 result = (ibc_real) /30 result_qty = days</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_INCAPACIDAD002">
+            <field name="name">Incapacidad Empresa</field>
+            <field name="code">INCAPACIDAD002</field>
+            <field name="sequence">3</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.INCAPACIDAD" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('INCAPACIDAD002',employee.type_employee.id) if
+                obj_salary_rule: if worked_days.EGA != 0.0 and leaves.EGA &lt;= 90:
+                obj_leave_type = payslip.get_leave_type('EGA')
+                if obj_leave_type.company_input_id.id == obj_salary_rule.id:
+                salario_minimo = annual_parameters.smmlv_monthly
+                ibc_real = (contract.wage * obj_leave_type.recognizing_factor_company)
+                #ibc_real = salario_minimo if (contract.wage *
+                obj_leave_type.recognizing_factor_company) &lt; salario_minimo else (contract.wage *
+                obj_leave_type.recognizing_factor_company)
+                days= worked_days.EGA.number_of_days if worked_days.EGA.number_of_days &lt;=
+                obj_leave_type.num_days_no_assume else obj_leave_type.num_days_no_assume
+                if days> 0: result = (ibc_real) /30 result_qty = days</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('INCAPACIDAD002',employee.type_employee.id) if
+                obj_salary_rule: if worked_days.EGA != 0.0 and leaves.EGA &lt;= 90:
+                obj_leave_type = payslip.get_leave_type('EGA')
+                if obj_leave_type.company_input_id.id == obj_salary_rule.id:
+                salario_minimo = annual_parameters.smmlv_monthly
+                ibc_real = (contract.wage * obj_leave_type.recognizing_factor_company)
+                #ibc_real = salario_minimo if (contract.wage *
+                obj_leave_type.recognizing_factor_company) &lt; salario_minimo else (contract.wage *
+                obj_leave_type.recognizing_factor_company)
+                days= worked_days.EGA.number_of_days if worked_days.EGA.number_of_days &lt;=
+                obj_leave_type.num_days_no_assume else obj_leave_type.num_days_no_assume
+                if days> 0: result = (ibc_real) /30 result_qty = days</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Incapacidad</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_INCAPACIDAD007">
+            <field name="name">Incapacidad Eps 50%</field>
+            <field name="code">INCAPACIDAD007</field>
+            <field name="sequence">3</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.INCAPACIDAD" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('INCAPACIDAD007',employee.type_employee.id) if
+                obj_salary_rule: if worked_days.EGA != 0.0 and ((leaves.EGA > 90 and leaves.EGA
+                &lt;= 180) or leaves.EGA>
+                540): obj_leave_type = payslip.get_leave_type('EGA') if obj_leave_type:
+                salario_minimo = annual_parameters.smmlv_monthly ibc_real = (contract.wage * 0.5)
+                days = worked_days.EGA.number_of_days days = days if days >= 0 else 0 result =
+                (ibc_real) /30 result_qty = days</field>
+            <field name="amount_python_compute">result = 0.0 obj_salary_rule =
+                payslip.get_salary_rule('INCAPACIDAD007',employee.type_employee.id) if
+                obj_salary_rule: if worked_days.EGA != 0.0 and ((leaves.EGA > 90 and leaves.EGA
+                &lt;= 180) or leaves.EGA>
+                540): obj_leave_type = payslip.get_leave_type('EGA') if obj_leave_type:
+                salario_minimo = annual_parameters.smmlv_monthly ibc_real = (contract.wage * 0.5)
+                days = worked_days.EGA.number_of_days days = days if days >= 0 else 0 result =
+                (ibc_real) /30 result_qty = days</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_EGH">
+            <field name="name">Ausencia Por Enfermedad 66%</field>
+            <field name="code">EGH</field>
+            <field name="sequence">3</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.INCAPACIDAD" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0
+                obj_salary_rule = payslip.get_salary_rule('EGH',employee.type_employee.id)
+                if obj_salary_rule and worked_days.EGH != 0.0:
+                result = contract.wage /30
+                days = worked_days.EGH.number_of_days
+                days = days if days >= 0 else 0
+                result_qty = days</field>
+            <field name="amount_python_compute">result = 0.0
+                obj_salary_rule = payslip.get_salary_rule('EGH',employee.type_employee.id)
+                if obj_salary_rule and worked_days.EGH != 0.0:
+                result = contract.wage /30
+                days = worked_days.EGH.number_of_days
+                days = days if days >= 0 else 0
+                result_qty = days</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">True</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_INTCESANTIAS_1">
+            <field name="name">Intereses De Cesantias Base</field>
+            <field name="code">INTCESANTIAS</field>
+            <field name="sequence">12</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.INTVIV" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0
+                obj_salary_rule = payslip.get_salary_rule('INTCESANTIAS',employee.type_employee.id)
+                if obj_salary_rule:
+                date_start = payslip.date_from
+                date_end = payslip.date_to
+                if inherit_contrato != 0:
+                date_start = payslip.date_cesantias
+                date_end = payslip.date_liquidacion
+                #Obtener acumulados
+                accumulated = payslip.get_accumulated_cesantias(date_start,date_end) +
+                values_base_cesantias + 1
+                result = accumulated</field>
+            <field name="amount_python_compute">result = 0.0
+                obj_salary_rule = payslip.get_salary_rule('INTCESANTIAS',employee.type_employee.id)
+                if obj_salary_rule:
+                date_start = payslip.date_from
+                date_end = payslip.date_to
+                if inherit_contrato != 0:
+                date_start = payslip.date_cesantias
+                date_end = payslip.date_liquidacion
+                #Obtener acumulados
+                accumulated = payslip.get_accumulated_cesantias(date_start,date_end) +
+                values_base_cesantias + 1
+                result = accumulated</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_cesantias" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_INTVIV">
+            <field name="name">Interese De Vivienda</field>
+            <field name="code">INTVIV</field>
+            <field name="sequence">49</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.INTVIV" />
+            <field name="condition_select">none</field>
+            <field name="condition_python">
+                # Available variables:
+                #----------------------
+                # payslip: object containing the payslips
+                # employee: hr.employee object
+                # contract: hr.contract object
+                # rules: object containing the rules code (previously computed)
+                # categories: object containing the computed salary rule categories (sum of amount
+                of all rules belonging to that category).
+                # worked_days: object containing the computed worked days
+                # inputs: object containing the computed inputs
+
+                # Note: returned value have to be set in the variable 'result'
+
+                result = rules.NET > categories.NET * 0.10</field>
+            <field name="amount_python_compute">
+                # Available variables:
+                #----------------------
+                # payslip: object containing the payslips
+                # employee: hr.employee object
+                # contract: hr.contract object
+                # rules: object containing the rules code (previously computed)
+                # categories: object containing the computed salary rule categories (sum of amount
+                of all rules belonging to that category).
+                # worked_days: object containing the computed worked days.
+                # inputs: object containing the computed inputs.
+
+                # Note: returned value have to be set in the variable 'result'
+
+                result = contract.wage * 0.10</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">fijo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_MAT">
+            <field name="name">Licencia De Maternidad</field>
+            <field name="code">MAT</field>
+            <field name="sequence">5</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_MATERNIDAD" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = 0.0
+                obj_salary_rule = payslip.get_salary_rule('MAT',employee.type_employee.id)
+                if obj_salary_rule and worked_days.MAT != 0.0:
+                result = round(worked_days.MAT.number_of_days * (contract.wage /30)) </field>
+            <field name="amount_python_compute">result = 0.0
+                obj_salary_rule = payslip.get_salary_rule('MAT',employee.type_employee.id)
+                if obj_salary_rule and worked_days.MAT != 0.0:
+                result = round(worked_days.MAT.number_of_days * (contract.wage /30)) </field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario_efectivo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_PAT">
+            <field name="name">Licencia De Paternidad</field>
+            <field name="code">PAT</field>
+            <field name="sequence">5</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_MATERNIDAD" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario_efectivo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule"
+            id="lavish_hr_payroll.lavish_hr_payroll_LICENCIA_NO_REMUNERADA">
+            <field name="name">Licencia No Remunerada</field>
+            <field name="code">LICENCIA_NO_REMUNERADA</field>
+            <field name="sequence">6</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_NO_REMUNERADA" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_INAS_INJU">
+            <field name="name">Inasistencia Injustificada</field>
+            <field name="code">INAS_INJU</field>
+            <field name="sequence">6</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_NO_REMUNERADA" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_SUSP_CONTRATO">
+            <field name="name">Suspensi�n Del Contrato</field>
+            <field name="code">SUSP_CONTRATO</field>
+            <field name="sequence">6</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_NO_REMUNERADA" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_LICENCIA001">
+            <field name="name">Licencia Remunerada</field>
+            <field name="code">LICENCIA001</field>
+            <field name="sequence">5</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_REMUNERADA" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_LUTO">
+            <field name="name">Luto</field>
+            <field name="code">LUTO</field>
+            <field name="sequence">5</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.LICENCIA_REMUNERADA" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">diario_efectivo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">True</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_NET">
+            <field name="name">Neto a Pagar Salario</field>
+            <field name="code">NET</field>
+            <field name="sequence">300</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="hr_payroll.NET" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = categories.DEV_SALARIAL + categories.DEV_NO_SALARIAL + categories.DEDUCCIONES</field>
+            <field name="amount_python_compute">result = categories.DEV_SALARIAL +  categories.DEV_NO_SALARIAL + categories.DEDUCCIONES</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">Neto a Pagar Salario</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_CESANTIAS">
+            <field name="name">Cesantias</field>
+            <field name="code">CESANTIAS</field>
+            <field name="sequence">11</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PRESTACIONES_SOCIALES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_cesantias" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name">CESANTIAS</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_VACCONTRATO">
+            <field name="name">Vacaciones</field>
+            <field name="code">VACCONTRATO</field>
+            <field name="sequence">13</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PRESTACIONES_SOCIALES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_vacaciones" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_PRIMA">
+            <field name="name">Prima Base</field>
+            <field name="code">PRIMA</field>
+            <field name="sequence">10</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PRIMA" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_prima" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_PRO_VACA">
+            <field name="name">Prov. Vacaciones</field>
+            <field name="code">PRV_VAC</field>
+            <field name="sequence">310</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PROV" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded"></field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_PROINTCESANTIAS">
+            <field name="name">Prov. Int. Cesantias</field>
+            <field name="code">PRV_ICES</field>
+            <field name="sequence">310</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PROV" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded"></field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_PROCESANTIAS">
+            <field name="name">Prov. Cesantias</field>
+            <field name="code">PRV_CES</field>
+            <field name="sequence">309</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PROV" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded"></field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_PROPRIMA">
+            <field name="name">Prov. Cesantias</field>
+            <field name="code">PRV_PRIM</field>
+            <field name="sequence">307</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.PROV" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded"></field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_SANCION">
+            <field name="name">Sancion</field>
+            <field name="code">SANCION</field>
+            <field name="sequence">6</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.SANCIONES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">True</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name">Sancion</field>
+            <field name="not_computed_in_net">True</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_SSOCIAL002">
+            <field name="name">Pension Empleado</field>
+            <field name="code">SSOCIAL002</field>
+            <field name="sequence">200</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.SSOCIAL" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_SSOCIAL001">
+            <field name="name">Salud Empleado</field>
+            <field name="code">SSOCIAL001</field>
+            <field name="sequence">200</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.SSOCIAL" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id" ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_SSOCIAL004">
+            <field name="name">Fondo Solidadridad</field>
+            <field name="code">SSOCIAL004</field>
+            <field name="sequence">200</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.SSOCIAL" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_SSOCIAL003">
+            <field name="name">Fondo De Subsistencia</field>
+            <field name="code">SSOCIAL003</field>
+            <field name="sequence">200</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro">0</field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.SSOCIAL" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name">Fondo De Subsistencia</field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_BASE_SEC">
+            <field name="name">IBC Seguridad Social </field>
+            <field name="code">IBD</field>
+            <field name="sequence">198</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.GROSS" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded"></field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">True</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_BASE_OTROS">
+            <field name="name">Subtotal Otros devengos</field>
+            <field name="code">BASE_OTROS</field>
+            <field name="sequence">198</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.GROSS" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded"></field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">True</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_TOTALDED">
+            <field name="name">Total Deducciones</field>
+            <field name="code">TOTALDED</field>
+            <field name="sequence">299</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.TOTALDED" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = categories.DEDUCCIONES</field>
+            <field name="amount_python_compute">result = categories.DEDUCCIONES</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">deduccion</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_TOTALDEV">
+            <field name="name">Total Devengo</field>
+            <field name="code">TOTALDEV</field>
+            <field name="sequence">170</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.TOTALDEV" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="condition_python">result = categories.DEV_SALARIAL +
+                categories.DEV_NO_SALARIAL</field>
+            <field name="amount_python_compute">result = categories.DEV_SALARIAL +
+                categories.DEV_NO_SALARIAL</field>
+            <field name="note"></field>
+            <field name="is_leave">False</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_Nonima_base" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">fijo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_VAC001">
+            <field name="name">Vacaciones Disfrutadas - Dias Habiles</field>
+            <field name="code">VAC001</field>
+            <field name="sequence">10</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.VACACIONES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_vacaciones" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">True</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">False</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">False</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_VAC002">
+            <field name="name">Vacaciones Disfrutadas - Dias Festivos</field>
+            <field name="code">VAC002</field>
+            <field name="sequence">10</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.VACACIONES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="note"></field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_vacaciones" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">True</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_VACDISFRUTADAS">
+            <field name="name">Vacaciones Disfrutadas</field>
+            <field name="code">VACDISFRUTADAS</field>
+            <field name="sequence">14</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">False</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.VACACIONES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_vacaciones" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value">fijo</field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">True</field>
+            <field name="base_intereses_cesantias">True</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+        <record model="hr.salary.rule" id="lavish_hr_payroll.lavish_hr_payroll_VACREMUNERADAS">
+            <field name="name">Vacaciones Remuneradas</field>
+            <field name="code">VACREMUNERADAS</field>
+            <field name="sequence">23</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="aplicar_cobro"></field>
+            <field name="deduction_applies_bonus">False</field>
+            <field name="quantity">1.0</field>
+            <field name="category_id" ref="lavish_hr_employee.VACACIONES" />
+            <field name="condition_select">none</field>
+            <field name="amount_select">concept</field>
+            <field name="is_leave">True</field>
+            <field name="struct_id"
+                ref="lavish_hr_employee.hr_payroll_structure_vacaciones" />
+            <field name="amount_fix">0</field>
+            <field name="condition_range">contract.wage</field>
+            <field name="condition_range_max">0</field>
+            <field name="condition_range_min">0</field>
+            <field name="modality_value"></field>
+            <field name="display_days_worked">False</field>
+            <field name="dev_or_ded">devengo</field>
+            <field name="short_name"></field>
+            <field name="not_computed_in_net">False</field>
+            <field name="novedad_ded"></field>
+            <field name="base_cesantias">False</field>
+            <field name="base_intereses_cesantias">False</field>
+            <field name="base_parafiscales">True</field>
+            <field name="base_prima">False</field>
+            <field name="base_seguridad_social">True</field>
+            <field name="types_employee" eval="[(4, ref('lavish_hr_employee.hr_type_employee_1'))]" />
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_payment_notification" model="ir.actions.report">
+        <field name="name">Notificación de Pagos</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_account_treasury.report_payment_notification</field>
+        <field name="report_file">custom_account_treasury.report_payment_notification</field>
+        <field name="binding_model_id" ref="account.model_account_payment" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_payment_notification">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <!-- Encabezado -->
+                    <div class="header position-relative" style="border-bottom: 2px solid #2B4B80;">
+                        <div class="row">
+                            <div class="col-3">
+                                <img t-if="o.company_id.logo"
+                                    t-att-src="image_data_uri(o.company_id.logo)"
+                                    style="max-height: 100px;" alt="Logo" />
+                            </div>
+                            <div class="col-6 text-center">
+                                <h2 t-field="o.company_id.name"
+                                    style="color: #2B4B80; margin-bottom: 0;" />
+                                <div t-field="o.company_id.partner_id.vat" style="font-size: 14px;" />
+                                <div t-field="o.company_id.phone" style="font-size: 14px;" />
+                                <div t-field="o.company_id.email" style="font-size: 14px;" />
+                            </div>
+                            <div class="col-3 text-end">
+                                <h4 style="color: #2B4B80;">DETALLE DE PAGO</h4>
+                                <div>No. <span t-field="o.name" /></div>
+                                <div>Fecha: <span t-field="o.date"
+                                        t-options="{'format': 'dd/MM/yyyy'}" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <!-- Información del Proveedor -->
+                        <div class="col-12 mb-3">
+                            <div
+                                style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 style="color: #2B4B80; margin-bottom: 10px;">Información
+                                            del Proveedor</h5>
+                                        <strong style="font-size: 16px;" t-field="o.partner_id.name" />
+                                        <br />
+                                        <span class="text-muted">NIT: <t t-esc="o.partner_id.vat" /></span>
+                                        <t t-if="o.partner_id.category_id">
+                                            <div class="mt-2">
+                                                <t t-foreach="o.partner_id.category_id"
+                                                    t-as="category">
+                                                    <span class="badge bg-info me-1"
+                                                        t-esc="category.name" />
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <div class="mb-2">
+                                            <strong>Banco:</strong>
+                                            <span t-field="o.partner_id.bank_ids[:1].bank_id.name" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong>Cuenta:</strong>
+                                            <span t-field="o.partner_id.bank_ids[:1].acc_number" />
+                                        </div>
+                                        <div>
+                                            <strong>Tipo de Cuenta:</strong>
+                                            <t t-if="o.partner_id.bank_ids[:1].acc_type == 'bank'">
+                                                Corriente</t>
+                                            <t t-else="">Ahorros</t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información del Pago -->
+                        <div class="col-6">
+                            <h5
+                                style="color: #2B4B80; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">Información
+                                del Pago</h5>
+                            <table class="table table-borderless table-sm" style="font-size: 13px;">
+                                <tr>
+                                    <td style="width: 40%;">
+                                        <strong>Referencia:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.ref" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Fecha del Pago:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Método de Pago:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.payment_method_line_id" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Monto:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.amount" t-options="{'widget': 'monetary'}" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Información Bancaria -->
+                        <div class="col-6">
+                            <h5
+                                style="color: #2B4B80; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">Información
+                                Bancaria</h5>
+                            <table class="table table-borderless table-sm" style="font-size: 13px;">
+                                <tr>
+                                    <td style="width: 40%;">
+                                        <strong>Banco Origen:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.journal_id.bank_account_id.bank_id.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Cuenta Origen:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.journal_id.bank_account_id.acc_number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Tipo de Cuenta:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="o.journal_id.bank_account_id.acc_type == 'bank'">
+                                            Corriente</t>
+                                        <t t-else="">Ahorros</t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Detalle de Documentos -->
+                    <div
+                        style="background-color: #2B4B80; color: white; padding: 8px 15px; border-radius: 5px;">
+                        <h5 class="mb-0">Detalle de Documentos</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered" style="font-size: 12px;">
+                            <thead>
+                                <tr class="table-light">
+                                    <th>Documento</th>
+                                    <th>Fecha</th>
+                                    <th>Vencimiento</th>
+                                    <th class="text-end" style="width: 12%;">IVA</th>
+                                    <th class="text-end" style="width: 12%;">RteIVA</th>
+                                    <th class="text-end" style="width: 12%;">RteFte</th>
+                                    <th class="text-end" style="width: 12%;">RteICA</th>
+                                    <th class="text-end" style="width: 12%;">Total Doc</th>
+                                    <th class="text-end" style="width: 12%;">A Pagar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.payment_line_ids.sorted(key=lambda x: (x.date))"
+                                    t-as="line">
+                                    <tr>
+                                        <td>
+                                            <span t-field="line.move_line_id.move_id.name" />
+                                            <br />
+                                            <small class="text-muted"
+                                                t-field="line.move_line_id.move_id.ref" />
+                                        </td>
+                                        <td>
+                                            <span t-field="line.date" />
+                                        </td>
+                                        <td>
+                                            <span t-field="line.date_maturity" />
+                                        </td>
+
+                                        <!-- Columna IVA -->
+                                        <td class="text-end">
+                                            <t t-set="iva_lines"
+                                                t-value="line.move_line_id.move_id.line_ids.filtered(lambda l: l.name and 'VAT' in l.name)" />
+                                            <t t-foreach="iva_lines.sorted(lambda x: x.name)"
+                                                t-as="tax_line">
+                                                <div t-if="not tax_line_first"
+                                                    style="border-top: 1px dashed #dee2e6; margin: 3px 0;"></div>
+                                                <div>
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format(abs(tax_line.debit))" />
+                                                    <div>
+                                                        <small class="text-muted">
+                                                            <t t-set="tax_name"
+                                                                t-value="tax_line.name.split()" />
+                                        <t
+                                                                t-esc="tax_name[0] if len(tax_name) > 0 else ''" />
+                                                            %
+                                    </small>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </td>
+
+                                        <!-- Columna RteIVA -->
+                                        <td class="text-end">
+                                            <t t-set="rteiva_lines"
+                                                t-value="line.move_line_id.move_id.line_ids.filtered(lambda l: l.name and 'RteVAT' in l.name)" />
+                                            <t t-foreach="rteiva_lines.sorted(lambda x: x.name)"
+                                                t-as="tax_line">
+                                                <div t-if="not tax_line_first"
+                                                    style="border-top: 1px dashed #dee2e6; margin: 3px 0;"></div>
+                                                <div>
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format(abs(tax_line.credit))" />
+                                                    <div>
+                                                        <small class="text-muted">
+                                                            <t t-set="tax_name"
+                                                                t-value="tax_line.name.split()" />
+                                                            <t
+                                                                t-esc="[x for x in tax_name if '%' in x][0] if [x for x in tax_name if '%' in x] else ''" />
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </td>
+
+                                        <!-- Columna RteFte -->
+                                        <td class="text-end">
+                                            <t t-set="rtefuente_lines"
+                                                t-value="line.move_line_id.move_id.line_ids.filtered(lambda l: l.name and 'RteFte' in l.name)" />
+                                            <t t-foreach="rtefuente_lines.sorted(lambda x: x.name)"
+                                                t-as="tax_line">
+                                                <div t-if="not tax_line_first"
+                                                    style="border-top: 1px dashed #dee2e6; margin: 3px 0;"></div>
+                                                <div>
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format(abs(tax_line.credit))" />
+                                                    <div>
+                                                        <small class="text-muted">
+                                                            <t t-set="tax_name"
+                                                                t-value="tax_line.name.split()" />
+                                                            <t
+                                                                t-esc="[x for x in tax_name if '%' in x][0] if [x for x in tax_name if '%' in x] else ''" />
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </td>
+
+                                        <!-- Columna RteICA -->
+                                        <td class="text-end">
+                                            <t t-set="rteica_lines"
+                                                t-value="line.move_line_id.move_id.line_ids.filtered(lambda l: l.name and 'RTE Ica' in l.name)" />
+                                            <t t-foreach="rteica_lines.sorted(lambda x: x.name)"
+                                                t-as="tax_line">
+                                                <div t-if="not tax_line_first"
+                                                    style="border-top: 1px dashed #dee2e6; margin: 3px 0;"></div>
+                                                <div>
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format(abs(tax_line.credit))" />
+                                                    <div>
+                                                        <small class="text-muted">
+                                                            <t t-set="tax_name"
+                                                                t-value="tax_line.name.split()" />
+                                                            <t
+                                                                t-esc="[x for x in tax_name if 'X' in x.upper()][0] if [x for x in tax_name if 'X' in x.upper()] else ''" />
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </td>
+
+                                        <!-- Totales -->
+                                        <td class="text-end">
+                                            <span t-esc="'{:,.2f}'.format(line.amount_residual)" />
+                                        </td>
+                                        <td class="text-end">
+                                            <strong t-esc="'{:,.2f}'.format(line.payment_amount)" />
+                                        </td>
+                                    </tr>
+                                </t>
+
+                                <!-- Total General -->
+                                <tr class="table-dark">
+                                    <td colspan="7" class="text-end">
+                                        <strong>TOTAL A PAGAR:</strong>
+                                    </td>
+                                    <td colspan="2" class="text-end">
+                                        <strong t-esc="'{:,.2f}'.format(o.amount)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pie de página -->
+                    <div class="footer" style="font-size: 9px; border-top: 1px solid #dee2e6;">
+                        <div class="row">
+                            <div class="col-4"> Generado por: <span t-field="o.create_uid.name" /> | <span
+                                    t-field="o.create_date"
+                                    t-options="{'format': 'dd/MM/yyyy HH:mm:ss'}" />
+                            </div>
+                            <div class="col-4 text-center">
+                                <span t-field="o.company_id.name" />
+                            </div>
+                            <div class="col-4 text-end"> Página <span class="page" /> de <span
+                                    class="topage" />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <data noupdate="0">
+        <record id="email_template_payment_draft_notice" model="mail.template">
+            <field name="name">Aviso de Pago</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="email_from">{{ (object.create_uid.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">{{ object.company_id.name }} - Aviso de Pago (Ref {{ object.name or 'n/a' }})</field>
+            <field name="description">Envío de aviso de pago programado a proveedores</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Estimado/a
+                        <t t-if="object.partner_id.parent_id">
+                            <t t-out="object.partner_id.name or ''">Nombre Proveedor</t> (<t t-out="object.partner_id.parent_id.name or ''">Empresa Principal</t>),
+                        </t>
+                        <t t-else="">
+                            <t t-out="object.partner_id.name or ''">Nombre Proveedor</t>,
+                        </t>
+                        <br/><br/>
+                        Le informamos que se ha programado un pago:
+                        <br/><br/>
+                        <ul>
+                            <li><strong>Monto:</strong> <span t-out="format_amount(object.amount, object.currency_id) or ''">$ 100,000.00</span></li>
+                            <li><strong>Referencia:</strong> <span t-out="object.name or ''">PAY/2025/01/0001</span></li>
+                            <li><strong>Fecha Programada:</strong> <span t-out="object.date or ''">2025-01-13</span></li>
+                            <t t-if="object.ref">
+                                <li><strong>Referencia Cliente:</strong> <span t-out="object.ref or ''">REF001</span></li>
+                            </t>
+                            <t t-if="object.partner_bank_id">
+                                <li><strong>Banco Destino:</strong> <span t-out="object.partner_bank_id.bank_id.name or ''">Banco</span></li>
+                                <li><strong>Cuenta Destino:</strong> <span t-out="object.partner_bank_id.acc_number or ''">Cuenta</span></li>
+                            </t>
+                        </ul>
+                        <br/>
+                        Adjuntamos el detalle de las facturas incluidas en este pago para su revisión.
+                        <t t-if="object.payment_line_ids">
+                            El pago corresponde a <t t-out="len(object.payment_line_ids)"/> documento(s).
+                        </t>
+                        <br/><br/>
+                        <i>Este es un aviso de pago programado. Recibirá una confirmación cuando el pago sea procesado.</i>
+                        <br/><br/>
+                        Por favor, no dude en contactarnos si tiene alguna pregunta.
+                        <br/><br/>
+                        Cordialmente,
+                        <br/>
+                        <t t-if="not is_html_empty(object.create_uid.signature)">
+                            <t t-out="object.create_uid.signature or ''">--<br/>Mitchell Admin</t>
+                        </t>
+                        <t t-else="">
+                            <t t-out="object.company_id.name or ''">YourCompany</t>
+                        </t>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('action_report_payment_notification'))]"/>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <record id="email_template_payment_confirmed" model="mail.template">
+            <field name="name">Comprobante de Egreso</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="email_from">{{ (object.create_uid.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">{{ object.company_id.name }} - Comprobante de Egreso No. {{ object.name or 'n/a' }}</field>
+            <field name="description">Envío de comprobante de egreso a proveedores</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Estimado/a
+                        <t t-if="object.partner_id.parent_id">
+                            <t t-out="object.partner_id.name or ''">Nombre Proveedor</t> (<t t-out="object.partner_id.parent_id.name or ''">Empresa Principal</t>),
+                        </t>
+                        <t t-else="">
+                            <t t-out="object.partner_id.name or ''">Nombre Proveedor</t>,
+                        </t>
+                        <br/><br/>
+                        Por medio de la presente confirmamos que se ha realizado el pago:
+                        <br/><br/>
+                        <ul>
+                            <li><strong>Comprobante No.:</strong> <span t-out="object.name or ''">PAY/2025/01/0001</span></li>
+                            <li><strong>Monto:</strong> <span t-out="format_amount(object.amount, object.currency_id) or ''">$ 100,000.00</span></li>
+                            <li><strong>Fecha:</strong> <span t-out="object.date or ''">2025-01-13</span></li>
+                            <t t-if="object.ref">
+                                <li><strong>Referencia Cliente:</strong> <span t-out="object.ref or ''">REF001</span></li>
+                            </t>
+                            <t t-if="object.journal_id">
+                                <li><strong>Medio de Pago:</strong> <span t-out="object.journal_id.name or ''">Banco</span></li>
+                            </t>
+                            <t t-if="object.partner_bank_id">
+                                <li><strong>Banco Destino:</strong> <span t-out="object.partner_bank_id.bank_id.name or ''">Banco</span></li>
+                                <li><strong>Cuenta Destino:</strong> <span t-out="object.partner_bank_id.acc_number or ''">Cuenta</span></li>
+                            </t>
+                        </ul>
+                        <br/>
+                        <t t-if="object.payment_line_ids">
+                            El pago cubre <t t-out="len(object.payment_line_ids)"/> documento(s). Adjuntamos el comprobante con el detalle de las facturas pagadas.
+                        </t>
+                        <t t-if="object.communication">
+                            <br/><br/>
+                            <strong>Nota:</strong> <span t-out="object.communication or ''"/>
+                        </t>
+                        <br/><br/>
+                        Por favor, no dude en contactarnos si tiene alguna pregunta.
+                        <br/><br/>
+                        Cordialmente,
+                        <br/>
+                        <t t-if="not is_html_empty(object.create_uid.signature)">
+                            <t t-out="object.create_uid.signature or ''">--<br/>Mitchell Admin</t>
+                        </t>
+                        <t t-else="">
+                            <t t-out="object.company_id.name or ''">YourCompany</t>
+                        </t>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('action_report_payment_notification'))]"/>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+
+   <data noupdate="0">
+        <record id="email_template_payment_cancelled" model="mail.template">
+            <field name="name">Cancelación de Pago</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="email_from">{{ (object.create_uid.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">{{ object.company_id.name }} - Cancelación de Pago (Ref {{ object.name or 'n/a' }})</field>
+            <field name="description">Notificación de cancelación de pago a proveedores</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Estimado/a
+                        <t t-if="object.partner_id.parent_id">
+                            <t t-out="object.partner_id.name or ''">Nombre Proveedor</t> (<t t-out="object.partner_id.parent_id.name or ''">Empresa Principal</t>),
+                        </t>
+                        <t t-else="">
+                            <t t-out="object.partner_id.name or ''">Nombre Proveedor</t>,
+                        </t>
+                        <br/><br/>
+                        Le informamos que el pago previamente notificado ha sido cancelado:
+                        <br/><br/>
+                        <ul>
+                            <li><strong>Referencia:</strong> <span t-out="object.name or ''">PAY/2025/01/0001</span></li>
+                            <li><strong>Monto:</strong> <span t-out="format_amount(object.amount, object.currency_id) or ''">$ 100,000.00</span></li>
+                            <t t-if="object.ref">
+                                <li><strong>Referencia Cliente:</strong> <span t-out="object.ref or ''">REF001</span></li>
+                            </t>
+                            <t t-if="object.payment_line_ids">
+                                <li><strong>Documentos Afectados:</strong> <t t-out="len(object.payment_line_ids)"/> documento(s)</li>
+                            </t>
+                        </ul>
+                        <br/>
+                        <strong style="color: #9C1A1C;">Importante:</strong> 
+                        <ul>
+                            <li>Este pago ha sido cancelado y será necesario reprogramarlo.</li>
+                            <li>Las facturas relacionadas volverán a su estado pendiente de pago.</li>
+                            <t t-if="object.payment_line_ids">
+                                <li>Adjuntamos el detalle de los documentos afectados para su control.</li>
+                            </t>
+                        </ul>
+                        <br/>
+                        Nos pondremos en contacto con usted para coordinar la reprogramación del pago.
+                        <br/><br/>
+                        Disculpe las molestias ocasionadas.
+                        <br/><br/>
+                        Por favor, no dude en contactarnos si tiene alguna pregunta.
+                        <br/><br/>
+                        Cordialmente,
+                        <br/>
+                        <t t-if="not is_html_empty(object.create_uid.signature)">
+                            <t t-out="object.create_uid.signature or ''">--<br/>Mitchell Admin</t>
+                        </t>
+                        <t t-else="">
+                            <t t-out="object.company_id.name or ''">YourCompany</t>
+                        </t>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('action_report_payment_notification'))]"/>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <menuitem id="customer_contract_menu_root" name="Contratos de clientes" sequence="5" web_icon="customer_contract,static/description/icon.png" />
+
+        <menuitem id="customer_contract_menu_categ" name="Contratos de clientes" parent="customer_contract_menu_root" sequence="5" />
+
+    </data>
+</odoo>

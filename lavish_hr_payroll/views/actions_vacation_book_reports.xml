@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <!-- Proceso de generar archivo plano de Acumulados - Informes-->
+        <record model="ir.actions.act_window" id="action_hr_vacation_book_reports">
+            <field name="name">Reporte libro de vacaciones</field>
+            <field name="res_model">hr.vacation.book</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!-- <record id="hr_vacation_book_form" model="ir.ui.view">
+            <field name="name">Reporte libro de vacaciones</field>
+            <field name="model">hr.vacation.book</field>
+            <field name="arch" type="xml">
+                <form string="Reporte reporte libro de vacaciones">
+                    <sheet>
+                        <group>
+                            <group string="Período">
+                                <field name="final_year"/>
+                                <field name="final_month"/>
+                            </group>
+                            <group string="Filtros">
+                                <field name="employee" widget="many2many_tags"/>
+                                <field name="contract" widget="many2many_tags"/>
+                                <field name="branch" widget="many2many_tags"/>
+                                <field name="analytic_account" widget="many2many_tags"/>
+                            </group>
+                            <br></br>
+                            <button name="generate_excel" string="Generar Excel" type="object" class="oe_highlight"/>
+                        </group>
+                    </sheet>
+                    <footer></footer>
+                </form>
+            </field>
+        </record> -->
+    </data>
+</odoo>

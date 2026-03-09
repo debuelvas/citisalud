@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="forma_contado" model="hr.way.pay">
+            <field name="code">1</field>
+            <field name="name">Contado</field>
+        </record>
+
+    </data>
+</odoo>

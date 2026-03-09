@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <!-- Top menu item -->    
+        <menuitem name="lavish" id="lavish_erp.menu_root"/>        
+            <!-- menu city -->    
+            <menuitem name="Ciudades" id="lavish_erp.menu_city" sequence="1" parent="lavish_erp.menu_root" action="lavish_menu_action_city"/>
+            <!-- menu Sucursales -->    
+            <menuitem name="Sucursales" id="lavish_erp.menu_branch" parent="lavish_erp.menu_root"  sequence="1" action="lavish_menu_action_branch"/>    
+            <!-- menu ciiu -->    
+            <menuitem name="CIIU" id="lavish_erp.menu_ciiu" parent="lavish_erp.menu_root"  sequence="2" action="action_hierarchy_ciiu"/>    
+            <!-- menu categories --> 
+            <menuitem name="Parametrización" id="lavish_erp.menus_parameterization" sequence="3" parent="lavish_erp.menu_root"/>
+                <menuitem name="Sectores" id="lavish_erp.menu_sectors" parent="lavish_erp.menus_parameterization"  sequence="1" action="lavish_menu_action_sectors"/>                    
+                <menuitem name="Tipos de vinculación" id="lavish_erp.menu_vinculation_types" parent="lavish_erp.menus_parameterization"  sequence="2" action="lavish_menu_action_vinculation_types"/>    
+                <menuitem name="Tipos de contacto" id="lavish_erp.menu_contact_types" parent="lavish_erp.menus_parameterization"  sequence="3" action="lavish_menu_action_contact_types"/>    
+                <menuitem name="Áreas" id="lavish_erp.menu_areas" parent="lavish_erp.menus_parameterization"  sequence="4" action="lavish_menu_action_areas"/>    
+                <menuitem name="Cargos" id="lavish_erp.menu_job_title" parent="lavish_erp.menus_parameterization"  sequence="5" action="lavish_menu_action_job_title"/>    
+                <menuitem name="Días festivos" id="lavish_erp.menu_holidays" parent="lavish_erp.menus_parameterization"  sequence="6" action="lavish_menu_action_holidays"/>    
+                <menuitem name="Grupos de trabajo" id="lavish_erp.menu_work_groups" parent="lavish_erp.menus_parameterization"  sequence="6" action="lavish_menu_action_work_groups"/>                
+                <menuitem name="Responsabilidades RUT" id="lavish_erp.menu_responsibilities_rut" parent="lavish_erp.menus_parameterization"  sequence="7" action="lavish_menu_action_responsibilities_rut"/>    
+                <menuitem name="Fechas conmemorativas" id="lavish_erp.menu_dates_commemorated" parent="lavish_erp.menus_parameterization"  sequence="10" action="lavish_menu_action_dates_commemorated"/>
+    </data>
+</odoo>

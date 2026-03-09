@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="action_menu_root_rips"
+        name="Hospital RIPS"
+        sequence="15"
+        parent="account.menu_finance_receivables"
+        >
+        <menuitem id="menu_action_hospital_rips" name="RIPS" action="action_hospital_rips" sequence="1"/>
+        <menuitem id="menu_rips_export" name="Exportación RIPS ZIP"  action="action_rips_export" sequence="2"/>
+    </menuitem>
+    <menuitem id="menu_glosas_contabilidad"
+        name="Glosas Médicas"
+        parent="account.menu_finance_receivables"
+        sequence="16"/>
+    <menuitem id="menu_glosas_list_contabilidad"
+        name="Glosas"
+        parent="menu_glosas_contabilidad"
+        action="action_glosa_medica_cliente"
+        sequence="10"/>
+    <menuitem id="menu_glosas_motivos_contabilidad"
+        name="Motivos de Glosa"
+        parent="menu_glosas_contabilidad"
+        action="action_glosa_motivo"
+        sequence="20"/>
+    <menuitem id="menu_glosas_etapas_contabilidad"
+        name="Etapas de Glosa"
+        parent="menu_glosas_contabilidad"
+        action="action_glosa_etapa"
+        sequence="30"/>
+    <menuitem id="menu_glosas_informe_contabilidad"
+        name="Informes de Glosa"
+        parent="menu_glosas_contabilidad"
+        action="action_glosa_report"
+        sequence="40"/>
+</odoo>

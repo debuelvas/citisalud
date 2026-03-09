@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_period_tree" model="ir.ui.view">
+        <field name="name">hr.period.tree</field>
+        <field name="model">hr.period</field>
+        <field name="arch" type="xml">
+            <tree string="Períodos de Nómina">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="type_period"/>
+                <field name="type_biweekly" invisible="type_period != 'bi-monthly'"/>
+                <field name="year"/>
+                <field name="closed" widget="boolean_toggle"/>
+                <field name="all_payslips_computed" widget="boolean_toggle"/>
+                <field name="all_payslips_paid" widget="boolean_toggle"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_period_form" model="ir.ui.view">
+        <field name="name">hr.period.form</field>
+        <field name="model">hr.period</field>
+        <field name="arch" type="xml">
+            <form string="Período de Nómina">
+                <header>
+                    <button name="close_period" string="Cerrar Período" type="object" class="oe_highlight" invisible="not closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del Período" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_start" readonly="1"/>
+                            <field name="date_end" readonly="1"/>
+                            <field name="type_period" readonly="1"/>
+                            <field name="type_biweekly" invisible="type_period != 'bi-monthly'" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="year" readonly="1"/>
+                            <field name="year_month" readonly="1"/>
+                            <field name="closed" widget="boolean_toggle"/>
+                            <field name="unlock_reason"  readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Estado de Nóminas">
+                        <field name="all_payslips_computed" widget="boolean_toggle"/>
+                        <field name="all_payslips_paid" widget="boolean_toggle"/>
+                    </group>
+                    <field name="active" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_period_search" model="ir.ui.view">
+        <field name="name">hr.period.search</field>
+        <field name="model">hr.period</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Períodos">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="type_period"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter string="Períodos Activos" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Períodos Cerrados" name="closed" domain="[('closed', '=', True)]"/>
+                <filter string="Períodos Abiertos" name="open" domain="[('closed', '=', False)]"/>
+                <filter string="Nóminas Calculadas" name="computed" domain="[('all_payslips_computed', '=', True)]"/>
+                <filter string="Nóminas Pagadas" name="paid" domain="[('all_payslips_paid', '=', True)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Año" name="year" context="{'group_by': 'year'}"/>
+                    <filter string="Tipo de Período" name="type_period" context="{'group_by': 'type_period'}"/>
+                    <filter string="Estado" name="closed" context="{'group_by': 'closed'}"/>
+                    <filter string="Compañía" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_period" model="ir.actions.act_window">
+        <field name="name">Períodos de Nómina</field>
+        <field name="res_model">hr.period</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_hr_period_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Cree su primer período de nómina
+            </p>
+            <p>
+            Los períodos de nómina le permiten organizar sus nóminas por intervalos de tiempo.
+            </p>
+        </field>
+    </record>
+
+ 
+
+    <menuitem id="menu_hr_period" name="Períodos de Nómina" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"  action="action_hr_period" sequence="15"/>
+
+</odoo>

@@ -1,0 +1,272 @@
+<odoo>
+    <data>
+        <!-- TIPOS DE EMPLEADOS VIEWS -->
+        <record id="lavish_menu_action_types_employee" model="ir.actions.act_window">
+            <field name="name">Tipos de empleados</field>
+            <field name="res_model">hr.types.employee</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Tipos de Empleado
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lavish_hr_employee.list_types_employee">
+            <field name="name">lavish list types employee</field>
+            <field name="model">hr.types.employee</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Formulario de empleados - ajustes -->
+        <record id="view_lavish_hr_employee_form_employee" model="ir.ui.view">
+            <field name="name">hr.employee.lavish.hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_email']" position="before">
+                    <field name="type_employee"/>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <field name="personal_email"/>
+                    <field name="personal_mobile"/>
+                </xpath>
+                <xpath expr="//page[1]" position="attributes">
+                    <attribute name="string">Información de Trabajo</attribute>
+                </xpath>
+                <xpath expr="//page[2]" position="attributes">
+                    <attribute name="string">Información Pública</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='public']/div[1]/div[1]/group[1]" position="after">
+                    <group name="asignacion" string="Asignación">
+                        <group>
+                            <field name="branch_id"/>
+                            <field name="analytic_account_id"/>
+                        </group>
+                    </group>
+                    <group name="alianzat" invisible="1">
+                        <group>
+                            <field name="ed_qualification"/>
+                            <field name="ed_observation"/>
+                        </group>
+                        <group>
+                            <field name="info_project"/>
+                            <field name="front_back" widget='radio'/>
+                            <field name="confianza_manejo"/>
+                            <field name="cost_assumed_by" widget='radio'/>
+                            <field name="type_job" widget='radio'/>
+                        </group>
+                    </group>
+
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='public']/div[1]/div[1]/group[not(@name)][2]" position="after">
+                    <group name="licencia_conducción" string="Licencia de Conducción">
+                        <field name="licencia_rh"/>
+                        <field name="licencia_categoria"/>
+                        <field name="licencia_vigencia"/>
+                        <field name="licencia_restricciones"/>
+                        <field name="operacion_retirar"/>
+                        <field name="operacion_reemplazo"  invisible="operacion_retirar == False"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='visa_no']" position="before">
+                    <field name="sabado"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='identification_id']" position="attributes">
+                    <attribute name="force_save">True</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='personal_information']/group[1]/group[1]/label[1]" position="before">
+                    <field name="work_contact_id"/>
+                    <field name="l10n_latam_identification_type_id" options="{'no_open': True, 'no_create': True}" placeholder="Tipo de documento"/>
+                    <field name="identification_id"/>
+                </xpath>
+                <xpath expr="//field[@name='work_contact_id']" position="attributes">
+                    <attribute name="string">Tercero</attribute>
+                    <attribute name="help">Tercero equivalente a el empleado</attribute>
+                    <attribute name="context">{'show_address': 1, 'default_type': 'private',
+                         'form_view_ref':
+                        'base.res_partner_view_form_private'}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='type_employee']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_phone']" position="after">
+                    <field name="emergency_relationship"/>
+                                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page string="Contratos" name="contratos">
+                        <group>
+                            <field name="contract_ids" colspan="2" nolabel="1"
+                                   context="{'default_employee_id': id, 'default_view_inherit_employee': True}">
+                                <tree string="Contracts" decoration-bf="message_needaction == True"
+                                      decoration-info="state == 'draft'" decoration-muted="state in ('close', 'cancel')"
+                                      decoration-danger="state == 'pending'">
+                                    <field name="name"/>
+                                    <field name="employee_id" invisible="1"/>
+                                    <field name="job_id"/>
+                                    <field name="resource_calendar_id" invisible="1"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="kanban_state" widget="state_selection" readonly="1" 
+                                           invisible="1"/>
+                                    <field name="wage" />
+                                    <field name="message_needaction" invisible="1"/>
+                                    <field name="company_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Información Familiar" name="estado_civil">
+                        <group>
+                            <group>
+                                <field name="marital"/>
+                                <field name="type_identification_spouse"
+                                       invisible="marital not in ['married', 'cohabitant']"/>
+                                <field name="num_identification_spouse"
+                                        invisible="marital not in ['married', 'cohabitant']"/>
+                            </group>
+                            <group>
+                                <field name="spouse_complete_name"
+                                    invisible="marital not in ['married', 'cohabitant']"/>
+                                <field name="spouse_birthdate"
+                                        invisible="marital not in ['married', 'cohabitant']"/>
+                                <field name="spouse_phone"
+                                        invisible="marital not in ['married', 'cohabitant']"/>
+                            </group>
+                        </group>
+                        <group name="dependientes" string="Dependientes">
+                            <field name="dependents_information" nolabel="1" colspan="2">
+                                <tree editable="bottom" >
+                                    <field name="name"/>
+                                    <field name="genero"/>
+                                    <field name="date_birthday"/>
+                                    <field name="dependents_type"/>
+                                    <field name="document_type"/>
+                                    <field name="vat"/>
+                                    <field name="phone"/>
+                                    <field name="address"/>
+                                    <field name="report_income_and_withholdings"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Seguridad Social" name="seguridad_social">
+                        <group name="pila" string="PILA">
+                            <field name="tipo_coti_id" required="1"/>
+                            <field name="subtipo_coti_id" required="1"/>
+                            <field name="extranjero"/>
+                            <field name="residente"/>
+                            <field name="date_of_residence_abroad"  invisible="residente == False"/>
+                            <field name="indicador_especial_id"/>
+                        </group>
+                        <newline/>
+                        <group name="entidad" string="Entidades">
+                            <field name="social_security_entities" nolabel="1" colspan="2">
+                                <tree string="Configuracion nomina" editable="bottom">
+                                    <field name="contrib_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="date_change"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='country_of_birth']" position="after">
+                    <field name="department_birth_id"/>
+                    <field name="city_birth_id"/>
+                </xpath>
+                <xpath expr="//field[@name='private_city']" position="before">
+                    <field name="city_id"/>
+                </xpath>
+                <xpath expr="//field[@name='km_home_work']" position="after">
+                    <xpath expr="//field[@name='licencia_rh']" position="move"/>
+                    <field name="military_passbook"/>
+                </xpath>
+                <xpath expr="//field[@name='place_of_birth']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_report_print_badge_template">
+            <field name="name">Configuración plantilla carnet</field>
+            <field name="res_model">report.print.badge.template</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="report_print_badge_template_list">
+            <field name="name">report print badge template tree</field>
+            <field name="model">report.print.badge.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_id"/>
+                    <field name="img_header_filename"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="report_print_badge_template_form" model="ir.ui.view">
+            <field name="name">report print badge template form</field>
+            <field name="model">report.print.badge.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="company_id" required="1"/>
+                            <field name="img_header_filename" invisible="1"/>
+                            <field name="img_header_file" filename="img_header_filename"/>
+                            <field name="imgback_header_filename" invisible="1"/>
+                            <field name="imgback_header_file" filename="imgback_header_filename"/>
+                            <field name="with_extra_space"/>
+                            <field name="orientation"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.payroll.lavish</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="46"/>
+            <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@id='hr_payroll_localization']" position="after">
+                    <h2>Parametros Generales</h2>
+                    <div class="row mt16 o_settings_container" id="attributes_other">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="simple_provisions"/>
+                                <field name="fragment_vac"/>
+                                <field name="prv_vac_cpt"/>
+                                <field name="init_vac_date"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">¿Calculo de provisiones simple?</span>
+                                <br/>
+                                <span class="o_form_label">Vacaciones fragmentadas</span>
+                                <br/>
+                                <span class="o_form_label">Provision de vacaciones por conceptos</span>
+                                <br/>
+                                <span class="o_form_label">Fecha de corte libro de vacaciones</span>
+                            </div>
+                        </div>
+                    </div>   
+                </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

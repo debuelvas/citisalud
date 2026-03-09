@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sequence_documents_xml" model="ir.sequence">
+            <field name="name">Sequences Documents XML</field>
+            <field name="code">hr.payslip.sequence_documents_xml</field>
+            <field name="prefix"></field>
+            <field name="padding">8</field>
+            <field name="is_year">1</field>
+        </record>
+
+        <record id="sequence_documents_zip" model="ir.sequence">
+            <field name="name">Sequences Documents ZIP</field>
+            <field name="code">hr.payslip.sequence_documents_zip</field>
+            <field name="prefix"></field>
+            <field name="padding">8</field>
+            <field name="is_year">1</field>
+        </record>
+
+    </data>
+</odoo>

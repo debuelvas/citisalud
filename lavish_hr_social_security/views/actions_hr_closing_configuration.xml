@@ -1,0 +1,176 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="action_hr_closing_configuration">
+            <field name="name">Conf. Contabilización cierre de nómina (Seguridad social y Provisiones)</field>
+            <field name="res_model">hr.closing.configuration.header</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_closing_configuration_list">
+            <field name="name">hr closing configuration tree</field>
+            <field name="model">hr.closing.configuration.header</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="process"/>
+                    <field name="description"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+    <record id="action_hr_ss_config_wizard" model="ir.actions.act_window">
+        <field name="name">Crear Configuración SS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.ss.config.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Acción del servidor para botón en encabezado -->
+    <record id="action_create_ss_lines" model="ir.actions.server">
+        <field name="name">Crear Líneas SS</field>
+        <field name="model_id" ref="model_hr_closing_configuration_header"/>
+        <field name="binding_model_id" ref="model_hr_closing_configuration_header"/>
+        <field name="binding_view_types">form,tree</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'res_model': 'hr.ss.config.wizard',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {'default_active_model': model._name, 'active_ids': env.context.get('active_ids', [])}
+}
+        </field>
+    </record>
+
+    <!-- Vista form del wizard -->
+        <record id="view_hr_ss_config_wizard_form" model="ir.ui.view">
+            <field name="name">hr.ss.config.wizard.form</field>
+            <field name="model">hr.ss.config.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Configuración Seguridad Social">
+                    <p class="alert alert-info">
+                        Este asistente creará las líneas de configuración para seguridad social y ausencias.
+                    </p>
+                    <group>
+                        <field name="create_main_lines"/>
+                        <field name="create_absence_lines"/>
+                    </group>
+                    <footer>
+                        <button string="Crear" name="action_create_lines" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_closing_configuration_form">
+            <field name="name">hr closing configuration form</field>
+            <field name="model">hr.closing.configuration.header</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                   <button name="%(action_hr_ss_config_wizard)d" 
+                            string="Crear Líneas SS" 
+                            type="action" 
+                            class="oe_highlight"/>
+                    <div class="oe_title">
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="process"/>
+                            <field name="description"/>
+                            <field name="journal_id"/>
+                        </group>
+                        <group>
+                            <field name="description" nolabel="1" placeholder="Descripción del proceso..."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contabilización">
+                            <field name="detail_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="department"/>
+                                    <field name="company"/>
+                                    <field name="work_location"/>
+                                    <field name="third_debit"/>
+                                    <field name="debit_account"/>
+                                    <field name="third_credit"/>
+                                    <field name="credit_account"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Líneas Principales">
+                            <field name="main_line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="line_type" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="code_rule"/>
+                                    <field name="salary_rule_ids" widget="many2many_tags" />
+                                    <field name="category_ids" widget="many2many_tags" />
+                                    <field name="include_child_categories" optional="hide"/>
+                                    <field name="contributor_type_id" optional="hide"/>
+                                    <field name="contributor_subtype_id" optional="hide"/>
+                                    <field name="parameterization_id" optional="hide"/>
+                                    <field name="february_handling" optional="hide"/>
+                                    <field name="handle_month_31" optional="hide"/>
+                                    <field name="use_previous_ibc" optional="hide"/>
+                                    <field name="force_previous_ibc" optional="hide"/>
+                                    <field name="validate_previous_ibc" optional="hide"/>
+                                    <field name="apply_law_1393" optional="hide"/>
+                                    <field name="force_law_1393" optional="hide"/>
+                                    <field name="include_absences_1393" optional="hide"/>
+                                    <field name="non_salary_limit" optional="hide"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Líneas de Ausencia">
+                            <field name="leave_line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="line_type" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="leave_type"/>
+                                    <field name="code_leave"/>
+                                    <field name="leave_type_id"/>
+                                    <field name="contributor_type_id" optional="hide"/>
+                                    <field name="contributor_subtype_id" optional="hide"/>
+                                    <field name="parameterization_id" optional="hide"/>
+                                    <field name="february_handling" optional="hide"/>
+                                    <field name="handle_month_31" optional="hide"/>
+                                    <field name="use_previous_ibc" optional="hide"/>
+                                    <field name="force_previous_ibc" optional="hide"/>
+                                    <field name="validate_previous_ibc" optional="hide"/>
+                                    <field name="apply_law_1393" optional="hide"/>
+                                    <field name="force_law_1393" optional="hide"/>
+                                    <field name="include_absences_1393" optional="hide"/>
+                                    <field name="non_salary_limit" optional="hide"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Configuración IBC">
+                            <group>
+                                <!--<group string="Ley 1393">-->
+                                <!--    <field name="apply_law_1393"/>-->
+                                <!--    <field name="force_law_1393"/>-->
+                                <!--    <field name="include_absences_1393"/>-->
+                                <!--    <field name="non_salary_limit"/>-->
+                                <!--</group>-->
+                                <group string="Cuentas de diferencias">
+                                    <p colspan="2" class="text-muted">En la contabilización de la seguridad social, los valores de diferencias por aproximaciones al peso de aportes a salud y pensión si no superan los $1.000 pesos colombianos se contabilizaran en:</p>
+                            <field name="debit_account_difference"/>
+                            <field name="credit_account_difference"/>
+                        </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

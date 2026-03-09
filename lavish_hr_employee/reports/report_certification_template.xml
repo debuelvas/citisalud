@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_certificacion_laboral_document">
+        <t t-call="web.html_container">
+            <t t-foreach="inside_foreach_docs or docs" t-as="m">
+                <t t-call="web.basic_layout">
+                    <t t-set="o" t-value="m.contract_id"/>
+                    <t t-set="cp" t-value="m.get_hr_labor_certificate_template()"/>
+                    <t t-if="cp.type_header_footer == 'default'">
+                        <t t-set="company" t-value="o.employee_id.company_id"/>
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-3 mb4">
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                         style="max-height: 45px;" alt="Logo"/>
+                                </div>
+                            </div>
+                            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                                <div class="col-12">
+                                    <div style="border-bottom: 1px solid black;"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <ul class="list-inline mb4">
+                                    <li class="list-inline-item d-inline">
+                                       <b><span class="o_force_ltr" t-field="company.name"/></b>
+                                    </li>
+                                    <li class="list-inline-item d-inline">
+                                        <b>NIT:</b>
+                                        <b><span class="o_force_ltr" t-field="company.vat"/></b>
+                                    </li>
+                                    <li class="list-inline-item d-inline">
+                                        <b>DIRECCIÓN:</b>
+                                        <span class="o_force_ltr" t-field="company.street"/>
+                                        <span class="o_force_ltr" t-field="company.city"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-if="cp.type_header_footer == 'custom'">
+                        <div class="header">
+                            <img t-att-src="image_data_uri(cp.img_header_file)"/>
+                        </div>
+                    </t>
+
+                    <div>
+                        <br/>
+                        <br/>
+                        <div class="col-md-12 text-center" style="text-align:center">
+                            <strong>
+                                <h4>
+                                   <strong><span t-field="o.employee_id.company_id.name"/></strong>
+                                </h4>
+                            </strong>
+                            <p style="line-height:0px">
+                                <strong>
+                                    <h4>
+                                        NIT:
+                                        <span t-field="o.employee_id.company_id.company_registry"/>
+                                    </h4>
+                                </strong>
+                            </p>
+                            <br/>
+                            <p style="line-height:0px">
+                                <strong>
+                                    <h4>CERTIFICA QUE</h4>
+                                </strong>
+                            </p>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <p style="text-align:justify">
+                                <span t-if="o.employee_id.gender == 'male'">El señor</span>
+                                <span t-if="o.employee_id.gender == 'female'">La señora</span>
+                                <b>
+                                    <span t-esc="o.employee_id.name"/>,
+                                </b>
+                                identificado con cédula de ciudadanía número<span
+                                    t-esc="str('{:20,.0f}'.format(int(o.employee_id.identification_id))).replace(',','.')"/>,
+                                <t t-if="o.state != 'open'">
+                                    laboró en nuestra compañía desde el <span t-esc="o.get_date_text(o.date_start)"/>
+                                    hasta el <span t-esc="o.get_date_text(o.retirement_date)"/>,
+                                </t>
+                                <t t-else="">
+                                    labora en nuestra compañía desde el <span t-esc="o.get_date_text(o.date_start)"/>,
+                                </t>
+                                mediante un&#160;
+                                <b>
+                                    <span t-esc="o.get_contract_type()"/>,
+                                </b>
+                                <t t-if="o.state == 'open'">
+                                hasta la fecha.
+                                </t>
+                                Desempeñando el cargo de&#160;
+                                <b>
+                                    <span t-esc="o.sudo().job_id.name"/>
+                                </b>
+                                en la seccional
+                                <b>
+                                    <span t-esc="o.employee_id.branch_id.name"/>,
+                                </b>
+                                devengando un salario básico mensual de&#160;
+                                <b>
+                                    <span t-esc="o.get_amount_text(o.wage)"/>
+                                    M/Cte.
+                                </b>
+                                (
+                                <span t-esc="o.wage"
+                                      t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                <t t-set="promedio_heyrec" t-value="o.get_average_concept_heyrec()"/>
+                                <t t-if="promedio_heyrec and cp.show_average_overtime">
+                                ),
+                                </t>
+                                <t t-else="">
+                                ).
+                                </t>
+                                <t t-if="promedio_heyrec and cp.show_average_overtime">
+                                    Y un promedio de horas extras mensual en los últimos tres meses de&#160;
+                                    <b>
+                                        <span t-esc="o.get_amount_text(promedio_heyrec)"/>
+                                        M/Cte.
+                                    </b>
+                                    (
+                                    <span t-esc="promedio_heyrec"
+                                          t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                    ),
+                                </t>
+                                <t t-if="cp.show_total_rules">
+                                    <t t-set="salary_rule_amount" t-value="0"/>
+                                    <t t-foreach="sorted(cp.certificate_template_detail_ids, key=lambda x: x.sequence)" t-as="cpd">
+                                        <t t-set="salary_rule_amount" t-value="salary_rule_amount+o.get_average_concept_certificate(cpd.rule_salary_id,cpd.last_month,cpd.average_last_months,cpd.value_contract,cpd.payment_frequency)"/>
+                                    </t>
+                                    <t t-if="salary_rule_amount">
+                                        Y un salario variable de&#160;
+                                        <span t-esc="o.get_amount_text(salary_rule_amount)"/>
+                                        M/Cte.
+                                        (
+                                        <span t-esc="salary_rule_amount"
+                                          t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                        ).
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="sorted(cp.certificate_template_detail_ids, key=lambda x: x.sequence)" t-as="cpd">
+                                        <t t-set="salary_rule_amount" t-value="o.get_average_concept_certificate(cpd.rule_salary_id,cpd.last_month,cpd.average_last_months,cpd.value_contract,cpd.payment_frequency)"/>
+                                        <t t-if="salary_rule_amount">
+                                            Y un
+                                            <t t-if="cpd.average_last_months">
+                                                promedio de <span t-esc="cpd.rule_salary_id.name"/> en los últimos tres meses de&#160;
+                                            </t>
+                                            <t t-if="cpd.last_month or cpd.value_contract">
+                                                <span t-esc="cpd.rule_salary_id.name"/> de&#160;
+                                            </t>
+                                            <span t-esc="o.get_amount_text(salary_rule_amount)"/>
+                                            M/Cte.
+                                            (
+                                            <span t-esc="salary_rule_amount"
+                                              t-options="{'widget': 'monetary', 'precision': 0, 'display_currency': o.company_id.currency_id}"/>
+                                            )
+                                            <t t-if="cpd.last_month or cpd.value_contract">
+                                                promedio mensual.
+                                            </t>
+                                        </t>
+                                    </t>
+                                </t>
+                            </p>
+                            <br/>
+                            <p style="text-align:justify">
+                                Se expide a solicitud del interesado
+                                <span t-esc="m.info_to"/>
+                                <br/>
+                                Para constancia se firma en la ciudad de <span t-esc="str(o.company_id.partner_id.city_id.name)"/>, el
+                                <span t-esc="o.get_date_text(datetime.datetime.now(),1)"/>.
+                            </p>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <p style="text-align:justify">Cordialmente,</p>
+                            <t t-set="autorizado" t-value="o.get_signature_certification()"/>
+                            <img t-if="autorizado.get('firma')" t-att-src="image_data_uri(autorizado.get('firma'))"/>
+                            <br/><br/>
+                            <p>
+                                <span t-esc="cp.notes"/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="footer">
+                        <div class="col-md-12">
+                            <p style="text-align:justify">
+                                Certificado N°
+                                <span t-esc="m.sequence"/>
+                            </p>
+                            <t t-if="cp.type_header_footer == 'default'">
+                                <div class="text-center" style="border-top: 1px solid black;">
+                                    <ul class="list-inline mb4">
+                                        <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                                             adding d-inline class fixes the problem-->
+                                        <li t-if="company.phone" class="list-inline-item d-inline">Phone:
+                                            <span class="o_force_ltr" t-field="company.phone"/>
+                                        </li>
+                                        <li t-if="company.email" class="list-inline-item d-inline">Email:
+                                            <span t-field="company.email"/>
+                                        </li>
+                                        <li t-if="company.website" class="list-inline-item d-inline">Web:
+                                            <span t-field="company.website"/>
+                                        </li>
+                                        <li t-if="company.vat" class="list-inline-item d-inline"><t
+                                                t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                                            <span t-field="company.vat"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </t>
+                            <t t-if="cp.type_header_footer == 'custom'">
+                                <img t-att-src="image_data_uri(cp.img_footer_file)"/>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_certificacion_laboral">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="inside_foreach_docs" t-value="o"/>
+            <t t-call="lavish_hr_employee.report_certificacion_laboral_document"
+               t-lang="o.contract_id.employee_id.work_contact_id.lang"/>
+        </t>
+    </template>
+</odoo>

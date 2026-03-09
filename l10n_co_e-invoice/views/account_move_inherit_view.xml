@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista formulario de factura con campos DIAN -->
+    <record id="invoice_form_dian_simple" model="ir.ui.view">
+        <field name="name">account.move.form.dian.simple</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Campos invisibles para condicionales -->
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="state_dian_document" invisible="1"/>
+                <field name="hide_button_dian" invisible="1"/>
+                <field name="move_type" invisible="1"/>
+                <field name="is_debit_note" invisible="1"/>
+                <field name="cufe" invisible="1"/>
+                <field name="QR_code" invisible="1"/>
+                <field name="fe_warning" invisible="1"/>
+                <field name="is_inactive_resolution" invisible="1"/>
+                <field name="count_error_DIAN" invisible="1"/>
+                <field name="in_contingency_4" invisible="1"/>
+                <field name="exists_invoice_contingency_4" invisible="1"/>
+                <field name="contingency_3" invisible="1"/>
+                <field name="contingency_4" invisible="1"/>
+                <field name="refusal_reason" invisible="1"/>
+            </xpath>
+
+            <!-- Alertas de resolución DIAN -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning" role="alert" invisible="fe_warning != True">
+                    <strong>Resolución DIAN por caducar</strong><br/>
+                    La resolución de la DIAN está por caducar o se está agotando su numeración.
+                </div>
+
+                <div class="alert alert-danger" role="alert" invisible="is_inactive_resolution != True">
+                    <strong>Sin resolución DIAN activa</strong><br/>
+                    El diario no tiene ninguna resolución de la DIAN activa en su secuencia.
+                </div>
+            </xpath>
+
+            <!-- Alertas de contingencia y errores DIAN -->
+            <xpath expr="//header" position="after">
+                <!-- Alerta de error DIAN con mensaje formateado -->
+                <div class="alert alert-danger" role="alert" invisible="state_dian_document != 'error'">
+                    <strong>Error en validación DIAN</strong><br/>
+                    <field name="refusal_reason" readonly="1" nolabel="1" widget="html"/>
+                </div>
+
+                <div class="alert alert-danger" role="alert" invisible="count_error_DIAN == 0 or in_contingency_4 == True or state_dian_document == 'error'">
+                    <strong>Problemas de comunicación DIAN</strong><br/>
+                    Existen problemas tecnológicos de comunicación con la DIAN.
+                    Realice tres intentos más pulsando el botón Validar DIAN cada 20 segundos.
+                </div>
+
+                <div class="alert alert-danger" role="alert" invisible="in_contingency_4 == False">
+                    <strong>Contingencia tipo 4 activa</strong><br/>
+                    El sistema se encuentra en Contingencia tipo 4. Las facturas serán enviadas
+                    al cliente pero no reportadas a la DIAN hasta restablecer el servicio.
+                </div>
+
+                <div class="alert alert-warning" role="alert" invisible="exists_invoice_contingency_4 == False">
+                    <strong>Facturas pendientes de envío DIAN</strong><br/>
+                    Existen facturas con contingencia 4 pendientes de envío.
+                    Tiene 48 horas para reportarlas.
+                </div>
+            </xpath>
+
+            <!-- Botones DIAN -->
+            <xpath expr="//field[@name='state']" position="before">
+                <button name="action_send_to_dian"
+                        string="Validar DIAN"
+                        type="object"
+                        class="btn-danger"
+                        invisible="hide_button_dian == True"
+                        groups="account.group_account_invoice"/>
+
+                <button name="action_resend_to_dian"
+                        string="Reenviar a DIAN"
+                        type="object"
+                        class="btn-warning"
+                        confirm="¿Está seguro de reenviar este documento a la DIAN?"
+                        invisible="state_dian_document not in ['error', 'rechazado'] or state != 'posted'"
+                        groups="account.group_account_invoice"
+                        help="Reenvía el documento a la DIAN después de corregir errores"/>
+            </xpath>
+
+            <!-- Código QR -->
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="QR_code"
+                       widget="image"
+                       class="oe_avatar"
+                       invisible="QR_code == False"/>
+            </xpath>
+
+            <!-- Botones estadísticos -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="dian_preview"
+                        type="object"
+                        class="oe_stat_button"
+                        invisible="cufe == False or state_dian_document != 'exitoso'">
+                    <i class="fa fa-globe"/>
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Ver en DIAN</span>
+                    </div>
+                </button>
+
+                <button name="dian_pdf_view"
+                        type="object"
+                        class="oe_stat_button"
+                        invisible="cufe == False or state_dian_document != 'exitoso'">
+                    <i class="fa fa-file-pdf-o"/>
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">PDF DIAN</span>
+                    </div>
+                </button>
+
+                <button type="object"
+                        class="oe_stat_button"
+                        name="action_view_credit_notes"
+                        invisible="credit_note_count == 0">
+                    <i class="fa fa-file-text-o"/>
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="credit_note_count"/>
+                        </span>
+                        <span class="o_stat_text">Notas Crédito</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- Contacto específico -->
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="partner_contact_id"
+                       string="Contacto Específico"
+                       invisible="move_type not in ('in_invoice', 'out_invoice', 'out_refund', 'out_receipt')"
+                       readonly="state != 'draft'"/>
+            </xpath>
+
+            <!-- Grupo Facturación Electrónica -->
+            <xpath expr="//page[@name='other_info']" position="before">
+                <page string="Facturación Electrónica"
+                      name="ei_fields"
+                      invisible="move_type in ['entry']">
+                    <group>
+                        <group string="Estado DIAN">
+                            <field name="state_dian_document"/>
+                            <field name="shipping_response"/>
+                            <field name="response_document_dian"/>
+                            <field name="cufe"/>
+                            <field name="fecha_xml"/>
+                        </group>
+                        <group string="Información del Documento">
+                            <field name="fe_type"/>
+                            <field name="fe_type_ei_ref"/>
+                            <field name="fe_operation_type"/>
+                            <field name="method_payment_id"/>
+                            <field name="payment_format"/>
+                        </group>
+                    </group>
+
+                    <group string="Contingencia" invisible="contingency_3 == False and contingency_4 == False">
+                        <group>
+                            <field name="contingency_3"/>
+                            <field name="contingency_invoice_number" invisible="contingency_3 == False"/>
+                        </group>
+                        <group>
+                            <field name="contingency_4"/>
+                            <field name="state_contingency" invisible="contingency_4 == False"/>
+                        </group>
+                    </group>
+
+                    <group string="Conceptos de Corrección" invisible="move_type not in ['out_refund', 'in_refund']">
+                        <field name="concepto_credit_note" invisible="move_type not in ['out_refund', 'in_refund']"/>
+                        <field name="concept_debit_note" invisible="is_debit_note == False"/>
+                    </group>
+
+                    <group string="Mandatos" invisible="mandante_id == False">
+                        <field name="mandante_id"/>
+                    </group>
+
+                    <!-- Motivos de rechazo formateado (tiene prioridad) -->
+                    <group string="Motivos de Rechazo" invisible="not refusal_reason">
+                        <field name="refusal_reason" readonly="1" nolabel="1" widget="html"/>
+                    </group>
+
+                    <!-- Mensaje de texto simple de DIAN -->
+                    <group string="Respuesta DIAN" invisible="refusal_reason or not response_message_dian">
+                        <field name="response_message_dian" readonly="1" nolabel="1"/>
+                    </group>
+
+                    <group string="Monto en Letras">
+                        <field name="amount_letters" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Vista de lista con indicadores DIAN -->
+    <record id="invoice_tree_dian_simple" model="ir.ui.view">
+        <field name="name">account.move.tree.dian.simple</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="state_dian_document" optional="show" widget="badge"
+                       decoration-success="state_dian_document == 'exitoso'"
+                       decoration-danger="state_dian_document == 'error'"
+                       decoration-warning="state_dian_document == 'por_validar'"/>
+                <field name="cufe" optional="hide"/>
+                <field name="fecha_xml" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda con filtros DIAN -->
+    <record id="invoice_search_dian_simple" model="ir.ui.view">
+        <field name="name">account.move.search.dian.simple</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='draft']" position="after">
+                <separator/>
+                <filter string="Exitoso DIAN" name="dian_exitoso" domain="[('state_dian_document', '=', 'exitoso')]"/>
+                <filter string="Por Validar DIAN" name="dian_por_validar" domain="[('state_dian_document', '=', 'por_validar')]"/>
+                <filter string="Error DIAN" name="dian_error" domain="[('state_dian_document', '=', 'error')]"/>
+                <separator/>
+                <filter string="Contingencia 3" name="contingency_3" domain="[('contingency_3', '=', True)]"/>
+                <filter string="Contingencia 4" name="contingency_4" domain="[('contingency_4', '=', True)]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Estado DIAN" name="groupby_state_dian" domain="[]" context="{'group_by': 'state_dian_document'}"/>
+                <filter string="Tipo Operación FE" name="groupby_fe_operation" domain="[]" context="{'group_by': 'fe_operation_type'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,47 @@
+{
+  "numDocumentoIdObligado": "811044106",
+  "numFactura": "PR0004",
+  "numNota": null,
+  "tipoNota": null,
+  "usuarios": [
+    {
+      "tipoDocumentoIdentificacion": "CC",
+      "numDocumentoIdentificacion": "70123567",
+      "tipoUsuario": "04",
+      "fechaNacimiento": "1961-06-04",
+      "codSexo": "H",
+      "codPaisResidencia": "170",
+      "codMunicipioResidencia": "05001",
+      "codZonaTerritorialResidencia": "02",
+      "incapacidad": "NO",
+      "consecutivo": 1,
+      "codPaisOrigen": "170",
+      "servicios": {
+        "procedimientos": [
+          {
+            "codPrestador": "0500114147",
+            "fechaInicioAtencion": "2025-03-12 00:00",
+            "idMIPRES": null,
+            "numAutorizacion": "504030",
+            "codProcedimiento": "ALQ031",
+            "viaIngresoServicioSalud": "01",
+            "modalidadGrupoServicioTecSal": "01",
+            "grupoServicios": "02",
+            "codServicio": "101",
+            "finalidadTecnologiaSalud": "44",
+            "tipoDocumentoIdentificacion": "CC",
+            "numDocumentoIdentificacion": "",
+            "codDiagnosticoPrincipal": "",
+            "codDiagnosticoRelacionado": null,
+            "codComplicacion": null,
+            "vrServicio": 1802,
+            "conceptoRecaudo": "05",
+            "valorPagoModerador": 0,
+            "numFEVPagoModerador": false,
+            "consecutivo": 1
+          }
+        ]
+      }
+    }
+  ]
+}

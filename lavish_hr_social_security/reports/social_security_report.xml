@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="social_security_report_action" model="ir.actions.report">
+           <field name="name">Informe seguridad social</field>
+           <field name="model">hr.payroll.social.security</field>
+           <field name="report_type">qweb-pdf</field>
+           <field name="report_name">lavish_hr_social_security.social_security_report_template</field>
+           <field name="report_file">lavish_hr_social_security.social_security_report_template</field>
+           <field name="binding_model_id" ref="model_hr_payroll_social_security"/>
+        </record>
+</odoo>

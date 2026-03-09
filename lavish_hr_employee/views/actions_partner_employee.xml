@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <!-- Formulario de empleados - campo tercero -->    
+        <record id="view_lavish_hr_employee_form_employee_partner" model="ir.ui.view">
+            <field name="name">hr.employee.lavish.hr.employee.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="priority">50</field>
+            <field name="inherit_id" ref="base.res_partner_view_form_private"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Apellidos-Nombres</attribute>                
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]" position="before">
+                    <group>
+                        <field name="l10n_latam_identification_type_id" required="1"/>
+                        <field name="vat_co" placeholder="RUT/NIT/CC/ID" style="width: 60%%" required="1"/>
+                        <field name="vat" invisible="1"/>
+                        <field name="vat_vd" invisible="1"/>
+                        <field name="firs_name" required="1"/>
+                        <field name="second_name"/>
+                        <field name="first_lastname" required="1"/>
+                        <field name="second_lastname"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="replace">
+                    <xpath expr="//field[@name='country_id']" position="move"/>                    
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="after">
+                    <field name="city_id" placeholder="City" class="o_address_city" />
+                </xpath>
+                <xpath expr="//field[@name='bank_ids']" position="replace">
+                    <field name="bank_ids">
+                        <tree editable="bottom">
+                            <field name="company_id"/>
+                            <field name="bank_id"/>
+                            <field name="type_account"/>
+                            <field name="acc_number"/>
+                            <field name="is_main"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>   
+    </data>
+</odoo>

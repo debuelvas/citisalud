@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View hr.employee.public form -->
+    <record id="view_hr_employee_public_form" model="ir.ui.view">
+        <field name="name">view.hr.employee.public.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                <page string="Retenciones" name="Rt">
+                    <field name="ret_line_ids" readonly="1" colspan="2" nolabel="1">
+                        <tree  decoration-info="es_proyectado">
+                            <field name="es_proyectado" column_invisible="1"/>
+                            <field name="name" decoration-bf="1"/>
+                            <field name="salario_basico" sum="Total" decoration-bf="1" decoration-info="salario_basico > 0"/>
+                            <field name="comisiones" sum="Total" decoration-info="comisiones > 0"/>
+                            <field name="dev_salarial" sum="Total" decoration-info="dev_salarial > 0"/>
+                            <field name="dev_no_salarial" sum="Total" decoration-info="dev_no_salarial > 0"/>
+                            <field name="total_ingresos" sum="Total" decoration-bf="1" decoration-success="total_ingresos > 0"/>
+                            <field name="pension_total" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                            <field name="salud" sum="Total" decoration-muted="1"/>
+                            <field name="total_aportes" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                            <field name="ded_vivienda" sum="Total" decoration-warning="ded_vivienda > 0"/>
+                            <field name="ded_dependientes" sum="Total" decoration-warning="ded_dependientes > 0"/>
+                            <field name="ded_salud" sum="Total" decoration-warning="ded_salud > 0"/>
+                            <field name="total_deducciones" sum="Total" decoration-bf="1" decoration-warning="total_deducciones > 0"/>
+                            <field name="valor_avp_afc" sum="Total AFC" decoration-info="valor_avp_afc > 0"/>
+                            <field name="renta_exenta_25" sum="Total Exenta 25%" decoration-info="renta_exenta_25 > 0"/>
+                            <field name="total_rentas_exentas" sum="Total Exentas" decoration-bf="1" decoration-info="total_rentas_exentas > 0"/>
+                            <field name="subtotal_ibr1" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                            <field name="subtotal_ibr2" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                            <field name="beneficios_limitados" sum="Total Limitados" decoration-bf="1" decoration-warning="beneficios_limitados > 0"/>
+                            <field name="base_gravable" sum="Total Base Gravable" decoration-bf="1" decoration-danger="base_gravable > 0"/>
+                            <field name="ibr_uvts" decoration-bf="1"/>
+                            <field name="tasa_aplicada" decoration-danger="1"/>
+                            <field name="retencion_calculada" sum="Total" decoration-danger="retencion_calculada > 0"/>
+                            <field name="retencion_anterior" sum="Total" decoration-danger="retencion_anterior > 0"/>
+                            <field name="retencion_aplicada" sum="Total Aplicada" decoration-bf="1" decoration-danger="retencion_aplicada > 0"/>
+                            <field name="uvt_valor"/>
+                            <field name="base_legal"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="view_lavish_retencion_reporte_form" model="ir.ui.view">
+        <field name="name">lavish.retencion.reporte.form</field>
+        <field name="model">lavish.retencion.reporte</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información General">
+                            <field name="employee_id"/>
+                            <field name="date"/>
+                            <field name="payslip_id"/>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="quincena"/>
+                            <field name="es_proyectado"/>
+                            <field name="uvt_valor" widget="monetary"/>
+                        </group>
+                        <group string="Resultados">
+                            <field name="base_gravable" widget="monetary" decoration-bf="1"/>
+                            <field name="ibr_uvts"/>
+                            <field name="tasa_aplicada"/>
+                            <field name="retencion_aplicada" widget="monetary" decoration-bf="1" decoration-danger="1"/>
+                            <field name="base_legal"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Ingresos" name="ingresos">
+                            <group>
+                                <group string="Ingresos Laborales">
+                                    <field name="salario_basico" widget="monetary"/>
+                                    <field name="comisiones" widget="monetary"/>
+                                    <field name="dev_salarial" widget="monetary"/>
+                                    <field name="dev_no_salarial" widget="monetary"/>
+                                    <field name="total_ingresos" widget="monetary" decoration-bf="1"/>
+                                </group>
+                                <group string="Aportes Obligatorios">
+                                    <field name="pension" widget="monetary"/>
+                                    <field name="subsistencia" widget="monetary"/>
+                                    <field name="solidaridad" widget="monetary"/>
+                                    <field name="pension_total" widget="monetary"/>
+                                    <field name="salud" widget="monetary"/>
+                                    <field name="total_aportes" widget="monetary" decoration-bf="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Deducciones y Rentas Exentas" name="deducciones">
+                            <group>
+                                <group string="Deducciones">
+                                    <field name="ded_vivienda" widget="monetary"/>
+                                    <field name="ded_dependientes" widget="monetary"/>
+                                    <field name="ded_salud" widget="monetary"/>
+                                    <field name="total_deducciones" widget="monetary" decoration-bf="1"/>
+                                </group>
+                                <group string="Rentas Exentas">
+                                    <field name="valor_avp_afc" widget="monetary"/>
+                                    <field name="renta_exenta_25" widget="monetary"/>
+                                    <field name="total_rentas_exentas" widget="monetary" decoration-bf="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Cálculo Detallado" name="calculo">
+                            <group>
+                                <group string="Subtotales">
+                                    <field name="subtotal_ibr1" widget="monetary"/>
+                                    <field name="subtotal_ibr2" widget="monetary"/>
+                                    <field name="beneficios_limitados" widget="monetary" decoration-bf="1"/>
+                                </group>
+                                <group string="Retención">
+                                    <field name="retencion_calculada" widget="monetary"/>
+                                    <field name="retencion_anterior" widget="monetary"/>
+                                    <field name="retencion_aplicada" widget="monetary" decoration-bf="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Reporte HTML" name="reporte">
+                            <field name="html_reporte" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Vista de lista -->
+    <record id="view_lavish_retencion_reporte_tree" model="ir.ui.view">
+        <field name="name">lavish.retencion.reporte.tree</field>
+        <field name="model">lavish.retencion.reporte</field>
+        <field name="arch" type="xml">
+            <tree  decoration-info="es_proyectado">
+                <header>
+                    <button name="action_export_standard" type="object" string="Exportar Estándar" icon="fa-file-excel-o" 
+                            help="Exportar los registros seleccionados con información de la empresa y resumen global"/>
+                    <button name="action_export_by_employee" type="object" string="Exportar por Empleado" icon="fa-users" 
+                            help="Exportar los registros seleccionados agrupados por empleado con subtotales por cada uno"/>
+                    <button name="action_export_detailed" type="object" string="Exportar Detallado" icon="fa-table" 
+                            help="Exportar reporte detallado con múltiples hojas incluyendo resumen general, detalles por empleado y consolidado anual"/>
+                </header>
+                <field name="name" decoration-bf="1"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="quincena"/>
+                <field name="es_proyectado"/>
+
+                <field name="salario_basico" sum="Total" decoration-bf="1" decoration-info="salario_basico > 0"/>
+                <field name="comisiones" sum="Total" decoration-info="comisiones > 0"/>
+                <field name="dev_salarial" sum="Total" decoration-info="dev_salarial > 0"/>
+                <field name="dev_no_salarial" sum="Total" decoration-info="dev_no_salarial > 0"/>
+                <field name="total_ingresos" sum="Total" decoration-bf="1" decoration-success="total_ingresos > 0"/>
+
+                <field name="pension_total" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                <field name="salud" sum="Total" decoration-muted="1"/>
+                <field name="total_aportes" sum="Total" decoration-bf="1" decoration-muted="1"/>
+
+                <field name="ded_vivienda" sum="Total" decoration-warning="ded_vivienda > 0"/>
+                <field name="ded_dependientes" sum="Total" decoration-warning="ded_dependientes > 0"/>
+                <field name="ded_salud" sum="Total" decoration-warning="ded_salud > 0"/>
+                <field name="total_deducciones" sum="Total" decoration-bf="1" decoration-warning="total_deducciones > 0"/>
+
+                <field name="valor_avp_afc" sum="Total AFC" decoration-info="valor_avp_afc > 0"/>
+                <field name="renta_exenta_25" sum="Total Exenta 25%" decoration-info="renta_exenta_25 > 0"/>
+                <field name="total_rentas_exentas" sum="Total Exentas" decoration-bf="1" decoration-info="total_rentas_exentas > 0"/>
+
+                <field name="subtotal_ibr1" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                <field name="subtotal_ibr2" sum="Total" decoration-bf="1" decoration-muted="1"/>
+                <field name="beneficios_limitados" sum="Total Limitados" decoration-bf="1" decoration-warning="beneficios_limitados > 0"/>
+
+                <field name="base_gravable" sum="Total Base Gravable" decoration-bf="1" decoration-danger="base_gravable > 0"/>
+                <field name="ibr_uvts" decoration-bf="1"/>
+                <field name="tasa_aplicada" decoration-danger="1"/>
+                <field name="retencion_calculada" sum="Total" decoration-danger="retencion_calculada > 0"/>
+                <field name="retencion_anterior" sum="Total" decoration-danger="retencion_anterior > 0"/>
+                <field name="retencion_aplicada" sum="Total Aplicada" decoration-bf="1" decoration-danger="retencion_aplicada > 0"/>
+
+                <field name="uvt_valor"/>
+                <field name="base_legal"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- Vista de búsqueda -->
+    <record id="view_lavish_retencion_reporte_search" model="ir.ui.view">
+        <field name="name">lavish.retencion.reporte.search</field>
+        <field name="model">lavish.retencion.reporte</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="quincena"/>
+                <field name="base_gravable"/>
+                <field name="retencion_aplicada"/>
+                
+                <filter string="Proyectados" name="proyectados" domain="[('es_proyectado', '=', True)]"/>
+                <filter string="Sin Proyectar" name="no_proyectados" domain="[('es_proyectado', '=', False)]"/>
+                
+                <filter string="Este año" name="year_actual" domain="[('year', '=', context_today().year)]"/>
+                <filter string="Este mes" name="month_actual" domain="[('month', '=', context_today().month)]"/>
+                
+                <filter string="Primera Quincena" name="primera_quincena" domain="[('quincena', '=', '1')]"/>
+                <filter string="Segunda Quincena" name="segunda_quincena" domain="[('quincena', '=', '2')]"/>
+                <filter string="Mensual" name="mensual" domain="[('quincena', '=', '0')]"/>
+                
+                <filter string="Con Retención" name="con_retencion" domain="[('retencion_aplicada', '>', 0)]"/>
+                <filter string="Sin Retención" name="sin_retencion" domain="[('retencion_aplicada', '=', 0)]"/>
+                
+                <filter string="Con AFC/AVP" name="con_afc" domain="[('valor_avp_afc', '>', 0)]"/>
+                
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Empleado" name="group_employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Año" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Mes" name="group_month" context="{'group_by': 'month'}"/>
+                    <filter string="Quincena" name="group_quincena" context="{'group_by': 'quincena'}"/>
+                    <filter string="Tipo Proyección" name="group_proyectado" context="{'group_by': 'es_proyectado'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Action -->
+    <record id="action_lavish_retencion_reporte" model="ir.actions.act_window">
+        <field name="name">Reportes de Retención</field>
+        <field name="res_model">lavish.retencion.reporte</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_year_actual': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay reportes de retención disponibles
+            </p>
+            <p>
+                Los reportes de retención se generan automáticamente al calcular la nómina.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Menú -->
+    <menuitem id="menu_lavish_retencion_reporte"
+              name="Historico de Retención"
+              parent="lavish_hr_payroll.menu_payroll_history"
+              action="action_lavish_retencion_reporte"
+              sequence="75"/>
+
+</odoo>

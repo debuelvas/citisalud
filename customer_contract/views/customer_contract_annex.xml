@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="customer_contract_annex_form" model="ir.ui.view">
+            <field name="name">customer.contract.annex.form</field>
+            <field name="model">customer.contract.annex</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="group_general">
+                            <field name="type" invisible="1" />
+                            <field name="customer_contract_id" invisible="1" />
+                            <group name="group_general_left">
+                                <field name="file" widget="binary" />
+                                <field name="sequence" />
+                                <field name="cdp_id" invisible="type == 'time'" />
+                            </group>
+                            <group name="group_general_right">
+                                <field name="date" invisible="type == 'money'" />
+                                <field name="amount" invisible="type == 'time'" />
+                                <label for="write_uid" string="Modificador" />
+                                <field name="write_uid" readonly="1" />
+                                <field name="rp_id" invisible="type == 'time'" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_contract_annex_time_tree" model="ir.ui.view">
+            <field name="name">customer.contract.annex.time.tree</field>
+            <field name="model">customer.contract.annex</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" />
+                    <field name="date" type="float" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="customer_contract_annex_money_tree" model="ir.ui.view">
+            <field name="name">customer.contract.annex.money.tree</field>
+            <field name="model">customer.contract.annex</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" />
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="customer_contract_annex_type_tree" model="ir.ui.view">
+            <field name="name">customer.contract.annex.type.tree</field>
+            <field name="model">customer.contract.annex</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" />
+                    <field name="type" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

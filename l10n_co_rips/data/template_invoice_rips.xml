@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Template heredado para agregar datos del sector salud -->
+        <template id="electronic_invoice_template_health" inherit_id="l10n_co_e-invoice.electronic_invoice_template">
+
+            <!-- Reemplazar la extensión del sector salud cuando aplique -->
+            <xpath expr="//ext:UBLExtension[last()-1]/ext:ExtensionContent" position="inside">
+                <!-- Solo agregar si es sector salud y no es SS-Recaudo -->
+                <t t-if="(is_health_sector or tipo_sector in ['salud', '2', 2]) and fe_operation_type != 'SS-Recaudo'">
+                    <CustomTagGeneral>
+                        <Name>Responsable</Name>
+                        <Value>url www.minSalud.gov.co</Value>
+                        <Name>Tipo, identificador:año del acto administrativo</Name>
+                        <Value>Resolución 2275:2023</Value>
+                        <Interoperabilidad>
+                            <Group schemeName="Sector Salud">
+                                <Collection schemeName="Usuario">
+                                    <!-- CODIGO_PRESTADOR -->
+                                    <AdditionalInformation>
+                                        <Name>CODIGO_PRESTADOR</Name>
+                                        <Value><t t-out="codigo_prestador or health_provider_code or ''"/></Value>
+                                    </AdditionalInformation>
+
+                                    <!-- MODALIDAD_PAGO -->
+                                    <AdditionalInformation>
+                                        <Name>MODALIDAD_PAGO</Name>
+                                        <t t-if="modalidad_pago or health_payment_mode_id">
+                                            <Value t-att-schemeID="modalidad_pago or health_payment_mode_id.code"
+                                                   schemeName="salud_modalidad_pago.gc">
+                                                <t t-out="modalidad_pago_nombre or health_payment_mode_id.name or ''"/>
+                                            </Value>
+                                        </t>
+                                        <t t-else="">
+                                            <Value/>
+                                        </t>
+                                    </AdditionalInformation>
+
+                                    <!-- COBERTURA_PLAN_BENEFICIOS -->
+                                    <AdditionalInformation>
+                                        <Name>COBERTURA_PLAN_BENEFICIOS</Name>
+                                        <t t-if="cobertura_plan_beneficios or health_coverage_plan_id">
+                                            <Value t-att-schemeID="cobertura_plan_beneficios or health_coverage_plan_id.code"
+                                                   schemeName="salud_cobertura.gc">
+                                                <t t-out="cobertura_plan_beneficios_nombre or health_coverage_plan_id.name or ''"/>
+                                            </Value>
+                                        </t>
+                                        <t t-else="">
+                                            <Value/>
+                                        </t>
+                                    </AdditionalInformation>
+
+                                    <!-- NUMERO_CONTRATO -->
+                                    <AdditionalInformation>
+                                        <Name>NUMERO_CONTRATO</Name>
+                                        <Value><t t-out="numero_contrato or (contract_id.name if contract_id else '') or ''"/></Value>
+                                    </AdditionalInformation>
+
+                                    <!-- NUMERO_POLIZA -->
+                                    <AdditionalInformation>
+                                        <Name>NUMERO_POLIZA</Name>
+                                        <Value><t t-out="numero_poliza or (contract_id.policy_ids[0].name if contract_id and contract_id.policy_ids else '') or ''"/></Value>
+                                    </AdditionalInformation>
+
+                                    <!-- Valores monetarios solo si no es SS-Recaudo -->
+                                    <t t-if="fe_operation_type != 'SS-Recaudo'">
+                                        <!-- COPAGO -->
+                                        <AdditionalInformation>
+                                            <Name>COPAGO</Name>
+                                            <Value><t t-out="'%.2f' % (copago or copay_amount or 0)"/></Value>
+                                        </AdditionalInformation>
+
+                                        <!-- CUOTA_MODERADORA -->
+                                        <AdditionalInformation>
+                                            <Name>CUOTA_MODERADORA</Name>
+                                            <Value><t t-out="'%.2f' % (cuota_moderadora or moderator_fee_amount or 0)"/></Value>
+                                        </AdditionalInformation>
+
+                                        <!-- PAGOS_COMPARTIDOS -->
+                                        <AdditionalInformation>
+                                            <Name>PAGOS_COMPARTIDOS</Name>
+                                            <Value><t t-out="'%.2f' % (pagos_compartidos or shared_payment_amount or 0)"/></Value>
+                                        </AdditionalInformation>
+
+                                        <!-- ANTICIPO -->
+                                        <AdditionalInformation>
+                                            <Name>ANTICIPO</Name>
+                                            <Value><t t-out="'%.2f' % (anticipo or recovery_fee_amount or 0)"/></Value>
+                                        </AdditionalInformation>
+
+                                        <!-- FECHA_INICIO_PERIODO_FACTURACION -->
+                                        <AdditionalInformation>
+                                            <Name>FECHA_INICIO_PERIODO_FACTURACION</Name>
+                                            <Value><t t-out="fecha_inicio_periodo_facturacion or date_start or ''"/></Value>
+                                        </AdditionalInformation>
+
+                                        <!-- FECHA_FINAL_PERIODO_FACTURACION -->
+                                        <AdditionalInformation>
+                                            <Name>FECHA_FINAL_PERIODO_FACTURACION</Name>
+                                            <Value><t t-out="fecha_final_periodo_facturacion or date_end or ''"/></Value>
+                                        </AdditionalInformation>
+                                    </t>
+                                </Collection>
+                            </Group>
+
+                            <!-- InteroperabilidadPT - Solo si existe configuración -->
+                            <t t-if="interoperability_pt_id">
+                                <InteroperabilidadPT>
+                                    <!-- URLDescargaAdjuntos -->
+                                    <t t-if="interoperability_pt_id.url_download">
+                                        <URLDescargaAdjuntos>
+                                            <URL><t t-out="interoperability_pt_id.url_download"/></URL>
+                                            <t t-if="interoperability_pt_id.param_excel_file or interoperability_pt_id.param_text_file or interoperability_pt_id.additional_download_params">
+                                                <ParametrosArgumentos>
+                                                    <t t-if="interoperability_pt_id.param_excel_file">
+                                                        <ParametroArgumento>
+                                                            <Name>excelFile</Name>
+                                                            <Value><t t-out="interoperability_pt_id.param_excel_file"/></Value>
+                                                        </ParametroArgumento>
+                                                    </t>
+                                                    <t t-if="interoperability_pt_id.param_text_file">
+                                                        <ParametroArgumento>
+                                                            <Name>txtFile</Name>
+                                                            <Value><t t-out="interoperability_pt_id.param_text_file"/></Value>
+                                                        </ParametroArgumento>
+                                                    </t>
+                                                    <t t-foreach="interoperability_pt_id.additional_download_params" t-as="param">
+                                                        <ParametroArgumento>
+                                                            <Name><t t-out="param.name"/></Name>
+                                                            <Value><t t-out="param.value"/></Value>
+                                                        </ParametroArgumento>
+                                                    </t>
+                                                </ParametrosArgumentos>
+                                            </t>
+                                        </URLDescargaAdjuntos>
+                                    </t>
+
+                                    <!-- EntregaDocumento -->
+                                    <t t-if="interoperability_pt_id.web_service_url">
+                                        <EntregaDocumento>
+                                            <WS><t t-out="interoperability_pt_id.web_service_url"/></WS>
+                                            <t t-if="interoperability_pt_id.document_delivery_params">
+                                                <ParametrosArgumentos>
+                                                    <t t-foreach="interoperability_pt_id.document_delivery_params" t-as="del_param">
+                                                        <ParametroArgumento>
+                                                            <Name><t t-out="del_param.name"/></Name>
+                                                            <Value><t t-out="del_param.value"/></Value>
+                                                        </ParametroArgumento>
+                                                    </t>
+                                                </ParametrosArgumentos>
+                                            </t>
+                                        </EntregaDocumento>
+                                    </t>
+                                </InteroperabilidadPT>
+                            </t>
+                        </Interoperabilidad>
+                    </CustomTagGeneral>
+                </t>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

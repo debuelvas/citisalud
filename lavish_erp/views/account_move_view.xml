@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form_inherit_negotiation" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.negotiation</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page string="Negociación" name="negotiation" invisible="move_type not in ['out_invoice', 'out_refund']">
+                    <group>
+                        <field name="is_negotiation_active"/>
+                    </group>
+                    <group invisible="is_negotiation_active == False">
+                        <group>
+                            <field name="negotiation_type"/>
+                            <field name="negotiation_start_date"/>
+                            <field name="negotiation_installment_count"/>
+                            <field name="negotiation_fixed_dates"/>
+                        </group>
+                        <group>
+                            <field name="negotiation_is_fixed_date"/>
+                            <field name="negotiation_fixed_day" invisible="negotiation_is_fixed_date == False"/>
+                            <field name="negotiation_advance_type"/>
+                            <field name="negotiation_advance_value" invisible="negotiation_advance_type == False"/>
+                        </group>
+                    </group>
+                    <field name="negotiation_payment_term" invisible="is_negotiation_active == False"/>
+                    <field name="negotiation_line_ids" invisible="is_negotiation_active == False">
+                        <tree editable="bottom">
+                            <field name="due_date"/>
+                            <field name="amount"/>
+                            <field name="is_advance"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="customer_contract_delete_report_budget_form" model="ir.ui.view">
+            <field name="name">customer.contract.delete.report.budget.form</field>
+            <field name="model">customer.contract.delete.report.budget</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="reports_budget_ids" />
+                    </sheet>
+                    <footer>
+                        <button name="delete_customer_contract_report_budget" type="object" string="Eliminar documentos" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_contract_delete_report_budget_action" model="ir.actions.act_window">
+            <field name="name">Eliminar Documentos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.contract.delete.report.budget</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

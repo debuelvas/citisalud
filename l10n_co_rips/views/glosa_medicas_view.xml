@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_glosa_medica_form" model="ir.ui.view">
+        <field name="name">glosa.medica.form</field>
+        <field name="model">glosa.medica</field>
+        <field name="arch" type="xml">
+            <form string="Glosa Médica">
+                <header>
+                    <button name="action_generate_credit_note" string="Generar Nota de Crédito" type="object" class="oe_highlight" invisible="not is_conciliated or credit_note_id or result == 'favorable'"/>
+                    <button name="action_view_credit_note" string="Ver Nota de Crédito" type="object" class="btn-info" invisible="not credit_note_id"/>
+                    <button name="action_cancel" string="Cancelar Glosa" type="object" class="btn-danger" confirm="¿Está seguro de que desea cancelar esta glosa?" invisible="state in ('resuelto', 'aceptado', 'rechazado', 'parcial', 'cancelado')"/>
+                    <field name="etapa_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="patient_id" options="{'no_create': True}"/>
+                            <field name="invoice_id" options="{'no_create': True}" widget="many2one"/>
+                            <field name="invoice_line_id" options="{'no_create': True}" domain="[('move_id', '=', invoice_id)]" widget="many2one"/>
+                            <field name="is_line_glosa" />
+                            <field name="service_date"/>
+                            <field name="total_factura" widget="monetary" readonly="1"/>
+                            <field name="monto_residual" widget="monetary" readonly="1"/>
+                            <field name="amount" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="motivo_id" options="{'no_create_edit': True}"/>
+                            <field name="motivo_code"/>
+                            <field name="motivo_category"/>
+                            <field name="state" invisible="1"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="treatment_id"/>
+                            <field name="authorization_number"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Comentarios y Respuesta">
+                            <group>
+                                <field name="comments" placeholder="Detalle de la glosa..."/>
+                                <field name="response" placeholder="Registre aquí la respuesta a la glosa..." required="state in ('revision', 'conciliacion', 'resuelto', 'aceptado', 'rechazado', 'parcial')"/>
+                            </group>
+                        </page>
+                        <page string="Resultado y Conciliación" invisible="state in ('recepcion', 'clasificacion')">
+                            <group>
+                                <group>
+                                    <field name="result" readonly="state in ('resuelto', 'aceptado', 'rechazado', 'parcial')"/>
+                                    <field name="is_conciliated"/>
+                                    <field name="conciliation_date"/>
+                                </group>
+                                <group>
+                                    <field name="accepted_percentage" widget="percentage" invisible="result == 'pending'"/>
+                                    <field name="accepted_amount" widget="monetary" invisible="result == 'pending'"/>
+                                    <field name="rejected_amount" widget="monetary" invisible="result == 'pending'"/>
+                                </group>
+                            </group>
+                            <group string="Detalles de la Conciliación">
+                                <field name="conciliation_details" placeholder="Detalles del acuerdo de conciliación..." nolabel="1"/>
+                            </group>
+                            <group string="Nota de Cierre">
+                                <field name="close_note" placeholder="Motivo del cierre de la glosa..." nolabel="1" required="state in ('resuelto', 'aceptado', 'rechazado', 'parcial')"/>
+                            </group>
+                        </page>
+                        <page string="Fechas">
+                            <group>
+                                <group>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                </group>
+                                <group>
+                                    <field name="create_date" readonly="1"/>
+                                    <field name="write_date" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Información de Seguimiento">
+                            <group>
+                                <group>
+                                    <field name="deadline_date" readonly="1"/>
+                                    <field name="days_remaining" readonly="1"/>
+                                    <field name="response_date"/>
+                                </group>
+                                <group>
+                                    <field name="credit_note_id" readonly="1"/>
+                                    <field name="credit_note_state" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_glosa_medica_kanban" model="ir.ui.view">
+        <field name="name">glosa.medica.kanban</field>
+        <field name="model">glosa.medica</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="etapa_id" class="o_kanban_small_column" quick_create="false" on_create="quick_create" records_draggable="true">
+                
+                <!-- Definir campos necesarios para la vista -->
+                <field name="id"/>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="invoice_id"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+                <field name="total_factura"/>
+                <field name="etapa_id"/>
+                <field name="state"/>
+                <field name="motivo_id"/>
+                <field name="days_remaining"/>
+                <field name="deadline_date"/>
+                <field name="result"/>
+                <field name="accepted_percentage"/>
+                <field name="is_conciliated"/>
+                <field name="credit_note_id"/>
+                <field name="credit_note_state"/>
+                <field name="activity_ids"/>
+                <field name="activity_state"/>
+                <field name="service_date"/>
+                <field name="partner_id"/>
+                <field name="authorization_number"/>
+                <field name="user_id"/>
+                
+                <!-- Progresión de actividades -->
+                <progressbar field="activity_state" colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"/>
+                
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_glosa_card">
+                            <!-- Número de Glosa en la parte superior -->
+                            <div style="padding: 10px 16px; background-color: #f8f9fa; border-bottom: 1px solid #e9ecef; position: relative;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <strong style="font-size: 18px; color: #1a1a1a; margin: 0;">
+                                        <t t-out="record.name.value"/>
+                                    </strong>
+                                    
+                                    <!-- Menú de opciones -->
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <a class="dropdown-toggle o-no-caret btn" role="button" data-bs-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                            <i class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <a role="menuitem" type="edit" class="dropdown-item">Editar</a>
+                                            <a role="menuitem" type="delete" class="dropdown-item">Eliminar</a>
+                                            <div role="separator" class="dropdown-divider"/>
+                                            <t t-if="record.is_conciliated.raw and record.result.raw != 'favorable' and !record.credit_note_id.raw">
+                                                <a name="action_generate_credit_note" type="object" role="menuitem" class="dropdown-item">
+                                                    Generar Nota de Crédito
+                                                </a>
+                                            </t>
+                                            <t t-if="record.credit_note_id.raw">
+                                                <a name="action_view_credit_note" type="object" role="menuitem" class="dropdown-item">
+                                                    Ver Nota de Crédito
+                                                </a>
+                                            </t>
+                                            <t t-if="record.state.raw != 'cancelado'">
+                                                <a name="action_cancel" type="object" role="menuitem" class="dropdown-item">
+                                                    Cancelar Glosa
+                                                </a>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido Principal - Estructura similar a la imagen -->
+                            <div style="padding: 12px;">
+                                <div style="margin-bottom: 8px;">
+                                    <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Cliente:</span>
+                                    <div style="font-size: 12px; font-weight: bold; color: #333; line-height: 1.2;">
+                                        <t t-out="record.partner_id.value"/>
+                                    </div>
+                                </div>
+                                <!-- Paciente -->
+                                <div style="margin-bottom: 8px;">
+                                    <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Paciente:</span>
+                                    <div style="font-size: 12px; font-weight: bold; color: #333; line-height: 1.2;">
+                                        <t t-out="record.patient_id.value"/>
+                                    </div>
+                                </div>
+                                
+                                <!-- Factura y Fecha de Servicio en dos columnas -->
+                                <div class="row" style="margin-bottom: 8px;">
+                                    <div class="col-6">
+                                        <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Factura:</span>
+                                        <div style="font-size: 12px; font-weight: bold; color: #333; line-height: 1.2;">
+                                            <t t-out="record.invoice_id.value"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Fecha Servicio:</span>
+                                        <div style="font-size: 12px; font-weight: bold; color: #333; line-height: 1.2;">
+                                            <t t-out="record.service_date.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Motivo -->
+                                <div style="margin-bottom: 8px;">
+                                    <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Motivo:</span>
+                                    <div style="font-size: 12px; font-weight: bold; color: #333; line-height: 1.2;">
+                                        <t t-out="record.motivo_id.value"/>
+                                    </div>
+                                </div>
+                                
+                                <!-- Separador -->
+                                <div style="height: 1px; background-color: #e5e5e5; margin: 10px 0;"/>
+                                
+                                <!-- Montos -->
+                                <div style="margin-bottom: 6px;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Total Factura:</span>
+                                        <div style="font-size: 12px; font-weight: bold; color: #333;">
+                                            <t t-out="record.total_factura.value"/> <t t-out="record.currency_id.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 6px;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="o_form_label" style="color: #6b6b6b; font-size: 14px;">Monto Glosado:</span>
+                                        <div style="font-size: 12px; font-weight: bold; color: #d9534f;">
+                                             <t t-out="record.amount.value"/> <t t-out="record.currency_id.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Separador -->
+                                <div style="height: 1px; background-color: #e5e5e5; margin: 10px 0;"/>
+                                
+                                <!-- Información de Nota de Crédito -->
+                                <div t-if="record.credit_note_id.raw" style="background-color: #dff0d8; border-radius: 4px; padding: 6px; margin-bottom: 10px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <i class="fa fa-check-circle text-success" style="padding-right: 4px;"/>
+                                            <strong>Nota de Crédito: </strong>
+                                            <span style="font-weight: bold;"><t t-out="record.credit_note_id.value"/></span>
+                                        </div>
+                                        <div>
+                                            <t t-if="record.credit_note_state.raw == 'posted'">
+                                                <span style="background-color: #5cb85c; color: white; border-radius: 3px; padding: 1px 5px; font-size: 11px;">Publicada</span>
+                                            </t>
+                                            <t t-elif="record.credit_note_state.raw == 'draft'">
+                                                <span style="background-color: #777; color: white; border-radius: 3px; padding: 1px 5px; font-size: 11px;">Borrador</span>
+                                            </t>
+                                            <t t-elif="record.credit_note_state.raw == 'cancel'">
+                                                <span style="background-color: #d9534f; color: white; border-radius: 3px; padding: 1px 5px; font-size: 11px;">Cancelada</span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pie de la tarjeta -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; border-top: 1px solid #e5e5e5;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fa fa-user text-muted" style="padding-right: 4px;"/>
+                                    <span class="text-muted" style="font-size: 13px;"><t t-out="record.user_id.value"/></span>
+                                </div>
+                                
+                                <!-- Actividades -->
+                                <div>
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div>
+                            </div>
+                            
+                            <!-- Barra de estado en la parte inferior -->
+                            <div t-attf-style="height: 4px; width: 100%; position: absolute; bottom: 0; left: 0;                                              background-color: #{record.state.raw == 'draft' ? '#777' :                                               record.state.raw == 'recepcion' ? '#5bc0de' :                                               record.state.raw == 'clasificacion' ? '#337ab7' :                                               record.state.raw == 'revision' ? '#563d7c' :                                               record.state.raw == 'conciliacion' ? '#f0ad4e' :                                               record.state.raw == 'resuelto' ? '#5cb85c' :                                               record.state.raw == 'aceptado' ? '#5cb85c' :                                               record.state.raw == 'rechazado' ? '#d9534f' :                                               record.state.raw == 'parcial' ? '#f0ad4e' : '#333'}">
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_glosa_medica_tree" model="ir.ui.view">
+        <field name="name">glosa.medica.tree</field>
+        <field name="model">glosa.medica</field>
+        <field name="arch" type="xml">
+            <tree string="Glosas Médicas" 
+                  decoration-danger="days_remaining &lt; 0 and state in ('recepcion', 'clasificacion', 'revision')" 
+                  decoration-warning="days_remaining &gt;= 0 and days_remaining &lt;= 3 and state in ('recepcion', 'clasificacion', 'revision')" 
+                  decoration-success="state == 'resuelto' or state == 'rechazado'" 
+                  decoration-muted="state == 'cancelado'" 
+                  decoration-info="state == 'aceptado'">
+                <field name="name" />
+                <field name="patient_id" />
+                <field name="invoice_id" />
+                <field name="invoice_line_id" optional="hide" />
+                <field name="is_line_glosa" optional="hide" />
+                <field name="motivo_id" />
+                <field name="amount" sum="Total" />
+                <field name="currency_id" invisible="1" />
+                <field name="deadline_date" optional="show" />
+                <field name="days_remaining" optional="show" />
+                <field name="etapa_id" />
+                <field name="state" />
+                <field name="result" optional="show" />
+                <field name="accepted_percentage" widget="percentage" optional="hide" />
+                <field name="accepted_amount" sum="Total Aceptado" optional="show" />
+                <field name="rejected_amount" sum="Total Rechazado" optional="show" />
+                <field name="is_conciliated" optional="hide" />
+                <field name="credit_note_id" optional="hide" />
+                <field name="contract_id" optional="hide" />
+                <field name="user_id" widget="many2one_avatar_user" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_glosa_medica_search" model="ir.ui.view">
+        <field name="name">glosa.medica.search</field>
+        <field name="model">glosa.medica</field>
+        <field name="arch" type="xml">
+            <search string="Glosas Médicas">
+                <field name="name" />
+                <field name="patient_id" />
+                <field name="invoice_id" />
+                <field name="invoice_line_id" filter_domain="[('invoice_line_id', 'ilike', self)]"/>
+                <field name="motivo_id" />
+                <field name="user_id" />
+                <field name="authorization_number" filter_domain="[('authorization_number', 'ilike', self)]"/>
+                <field name="contract_id"/>
+                <separator />
+                <filter string="Mis Glosas" name="my_glosas" domain="[('user_id', '=', uid)]" />
+                <filter string="Sin Conciliar" name="no_conciliadas" domain="[('is_conciliated', '=', False)]" />
+                <filter string="Conciliadas" name="conciliadas" domain="[('is_conciliated', '=', True)]" />
+                <filter string="Con Nota de Crédito" name="con_nc" domain="[('credit_note_id', '!=', False)]" />
+                <filter string="Sin Nota de Crédito" name="sin_nc" domain="[('credit_note_id', '=', False)]" />
+                <separator />
+                <filter string="Glosas de Línea" name="line_glosas" domain="[('is_line_glosa', '=', True)]" />
+                <filter string="Glosas de Factura" name="invoice_glosas" domain="[('is_line_glosa', '=', False)]" />
+                <separator />
+                <filter string="Resultado Favorable" name="favorable" domain="[('result', '=', 'favorable')]" />
+                <filter string="Resultado Desfavorable" name="desfavorable" domain="[('result', '=', 'desfavorable')]" />
+                <filter string="Resultado Parcial" name="parcial" domain="[('result', '=', 'parcial')]" />
+                <filter string="Archivadas" name="inactive" domain="[('active', '=', False)]" />
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Paciente" name="group_patient" context="{'group_by': 'patient_id'}" />
+                    <filter string="Factura" name="group_invoice" context="{'group_by': 'invoice_id'}" />
+                    <filter string="Motivo de Glosa" name="group_motivo" context="{'group_by': 'motivo_id'}" />
+                    <filter string="Categoría" name="group_category" context="{'group_by': 'motivo_category'}" />
+                    <filter string="Etapa" name="group_etapa" context="{'group_by': 'etapa_id'}" />
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}" />
+                    <filter string="Resultado" name="group_result" context="{'group_by': 'result'}" />
+                    <filter string="Responsable" name="group_user" context="{'group_by': 'user_id'}" />
+                    <filter string="Contrato" name="group_contract" context="{'group_by': 'contract_id'}" />
+                    <filter string="Fecha de Creación" name="group_create" context="{'group_by': 'create_date'}" />
+                    <filter string="Fecha Límite" name="group_deadline" context="{'group_by': 'deadline_date'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_glosa_motivo_form" model="ir.ui.view">
+        <field name="name">glosa.motivo.form</field>
+        <field name="model">glosa.motivo</field>
+        <field name="arch" type="xml">
+            <form string="Motivo de Glosa">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="code" class="oe_edit_only"/>
+                        <h1><field name="code" placeholder="Código"/></h1>
+                    </div>
+                    <group>
+                        <field name="name" placeholder="Descripción del motivo"/>
+                        <field name="category"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_glosa_motivo_tree" model="ir.ui.view">
+        <field name="name">glosa.motivo.tree</field>
+        <field name="model">glosa.motivo</field>
+        <field name="arch" type="xml">
+            <tree string="Motivos de Glosa" editable="top">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_glosa_motivo_search" model="ir.ui.view">
+        <field name="name">glosa.motivo.search</field>
+        <field name="model">glosa.motivo</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Motivos de Glosa">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <separator/>
+                <filter string="Activos" name="activos" domain="[('active', '=', True)]"/>
+                <filter string="Archivados" name="inactivos" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Categoría" name="group_category" context="{'group_by': 'category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_glosa_motivo" model="ir.actions.act_window">
+        <field name="name">Motivos de Glosa</field>
+        <field name="res_model">glosa.motivo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_glosa_motivo_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registre su primer motivo de glosa
+            </p>
+            <p>
+                Los motivos de glosa especifican las razones por las cuales se puede generar 
+                una no conformidad o reclamación en la facturación de servicios médicos.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_glosa_etapa_form" model="ir.ui.view">
+        <field name="name">glosa.etapa.form</field>
+        <field name="model">glosa.etapa</field>
+        <field name="arch" type="xml">
+            <form string="Etapa de Glosa">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="state"/>
+                            <field name="fold"/>
+                        </group>
+                        <group>
+                            <field name="requiere_motivo"/>
+                            <field name="requiere_respuesta"/>
+                            <field name="requiere_nota_cierre"/>
+                            <field name="es_estado_final"/>
+                            <field name="permite_nota_credito"/>
+                        </group>
+                    </group>
+                    <field name="descripcion" placeholder="Descripción de la etapa y acciones a realizar..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_glosa_etapa_tree" model="ir.ui.view">
+        <field name="name">glosa.etapa.tree</field>
+        <field name="model">glosa.etapa</field>
+        <field name="arch" type="xml">
+            <tree string="Etapas de Glosa" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="es_estado_final"/>
+                <field name="requiere_motivo"/>
+                <field name="requiere_respuesta"/>
+                <field name="requiere_nota_cierre"/>
+                <field name="permite_nota_credito"/>
+                <field name="fold"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_glosa_etapa_search" model="ir.ui.view">
+        <field name="name">glosa.etapa.search</field>
+        <field name="model">glosa.etapa</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Etapas de Glosa">
+                <field name="name"/>
+                <field name="state"/>
+                <separator/>
+                <filter string="Estados Finales" name="estados_finales" domain="[('es_estado_final', '=', True)]"/>
+                <filter string="Permite Nota de Crédito" name="permite_nc" domain="[('permite_nota_credito', '=', True)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_glosa_etapa" model="ir.actions.act_window">
+        <field name="name">Etapas del Proceso</field>
+        <field name="res_model">glosa.etapa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_glosa_etapa_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primera etapa de glosa
+            </p>
+            <p>
+                Las etapas definen el flujo de trabajo para la gestión y seguimiento de glosas médicas.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_glosa_medica_cliente" model="ir.actions.act_window">
+        <field name="name">Mis Glosas</field>
+        <field name="res_model">glosa.medica</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_my_glosas': 1, 'search_default_no_conciliadas': 1}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay glosas registradas para este cliente.
+            </p>
+            <p>
+                Las glosas son reclamaciones sobre la facturación que requieren revisión y respuesta.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_glosa_motivo" model="ir.actions.act_window">
+        <field name="name">Motivos de Glosa</field>
+        <field name="res_model">glosa.motivo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primer motivo de glosa.
+            </p>
+            <p>
+                Los motivos de glosa categorizan las razones por las que se realizan reclamaciones sobre facturación.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_glosa_etapa" model="ir.actions.act_window">
+        <field name="name">Etapas de Glosa</field>
+        <field name="res_model">glosa.etapa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure las etapas del proceso de glosas.
+            </p>
+            <p>
+                Las etapas definen el flujo de trabajo para la gestión de glosas médicas.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_glosa_report" model="ir.actions.act_window">
+        <field name="name">Informes de Glosas</field>
+        <field name="res_model">glosa.medica</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="context">{'search_default_group_etapa': 1, 'search_default_group_motivo': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay datos suficientes para mostrar en el informe.
+            </p>
+            <p>
+                Registre glosas médicas para comenzar a analizar sus datos.
+            </p>
+        </field>
+    </record>
+    <record id="view_generar_nota_credito_wizard_form" model="ir.ui.view">
+        <field name="name">generar.nota.credito.wizard.form</field>
+        <field name="model">generar.nota.credito.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="alert alert-info mb-3" role="alert" invisible="not result">
+                        <field name="result" readonly="1" class="fw-bold"/>: <field name="close_note" readonly="1" widget="html"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="glosa_id" readonly="glosa_id"/>
+                            <field name="invoice_id"/>
+                            <field name="is_line_glosa" invisible="1"/>
+                            <field name="invoice_line_id" invisible="not is_line_glosa"/>
+                            <field name="result" invisible="1"/>
+                            <field name="journal_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_factura" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="accepted_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}" class="text-danger fw-bold"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="motivo" placeholder="Descripción detallada del motivo de la nota de crédito..."/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="generate_rips"/>
+                            <field name="rips_code" invisible="not generate_rips" required="generate_rips"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_generate_credit_note" string="Generar Nota de Crédito" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Acción para abrir el wizard -->
+    <record id="action_generar_nota_credito_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Nota de Crédito</field>
+        <field name="res_model">generar.nota.credito.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_glosa_medica"/>
+        <field name="binding_view_types">form</field>
+    </record>
+    
+    <!-- <record id="action_generar_nota_credito_desde_glosa" model="ir.actions.server">
+        <field name="name">Generar Nota de Crédito</field>
+        <field name="model_id" ref="model_glosa_medica"/>
+        <field name="binding_model_id" ref="model_glosa_medica"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+                    if records:
+                        action = records.env['ir.actions.act_window']._for_xml_id('l10n_co_rips.action_generar_nota_credito_wizard')
+                        action.update({
+                            'context': {
+                                'default_glosa_id': records.id,
+                            },
+                        })
+                        return action
+        </field>
+    </record> -->
+</odoo>

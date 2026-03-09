@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+        <!-- Historial censantias-->
+        <record model="ir.actions.act_window" id="hr_history_cesantias_action">
+            <field name="name">Historico de cesantías</field>
+            <field name="res_model">hr.history.cesantias</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_history_cesantias" model="ir.rule">
+            <field name="name">Permisos compañia Historico de censantias</field>
+            <field name="model_id" ref="model_hr_history_cesantias"/>
+            <field name="domain_force">['|',('employee_id.company_id','=',False),('employee_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_history_cesantias_viuw_tree">
+            <field name="name">Historico de cesantías</field>
+            <field name="model">hr.history.cesantias</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="contract_id"/>
+                    <field name="type_history"/>
+                    <field name="initial_accrual_date"/>
+                    <field name="final_accrual_date"/>
+                    <field name="settlement_date"/>
+                    <field name="payslip"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_history_cesantias_viuw_form">
+            <field name="name">Historico de cesantías</field>
+            <field name="model">hr.history.cesantias</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="contract_id" readonly="1"/>
+                            <field name="type_history" readonly="1"/>
+                        </group>
+                        <group>
+                            <group string="Fecha de causación">
+                                <field name="initial_accrual_date" readonly="1"/>
+                                <field name="final_accrual_date" readonly="1"/>
+                            </group>
+                            <group string="Liquidación">
+                                <field name="settlement_date" readonly="1"/>
+                                <field name="base_value" readonly="1"/>
+                                <field name="time" readonly="1"/>
+                                <field name="severance_value" readonly="1"/>
+                                <field name="severance_interest_value" readonly="1"/>
+                                <field name="payslip" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_history_cesantias_view_search" model="ir.ui.view">
+            <field name="name">hr.history.cesantias.view.search</field>
+            <field name="model">hr.history.cesantias</field>
+            <field name="arch" type="xml">
+                <search string="Historico de cesantías">
+                    <field name="employee_id"/>
+                    <field name="contract_id"/>
+                    <field name="payslip"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

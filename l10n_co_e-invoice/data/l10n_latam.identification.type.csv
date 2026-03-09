@@ -1,0 +1,3 @@
+id,name,l10n_co_document_code,country_id:id,is_vat,sequence
+PEP,PEP (Permiso Especial de Permanencia),47,base.co,TRUE,47
+PPT,PPT (Permiso Protección Temporal),48,base.co,TRUE,48

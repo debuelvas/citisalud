@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="Basico-SueldoTrabajado" model="hr.accrued.rule">
+            <field name="name">BASICO</field>
+            <field name="code">Basico-SueldoTrabajado</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="Transporte-AuxilioTransporte" model="hr.accrued.rule">
+            <field name="name">Auxilio de Transporte</field>
+            <field name="code">AUX-TRANSP</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="Transporte-ViaticoManutAlojS" model="hr.accrued.rule">
+            <field name="name"> Viaticos, Manutención y Alojamiento Salarial</field>
+            <field name="code">ViaticoManutAlojS</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="Transporte-ViaticoManutAlojNS" model="hr.accrued.rule">
+            <field name="name">Viaticos, Manutención y Alojamiento No Salarial</field>
+            <field name="code">Transporte-ViaticoManutAlojNS</field>
+            <field name="sequence">4</field>
+        </record>
+        <record id="Vacaciones-VacacionesComunes-Pago" model="hr.accrued.rule">
+            <field name="name">Vacaciones Comunes</field>
+            <field name="code">VacacionesComunes</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="Vacaciones-VacacionesCompensadas-Pago" model="hr.accrued.rule">
+            <field name="name">Vacaciones Compensadas Pago</field>
+            <field name="code">VacacionesCompensadas</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">11</field>
+        </record>
+        <record id="Primas-Pago" model="hr.accrued.rule">
+            <field name="name">Primas Pago</field>
+            <field name="code">Primas</field>
+            <field name="sequence">12</field>
+        </record>
+        <record id="Incapacidades" model="hr.accrued.rule">
+            <field name="name">Incapacidades</field>
+            <field name="code">Incapacidades</field>
+            <field name="sequence">15</field>
+        </record>
+        <record id="Licencia" model="hr.accrued.rule">
+            <field name="name">Licencias</field>
+            <field name="code">Licencias</field>
+            <field name="sequence">16</field>
+        </record>
+        <record id="Otros-s" model="hr.accrued.rule">
+            <field name="name">Otros Conceptos Salariales</field>
+            <field name="code">ConceptoS</field>
+            <field name="sequence">17</field>
+        </record>
+        <record id="Otros-ns" model="hr.accrued.rule">
+            <field name="name">Otros Conceptos Salariales</field>
+            <field name="code">ConceptoNS</field>
+            <field name="sequence">17</field>
+        </record>
+        <record id="Cesantias-Pago" model="hr.accrued.rule">
+            <field name="name">Cesantias Pago</field>
+            <field name="code">Cesantias</field>
+            <field name="sequence">13</field>
+        </record>
+        <record id="Cesantias-PagoIntereses-Porcentaje" model="hr.accrued.rule">
+            <field name="name">Cesantias PagoIntereses Porcentaje</field>
+            <field name="code">Cesantias-PagoIntereses-Porcentaje</field>
+            <field name="sequence">14</field>
+        </record>
+        <record id="Bonificaciones-Bonificacion-BonificacionS" model="hr.accrued.rule">
+            <field name="name">Bonificaciones Salariales</field>
+            <field name="code">BonificacionS</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">18</field>
+        </record>
+        <record id="Bonificaciones-Bonificacion-BonificacionNS" model="hr.accrued.rule">
+            <field name="name">Bonificaciones No Salariales</field>
+            <field name="code">BonificacionNS</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">19</field>
+        </record>
+        <record id="Auxilios-Auxilio-AuxilioS" model="hr.accrued.rule">
+            <field name="name">Auxilios Salariales</field>
+            <field name="code">AuxilioS</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="Auxilios-Auxilio-AuxilioNS" model="hr.accrued.rule">
+            <field name="name">Auxilios No Salariales</field>
+            <field name="code">AuxilioNS</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">21</field>
+        </record>
+        <record id="Comisiones-Comision" model="hr.accrued.rule">
+            <field name="name">Comision</field>
+            <field name="code">Comision</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">26</field>
+        </record>
+        <record id="PagosTerceros-PagoTercero" model="hr.accrued.rule">
+            <field name="name">Pago Terceros</field>
+            <field name="code">PagoTercero</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">27</field>
+        </record>
+        <record id="Anticipos-Anticipo_accrued" model="hr.accrued.rule">
+            <field name="name">Anticipos</field>
+            <field name="code">Anticipo</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">28</field>
+        </record>
+        <record id="Dotacion" model="hr.accrued.rule">
+            <field name="name">Dotacion</field>
+            <field name="code">Dotacion</field>
+            <field name="sequence">29</field>
+        </record>
+        <record id="ApoyoSost" model="hr.accrued.rule">
+            <field name="name">Apoyo Sost</field>
+            <field name="code">ApoyoSost</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="Teletrabajo" model="hr.accrued.rule">
+            <field name="name">Teletrabajo</field>
+            <field name="code">Teletrabajo</field>
+            <field name="sequence">31</field>
+        </record>
+        <record id="BonifRetiro" model="hr.accrued.rule">
+            <field name="name">Bonificacion Retiro</field>
+            <field name="code">BonifRetiro</field>
+            <field name="sequence">32</field>
+        </record>
+        <record id="Indemnizacion" model="hr.accrued.rule">
+            <field name="name">Indemnizacion</field>
+            <field name="code">Indemnizacion</field>
+            <field name="sequence">33</field>
+        </record>
+        <record id="Reintegro_accrued" model="hr.accrued.rule">
+            <field name="name">Reintegro</field>
+            <field name="code">Reintegro</field>
+            <field name="sequence">34</field>
+        </record>
+        <record id="DevengadosTotal" model="hr.accrued.rule">
+            <field name="name">Devengados Total</field>
+            <field name="code">DevengadosTotal</field>
+            <field name="sequence">35</field>
+        </record>
+        <record id="Salud-Porcentaje-Deduccion" model="hr.deduct.rule">
+            <field name="name">Salud</field>
+            <field name="code">Salud</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="FondoPension-Porcentaje-Deduccion" model="hr.deduct.rule">
+            <field name="name">Fondo de Pension</field>
+            <field name="code">FondoPension</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="FondoSP-Porcentaje-DeduccionSP" model="hr.deduct.rule">
+            <field name="name">Fondo de Solidaridad Pensional</field>
+            <field name="code">FondoSP</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="FondoSP-Porcentaje-FondoSub" model="hr.deduct.rule">
+            <field name="name">Fondo De Subsistencia</field>
+            <field name="code">FondoSub</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="Sindicatos-Sindicato-Porcentaje-Deduccion" model="hr.deduct.rule">
+            <field name="name">Sindicatos</field>
+            <field name="code">Sindicatos-Sindicato-Porcentaje-Deduccion</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">4</field>
+        </record>
+        <record id="Libranza" model="hr.deduct.rule">
+            <field name="name">Libranzas</field>
+            <field name="code">Libranza</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">5</field>
+        </record>
+        <record id="PagosTerceros-PagoTercero_deducible" model="hr.deduct.rule">
+            <field name="name">Pagos Terceros</field>
+            <field name="code">PagosTerceros-PagoTercero</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">7</field>
+        </record>
+        <record id="Anticipos-Anticipo" model="hr.deduct.rule">
+            <field name="name">Anticipos</field>
+            <field name="code">Anticipo</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">8</field>
+        </record>
+        <record id="OtrasDeducciones-OtraDeduccion" model="hr.deduct.rule">
+            <field name="name">Otras Deducciones</field>
+            <field name="code">OtraDeduccion</field>
+            <field name="sub_element" eval="True"></field>
+            <field name="sequence">9</field>
+        </record>
+        <record id="PensionVoluntaria" model="hr.deduct.rule">
+            <field name="name">Pension Voluntaria</field>
+            <field name="code">PensionVoluntaria</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="RetencionFuente" model="hr.deduct.rule">
+            <field name="name">Retencion en la Fuente</field>
+            <field name="code">RetencionFuente</field>
+            <field name="sequence">11</field>
+        </record>
+        <record id="AFC" model="hr.deduct.rule">
+            <field name="name">AFC</field>
+            <field name="code">AFC</field>
+            <field name="sequence">12</field>
+        </record>
+        <record id="Cooperativa" model="hr.deduct.rule">
+            <field name="name">Cooperativa</field>
+            <field name="code">Cooperativa</field>
+            <field name="sequence">13</field>
+        </record>
+        <record id="EmbargoFiscal" model="hr.deduct.rule">
+            <field name="name">Embargo Fiscal</field>
+            <field name="code">EmbargoFiscal</field>
+            <field name="sequence">14</field>
+        </record>
+        <record id="PlanComplementarios" model="hr.deduct.rule">
+            <field name="name">Planes Complementarios</field>
+            <field name="code">PlanComplementarios</field>
+            <field name="sequence">15</field>
+        </record>
+        <record id="Educacion" model="hr.deduct.rule">
+            <field name="name">Educacion</field>
+            <field name="code">Educacion</field>
+            <field name="sequence">16</field>
+        </record>
+        <record id="Reintegro" model="hr.deduct.rule">
+            <field name="name">Reintegro</field>
+            <field name="code">Reintegro</field>
+            <field name="sequence">17</field>
+        </record>
+        <record id="Deuda" model="hr.deduct.rule">
+            <field name="name">Deuda</field>
+            <field name="code">Deuda</field>
+            <field name="sequence">18</field>
+        </record>
+    </data>
+
+</odoo>

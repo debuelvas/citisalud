@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- PARÁMETROS SECTOR SALUD                   -->
+
+        <!-- Mipres - Prescripción Electrónica -->
+        <record id="param_mipres_number" model="fe.custom.parameter">
+            <field name="name">Número de MIPRES</field>
+            <field name="technical_name">mipres_number</field>
+            <field name="description">Número de prescripción electrónica del sistema MIPRES del Ministerio de Salud. Campo especial NO disponible en campos estándar de Odoo.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">10</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">MipresNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{15}$</field>
+            <field name="help_text">15 dígitos. Ejemplo: 202500123456789</field>
+        </record>
+
+        <!-- Número de Tutela -->
+        <record id="param_tutela_number" model="fe.custom.parameter">
+            <field name="name">Número de Tutela</field>
+            <field name="technical_name">tutela_number</field>
+            <field name="description">Número de tutela o fallo judicial que ordena la prestación del servicio de salud. Campo especial del sector salud.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">20</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">TutelaNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^[A-Z0-9\-]{1,30}$</field>
+            <field name="help_text">Ejemplo: TUT-2025-001-BOG</field>
+        </record>
+
+        <!-- Número CTC (Comité Técnico Científico) -->
+        <record id="param_ctc_number" model="fe.custom.parameter">
+            <field name="name">Número de CTC</field>
+            <field name="technical_name">ctc_number</field>
+            <field name="description">Número de autorización del Comité Técnico Científico para tecnologías no incluidas en el PBS.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">30</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">CTCNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: CTC-2025-123</field>
+        </record>
+
+        <!-- PARÁMETROS SECTOR CONSTRUCCIÓN            -->
+
+        <!-- Licencia de Construcción -->
+        <record id="param_construction_license" model="fe.custom.parameter">
+            <field name="name">Licencia de Construcción</field>
+            <field name="technical_name">construction_license</field>
+            <field name="description">Número de licencia de construcción bajo la cual se ejecuta el proyecto. Campo especial del sector construcción.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">100</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">ConstructionLicense</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^[A-Z0-9\-]{1,30}$</field>
+            <field name="help_text">Ejemplo: LC-2025-001-BOG</field>
+        </record>
+
+        <!-- Matrícula Inmobiliaria -->
+        <record id="param_property_registration" model="fe.custom.parameter">
+            <field name="name">Matrícula Inmobiliaria</field>
+            <field name="technical_name">property_registration</field>
+            <field name="description">Número de matrícula inmobiliaria del predio donde se ejecuta la construcción. Campo especial del sector inmobiliario/construcción.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">110</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">PropertyRegistration</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{3}-\d{5,10}$</field>
+            <field name="help_text">Ejemplo: 050-123456</field>
+        </record>
+
+        <!-- Número de Curador Urbano -->
+        <record id="param_urban_curator" model="fe.custom.parameter">
+            <field name="name">Curador Urbano</field>
+            <field name="technical_name">urban_curator_number</field>
+            <field name="description">Número de curador urbano que expidió la licencia de construcción.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">120</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">UrbanCurator</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: CUR-1-BOG</field>
+        </record>
+
+        <!-- PARÁMETROS TRANSPORTE Y LOGÍSTICA         -->
+
+        <!-- Manifiesto de Carga -->
+        <record id="param_cargo_manifest" model="fe.custom.parameter">
+            <field name="name">Manifiesto de Carga</field>
+            <field name="technical_name">cargo_manifest</field>
+            <field name="description">Número de manifiesto de carga para transporte de mercancías. Campo especial de logística.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">200</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">CargoManifest</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^[A-Z0-9\-]{1,30}$</field>
+            <field name="help_text">Ejemplo: MAN-2025-123456</field>
+        </record>
+
+        <!-- Número de Contenedor -->
+        <record id="param_container_number" model="fe.custom.parameter">
+            <field name="name">Número de Contenedor</field>
+            <field name="technical_name">container_number</field>
+            <field name="description">Número de contenedor para transporte marítimo o terrestre. Campo especial de logística internacional.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">210</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">ContainerID</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^[A-Z]{4}\d{7}$</field>
+            <field name="help_text">Formato ISO: 4 letras + 7 dígitos (Ej: ABCD1234567)</field>
+        </record>
+
+        <!-- Número de Precinto Aduanero -->
+        <record id="param_customs_seal" model="fe.custom.parameter">
+            <field name="name">Número de Precinto/Sello Aduanero</field>
+            <field name="technical_name">customs_seal_number</field>
+            <field name="description">Número de precinto o sello aduanero colocado en la mercancía.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">220</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">CustomsSeal</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: SEAL-123456</field>
+        </record>
+
+        <!-- PARÁMETROS COMERCIO EXTERIOR              -->
+
+        <!-- Declaración de Importación -->
+        <record id="param_import_declaration" model="fe.custom.parameter">
+            <field name="name">Declaración de Importación</field>
+            <field name="technical_name">import_declaration</field>
+            <field name="description">Número de declaración de importación ante la DIAN. Campo especial de comercio exterior.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">300</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">ImportDeclaration</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{3}-\d{6}-\d{1}$</field>
+            <field name="help_text">Formato: 001-123456-7</field>
+        </record>
+
+        <!-- Subpartida Arancelaria -->
+        <record id="param_tariff_code" model="fe.custom.parameter">
+            <field name="name">Subpartida Arancelaria</field>
+            <field name="technical_name">tariff_subheading</field>
+            <field name="description">Código de subpartida arancelaria del producto (10 dígitos). Campo especial para importación/exportación.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">310</field>
+            <field name="parameter_type">line</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">TariffCode</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{10}$</field>
+            <field name="help_text">10 dígitos. Ejemplo: 8471300000</field>
+        </record>
+
+        <!-- Código CIIU -->
+        <record id="param_ciiu_code" model="fe.custom.parameter">
+            <field name="name">Código CIIU</field>
+            <field name="technical_name">ciiu_code</field>
+            <field name="description">Código de Clasificación Industrial Internacional Uniforme. Campo especial de clasificación económica.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">320</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">CIIUCode</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{4}$</field>
+            <field name="help_text">4 dígitos. Ejemplo: 6201 (Actividades de desarrollo de sistemas informáticos)</field>
+        </record>
+
+        <!-- PARÁMETROS HOTELERÍA Y TURISMO            -->
+
+        <!-- Número de Registro Nacional de Turismo -->
+        <record id="param_rnt_number" model="fe.custom.parameter">
+            <field name="name">Registro Nacional de Turismo (RNT)</field>
+            <field name="technical_name">rnt_number</field>
+            <field name="description">Número de Registro Nacional de Turismo del establecimiento. Campo especial del sector turismo.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">400</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">RNTNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{6,10}$</field>
+            <field name="help_text">6 a 10 dígitos. Ejemplo: 12345678</field>
+        </record>
+
+        <!-- Código de Reserva -->
+        <record id="param_booking_code" model="fe.custom.parameter">
+            <field name="name">Código de Reserva</field>
+            <field name="technical_name">booking_code</field>
+            <field name="description">Código o número de confirmación de reserva hotelera/turística.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">410</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">BookingCode</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: RES-2025-ABC123</field>
+        </record>
+
+        <!-- PARÁMETROS SECTOR FARMACÉUTICO           -->
+
+        <!-- Lote de Fabricación -->
+        <record id="param_batch_number" model="fe.custom.parameter">
+            <field name="name">Número de Lote</field>
+            <field name="technical_name">batch_number</field>
+            <field name="description">Número de lote de fabricación del producto farmacéutico o alimento. Campo especial para trazabilidad.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">500</field>
+            <field name="parameter_type">line</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">BatchNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: LOTE-2025-001</field>
+        </record>
+
+        <!-- Registro INVIMA -->
+        <record id="param_invima_registration" model="fe.custom.parameter">
+            <field name="name">Registro Sanitario INVIMA</field>
+            <field name="technical_name">invima_registration</field>
+            <field name="description">Número de registro sanitario INVIMA del producto farmacéutico o cosmético. Campo especial del sector salud/farmacéutico.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">510</field>
+            <field name="parameter_type">line</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">INVIMARegistration</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^[A-Z0-9\-]{10,20}$</field>
+            <field name="help_text">Ejemplo: INVIMA2025M-0001234-R1</field>
+        </record>
+
+        <!-- PARÁMETROS SERVICIOS PÚBLICOS             -->
+
+        <!-- Número de Contador/Medidor -->
+        <record id="param_meter_number" model="fe.custom.parameter">
+            <field name="name">Número de Contador/Medidor</field>
+            <field name="technical_name">meter_number</field>
+            <field name="description">Número del contador o medidor de servicios públicos (energía, agua, gas). Campo especial del sector servicios públicos.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">600</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">MeterNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: MED-123456789</field>
+        </record>
+
+        <!-- Código DANE de Estrato -->
+        <record id="param_socioeconomic_stratum" model="fe.custom.parameter">
+            <field name="name">Estrato Socioeconómico</field>
+            <field name="technical_name">socioeconomic_stratum</field>
+            <field name="description">Estrato socioeconómico del inmueble (1-6). Campo especial para servicios públicos.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">610</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">selection</field>
+            <field name="selection_options">1|Estrato 1
+2|Estrato 2
+3|Estrato 3
+4|Estrato 4
+5|Estrato 5
+6|Estrato 6</field>
+            <field name="ubl_element_name">SocioeconomicStratum</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Seleccione el estrato del inmueble</field>
+        </record>
+
+        <!-- PARÁMETROS SECTOR EDUCATIVO               -->
+
+        <!-- Código SNIES (Educación Superior) -->
+        <record id="param_snies_code" model="fe.custom.parameter">
+            <field name="name">Código SNIES</field>
+            <field name="technical_name">snies_code</field>
+            <field name="description">Código SNIES del programa académico (Sistema Nacional de Información de la Educación Superior). Campo especial del sector educativo.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">700</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">SNIESCode</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="validation_regex">^\d{5,6}$</field>
+            <field name="help_text">5 o 6 dígitos. Ejemplo: 12345</field>
+        </record>
+
+        <!-- Código ICFES -->
+        <record id="param_icfes_code" model="fe.custom.parameter">
+            <field name="name">Código ICFES</field>
+            <field name="technical_name">icfes_code</field>
+            <field name="description">Código ICFES del estudiante para facturación de servicios educativos.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">710</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">ICFESCode</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Código de registro ICFES del estudiante</field>
+        </record>
+
+        <!-- PARÁMETROS SECTOR SEGUROS                 -->
+
+        <!-- Número de Póliza -->
+        <record id="param_policy_number" model="fe.custom.parameter">
+            <field name="name">Número de Póliza de Seguro</field>
+            <field name="technical_name">insurance_policy_number</field>
+            <field name="description">Número de póliza de seguro asociada a la factura. Campo especial del sector asegurador.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">800</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">InsurancePolicyNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: POL-2025-123456</field>
+        </record>
+
+        <!-- Número de Siniestro -->
+        <record id="param_claim_number" model="fe.custom.parameter">
+            <field name="name">Número de Siniestro</field>
+            <field name="technical_name">claim_number</field>
+            <field name="description">Número de siniestro o reclamación de seguro. Campo especial del sector asegurador.</field>
+            <field name="active" eval="True"/>
+            <field name="sequence">810</field>
+            <field name="parameter_type">extension</field>
+            <field name="data_type">char</field>
+            <field name="ubl_element_name">ClaimNumber</field>
+            <field name="ubl_namespace">custom</field>
+            <field name="required" eval="False"/>
+            <field name="help_text">Ejemplo: SIN-2025-789</field>
+        </record>
+
+    </data>
+</odoo>

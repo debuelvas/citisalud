@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Herencia del reporte de factura estándar de Odoo para agregar monto en letras -->
+        <template
+            id="report_invoice_document_amount_letters"
+            inherit_id="account.report_invoice_document"
+            priority="20">
+            <!-- Agregar monto en letras después de los totales -->
+            <xpath expr="//div[@id='total']" position="after">
+                <div class="row" t-if="o.amount_letters" style="margin-top: 10px;">
+                    <div class="col-7">
+                        <table class="table table-sm">
+                            <tr>
+                                <td style="border: none; padding: 5px;">
+                                    <strong style="font-size: 13px;">Valor en Letras:</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; padding: 5px; font-style: italic;">
+                                    <span t-field="o.amount_letters" style="font-size: 12px;"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

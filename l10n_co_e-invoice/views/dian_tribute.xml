@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="dian_tribute_tree_view" model="ir.ui.view">
+            <field name="name">dian.tribute.tree.view</field>
+            <field name="model">dian.tributes</field>
+            <field name="arch" type="xml">
+                <tree string="Dian Tribute" editable="bottom">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="code_name" />
+                </tree>
+            </field>
+        </record>
+        <record id="dian_tribute_action_view" model="ir.actions.act_window">
+            <field name="name">Dian Tribute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dian.tributes</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new ModelTitle.
+                </p>
+            </field>
+        </record>
+        <menuitem
+            name="DIAN TRIBUTE"
+            id="dian_tribute_menu_item"
+            parent="account.menu_finance_configuration"
+            action="dian_tribute_action_view"
+        />
+    </data>
+</odoo>

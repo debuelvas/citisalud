@@ -1,0 +1,1218 @@
+<odoo>
+    <data>
+        <!-- Seguridad social -->
+        <record id="seq_hr_payroll_social_security" model="ir.sequence">
+            <field name="name">Secuencia Seguridad Social</field>
+            <field name="code">hr.payroll.social.security.sequence</field>
+            <field name="prefix"></field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Crear record rule para filtrar las compañias-->
+        <record id="rule_hr_payroll_social_security_company" model="ir.rule">
+            <field name="name">Permisos compañia Seguridad social</field>
+            <field name="model_id" ref="model_hr_payroll_social_security" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in',
+                company_ids)]</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_payroll_social_security_list">
+            <field name="name">hr payroll social security tree</field>
+            <field name="model">hr.payroll.social.security</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-success="state == 'done'"
+                    decoration-muted="state == 'accounting'">
+                    <field name="sequence" readonly="1"/>
+                    <field name="name" />
+                    <field name="year" />
+                    <field name="month" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="total_employees" />
+                    <field name="total_base_ss" sum="Base Total" />
+                    <field name="total_health" sum="Total Salud" />
+                    <field name="total_pension" sum="Total Pensión" />
+                    <field name="total_solidarity" sum="Total Solidaridad" />
+                    <field name="total_arl" sum="Total ARL" />
+                    <field name="total_parafiscal" sum="Total Parafiscales" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View for Filters -->
+        <record id="hr_payroll_social_security_search" model="ir.ui.view">
+            <field name="name">hr.payroll.social.security.search</field>
+            <field name="model">hr.payroll.social.security</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="year" />
+                    <field name="month" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <filter string="Borrador" name="draft" domain="[('state','=','draft')]" />
+                    <filter string="Realizado" name="done" domain="[('state','=','done')]" />
+                    <filter string="Contabilizado" name="accounting"
+                        domain="[('state','=','accounting')]" />
+                    <filter string="Año Actual" name="current_year"
+                        domain="[('year','=',time.strftime('%Y'))]" />
+                    <separator />
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Año" name="group_year" context="{'group_by':'year'}" />
+                        <filter string="Mes" name="group_month" context="{'group_by':'month'}" />
+                        <filter string="Estado" name="group_state" context="{'group_by':'state'}" />
+                        <filter string="Compañía" name="group_company"
+                            context="{'group_by':'company_id'}" groups="base.group_multi_company" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_hr_payroll_social_security">
+            <field name="name">Seguridad Social</field>
+            <field name="res_model">hr.payroll.social.security</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="hr_payroll_social_security_search" />
+            <field name="context">{'search_default_current_year': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear nuevo registro de seguridad social
+                </p>
+            </field>
+        </record>
+        <record id="view_hr_payroll_social_security_kanban" model="ir.ui.view">
+            <field name="name">hr.payroll.social.security.kanban</field>
+            <field name="model">hr.payroll.social.security</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_social_security" default_group_by="state"  sample="1">
+                    <field name="id"/>
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="state"/>
+                    <field name="total_employees"/>
+                    <field name="total_amount_employees"/>
+                    <field name="total_amount_company"/>
+                    <field name="total_amount_final"/>
+                    <field name="total_health"/>
+                    <field name="total_pension"/>
+                    <field name="total_solidarity"/>
+                    <field name="total_arl"/>
+                    <field name="total_parafiscal"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="fecha_limite_pago"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click o_kanban_ss_card                                            {{ record.state.raw_value == 'draft' ? 'oe_kanban_color_3' :                                               (record.state.raw_value == 'accounting' ? 'oe_kanban_color_2' :                                              (record.state.raw_value == 'done' ? 'oe_kanban_color_5' : 'oe_kanban_color_1')) }}">
+                                <!-- Header and state -->
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <span class="font-weight-bold">
+                                                <t t-esc="record.name.value"/>
+                                            </span>
+                                        </div>
+                                        <div class="o_secondary d-flex justify-content-between">
+                                            <div>
+                                                <span>Periodo: </span>
+                                                <span class="text-muted">
+                                                    <t t-esc="record.month.value"/>/
+                                                    <t t-esc="record.year.value"/>
+                                                </span>
+                                            </div>
+                                            <div class="ml-2">
+                                                <span t-if="record.state.raw_value == 'draft'" class="badge badge-info">
+                                                                Borrador
+                                                            </span>
+                                                <span t-elif="record.state.raw_value == 'accounting'" class="badge badge-warning">
+                                                                Contabilizado
+                                                            </span>
+                                                <span t-elif="record.state.raw_value == 'done'" class="badge badge-success">
+                                                                Hecho
+                                                            </span>
+                                                <span t-else="" class="badge badge-danger">
+                                                                Error
+                                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Main content -->
+                                <div class="o_kanban_card_content">
+                                    <!-- Employees Count with icon -->
+                                    <div class="d-flex justify-content-start mb-2 mt-2 align-items-center">
+                                        <i class="fa fa-users mr-2" title="Empleados"/>
+                                        <strong>
+                                            <t t-esc="record.total_employees.value"/>
+                                        </strong>
+                                        <span class="text-muted ml-1">empleados</span>
+                                    </div>
+                                    <!-- Full-width metrics bar -->
+                                    <div class="o_kanban_ss_metrics d-flex flex-wrap">
+                                        <!-- EPS -->
+                                        <div class="o_kanban_ss_metric flex-fill position-relative p-2 border-right">
+                                            <div class="o_kanban_ss_metric_label mb-1 font-weight-bold text-primary">Salud</div>
+                                            <div class="o_kanban_ss_metric_value h5 mb-0">
+                                                <t t-esc="record.total_health.value !== '0.0' ? record.total_health.value : '0.00'"/>
+                                            </div>
+                                        </div>
+                                        <!-- Pension -->
+                                        <div class="o_kanban_ss_metric flex-fill position-relative p-2 border-right">
+                                            <div class="o_kanban_ss_metric_label mb-1 font-weight-bold text-success">Pensión</div>
+                                            <div class="o_kanban_ss_metric_value h5 mb-0">
+                                                <t t-esc="record.total_pension.value !== '0.0' ? record.total_pension.value : '0.00'"/>
+                                            </div>
+                                        </div>
+                                        <!-- ARL -->
+                                        <div class="o_kanban_ss_metric flex-fill position-relative p-2 border-right">
+                                            <div class="o_kanban_ss_metric_label mb-1 font-weight-bold text-danger">ARL</div>
+                                            <div class="o_kanban_ss_metric_value h5 mb-0">
+                                                <t t-esc="record.total_arl.value !== '0.0' ? record.total_arl.value : '0.00'"/>
+                                            </div>
+                                        </div>
+                                        <!-- Parafiscales -->
+                                        <div class="o_kanban_ss_metric flex-fill position-relative p-2 border-right">
+                                            <div class="o_kanban_ss_metric_label mb-1 font-weight-bold text-info">Parafiscales</div>
+                                            <div class="o_kanban_ss_metric_value h5 mb-0">
+                                                <t t-esc="record.total_parafiscal.value !== '0.0' ? record.total_parafiscal.value : '0.00'"/>
+                                            </div>
+                                        </div>
+                                        <!-- FSP Solidaridad -->
+                                        <div class="o_kanban_ss_metric flex-fill position-relative p-2">
+                                            <div class="o_kanban_ss_metric_label mb-1 font-weight-bold text-warning">FSP</div>
+                                            <div class="o_kanban_ss_metric_value h5 mb-0">
+                                                <t t-esc="record.total_solidarity.value !== '0.0' ? record.total_solidarity.value : '0.00'"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Totals section with progress bars -->
+                                    <div class="o_kanban_ss_totals mt-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-muted mr-2">Empleados:</span>
+                                                <strong class="text-primary">
+                                                    <t t-esc="record.total_amount_employees.value !== '0.0' ? record.total_amount_employees.value : '0.00'"/>
+                                                </strong>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-muted mr-2">Empresa:</span>
+                                                <strong class="text-success">
+                                                    <t t-esc="record.total_amount_company.value !== '0.0' ? record.total_amount_company.value : '0.00'"/>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                        <!-- Progress visualization -->
+                                        <div class="o_kanban_ss_progress_container">
+                                            <!-- Calculate percentages for the progress bar -->
+                                            <t t-set="total" t-value="record.total_amount_final.raw_value || 0"/>
+                                            <t t-set="employee_pct" t-value="total &gt; 0 ? (record.total_amount_employees.raw_value / total) * 100 : 0"/>
+                                            <t t-set="company_pct" t-value="total &gt; 0 ? (record.total_amount_company.raw_value / total) * 100 : 0"/>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-primary" role="progressbar" t-att-style="'width: ' + employee_pct + '%'" t-att-aria-valuenow="employee_pct" aria-valuemin="0" aria-valuemax="100" title="Aporte Empleados"/>
+                                                <div class="progress-bar bg-success" role="progressbar" t-att-style="'width: ' + company_pct + '%'" t-att-aria-valuenow="company_pct" aria-valuemin="0" aria-valuemax="100" title="Aporte Empresa"/>
+                                            </div>
+                                            <!-- Total amount -->
+                                            <div class="text-right mt-1">
+                                                <span class="text-muted">Total:</span>
+                                                <strong class="h5 ml-2">
+                                                    <t t-esc="record.total_amount_final.value !== '0.0' ? record.total_amount_final.value : '0.00'"/>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Footer with dates -->
+                                <div class="o_kanban_card_footer mt-2 pt-2 border-top">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="fa fa-calendar mr-1 text-muted" title="Periodo"/>
+                                            <small class="text-muted">
+                                                <t t-esc="record.date_start.value"/>
+                                                <span> → </span>
+                                                <t t-esc="record.date_end.value"/>
+                                            </small>
+                                        </div>
+                                        <div t-if="record.fecha_limite_pago.value">
+                                            <i class="fa fa-exclamation-circle mr-1 text-danger" title="Fecha límite de pago"/>
+                                            <small class="text-danger font-weight-bold">
+                                                <t t-esc="record.fecha_limite_pago.value"/>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_payroll_social_security_form">
+            <field name="name">hr payroll social security form</field>
+            <field name="model">hr.payroll.social.security</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="executing_social_security" type="object"
+                            string="Seguridad Social" class="oe_highlight"
+                            invisible="state != 'draft'" />
+                        <button name="get_plano" type="object" string="Generar Plano"
+                            class="oe_highlight" invisible="state not in ['done', 'accounting']" />
+                        <button name="get_excel" type="object" string="Generar Excel"
+                            class="oe_highlight" invisible="state not in ['done', 'accounting']" />
+                        <button name="get_accounting" type="object" string="Contabilizar"
+                            class="oe_highlight" invisible="state != 'done'" />
+                        <button name="cancel_process" type="object" string="Cancelar"
+                            invisible="state != 'done'" />
+                        <button name="restart_accounting" type="object"
+                            string="Reiniciar Contabilización" invisible="state != 'accounting'" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                   
+                    <sheet> 
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_executing_lines" type="object"
+                                class="oe_stat_button" icon="fa-tree-alt">
+                                <field name="executing_line_count" widget="statinfo" string="Líneas" />
+                            </button>
+                            <button name="action_view_payslips" type="object" class="oe_stat_button"
+                                icon="fa-money">
+                                <field name="payslip_count" widget="statinfo" string="Nóminas" />
+                            </button>
+                            <button name="action_view_employees" type="object" class="oe_stat_button"
+                                icon="fa-users">
+                                <field name="employee_count" widget="statinfo" string="Empleados" />
+                            </button>
+                            <button name="action_view_contracts" type="object" class="oe_stat_button"
+                                icon="fa-file-text">
+                                <field name="contract_count" widget="statinfo" string="Contratos" />
+                            </button>
+                            <button name="action_view_errors" type="object" class="oe_stat_button"
+                                icon="fa-warning"
+                                invisible="error_count == 0">
+                                <field name="error_count" widget="statinfo" string="Errores" />
+                            </button>
+                        </div>
+                        <group>
+                            <group string="Información General">
+                                <field name="sequence" readonly="1"/>
+                                <field name="number_settlement"/>
+                                <field name="year" />
+                                <field name="month" />
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="arl_id"  />
+                                <field name="company_id" groups="base.group_multi_company" />
+                                <field name="fecha_limite_pago"/>
+                                <field name="health_system_date_start"/>
+                                <field name="health_system_date_end"/>
+                                <field name="system_date_different_health_start"/>
+                                <field name="system_date_different_health_end"/>
+                            </group>
+                            <group string="Resumen Totales">
+                                <div class="o_total_summary p-3" colspan="2">
+                                    <!-- Base y Aportes -->
+                                    <h6 class="border-bottom text-muted pb-1  mb-1">Base y Aportes</h6>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <span>Base Total SS</span>
+                                            </div>
+                                            <div class="col-5 text-end  font-weight-bold">
+                                                <field name="total_base_ss" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-heart text-danger" /> Total Salud </div>
+                                            <div class="col-5 text-end font-weight-bold">
+                                                <field name="total_health" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-umbrella text-warning" /> Total
+                                                Pensión </div>
+                                            <div class="col-5 text-end  font-weight-bold">
+                                                <field name="total_pension" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-wheelchair text-info" /> Total
+                                                Solidaridad </div>
+                                            <div class="col-5 text-end font-weight-bold">
+                                                <field name="total_solidarity" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-shield text-success" /> Total ARL </div>
+                                            <div class="col-5 text-end  font-weight-bold">
+                                                <field name="total_arl" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-building text-primary" /> Total
+                                                Parafiscales </div>
+                                            <div class="col-5 text-end  font-weight-bold">
+                                                <field name="total_parafiscal" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Totales a Pagar -->
+                                    <h6 class="border-bottom text-muted py-1 mb-1">Totales a Pagar</h6>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-user text-info" /> Total a Pagar
+                                                Empleados </div>
+                                            <div class="col-5 text-end  font-weight-bold">
+                                                <field name="total_amount_employees"
+                                                    widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom py-1 mb-1">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <i class="fa fa-building text-info" /> Total a Pagar
+                                                Empresa </div>
+                                            <div class="col-5 text-end  font-weight-bold">
+                                                <field name="total_amount_company" widget="monetary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Total Final -->
+                                    <div class="mt-1"
+                                        style="background-color: #ebffeb; padding: 10px; border-radius: 4px;">
+                                        <div class="row align-items-center">
+                                            <div class="col-7">
+                                                <strong>
+                                                    <i class="fa fa-calculator text-success" />
+                                                    TOTAL A PAGAR </strong>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <h4 class="mb-0 text-success">
+                                                    <field name="total_amount_final"
+                                                        widget="monetary" />
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                        <hr style="border-style:solid;border-width:2px;width:100%;" />
+                        <h2 style="text-align:center">Proceso</h2>
+                        <notebook>
+                            <page string="Ejecución" name="ejecucion">
+                                <group>
+                                    <field name="executing_social_security_ids" readonly="1"    nolabel="1" colspan="2">
+                                        <tree string="Seguridad Social" decoration-info="type_contributor == '12' or type_contributor == '19'" decoration-warning="subtype_contributor != '00' and subtype_contributor != False" decoration-danger="nRetiro == True" decoration-success="nIngreso == True" decoration-muted="subtype_contributor != '00' and subtype_contributor != False">
+                                            <field name="sequence" string="#" optional="show"/>
+                                            <field name="employee_id"/>
+                                            <field name="document_contributor" string=" "/>
+                                            <field name="type_contributor" column_invisible="1"/>   
+                                            <field name="subtype_contributor" column_invisible="1"/> 
+                                            <field name="wage_type" optional="hide"/>
+                                            <field name="nIngreso" optional="hide" string="Ingreso" widget="boolean_toggle"/>
+                                            <field name="nRetiro" optional="hide" string="Retiro" widget="boolean_toggle"/>
+                                            <field name="nSueldo" optional="hide" sum="Total Sueldo"/>
+                                            
+                                            <!-- Días -->
+                                            <field name="nDiasLiquidados" string="DIAT" sum="Total Días"/>
+                                            <field name="nDiasVacaciones" optional="hide" string="VAC" sum="Total Días Vac."/>
+                                            <field name="nDiasIncapacidadEPS" optional="hide" string="INC" sum="Total Días Inc."/>
+                                            <field name="nDiasLicencia" optional="hide" string="LIC" sum="Total Días Lic."/>
+                                            <field name="nDiasMaternidad" string="MAT" optional="hide" sum="Total Días Mat."/>
+                                            <field name="nDiasIncapacidadARP" string="DARP" optional="hide" sum="Total Días ARP"/>
+                                            
+                                            <!-- SALUD -->
+                                            <field name="nValorBaseSalud" string="IBC Salud" sum="Total IBC Salud"/>
+                                            <field name="nValorSaludTotal" string="AP Salud" sum="Total Salud"/>
+                                            <field name="TerceroEPS" string="Entidad Salud" optional="hide"/>
+                                            
+                                            <!-- PENSIÓN -->
+                                            <field name="nValorBaseFondoPension" optional="hide" string="IBC Pensión" sum="Total IBC Pensión"/>
+                                            <field name="nValorPensionTotal" string="AP Pensión" sum="Total Pensión"/>
+                                            <field name="TerceroPension" string="Entidad Pensión" optional="hide"/>
+                                            
+                                            <!-- Fondos adicionales de pensión -->
+                                            <field name="nValorFondoSolidaridad" string="AP FSP" sum="Total FSP" optional="show"/>
+                                            <field name="nValorFondoSubsistencia" string="AP FSS" sum="Total Subsistencia" optional="show"/>
+                                            
+                                            <!-- RIESGOS -->
+                                            <field name="nValorBaseARP" optional="hide" string="IBC ARL" sum="Total IBC ARL"/>
+                                            <field name="nValorARP" string="AP ARL" sum="Total ARL"/>
+                                            <field name="TerceroARP" string="Entidad ARL" optional="hide"/>
+                                            
+                                            <!-- CCF -->
+                                            <field name="nValorBaseCajaCom" optional="hide" string="IBC CCF" sum="Total IBC CCF"/>
+                                            <field name="nValorCajaCom" string="AP CCF" sum="Total CCF"/>
+                                            <field name="TerceroCajaCom" string="Entidad CCF" optional="hide"/>
+                                            <field name="nValorSENA" string="AP SENA" sum="Total SENA"/>
+                                            <field name="nValorICBF" string="AP ICBF" sum="Total ICBF"/>
+                                            <field name="cExonerado1607" string="Exonerado" optional="hide"/>
+                                            <field name="global_ibc" string="IBC Global" sum="Total IBC Global" optional="hide"/>
+                                            <field name="type_contributor" string="Tipo" optional="hide" widget="badge" decoration-info="type_contributor == '12' or type_contributor == '19'" decoration-warning="subtype_contributor != '00' and subtype_contributor != False" decoration-muted="subtype_contributor == '00' and subtype_contributor != False"/>
+                                            <field name="subtype_contributor" string="Subtipo" optional="hide" widget="badge" decoration-info="type_contributor == '12' or type_contributor == '19'" decoration-warning="subtype_contributor != '00' and subtype_contributor != False" decoration-muted="subtype_contributor == '00'"/>
+                                        </tree>
+                                        <form>
+                                            <header>
+                                                <button class="oe_highlight"
+                                                    name="executing_social_security_employee"
+                                                    string="Recalcular" type="object" />
+                                            </header>
+                                            <sheet>
+                                                <group>
+                                                    <group string="Info Empleado">
+                                                        <field name="executing_social_security_id" />
+                                                        <field name="employee_id" />
+                                                        <field name="branch_id" />
+                                                        <field name="contract_id" />
+                                                        <field name="analytic_account_id" />
+                                                        <field name="nSueldo" />
+                                                        <field name="nNumeroHorasLaboradas" />
+                                                        <field name="nIngreso" />
+                                                        <field name="nRetiro" />
+                                                        <field name="cExonerado1607" />
+                                                    </group>
+                                                    <group string="Días">
+                                                        <field name="nDiasLiquidados" />
+                                                        <field name="nDiasIncapacidadEPS" />
+                                                        <field name="nDiasLicencia" />
+                                                        <field name="nDiasLicenciaRenumerada" />
+                                                        <field name="nDiasMaternidad" />
+                                                        <field name="nDiasVacaciones" />
+                                                        <field name="nDiasIncapacidadARP" />
+                                                    </group>
+                                                    <group string="Salud">
+                                                        <field name="TerceroEPS" />
+                                                        <field name="nValorBaseSalud" />
+                                                        <field name="nPorcAporteSaludEmpleado" />
+                                                        <field name="nValorSaludEmpleado" />
+                                                        <field name="nValorSaludEmpleadoNomina" />
+                                                        <field name="nPorcAporteSaludEmpresa" />
+                                                        <field name="nValorSaludEmpresa" />
+                                                        <field name="nValorSaludTotal" />
+                                                        <field name="nDiferenciaSalud" />
+                                                    </group>
+                                                    <group string="Pensión">
+                                                        <field name="TerceroPension" />
+                                                        <field name="nValorBaseFondoPension" />
+                                                        <field name="nPorcAportePensionEmpleado" />
+                                                        <field name="nValorPensionEmpleado" />
+                                                        <field name="nValorPensionEmpleadoNomina" />
+                                                        <field name="nPorcAportePensionEmpresa" />
+                                                        <field name="nValorPensionEmpresa" />
+                                                        <field name="nValorPensionTotal" />
+                                                        <field name="nDiferenciaPension" />
+                                                        <field name="cAVP" />
+                                                        <field name="nAporteVoluntarioPension" />
+                                                    </group>
+                                                    <group string="ARP">
+                                                        <field name="TerceroARP" />
+                                                        <field name="nValorBaseARP" />
+                                                        <field name="nPorcAporteARP" />
+                                                        <field name="nValorARP" />
+                                                    </group>
+                                                    <group
+                                                        string="Fondo de solidaridad y subsistencia">
+                                                        <field name="TerceroFondoSolidaridad" />
+                                                        <field name="nPorcFondoSolidaridad" />
+                                                        <field name="nValorFondoSolidaridad" />
+                                                        <field name="nValorFondoSubsistencia" />
+                                                    </group>
+                                                    <group string="Caja de compensación">
+                                                        <field name="TerceroCajaCom" />
+                                                        <field name="nValorBaseCajaCom" />
+                                                        <field name="nPorcAporteCajaCom" />
+                                                        <field name="nValorCajaCom" />
+                                                    </group>
+                                                    <group string="SENA">
+                                                        <field name="TerceroSENA" />
+                                                        <field name="nValorBaseSENA" />
+                                                        <field name="nPorcAporteSENA" />
+                                                        <field name="nValorSENA" />
+                                                    </group>
+                                                    <group string="ICBF">
+                                                        <field name="TerceroICBF" />
+                                                        <field name="nValorBaseICBF" />
+                                                        <field name="nPorcAporteICBF" />
+                                                        <field name="nValorICBF" />
+                                                    </group>
+                                                    <group string="Ausencia y fechas">
+                                                        <field name="leave_id" />
+                                                        <field name="dFechaInicioSLN" />
+                                                        <field name="dFechaFinSLN" />
+                                                        <field name="dFechaInicioIGE" />
+                                                        <field name="dFechaFinIGE" />
+                                                        <field name="dFechaInicioLMA" />
+                                                        <field name="dFechaFinLMA" />
+                                                        <field name="dFechaInicioVACLR" />
+                                                        <field name="dFechaFinVACLR" />
+                                                        <field name="dFechaInicioVCT" />
+                                                        <field name="dFechaFinVCT" />
+                                                        <field name="dFechaInicioIRL" />
+                                                        <field name="dFechaFinIRL" />
+                                                    </group>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </group>
+                                <group>
+                                    <field name="time_process" readonly="1" />
+                                    <field name="move_id" readonly="1" />
+                                </group>
+                                <br />
+                                <br />
+                                <button name="get_excel" type="object" string="Generar Excel" />
+                            </page>
+                            <page string="Advertencias" name="advertencias">
+                                <group>
+                                    <field name="errors_social_security_ids" readonly="1"
+                                        nolabel="1" colspan="2">
+                                        <tree>
+                                            <field name="employee_id" />
+                                            <field name="branch_id" optional="show" />
+                                            <field name="description" optional="show" />
+                                        </tree>
+                                    </field>
+                                </group>
+                                <button name="get_excel_errors" type="object" string="Generar Excel" />
+                            </page>
+                        </notebook>
+                        <hr style="border-style:solid;border-width:2px;width:100%;" />
+                        <h2 style="text-align:center">Plano</h2>
+                        <group>
+                            <field name="presentation_form" widget="radio" />
+                            <field name="branch_social_security_id" />
+                            <field name="work_center_social_security_id"
+                                domain="[('branch_social_security_id', '=', branch_social_security_id)]" />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- Vista de árbol -->
+        <record id="view_executing_social_security_line_tree" model="ir.ui.view">
+            <field name="name">hr.executing.social.security.line.tree</field>
+            <field name="model">hr.executing.social.security</field>
+            <field name="arch" type="xml">
+                <tree string="Seguridad Social" decoration-info="type_contributor == '12' or type_contributor == '19'" decoration-warning="subtype_contributor != '00' and subtype_contributor != False" decoration-danger="nRetiro == True" decoration-success="nIngreso == True" decoration-muted="subtype_contributor != '00' and subtype_contributor != False">
+                    
+                    <!-- Información básica del empleado -->
+                    <field name="sequence" optional="show"/>
+                    <field name="employee_id"/>
+                    <field name="document_contributor"/>
+                    <field name="type_contributor" column_invisible="1"/>  
+                    <field name="subtype_contributor" column_invisible="1"/>
+                    <field name="wage_type" optional="hide"/>
+                    <field name="nIngreso" optional="hide" string="Ingreso" widget="boolean_toggle"/>
+                    <field name="nRetiro" optional="hide" string="Retiro" widget="boolean_toggle"/>
+                    <field name="nSueldo" sum="Total Sueldo"/>
+                    <!-- Días -->
+                    <field name="nDiasLiquidados" sum="Total Días"/>
+                    <field name="nDiasVacaciones" sum="Total Días Vac."/>
+                    <field name="nDiasIncapacidadEPS" sum="Total Días Inc."/>
+                    <field name="nDiasLicencia" optional="show" sum="Total Días Lic."/>
+                    <field name="nDiasMaternidad" optional="hide" sum="Total Días Mat."/>
+                    <field name="nDiasIncapacidadARP" optional="hide" sum="Total Días ARP"/>
+                    <!-- SALUD -->
+                    <field name="nValorBaseSalud" string="IBC Salud" sum="Total IBC Salud"/>
+                    <field name="nValorSaludTotal" string="Aporte Salud" sum="Total Salud"/>
+                    <field name="TerceroEPS" string="Entidad Salud" optional="hide"/>
+                    <field name="nValorBaseFondoPension" string="IBC Pensión" sum="Total IBC Pensión"/>
+                    <field name="nValorPensionTotal" string="Aporte Pensión" sum="Total Pensión"/>
+                    <field name="TerceroPension" string="Entidad Pensión" optional="hide"/>
+                    <field name="nValorFondoSolidaridad" string="FSP" sum="Total FSP" optional="show"/>
+                    <field name="nValorFondoSubsistencia" string="Subsistencia" sum="Total Subsistencia" optional="show"/>
+                    <field name="nValorBaseARP" string="IBC ARL" sum="Total IBC ARL"/>
+                    <field name="nValorARP" string="Aporte ARL" sum="Total ARL"/>
+                    <field name="TerceroARP" string="Entidad ARL" optional="hide"/>
+                    <field name="nValorBaseCajaCom" string="IBC CCF" sum="Total IBC CCF"/>
+                    <field name="nValorCajaCom" string="Aporte CCF" sum="Total CCF"/>
+                    <field name="TerceroCajaCom" string="Entidad CCF" optional="hide"/>
+                    <field name="nValorSENA" string="Aporte SENA" sum="Total SENA"/>
+                    <field name="nValorICBF" string="Aporte ICBF" sum="Total ICBF"/>
+                    <field name="cExonerado1607" string="Exonerado" optional="hide"/>
+                    <field name="global_ibc" string="IBC Global" sum="Total IBC Global" optional="hide"/>
+                    <field name="type_contributor" string="Tipo" optional="hide" widget="badge" decoration-info="type_contributor == '12' or type_contributor == '19'" decoration-warning="subtype_contributor != '00' and subtype_contributor != False" decoration-muted="subtype_contributor == '00' and subtype_contributor != False"/>
+                    <field name="subtype_contributor" string="Subtipo" optional="hide" widget="badge" decoration-info="type_contributor == '12' or type_contributor == '19'" decoration-warning="subtype_contributor != '00' and subtype_contributor != False" decoration-muted="subtype_contributor == '00'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista formulario -->
+        <record id="view_executing_social_security_line_form" model="ir.ui.view">
+            <field name="name">hr.executing.social.security.line.form</field>
+            <field name="model">hr.executing.social.security</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="general">
+                                <field name="sequence" />
+                                <field name="main" />
+                                <field name="type_of_register" />
+                                <field name="employee_id" />
+                                <field name="contract_id" />
+                                <field name="branch_id" />
+                                <field name="analytic_account_id" />
+                                <field name="payslip_ids" widget="many2many_tags" />
+                                <field name="nSueldo" />
+                                <field name="wage_type" />
+                            </group>
+                            <group name="info_basica">
+                                <field name="document_type_contributor" />
+                                <field name="document_contributor" />
+                                <field name="type_contributor" />
+                                <field name="subtype_contributor" />
+                                <field name="foreign" />
+                                <field name="colombian_abroad" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <!-- Página Información Personal -->
+                            <page string="Información Personal">
+                                <group>
+                                    <group>
+                                        <field name="first_last_name" />
+                                        <field name="second_last_name" />
+                                        <field name="first_name" />
+                                        <field name="second_name" />
+                                    </group>
+                                    <group>
+                                        <field name="department" />
+                                        <field name="municipality_city" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Página Salud -->
+                            <page string="Salud">
+                                <group>
+                                    <group name="salud_info">
+                                        <field name="TerceroEPS" />
+                                        <field name="eps_code" />
+                                        <field name="eps_transfer" />
+                                        <field name="eps_days" />
+                                        <field name="nValorBaseSalud" />
+                                    </group>
+                                    <group name="salud_valores">
+                                        <field name="nPorcAporteSaludEmpleado" />
+                                        <field name="nValorSaludEmpleado" />
+                                        <field name="nValorSaludEmpleadoNomina" />
+                                        <field name="nPorcAporteSaludEmpresa" />
+                                        <field name="nValorSaludEmpresa" />
+                                        <field name="nValorSaludTotal" />
+                                        <field name="nDiferenciaSalud" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Página Pensión -->
+                            <page string="Pensión">
+                                <group>
+                                    <group name="pension_info">
+                                        <field name="TerceroPension" />
+                                        <field name="afp_code" />
+                                        <field name="afp_transfer" />
+                                        <field name="pens_days" />
+                                        <field name="nValorBaseFondoPension" />
+                                    </group>
+                                    <group name="pension_valores">
+                                        <field name="nPorcAportePensionEmpleado" />
+                                        <field name="nValorPensionEmpleado" />
+                                        <field name="nValorPensionEmpleadoNomina" />
+                                        <field name="nPorcAportePensionEmpresa" />
+                                        <field name="nValorPensionEmpresa" />
+                                        <field name="nValorPensionTotal" />
+                                        <field name="nDiferenciaPension" />
+                                        <field name="cAVP" />
+                                        <field name="nAporteVoluntarioPension" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Página ARL y Fondos -->
+                            <page string="ARL y Fondos">
+                                <group>
+                                    <group name="arl_info">
+                                        <field name="TerceroARP" />
+                                        <field name="arl_code" />
+                                        <field name="arl_days" />
+                                        <field name="nValorBaseARP" />
+                                        <field name="nPorcAporteARP" />
+                                        <field name="nValorARP" />
+                                    </group>
+                                    <group name="fondos">
+                                        <field name="TerceroFondoSolidaridad" />
+                                        <field name="nPorcFondoSolidaridad" />
+                                        <field name="nValorFondoSolidaridad" />
+                                        <field name="nValorFondoSubsistencia" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Página Parafiscales -->
+                            <page string="Parafiscales">
+                                <group>
+                                    <group name="ccf">
+                                        <field name="TerceroCajaCom" />
+                                        <field name="ccf_code" />
+                                        <field name="ccf_days" />
+                                        <field name="nValorBaseCajaCom" />
+                                        <field name="nPorcAporteCajaCom" />
+                                        <field name="nValorCajaCom" />
+                                        <field name="cExonerado1607" />
+                                    </group>
+                                    <group name="otros">
+                                        <field name="TerceroSENA" />
+                                        <field name="nValorBaseSENA" />
+                                        <field name="nPorcAporteSENA" />
+                                        <field name="nValorSENA" />
+                                        <field name="TerceroICBF" />
+                                        <field name="nValorBaseICBF" />
+                                        <field name="nPorcAporteICBF" />
+                                        <field name="nValorICBF" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Página Días y Novedades -->
+                            <page string="Días y Novedades">
+                                <group>
+                                    <group name="dias">
+                                        <field name="nDiasLiquidados" />
+                                        <field name="nNumeroHorasLaboradas" />
+                                        <field name="nDiasIncapacidadEPS" />
+                                        <field name="nDiasLicencia" />
+                                        <field name="nDiasLicenciaRenumerada" />
+                                        <field name="nDiasMaternidad" />
+                                        <field name="nDiasVacaciones" />
+                                        <field name="nDiasIncapacidadARP" />
+                                    </group>
+                                    <group name="novedades">
+                                        <field name="nIngreso" />
+                                        <field name="nRetiro" />
+                                        <field name="sln" />
+                                        <field name="ige" />
+                                        <field name="lma" />
+                                        <field name="irl" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Página Fechas -->
+                            <page string="Fechas">
+                                <group>
+                                    <group name="fechas_sln">
+                                        <field name="dFechaInicioSLN" />
+                                        <field name="dFechaFinSLN" />
+                                    </group>
+                                    <group name="fechas_ige">
+                                        <field name="dFechaInicioIGE" />
+                                        <field name="dFechaFinIGE" />
+                                    </group>
+                                    <group name="fechas_lma">
+                                        <field name="dFechaInicioLMA" />
+                                        <field name="dFechaFinLMA" />
+                                    </group>
+                                    <group name="fechas_vac">
+                                        <field name="dFechaInicioVACLR" />
+                                        <field name="dFechaFinVACLR" />
+                                    </group>
+                                    <group name="fechas_vct">
+                                        <field name="dFechaInicioVCT" />
+                                        <field name="dFechaFinVCT" />
+                                    </group>
+                                    <group name="fechas_irl">
+                                        <field name="dFechaInicioIRL" />
+                                        <field name="dFechaFinIRL" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_executing_social_security_line_search" model="ir.ui.view">
+            <field name="name">hr.executing.social.security.line.search</field>
+            <field name="model">hr.executing.social.security</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Campos de búsqueda básicos -->
+                    <field name="employee_id"/>
+                    <field name="contract_id"/>
+                    <field name="document_contributor" string="Documento"/>
+                    <field name="TerceroEPS"/>
+                    <field name="TerceroPension"/>
+                    <field name="TerceroARP"/>
+                    <field name="TerceroCajaCom"/>
+                    <field name="TerceroSENA"/>
+                    <field name="TerceroICBF"/>
+                    <field name="TerceroFondoSolidaridad"/>
+                    <field name="type_contributor" string="Tipo Cotizante"/>
+                    <field name="subtype_contributor" string="Subtipo Cotizante"/>
+                    <field name="municipality_city" string="Ciudad"/>
+                    
+                    <!-- Filtros para tipos de cotizantes -->
+                    <filter string="Principal" name="main" domain="[('main', '=', True)]"/>
+                    <filter string="Estudiantes" name="estudiantes" domain="[('type_contributor', 'in', ['12', '19'])]"/>
+                    <filter string="Pensionados" name="pensionados" domain="[('subtype_contributor', '!=', '00')]"/>
+                    
+                    <!-- Filtros para novedades -->
+                    <separator/>
+                    <filter string="Ingreso" name="ingreso" domain="[('nIngreso', '=', True)]"/>
+                    <filter string="Retiro" name="retiro" domain="[('nRetiro', '=', True)]"/>
+                    <filter string="Variación Salario Permanente" name="vsp" domain="[('vsp', '=', True)]"/>
+                    <filter string="Variación Salario Transitoria" name="vst" domain="[('vst', '=', True)]"/>
+                    <filter string="Traslado desde EPS" name="tde" domain="[('tde', '=', True)]"/>
+                    <filter string="Traslado a EPS" name="tae" domain="[('tae', '=', True)]"/>
+                    <filter string="Traslado desde Pensión" name="tdp" domain="[('tdp', '=', True)]"/>
+                    <filter string="Traslado a Pensión" name="tap" domain="[('tap', '=', True)]"/>
+                    <filter string="Extranjero" name="foreign" domain="[('foreign', '!=', False)]"/>
+                    <filter string="Colombiano Exterior" name="colombian_abroad" domain="[('colombian_abroad', '!=', False)]"/>
+                    
+                    <!-- Filtros para fechas -->
+                    <separator/>
+                    <filter string="Ingreso este mes" name="ingreso_este_mes" domain="[('nIngreso', '=', True), ('k_start', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                    <filter string="Retiro este mes" name="retiro_este_mes" domain="[('nRetiro', '=', True), ('k_end', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                    
+                    <!-- Filtros para ausencias -->
+                    <separator/>
+                    <filter string="Con Dias de trabajo" name="incapacidad_arl" domain="[('nDiasLiquidados', '&gt;', 0)]"/>
+                    <filter string="Con Incapacidad General" name="incapacidad" domain="[('nDiasIncapacidadEPS', '&gt;', 0)]"/>
+                    <filter string="Con Licencia" name="licencia" domain="[('nDiasLicencia', '&gt;', 0)]"/>
+                    <filter string="Con Licencia No Remunerada" name="sln" domain="[('sln', '=', True)]"/>
+                    <filter string="Con Licencia Remunerada" name="licencia_rem" domain="[('nDiasLicenciaRenumerada', '&gt;', 0)]"/>
+                    <filter string="Con Vacaciones" name="vacaciones" domain="[('nDiasVacaciones', '&gt;', 0)]"/>
+                    <filter string="Con Maternidad/Paternidad" name="maternidad" domain="[('nDiasMaternidad', '&gt;', 0), ('lma', '=', True)]"/>
+                    <filter string="Con Incapacidad ARL" name="incapacidad_arl" domain="[('nDiasIncapacidadARP', '&gt;', 0)]"/>
+                    <filter string="Con Riesgo Laboral (IRL)" name="irl" domain="[('irl', '&gt;', 0)]"/>
+                    
+                    <!-- Filtros de diferencias en aportes -->
+                    <separator/>
+                    <filter string="Con Diferencia Salud" name="dif_salud" domain="[('nDiferenciaSalud', '!=', 0)]"/>
+                    <filter string="Con Diferencia Pensión" name="dif_pension" domain="[('nDiferenciaPension', '!=', 0)]"/>
+                    <filter string="Exonerado Ley 1607" name="exonerado" domain="[('cExonerado1607', '=', True)]"/>
+                    <filter string="Con AVP" name="avp" domain="[('cAVP', '=', True)]"/>
+                    
+                    <!-- Filtros de valor -->
+                    <separator/>
+                    <filter string="Sin Aportes Salud" name="sin_salud" domain="[('nValorSaludTotal', '=', 0)]"/>
+                    <filter string="Sin Aportes Pensión" name="sin_pension" domain="[('nValorPensionTotal', '=', 0)]"/>
+                    <filter string="Sin Aportes ARL" name="sin_arl" domain="[('nValorARP', '=', 0)]"/>
+                    <filter string="Sin Aportes CCF" name="sin_ccf" domain="[('nValorCajaCom', '=', 0)]"/>
+                    <filter string="Con Fondo Solidaridad" name="con_fsp" domain="[('nValorFondoSolidaridad', '&gt;', 0)]"/>
+                    <filter string="Con Fondo Subsistencia" name="con_subsistencia" domain="[('nValorFondoSubsistencia', '&gt;', 0)]"/>
+                    
+                    <!-- Filtros por días -->
+                    <separator/>
+                    <filter string="Menos de 30 días" name="menos_30_dias" domain="[('nDiasLiquidados', '&lt;', 30)]"/>
+                    <filter string="30 días exactos" name="exacto_30_dias" domain="[('nDiasLiquidados', '=', 30)]"/>
+                    <filter string="Sin días liquidados" name="sin_dias" domain="[('nDiasLiquidados', '=', 0)]"/>
+                    
+                    <!-- Filtros combinados predefinidos -->
+                    <separator/>
+                    <filter string="Problemas potenciales" name="problemas" domain="['|', '|', '|', ('nDiferenciaSalud', '!=', 0), ('nDiferenciaPension', '!=', 0),                                  ('nDiasLiquidados', '&lt;', 30), '&amp;', ('nDiasLiquidados', '&gt;', 0), ('nValorSaludTotal', '=', 0)]"/>
+                    
+                    <!-- Filtros por fechas (alternativa para ingresos/retiros por mes) -->
+                    <separator/>
+                    <field name="k_start" string="Fecha Ingreso"/>
+                    <field name="k_end" string="Fecha Retiro"/>
+                    
+                    <!-- Agrupamiento -->
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Empleado" name="employee" context="{'group_by': 'employee_id'}"/>
+                        <filter string="Contrato" name="contract" context="{'group_by': 'contract_id'}"/>
+                        <filter string="Tipo Documento" name="document_type" context="{'group_by': 'document_type_contributor'}"/>
+                        <filter string="Tipo Cotizante" name="type_contributor_group" context="{'group_by': 'type_contributor'}"/>
+                        <filter string="Subtipo Cotizante" name="subtype_contributor_group" context="{'group_by': 'subtype_contributor'}"/>
+                        <filter string="Ciudad" name="city" context="{'group_by': 'municipality_city'}"/>
+                        <filter string="Tipo Salario" name="wage_type" context="{'group_by': 'wage_type'}"/>
+                        <separator/>
+                        <filter string="EPS" name="eps" context="{'group_by': 'TerceroEPS'}"/>
+                        <filter string="AFP" name="afp" context="{'group_by': 'TerceroPension'}"/>
+                        <filter string="ARL" name="arl" context="{'group_by': 'TerceroARP'}"/>
+                        <filter string="CCF" name="ccf" context="{'group_by': 'TerceroCajaCom'}"/>
+                        <filter string="SENA" name="sena" context="{'group_by': 'TerceroSENA'}"/>
+                        <filter string="ICBF" name="icbf" context="{'group_by': 'TerceroICBF'}"/>
+                        <filter string="Fondo Solidaridad" name="fsp_group" context="{'group_by': 'TerceroFondoSolidaridad'}"/>
+                        <separator/>
+                        <filter string="Días Liquidados" name="dias_liquidados" context="{'group_by': 'nDiasLiquidados'}"/>
+                        <filter string="¿Exonerado?" name="exonerado_group" context="{'group_by': 'cExonerado1607'}"/>
+                        <filter string="Mes de Ingreso" name="mes_ingreso" context="{'group_by': 'k_start:month'}"/>
+                        <filter string="Mes de Retiro" name="mes_retiro" context="{'group_by': 'k_end:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista Pivot -->
+        <record id="view_executing_social_security_line_pivot" model="ir.ui.view">
+            <field name="name">hr.executing.social.security.line.pivot</field>
+            <field name="model">hr.executing.social.security</field>
+            <field name="arch" type="xml">
+                <pivot string="Análisis de Seguridad Social">
+                    <field name="employee_id" type="row"/>
+                    <field name="nDiasLiquidados" type="measure"/>
+                    <field name="nValorSaludTotal" type="measure"/>
+                    <field name="nValorPensionTotal" type="measure"/>
+                    <field name="nValorARP" type="measure"/>
+                    <field name="nValorCajaCom" type="measure"/>
+                    <field name="nValorSENA" type="measure"/>
+                    <field name="nValorICBF" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Vista Gráfica -->
+        <record id="view_executing_social_security_line_graph" model="ir.ui.view">
+            <field name="name">hr.executing.social.security.line.graph</field>
+            <field name="model">hr.executing.social.security</field>
+            <field name="arch" type="xml">
+                <graph string="Análisis de Seguridad Social" type="bar">
+                    <field name="employee_id"/>
+                    <field name="nValorSaludTotal" type="measure"/>
+                    <field name="nValorPensionTotal" type="measure"/>
+                    <field name="nValorARP" type="measure"/>
+                    <field name="nValorCajaCom" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record id="action_executing_social_security_line" model="ir.actions.act_window">
+            <field name="name">Ejecución Seguridad Social</field>
+            <field name="res_model">hr.executing.social.security</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+            <field name="search_view_id" ref="view_executing_social_security_line_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No hay registros de ejecución de seguridad social
+                </p>
+                <p>
+                    Cree un nuevo registro de ejecución de seguridad social.
+                </p>
+            </field>
+        </record>
+    <record id="view_hr_executing_social_security_kanban" model="ir.ui.view">
+        <field name="name">hr.executing.social.security.kanban</field>
+        <field name="model">hr.executing.social.security</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hr_social_security_kanban" create="0">
+                <!-- Campos disponibles -->
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <field name="document_contributor"/>
+                <field name="wage_type"/>
+                <field name="nSueldo"/>
+                <field name="nDiasLiquidados"/>
+                <field name="nDiasVacaciones"/>
+                <field name="nDiasIncapacidadEPS"/>
+                
+                <!-- Campos de salud -->
+                <field name="nValorBaseSalud"/>
+                <field name="nValorSaludEmpleado"/>
+                <field name="nValorSaludEmpresa"/>
+                <field name="nValorSaludTotal"/>
+                <field name="eps_days"/>
+                <field name="eps_code"/>
+                <field name="TerceroEPS"/>
+                <field name="nPorcAporteSaludEmpleado"/>
+                <field name="nPorcAporteSaludEmpresa"/>
+                
+                <!-- Campos de pensión -->
+                <field name="nValorBaseFondoPension"/>
+                <field name="nValorPensionEmpleado"/>
+                <field name="nValorPensionEmpresa"/>
+                <field name="nValorPensionTotal"/>
+                <field name="pens_days"/>
+                <field name="TerceroPension"/>
+                <field name="nPorcAportePensionEmpleado"/>
+                <field name="nPorcAportePensionEmpresa"/>
+                
+                <!-- Campos de ARL -->
+                <field name="nValorBaseARP"/>
+                <field name="nValorARP"/>
+                <field name="arl_days"/>
+                <field name="TerceroARP"/>
+                <field name="nPorcAporteARP"/>
+                
+                <!-- Campos de parafiscales -->
+                <field name="nValorBaseCajaCom"/>
+                <field name="nValorCajaCom"/>
+                <field name="nValorSENA"/>
+                <field name="nValorICBF"/>
+                <field name="ccf_days"/>
+                <field name="TerceroCajaCom"/>
+                <field name="TerceroSENA"/>
+                <field name="TerceroICBF"/>
+                <field name="nPorcAporteCajaCom"/>
+                <field name="nPorcAporteSENA"/>
+                <field name="nPorcAporteICBF"/>
+                
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_hr_social_security_card #{record.wage_type.raw_value == 'Fijo' ? 'o_kanban_green' : 'o_kanban_blue'}">
+                            <!-- Encabezado con datos del empleado -->
+                            <div class="o_hr_social_security_header">
+                                <strong><field name="employee_id"/> - <field name="contract_id"/></strong>
+                                <div class="o_hr_employee_info">
+                                    <span><field name="wage_type"/> - <field name="nSueldo" widget="monetary"/></span>
+                                    <div class="o_hr_days_badges">
+                                        <t t-if="record.nDiasLiquidados.raw_value > 0">
+                                            <span class="badge o_badge_liquidado">Liquidados: <field name="nDiasLiquidados"/></span>
+                                        </t>
+                                        <t t-if="record.nDiasVacaciones.raw_value > 0">
+                                            <span class="badge o_badge_vacaciones">Vacaciones: <field name="nDiasVacaciones"/></span>
+                                        </t>
+                                        <t t-if="record.nDiasIncapacidadEPS.raw_value > 0">
+                                            <span class="badge o_badge_incapacidad">Incapacidad: <field name="nDiasIncapacidadEPS"/></span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido en formato de filas horizontales -->
+                            <div class="o_hr_social_security_content">
+                                <table class="o_hr_horizontal_table">
+                                    <!-- Encabezados de la tabla -->
+                                    <thead>
+                                        <tr>
+                                            <th class="o_hr_concept">Concepto</th>
+                                            <th class="o_hr_base">Base</th>
+                                            <th class="o_hr_percent">% Empleado</th>
+                                            <th class="o_hr_value">Valor Empleado</th>
+                                            <th class="o_hr_percent">% Empresa</th>
+                                            <th class="o_hr_value">Valor Empresa</th>
+                                            <th class="o_hr_total">Total</th>
+                                            <th class="o_hr_entity">Entidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Salud - EPS -->
+                                        <t t-if="record.nValorSaludTotal.raw_value > 0">
+                                            <tr class="o_hr_row o_hr_row_salud">
+                                                <td class="o_hr_concept">Salud - EPS</td>
+                                                <td class="o_hr_base">$ <field name="nValorBaseSalud" widget="monetary"/></td>
+                                                <td class="o_hr_percent"><field name="nPorcAporteSaludEmpleado"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorSaludEmpleado" widget="monetary"/></td>
+                                                <td class="o_hr_percent"><field name="nPorcAporteSaludEmpresa"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorSaludEmpresa" widget="monetary"/></td>
+                                                <td class="o_hr_total">$ <field name="nValorSaludTotal" widget="monetary"/></td>
+                                                <td class="o_hr_entity"><field name="TerceroEPS"/></td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <!-- Pensión -->
+                                        <t t-if="record.nValorPensionTotal.raw_value > 0">
+                                            <tr class="o_hr_row o_hr_row_pension">
+                                                <td class="o_hr_concept">Pensión</td>
+                                                <td class="o_hr_base">$ <field name="nValorBaseFondoPension" widget="monetary"/></td>
+                                                <td class="o_hr_percent"><field name="nPorcAportePensionEmpleado"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorPensionEmpleado" widget="monetary"/></td>
+                                                <td class="o_hr_percent"><field name="nPorcAportePensionEmpresa"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorPensionEmpresa" widget="monetary"/></td>
+                                                <td class="o_hr_total">$ <field name="nValorPensionTotal" widget="monetary"/></td>
+                                                <td class="o_hr_entity"><field name="TerceroPension"/></td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <!-- ARL -->
+                                        <t t-if="record.nValorARP.raw_value > 0">
+                                            <tr class="o_hr_row o_hr_row_arl">
+                                                <td class="o_hr_concept">ARL</td>
+                                                <td class="o_hr_base">$ <field name="nValorBaseARP" widget="monetary"/></td>
+                                                <td class="o_hr_percent">0.00%</td>
+                                                <td class="o_hr_value">$ 0.00</td>
+                                                <td class="o_hr_percent"><field name="nPorcAporteARP"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorARP" widget="monetary"/></td>
+                                                <td class="o_hr_total">$ <field name="nValorARP" widget="monetary"/></td>
+                                                <td class="o_hr_entity"><field name="TerceroARP"/></td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <!-- CCF -->
+                                        <t t-if="record.nValorCajaCom.raw_value > 0">
+                                            <tr class="o_hr_row o_hr_row_ccf">
+                                                <td class="o_hr_concept">Caja Compensación (CCF)</td>
+                                                <td class="o_hr_base">$ <field name="nValorBaseCajaCom" widget="monetary"/></td>
+                                                <td class="o_hr_percent">0.00%</td>
+                                                <td class="o_hr_value">$ 0.00</td>
+                                                <td class="o_hr_percent"><field name="nPorcAporteCajaCom"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorCajaCom" widget="monetary"/></td>
+                                                <td class="o_hr_total">$ <field name="nValorCajaCom" widget="monetary"/></td>
+                                                <td class="o_hr_entity"><field name="TerceroCajaCom"/></td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <!-- SENA -->
+                                        <t t-if="record.nValorSENA.raw_value > 0">
+                                            <tr class="o_hr_row o_hr_row_sena">
+                                                <td class="o_hr_concept">SENA</td>
+                                                <td class="o_hr_base">$ <field name="nValorBaseCajaCom" widget="monetary"/></td>
+                                                <td class="o_hr_percent">0.00%</td>
+                                                <td class="o_hr_value">$ 0.00</td>
+                                                <td class="o_hr_percent"><field name="nPorcAporteSENA"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorSENA" widget="monetary"/></td>
+                                                <td class="o_hr_total">$ <field name="nValorSENA" widget="monetary"/></td>
+                                                <td class="o_hr_entity"><field name="TerceroSENA"/></td>
+                                            </tr>
+                                        </t>
+                                        
+                                        <!-- ICBF -->
+                                        <t t-if="record.nValorICBF.raw_value > 0">
+                                            <tr class="o_hr_row o_hr_row_icbf">
+                                                <td class="o_hr_concept">ICBF</td>
+                                                <td class="o_hr_base">$ <field name="nValorBaseCajaCom" widget="monetary"/></td>
+                                                <td class="o_hr_percent">0.00%</td>
+                                                <td class="o_hr_value">$ 0.00</td>
+                                                <td class="o_hr_percent"><field name="nPorcAporteICBF"/>%</td>
+                                                <td class="o_hr_value">$ <field name="nValorICBF" widget="monetary"/></td>
+                                                <td class="o_hr_total">$ <field name="nValorICBF" widget="monetary"/></td>
+                                                <td class="o_hr_entity"><field name="TerceroICBF"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Pie de la tarjeta -->
+                            <div class="o_hr_social_security_footer">
+                                <button name="executing_social_security_employee" type="object" class="btn btn-sm btn-secondary">Recalcular</button>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+       
+    </data>
+</odoo>

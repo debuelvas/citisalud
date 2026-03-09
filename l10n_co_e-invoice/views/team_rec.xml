@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_recepcion_team_tree" model="ir.ui.view">
+            <field name="name">recepcion.team.tree</field>
+            <field name="model">recepcion.team</field>
+            <field name="arch" type="xml">
+                <tree string="Equipos de Recepción">
+                    <field name="name"/>
+                    <field name="alias_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active" invisible="1"/>
+                    <field name="invoice_count"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_recepcion_team_form" model="ir.ui.view">
+            <field name="name">recepcion.team.form</field>
+            <field name="model">recepcion.team</field>
+            <field name="arch" type="xml">
+                <form string="Equipo de Recepción">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre del Equipo"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="alias_id"/>
+                                <field name="alias_domain" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="alias_user_id"/>
+                                <field name="invoice_count"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Miembros del Equipo" name="team_members">
+                                <field name="member_ids" widget="many2many_tags"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="recepcion_team_action_view" model="ir.actions.act_window">
+            <field name="name">Dian Tribute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">recepcion.team</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new ModelTitle.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Recepcion Team" id="dian_team_menu_item" parent="account.menu_finance_configuration" action="recepcion_team_action_view" />
+    </data>
+</odoo>

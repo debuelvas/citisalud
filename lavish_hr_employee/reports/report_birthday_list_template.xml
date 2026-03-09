@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_birthday_list_document">
+        <t t-call="web.html_container">
+            <t t-foreach="inside_foreach_docs or docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <h1>
+                        <strong>LISTA DE CUMPLEAÑOS</strong>
+                    </h1>
+                    <br/>
+                    <t t-foreach="o.get_month()" t-as="m">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td colspan="5">
+                                        <h3>
+                                            <span t-esc="o.get_name_month(m)"/>
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%;">
+                                        <b>Compañia</b>
+                                    </td>
+                                    <td style="width: 10%;">
+                                        <b>Identificación</b>
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <b>Nombre</b>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <b>Sucursal</b>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <b>Fecha de cumpleaños</b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_employees" t-value="0"/>
+                                <tr t-foreach="sorted(o.get_info_birthday(m), key=lambda x: x.birthday.day)" t-as="info" style="font-style: normal; font-size: 16px;">
+                                    <td>
+                                        <span t-esc="info.company_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="info.identification_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="info.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="info.branch_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="o.get_date_text(info.birthday,0,1)"/>
+                                        <t t-set="total_employees" t-value="total_employees + 1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">
+                                        <b>TOTAL <span t-esc="o.get_name_month(m)"/></b>
+                                    </td>
+                                    <td>
+                                        <span t-esc="total_employees"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_birthday_list">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="inside_foreach_docs" t-value="o"/>
+            <t t-call="lavish_hr_employee.report_birthday_list_document"/>
+        </t>
+    </template>
+</odoo>
