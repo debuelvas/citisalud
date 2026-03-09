@@ -1,0 +1,20 @@
+id,name,l10n_co_document_code,country_id:id,is_vat,sequence,heath_code,dian_code,active
+l10n_co.civil_registration,Registro Civil,civil_registration,base.co,FALSE,1,RC,11,TRUE
+l10n_co.id_document,Cédula,id_document,base.co,FALSE,2,CC,12,FALSE
+l10n_co.id_card,Tarjeta de Identidad,id_card,base.co,FALSE,3,TI,12,TRUE
+l10n_co.national_citizen_id,Cédula de ciudadanía,national_citizen_id,base.co,FALSE,4,CC,13,TRUE
+l10n_co.foreign_colombian_card,Tarjeta de extranjería,foreign_colombian_card,,FALSE,5,TE,21,TRUE
+l10n_co.foreign_resident_card,Cédula de extranjería,foreign_resident_card,,FALSE,6,CE,22,TRUE
+l10n_co.rut,NIT,rut,base.co,TRUE,7,NI,31,TRUE
+l10n_latam_base.it_pass,Pasaporte,passport,,FALSE,8,PA,41,TRUE
+l10n_latam_base.it_fid,Documento de identificación extranjero,foreign_id_card,,FALSE,9,DI,42,TRUE
+l10n_co.external_id,NIT de otro país,external_id,,FALSE,10,,50,TRUE
+l10n_co.niup_id,NIUP,niup_id,,FALSE,11,,91,TRUE
+l10n_co.diplomatic_card,Carné Diplomatico,diplomatic_card,,FALSE,12,CD,0-99,FALSE
+l10n_co.residence_document,Salvoconducto de Permanencia,residence_document,,FALSE,13,SC,0-99,FALSE
+pep,PEP,pep,,FALSE,14,PE,47,TRUE
+CN,Certificado de nacido vivo,CN,base.co,FALSE,17,CN,CN,TRUE
+AS,Adulto sin identificacion,AS,base.co,FALSE,18,AS,AS,TRUE
+MS,Menor sin identificacion,MS,base.co,FALSE,19,MS,MS,TRUE
+DE,Documento extranjero,DE,base.co,FALSE,20,DE,DE,TRUE
+SI,Sin identificación,SI,base.co,FALSE,21,SI,SI,TRUE

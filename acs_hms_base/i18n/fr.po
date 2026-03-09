@@ -1,0 +1,3023 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* acs_hms_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-22 13:21+0000\n"
+"PO-Revision-Date: 2021-11-22 13:21+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: fr\n"
+
+
+
+#. module: acs_hms_base
+#: code:addons/acs_hms_base/models/partner.py:0
+#, python-format
+msgid " Days"
+msgstr "Jours"
+
+#. module: acs_hms_base
+#: code:addons/acs_hms_base/models/partner.py:0
+#, python-format
+msgid " Month "
+msgstr "Mois"
+
+#. module: acs_hms_base
+#: code:addons/acs_hms_base/models/partner.py:0
+#: code:addons/acs_hms_base/models/partner.py:0
+#, python-format
+msgid " Year"
+msgstr "Ans"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__accesses_count
+msgid "# Access Rights"
+msgstr "# Des droits d'accès"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__groups_count
+msgid "# Groups"
+msgstr "# Groupes"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__invoice_count
+msgid "# Invoices"
+msgstr "# Factures"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__rules_count
+msgid "# Record Rules"
+msgstr "# Règles d'enregistrement"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.patient_kanban_view
+msgid "<b>Age:</b>"
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.patient_kanban_view
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.physician_kanban_view
+msgid "<b>Code:</b>"
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.patient_kanban_view
+msgid "<b>Gender:</b>"
+msgstr "<b>Gendre:</b>"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.patient_kanban_view
+msgid "<b>Primary Physician:</b>"
+msgstr "<b>Docteur principal:</b>"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.physician_kanban_view
+msgid "<b>Specialty:</b>"
+msgstr "<b>Spécialité :</b>"
+
+#. module: acs_hms_base
+#: model:mail.template,body_html:acs_hms_base.email_template_birthday_wish
+msgid ""
+"<p>Dear {{ object.name }},</p>\n"
+"<img src=\"/acs_hms_base/static/scr/img/birthday1.gif\"/>\n"
+"<p> Wishing you the very best as you celebrate your big day. Happy Birthday to you from all of us!</p>\n"
+"            "
+msgstr ""
+"<p>Cher {{ object.name }},</p>\n"
+"<img src=\"/acs_hms_base/static/scr/img/birthday1.gif\"/>\n"
+"<p> Je vous souhaite le meilleur alors que vous célébrez votre grand jour. Joyeux anniversaire à toi de nous tous!</p>\n"
+"            "
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Birthday-wish template</span>"
+msgstr "<span class=\"o_form_label\">Modèle de souhait d'anniversaire</span>"
+
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Unique Government Code in Patient</span>"
+msgstr "<span class=\"o_form_label\">Code gouvernemental unique pour les patients hospitalisés</span>"
+
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+msgid ""
+"<span class=\"o_stat_text\">Inv:</span>\n"
+"                                <span class=\"o_stat_text\">Due:</span>"
+msgstr "<span class=\"o_stat_text\">Inv:</span>\n"
+"                                <span class=\"o_stat_text\">Dû:</span>"
+
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.report_invoice_document_inherit
+msgid "<strong>Patient Code:</strong>"
+msgstr "<strong>Code du Patient:</strong>"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.report_invoice_document_inherit
+msgid "<strong>Patient Name:</strong>"
+msgstr "<strong>Nom du patient:</strong>"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__res_partner__blood_group__ab+
+msgid "AB+"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__res_partner__blood_group__ab-
+msgid "AB-"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__api_key_ids
+msgid "API Keys"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_account_payable_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_account_payable_id
+msgid "Account Payable"
+msgstr "Compte à payer"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_account_receivable_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_account_receivable_id
+msgid "Account Receivable"
+msgstr "Compte recevable"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__acs_amount_due
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__acs_amount_due
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__acs_amount_due
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__acs_amount_due
+msgid "Acs Amount Due"
+msgstr "Montant dû"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_hms_patient_tag
+msgid "Acs Patient Tag"
+msgstr "Étiquette du patient"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_hms_therapeutic_effect
+msgid "Acs Therapeutic Effect"
+msgstr "Effet thérapeutique"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_needaction
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_needaction
+msgid "Action Needed"
+msgstr "Action nécessaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__active
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.act_open_active_comp
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__active_component_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__active_component_ids
+#: model:ir.ui.menu,name:acs_hms_base.menu_medicine_product_active_component
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_tree
+msgid "Active Component"
+msgstr "Composant actif"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_form
+msgid "Active Component Name"
+msgstr "Nom du composant actif"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__active_lang_count
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__active_lang_count
+msgid "Active Lang Count"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_ids
+msgid "Activities"
+msgstr "Activités"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_exception_decoration
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activité exceptionnelle"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_state
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_state
+msgid "Activity State"
+msgstr "État d'activité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_type_icon
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icône du type d'activité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__additional_note
+msgid "Additional Note"
+msgstr "Note supplémentaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__additional_info
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__additional_info
+msgid "Additional info"
+msgstr "info additionnelle"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__address_home_id
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "Address"
+msgstr "Adresse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__type
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__type
+msgid "Address Type"
+msgstr "Type d’ adresse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__adverse_reaction
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__adverse_reaction
+msgid "Adverse Reactions"
+msgstr "Effets indésirables"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__age
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__age
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__age
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__age
+msgid "Age"
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_search
+msgid "All"
+msgstr "Tous"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__lang
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__lang
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__private_lang
+msgid ""
+"All the emails and documents sent to this contact will be translated in this"
+" language."
+msgstr ""
+"Tous les e-mails et documents envoyés à ce contact seront traduits dans ceci"
+" Langue."
+#. module: acs_hms_base
+#: model:res.groups,name:acs_hms_base.group_acs_invoice_exemption
+msgid "Allow Invoice Exemption"
+msgstr "Autoriser l'exonération de facture"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__amount
+msgid "Amount of component"
+msgstr "Quantité de composant"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_active_comp__amount
+msgid "Amount of component used in the drug (eg, 250 mg) per dose"
+msgstr "Quantité de composant utilisé dans le médicament (par exemple, 250 mg) par dose"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_consumable_line__product_uom
+msgid "Amount of medication (eg, 250 mg) per dose"
+msgstr "Quantité de médicament (par exemple, 250 mg) par dose"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_attachment_count
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_acs_documnt_mixin__attachment_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__attachment_ids
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__avatar_1920
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__avatar_1920
+msgid "Avatar"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__avatar_1024
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__avatar_1024
+msgid "Avatar 1024"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__avatar_128
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__avatar_128
+msgid "Avatar 128"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__avatar_256
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__avatar_256
+msgid "Avatar 256"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__avatar_512
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__avatar_512
+msgid "Avatar 512"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__barcode
+msgid "Badge ID"
+msgstr "ID du badge"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__bank_account_count
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__bank_account_count
+msgid "Bank"
+msgstr "Banque"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__bank_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__bank_ids
+msgid "Banks"
+msgstr "Banques"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__barcode
+msgid "Barcode"
+msgstr "Code à barre"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+msgid "Birthday"
+msgstr "Date de naissance"
+
+#. module: acs_hms_base
+#: model:mail.template,name:acs_hms_base.email_template_birthday_wish
+msgid "Birthday Wish"
+msgstr "Souhait de date de naissance"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_company__birthday_mail_template_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_config_settings__birthday_mail_template_id
+msgid "Birthday Wishes Template"
+msgstr "Modèle de souhaits de date de naissance"
+
+#. module: acs_hms_base
+#: model:mail.template,subject:acs_hms_base.email_template_birthday_wish
+msgid "Birthday Wishes!!!"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.actions.server,name:acs_hms_base.ir_cron_birth_ir_actions_server
+#: model:ir.cron,cron_name:acs_hms_base.ir_cron_birth
+#: model:ir.cron,name:acs_hms_base.ir_cron_birth
+msgid "Birthday scheduler"
+msgstr "Planificateur de date de naissance"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "Birthday wish template."
+msgstr "Modèle de souhait de date de naissance"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__is_blacklisted
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__is_blacklisted
+msgid "Blacklist"
+msgstr "Liste noire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__mobile_blacklisted
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__mobile_blacklisted
+msgid "Blacklisted Phone Is Mobile"
+msgstr "Le téléphone sur liste noire est un téléphone portable"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__phone_blacklisted
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__phone_blacklisted
+msgid "Blacklisted Phone is Phone"
+msgstr "Téléphone sur liste noire est un téléphone fixe"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__blood_group
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__blood_group
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__blood_group
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__blood_group
+msgid "Blood Group"
+msgstr "Groupe sanguin"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_bounce
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_bounce
+msgid "Bounce"
+msgstr "Rebondir"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__can_edit
+msgid "Can Edit"
+msgstr "Peut éditer"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__can_publish
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__can_publish
+msgid "Can Publish"
+msgstr "Peut publier"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__certificate
+msgid "Certificate Level"
+msgstr "Niveau de certificat"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__channel_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__channel_ids
+msgid "Channels"
+msgstr "Chaînes"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__is_patient
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__is_patient
+#: model:ir.model.fields,help:acs_hms_base.field_res_partner__is_patient
+#: model:ir.model.fields,help:acs_hms_base.field_res_users__is_patient
+msgid "Check if customer is linked with patient."
+msgstr "Vérifier si le client est lié au patient"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__is_company
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__is_company
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr "Vérifiez si le contact est une entreprise, sinon c'est une personne"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__employee
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__employee
+msgid "Check this box if this contact is an Employee."
+msgstr "Cochez cette case si ce contact est un Employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__city
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__city
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "City"
+msgstr "Ville"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_active_comp
+msgid "Click to add a Drug Active Component."
+msgstr "Cliquez pour ajouter un composant actif du médicament"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_drug_company_form_view
+msgid "Click to add a Drug Company."
+msgstr "Cliquez pour ajouter une société pharmaceutique"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_drug_form_view
+msgid "Click to add a Drug Form."
+msgstr "Cliquez pour ajouter un formulaire de médicament"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_medicament_route
+msgid "Click to add a Drug Route."
+msgstr "Cliquez pour ajouter une route de médicaments"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_medicament_flavour
+msgid "Click to add a Flavour."
+msgstr "Cliquez pour ajouter une saveur."
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_patient_tag
+msgid "Click to add a Patient Tag."
+msgstr "Cliquez pour ajouter une étiquette patient"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_patient
+msgid "Click to add a Patient"
+msgstr "Cliquez pour ajouter un patient"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_physician_degree
+msgid "Click to add a Physician Degree."
+msgstr "Cliquez pour ajouter un diplôme de docteur"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_physician
+msgid "Click to add a Physician."
+msgstr "Cliquez pour ajouter un docteur"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_physician_specialty
+msgid "Click to add a Specialty."
+msgstr "Cliquez pour ajouter une spécialité"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_therapeutic_effect
+msgid "Click to add a Therapeutic Effect."
+msgstr "Cliquez pour ajouter un effet thérapeutique"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__coach_id
+msgid "Coach"
+msgstr "Entraîneur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__code
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__code
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__code
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__code
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__code
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_search
+msgid "Code"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__color
+msgid "Color"
+msgstr "Couleur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__color
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__color
+msgid "Color Index"
+msgstr "Index des couleurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__commercial_partner_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__commercial_partner_id
+msgid "Commercial Entity"
+msgstr "Entité commerciale"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__company_ids
+msgid "Companies"
+msgstr "Enterprises"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__ref_company_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__ref_company_ids
+msgid "Companies that refers to partner"
+msgstr "Entreprises qui se réfèrent à un partenaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__company_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__company_id
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_search
+msgid "Company"
+msgstr "Enterprise"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__company_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__company_name
+msgid "Company Name"
+msgstr "Nom de l'entreprise"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__commercial_company_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__commercial_company_name
+msgid "Company Name Entity"
+msgstr "Nom de l'entreprise Entité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__company_type
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__company_type
+msgid "Company Type"
+msgstr "Type de compagnie"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__partner_gid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__partner_gid
+msgid "Company database ID"
+msgstr "ID de la base de données de l'entreprise"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_id
+msgid "Company employee"
+msgstr "Employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__drug_company_id
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__drug_company_id
+msgid "Company producing this drug"
+msgstr "Enterprise produisant ce médicament"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__contact_address
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__contact_address
+msgid "Complete Address"
+msgstr "Adresse complète"
+
+#. module: acs_hms_base
+#: model:ir.ui.menu,name:acs_hms_base.menu_hms_patient_cofig
+#: model:ir.ui.menu,name:acs_hms_base.menu_medicine_cofig
+#: model:ir.ui.menu,name:acs_hms_base.menu_physician_cofig
+msgid "Configuration"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__product_id
+msgid "Consumable"
+msgstr "Consommable"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__child_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__child_ids
+msgid "Contact"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__contact_address_complete
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__contact_address_complete
+msgid "Contact Address Complete"
+msgstr "Adresse de contact complète"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__corpo_company_id
+msgid "Corporate Company"
+msgstr "Enterprise"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__is_corpo_tieup
+msgid "Corporate Tie-Up"
+msgstr "Rapprochement d'entreprise"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_bounce
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_bounce
+msgid "Counter of the number of bounced emails for this contact"
+msgstr "Compteur du nombre d'emails rebondis pour ce contact"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__country_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__country_id
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "Country"
+msgstr "Pays"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__country_code
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__country_code
+msgid "Country Code"
+msgstr "Code du pays"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__country_of_birth
+msgid "Country of Birth"
+msgstr "Pays de naissance"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__create_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__create_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__create_date
+msgid "Created on"
+msgstr "Créé sur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__credit_limit
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__credit_limit
+msgid "Credit Limit"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__currency_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__currency_id
+msgid "Currency"
+msgstr "Monnaie"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_stock_customer
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_stock_customer
+msgid "Customer Location"
+msgstr "Lieu du client"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_payment_term_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_payment_term_id
+msgid "Customer Payment Terms"
+msgstr "Conditions de paiement client"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__customer_rank
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__customer_rank
+msgid "Customer Rank"
+msgstr "Rang client"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__date
+msgid "Date"
+msgstr "Date"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__birthday
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__birthday
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__birthday
+msgid "Date of Birth"
+msgstr "Date de naissance"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__date_of_death
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__date_of_death
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__date_of_death
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__date_of_death
+msgid "Date of Death"
+msgstr "Date de décès"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__resource_calendar_id
+msgid "Default Working Hours"
+msgstr "Heures de travail par défaut"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__resource_calendar_id
+msgid "Define the schedule of resource"
+msgstr "Définir le planning"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__degree_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__name
+msgid "Degree"
+msgstr "Diplôme"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__trust
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__trust
+msgid "Degree of trust you have in this debtor"
+msgstr "Degré de confiance que vous avez en ce débiteur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__department_id
+msgid "Department"
+msgstr "Département"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__display_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__display_name
+msgid "Display Name"
+msgstr "Afficher un nom"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_tree
+msgid "Doctor ID"
+msgstr "ID du Docteur"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "Doctor's Name"
+msgstr "Nom du docteur"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_acs_documnt_mixin
+msgid "Document Mixin"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_acs_documnt_mixin__attach_count
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__attach_count
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+msgid "Documents"
+msgstr "Documents"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__dosage
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__dosage
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__dosage
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__dosage
+msgid "Dosage"
+msgstr "Dosage"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_active_comp
+msgid "Drug Active Component"
+msgstr "Composant actif du médicament"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.act_open_drug_company_form_view
+#: model:ir.model,name:acs_hms_base.model_drug_company
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__drug_company_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__drug_company_id
+#: model:ir.ui.menu,name:acs_hms_base.menu_medicine_drug_company
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_tree
+msgid "Drug Company"
+msgstr "Compagnie pharmaceutique"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.act_open_drug_form_view
+#: model:ir.model,name:acs_hms_base.model_drug_form
+#: model:ir.ui.menu,name:acs_hms_base.menu_medicine_druggg
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_form
+msgid "Drug Form"
+msgstr "Formulaire du médicament"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_drug_route
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_form
+msgid "Drug Route"
+msgstr "Voie du médicament"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__form_id
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__form_id
+msgid "Drug form, such as tablet or gel"
+msgstr "Forme de médicament, comme un comprimé ou un gel"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "Education"
+msgstr "Éducation"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__partner_share
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__partner_share
+msgid ""
+"Either customer (not a user), either shared user. Indicated the current "
+"partner is a customer without access or with a limited access created for "
+"sharing data."
+msgstr ""
+"Soit client (pas utilisateur), soit utilisateur partagé. Indiqué le "
+"le partenaire est un client sans accès ou avec un accès limité créé pour "
+"partager de données."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__email
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__email
+msgid "Email"
+msgstr "E-mail"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__emergency_contact
+msgid "Emergency Contact"
+msgstr "Personne à contacter en cas d'urgence"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__emergency_phone
+msgid "Emergency Phone"
+msgstr "Téléphone d'urgence"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__employee
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__emp_code
+msgid "Employee Code"
+msgstr "Code d’ Employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_count
+msgid "Employee Count"
+msgstr "Nombre d’ employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_lang
+msgid "Employee Lang"
+msgstr "Langue d’employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__category_ids
+msgid "Employee Tags"
+msgstr "Étiquettes d'employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_type
+msgid "Employee Type"
+msgstr "Type d'employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__employee_bank_account_id
+msgid "Employee bank salary account"
+msgstr "Compte salaire bancaire employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_bank_account_id
+msgid "Employee's Bank Account Number"
+msgstr "Numéro de compte bancaire de l'employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_country_id
+msgid "Employee's Country"
+msgstr "Pays de l'employé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__employee_ids
+msgid "Employees"
+msgstr "Employés"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__employees_count
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employees_count
+msgid "Employees Count"
+msgstr "Nombre d'employés"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__address_home_id
+msgid ""
+"Enter here the private address of the employee, not the one linked to your "
+"company."
+msgstr ""
+"Entrez ici l'adresse privée de l'employé, pas celle liée à votre "
+"entreprise."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__share
+msgid ""
+"External user with limited access, created only for the purpose of sharing "
+"data."
+msgstr ""
+"Utilisateur externe avec un accès limité, créé uniquement à des fins de partager "
+"Les données."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__notes
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__notes
+msgid "Extra Info"
+msgstr " Info supplémentaires "
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__res_partner__gender__female
+msgid "Female"
+msgstr "Femme"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__study_field
+msgid "Field of Study"
+msgstr "Domaine d'études"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__phone_sanitized
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__phone_sanitized
+msgid ""
+"Field used to store sanitized phone number. Helps speeding up searches and "
+"comparisons."
+msgstr ""
+"Champ utilisé pour stocker le numéro de téléphone épuré. Aide à accélérer les recherches et "
+"comparaisons. "
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_account_position_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_account_position_id
+msgid "Fiscal Position"
+msgstr "Situation financière fiscale"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_medicament_flavour
+msgid "Flavour"
+msgstr "Saveur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_follower_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_follower_ids
+msgid "Followers"
+msgstr "Suiveurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_partner_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Suiveurs(Partenaires)"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__activity_type_icon
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__product_template__hospital_product_type__fdrinks
+msgid "Food & Drinks"
+msgstr "Nourriture & boissons"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__form_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__form_id
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_search
+msgid "Form"
+msgstr "Formulaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__email_formatted
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__email_formatted
+msgid "Format email address \"Name <email@domain>\""
+msgstr "Formater l'adresse e-mail \"Nom <email@domaine>\""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__email_formatted
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__email_formatted
+msgid "Formatted Email"
+msgstr "E-mail formaté"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__gender
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__gender
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__gender
+msgid "Gender"
+msgstr "Gendre"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_move_form
+msgid "General Details"
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "General Information"
+msgstr "Détails Généraux"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__partner_latitude
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__partner_latitude
+msgid "Geo Latitude"
+msgstr "Latitude géo"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__partner_longitude
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__partner_longitude
+msgid "Geo Longitude"
+msgstr "Longitude géo"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__gov_code
+msgid "Government Identity"
+msgstr "Identité gouvernementale"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_search
+msgid "Group By..."
+msgstr "Groupe par..."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__groups_id
+msgid "Groups"
+msgstr "Groupes"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "HMS"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_acs_hms_mixin
+msgid "HMS Mixin"
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "HMS Mobile App"
+msgstr "Application mobile HMS"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__acs_tag_ids
+msgid "HMS Tags"
+msgstr "HMS Mots clés"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__has_message
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__has_message
+msgid "Has Message"
+msgstr "A un message"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__has_unreconciled_entries
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__has_unreconciled_entries
+msgid "Has Unreconciled Entries"
+msgstr "A des entrées non rapprochées"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__action_id
+msgid "Home Action"
+msgstr "Action à domicile"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__km_home_work
+msgid "Home-Work Distance"
+msgstr "Distance domicile-travail"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.hms_external_layout_header
+msgid "Hosp.Reg:"
+msgstr "Hôp.Reg:"
+
+#. module: acs_hms_base
+#: model:ir.module.category,name:acs_hms_base.module_category_hms
+msgid "Hospital"
+msgstr "Hôpital"
+
+#. module: acs_hms_base
+#: model:ir.module.category,name:acs_hms_base.module_category_hms_extra
+msgid "Hospital Extra"
+msgstr "Supplément hôpital"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_move_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+msgid "Hospital Info"
+msgstr "Info sur l'hôpital"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_bank_statement_line__hospital_invoice_type
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_move__hospital_invoice_type
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_payment__hospital_invoice_type
+msgid "Hospital Invoice Type"
+msgstr "Type de facture d'hôpital"
+
+#. module: acs_hms_base
+#: model:ir.module.category,description:acs_hms_base.module_category_hms
+msgid "Hospital Management System"
+msgstr "Système de gestion hospitalière"
+
+#. module: acs_hms_base
+#: model:ir.module.category,description:acs_hms_base.module_category_hms_extra
+msgid "Hospital Management System Extra"
+msgstr "Système de gestion hospitalière supplémentaire"
+
+#. module: acs_hms_base
+#: model:ir.module.category,description:acs_hms_base.module_category_medical
+msgid "Hospital Management System Realted Modules."
+msgstr "Modules liés au système de gestion hospitalière"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__hospital_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__hospital_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__hospital_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__hospital_name
+msgid "Hospital Name"
+msgstr "Nom de l'hôpital"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__hr_presence_state
+msgid "Hr Presence State"
+msgstr "Ressource humaine statut"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__id
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__id
+msgid "ID"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__barcode
+msgid "ID used for employee identification."
+msgstr "ID utilisé pour l'identification des employés."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__im_status
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__im_status
+msgid "IM Status"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_exception_icon
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__activity_exception_icon
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icône pour indiquer une activité d'exception"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__code
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__code
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__code
+msgid "Identification Code"
+msgstr "Code d'identification"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__identification_id
+msgid "Identification No"
+msgstr "Numéro d'identification"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__code
+#: model:ir.model.fields,help:acs_hms_base.field_res_partner__code
+#: model:ir.model.fields,help:acs_hms_base.field_res_users__code
+msgid "Identifier provided by the Health Center."
+msgstr "Identifiant fourni par le Centre de Santé."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_needaction
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_unread
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_needaction
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si cette case est cochée, les nouveaux messages nécessitent votre attention"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_has_error
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_has_sms_error
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_has_error
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si coché, certains messages ont une erreur de livraison."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__is_corpo_tieup
+msgid ""
+"If not checked, these Corporate Tie-Up Group will not be visible at all."
+msgstr ""
+"Si cette case n'est pas cochée, ces groupes de liens d'entreprise ne seront pas visibles du tout."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__action_id
+msgid ""
+"If specified, this action will be opened at log on for this user, in "
+"addition to the standard menu."
+msgstr ""
+"Si spécifié, cette action sera ouverte à la connexion pour cet utilisateur, dans "
+"en plus du menu standard."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__is_blacklisted
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__is_blacklisted
+msgid ""
+"If the email address is on the blacklist, the contact won't receive mass "
+"mailing anymore, from any list"
+msgstr ""
+"Si l'adresse email est sur la liste noire, le contact ne recevra pas de masse"
+"plus de mailing, à partir de n'importe quelle liste"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__phone_sanitized_blacklisted
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__phone_sanitized_blacklisted
+msgid ""
+"If the sanitized phone number is on the blacklist, the contact won't receive"
+" mass mailing sms anymore, from any list"
+msgstr ""
+"Si le numéro de téléphone épuré est sur la liste noire, le contact ne recevra pas"
+"plus de sms en masse, depuis n'importe quelle liste"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__image_1920
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__image_1920
+msgid "Image"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__image_1024
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__image_1024
+msgid "Image 1024"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__image_128
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__image_128
+msgid "Image 128"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__image_256
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__image_256
+msgid "Image 256"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__image_512
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__image_512
+msgid "Image 512"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__mobile_blacklisted
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__mobile_blacklisted
+msgid ""
+"Indicates if a blacklisted sanitized phone number is a mobile number. Helps "
+"distinguish which number is blacklisted             when there is both a "
+"mobile and phone field in a model."
+msgstr ""
+"Indique si un numéro de téléphone épuré sur liste noire est un numéro de mobile. Aide "
+"distinguer quel numéro est sur liste noire lorsqu'il y a à la fois un "
+"champ mobile et téléphone dans un modèle."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__phone_blacklisted
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__phone_blacklisted
+msgid ""
+"Indicates if a blacklisted sanitized phone number is a phone number. Helps "
+"distinguish which number is blacklisted             when there is both a "
+"mobile and phone field in a model."
+msgstr ""
+"Indique si un numéro de téléphone épuré sur liste noire est un numéro de téléphone. Aide "
+"distinguer quel numéro est sur liste noire lorsqu'il y a à la fois un "
+"champ mobile et téléphone dans un modèle."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__indications
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__indications
+msgid "Indication"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__indications
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__indications
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.product_template_form_view_inherit
+msgid "Indications"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__industry_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__industry_id
+msgid "Industry"
+msgstr "Industrie"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__invoice_warn
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__invoice_warn
+msgid "Invoice"
+msgstr "Facturer"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__type
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__type
+msgid ""
+"Invoice & Delivery addresses are used in sales orders. Private addresses are"
+" only visible by authorized users."
+msgstr ""
+"Les adresses de facturation et de livraison sont utilisées dans les commandes client. Les adresses privées sont"
+" uniquement visible par les utilisateurs autorisés."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__invoice_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__invoice_ids
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+msgid "Is Famale"
+msgstr "Est femme"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_is_follower
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_is_follower
+msgid "Is Follower"
+msgstr "Est suiveur"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+msgid "Is Male"
+msgstr "Est homme"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__is_patient
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__is_patient
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__is_patient
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__is_patient
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_res_partner_filter
+msgid "Is Patient"
+msgstr "Est patient"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__is_published
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__is_published
+msgid "Is Published"
+msgstr "Est publié"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__is_system
+msgid "Is System"
+msgstr "Est système"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__is_company
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__is_company
+msgid "Is a Company"
+msgstr "Est une entreprise"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__function
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__function
+msgid "Job Position"
+msgstr "Poste"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__job_title
+msgid "Job Title"
+msgstr "Titre d’emploi"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_account_move
+msgid "Journal Entry"
+msgstr "Entrée de journal"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__journal_item_count
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__journal_item_count
+msgid "Journal Items"
+msgstr "Éléments de journal"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__password
+msgid ""
+"Keep empty if you don't want the user to be able to connect on the system."
+msgstr ""
+"Gardez vide si vous ne voulez pas que l'utilisateur puisse se connecter sur le système"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__lactation_warning
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__lactation_warning
+msgid "Lactation Warning"
+msgstr "Avertissement de lactation"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__lang
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__lang
+msgid "Language"
+msgstr "Langue"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__last_activity
+msgid "Last Activity"
+msgstr "Dernière Activité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__last_activity_time
+msgid "Last Activity Time"
+msgstr "Heure de la dernière activité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree____last_update
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__write_uid
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_form__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_degree__write_date
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__last_time_entries_checked
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__last_time_entries_checked
+msgid ""
+"Last time the invoices & payments matching was performed for this partner. "
+"It is set either if there's not at least an unreconciled debit and an "
+"unreconciled credit or if you click the \"Done\" button."
+msgstr ""
+"Dernière fois, le rapprochement des factures et des paiements a été effectué pour ce partenaire."
+"Il est défini soit s'il n'y a pas au moins un débit non rapproché et un "
+"crédit non rapproché ou si vous cliquez sur le bouton \"Terminé\"."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__last_time_entries_checked
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__last_time_entries_checked
+msgid "Latest Invoices & Payments Matching Date"
+msgstr "Date de rapprochement des dernières factures et paiements"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__login_date
+msgid "Latest authentication"
+msgstr " Dernière authentification"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_hms_consumable_line
+msgid "List of Consumables"
+msgstr " Liste des consommables"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__login
+msgid "Login"
+msgstr "Connexion"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_physician_degree_form
+msgid "MBBS"
+msgstr " Médecin (DM)"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_main_attachment_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_main_attachment_id
+msgid "Main Attachment"
+msgstr " Pièce jointe principale"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__res_partner__gender__male
+msgid "Male"
+msgstr "Homme"
+
+#. module: acs_hms_base
+#: model:res.groups,name:acs_hms_base.group_manage_medicines
+msgid "Manage Medicines"
+msgstr " Gérer les médicaments"
+
+#. module: acs_hms_base
+#: model:res.groups,name:acs_hms_base.group_manage_ethnic_religion_tribe
+msgid "Manage Religion/Tribe/Ethnic group"
+msgstr " Gérer la religion/la tribu/le groupe ethnique"
+
+#. module: acs_hms_base
+#: model:res.groups,name:acs_hms_base.group_manage_services
+msgid "Manage Services"
+msgstr " Gérer les services"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_parent_id
+#: model:res.groups,name:acs_hms_base.group_hms_manager
+msgid "Manager"
+msgstr " Directeur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__marital_status
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__marital
+msgid "Marital Status"
+msgstr "État civil"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__hms_patient__marital_status__married
+msgid "Married"
+msgstr " Marié (e)"
+
+#. module: acs_hms_base
+#: model:ir.module.category,name:acs_hms_base.module_category_medical
+msgid "Medical"
+msgstr " Médical"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__medical_license
+msgid "Medical License"
+msgstr " Licence médicale"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__product_template__hospital_product_type__medicament
+msgid "Medicament"
+msgstr " Médicament"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.product_template_form_view_inherit
+msgid "Medicament Details"
+msgstr " Détails du médicament"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_medicament_flavour
+#: model:ir.ui.menu,name:acs_hms_base.menu_medicine_medicament_flavour
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_medicament_flavour_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_medicament_flavour_tree
+msgid "Medicament Flavour"
+msgstr "Saveur de médicament"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_medicament_flavour_form
+msgid "Medicament Flavours"
+msgstr "Saveurs de médicament"
+
+#. module: acs_hms_base
+#: model:ir.ui.menu,name:acs_hms_base.menu_medicine_medicament_route
+msgid "Medicament Route"
+msgstr "Route des médicaments"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_physician_specialty_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_specialty_tree
+msgid "Medicament Specialty"
+msgstr " Spécialité de Médicament"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_physician_specialty_form
+msgid "Medicament Specialtys"
+msgstr " Spécialités des Médicaments"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.product_template_action_medicines
+#: model:ir.ui.menu,name:acs_hms_base.acs_medicine_root
+#: model:ir.ui.menu,name:acs_hms_base.menu_acs_medicine
+msgid "Medicines"
+msgstr "Médicaments"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__image_medium
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__image_medium
+msgid "Medium-sized image"
+msgstr " Image de taille moyenne"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_has_error
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur de livraison du message"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__invoice_warn_msg
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__invoice_warn_msg
+msgid "Message for Invoice"
+msgstr "Message pour facture"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__picking_warn_msg
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__picking_warn_msg
+msgid "Message for Stock Picking"
+msgstr " Message pour le Stock  selection"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__mobile
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__mobile
+msgid "Mobile"
+msgstr "Phone personnel"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__my_activity_date_deadline
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr " Date limite de mon activité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_route__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient_tag__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_therapeutic_effect__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_medicament_flavour__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__name
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__name
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_medicament_flavour_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_physician_degree_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_physician_specialty_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_active_comp_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: acs_hms_base
+#: model:ir.model.constraint,message:acs_hms_base.constraint_drug_form_name_uniq
+#: model:ir.model.constraint,message:acs_hms_base.constraint_drug_route_name_uniq
+#: model:ir.model.constraint,message:acs_hms_base.constraint_physician_degree_name_uniq
+#: model:ir.model.constraint,message:acs_hms_base.constraint_physician_specialty_name_uniq
+msgid "Name must be unique!"
+msgstr " Le nom doit être unique"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_date_deadline
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr " Date limite de la prochaine activité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_summary
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_summary
+msgid "Next Activity Summary"
+msgstr " Résumé de l'activité suivante"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_type_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_type_id
+msgid "Next Activity Type"
+msgstr " Type d'activité suivant"
+
+#. module: acs_hms_base
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_active_comp
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_drug_form_view
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_patient_tag
+#: model_terms:ir.actions.act_window,help:acs_hms_base.act_open_therapeutic_effect
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_medicament_flavour
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_medicament_route
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_patient
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_physician
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_physician_degree
+#: model_terms:ir.actions.act_window,help:acs_hms_base.action_physician_specialty
+msgid "No Record Found"
+msgstr " Aucun Enregistrement Trouvé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__email_normalized
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__email_normalized
+msgid "Normalized Email"
+msgstr "E-mail normalisé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__product_template__hospital_product_type__not_medical
+msgid "Not Medical"
+msgstr " Pas médical"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__note
+msgid "Note"
+msgstr "Note"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__comment
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__comment
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.product_template_form_view_inherit
+msgid "Notes"
+msgstr "Notes"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__notification_type
+msgid "Notification"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_needaction_counter
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_needaction_counter
+msgid "Number of Actions"
+msgstr " Nombre d'actions"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__children
+msgid "Number of Children"
+msgstr " Nombre d'enfants"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__companies_count
+msgid "Number of Companies"
+msgstr " Nombre d'entreprises"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__accesses_count
+msgid "Number of access rights that apply to the current user"
+msgstr "Nombre de droits d'accès qui s'appliquent à l'utilisateur actuel"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_has_error_counter
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d'erreurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__groups_count
+msgid "Number of groups that apply to the current user"
+msgstr "Nombre de groupes qui s'appliquent à l'actuel"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_needaction_counter
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Nombre de messages nécessitant une action"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_has_error_counter
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec erreur de livraison"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__rules_count
+msgid "Number of record rules that apply to the current user"
+msgstr "Nombre de règles d'enregistrement qui s'appliquent à l'utilisateur actuel"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__message_unread_counter
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Nombre de messages non lus"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__barcode
+msgid "Number used for Patient identification."
+msgstr "Numéro utilisé pour l'identification du patient"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__ocn_token
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__ocn_token
+msgid "OCN Token"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__occupation
+msgid "Occupation"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__odoobot_state
+msgid "OdooBot Status"
+msgstr "OdooBot Statut"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__odoobot_failed
+msgid "Odoobot Failed"
+msgstr "Odoobot a échoué"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "On Apple Store"
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "On Google Play"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__res_partner__gender__other
+msgid "Other"
+msgstr "Autres"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "Other Configurations"
+msgstr "Autres Configurations"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__product_template__hospital_product_type__os
+msgid "Other Service"
+msgstr "Autres service"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__pin
+msgid "PIN"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__pin
+msgid ""
+"PIN used to Check In/Out in the Kiosk Mode of the Attendance application (if"
+" enabled in Configuration) and to change the cashier in the Point of Sale "
+"application."
+msgstr ""
+"PIN utilisé pour l'enregistrement/le départ en mode kiosque de l'application de présence (si"
+" activé en Configuration) et de changer de caissier en Point de Vente "
+"application."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__parent_name
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__parent_name
+msgid "Parent name"
+msgstr "Nom du parent"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_drug_company__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__contract_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__contract_ids
+msgid "Partner Contracts"
+msgstr "Contrats partenaires"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__active_partner
+msgid "Partner is Active"
+msgstr "Le partenaire est actif"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__same_vat_partner_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__same_vat_partner_id
+msgid "Partner with same Tax ID"
+msgstr " Partenaire avec le même numéro d' ID fiscale"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__partner_id
+msgid "Partner-related data of the Patient"
+msgstr "Données relatives au partenaire du patient"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__partner_id
+msgid "Partner-related data of the user"
+msgstr "Données relatives au partenaire de l'utilisateur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__passport_id
+msgid "Passport No"
+msgstr "No de passeport"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__password
+msgid "Password"
+msgstr "Mot de passe"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_patient
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_bank_statement_line__patient_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_move__patient_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_payment__patient_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__acs_patient_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__acs_patient_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_partner__acs_patient_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_users__acs_patient_id
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__account_move__hospital_invoice_type__patient
+#: model:ir.ui.menu,name:acs_hms_base.action_main_menu_patient
+#: model:ir.ui.menu,name:acs_hms_base.main_menu_patient
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_filter
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_tree
+msgid "Patient"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__education
+msgid "Patient Education"
+msgstr "Éducation du patient"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.act_open_patient_tag
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_tag_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_tag_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_tag_tree
+msgid "Patient Tag"
+msgstr "Étiquette du patient"
+
+#. module: acs_hms_base
+#: model:ir.ui.menu,name:acs_hms_base.menu_patient_tag
+msgid "Patient Tags"
+msgstr "Étiquettes du patient"
+
+#. module: acs_hms_base
+#: code:addons/acs_hms_base/models/patient.py:0
+#, python-format
+msgid "Patient already exists with Government Identity: %s."
+msgstr " Le patient existe déjà avec l'identité gouvernementale : %s."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__debit_limit
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__debit_limit
+msgid "Payable Limit"
+msgstr " Limite payable"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__phone
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__phone
+msgid "Phone"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__phone_sanitized_blacklisted
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__phone_sanitized_blacklisted
+msgid "Phone Blacklisted"
+msgstr "Téléphone sur liste noire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__phone_mobile_search
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__phone_mobile_search
+msgid "Phone/Mobile"
+msgstr "Phone/Mobile"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.hms_external_layout_header
+msgid "Phone:"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_physician
+#: model:ir.model,name:acs_hms_base.model_hms_physician
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_bank_statement_line__physician_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_move__physician_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_account_payment__physician_id
+#: model:ir.ui.menu,name:acs_hms_base.action_menu_physician
+#: model:ir.ui.menu,name:acs_hms_base.main_menu_physician
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.physician_kanban_view
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_tree
+msgid "Physician"
+msgstr "Docteur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__code
+msgid "Physician Code"
+msgstr "Code du Docteur"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_physician_degree
+#: model:ir.model,name:acs_hms_base.model_physician_degree
+#: model:ir.ui.menu,name:acs_hms_base.menu_physician_degree
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_acs_physician_degree_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_degree_tree
+msgid "Physician Degree"
+msgstr "Diplôme du docteur"
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_physician_specialty
+msgid "Physician Specialty"
+msgstr "Spécialité du docteur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__place_of_birth
+msgid "Place of Birth"
+msgstr "Lieu de naissance"
+
+#. module: acs_hms_base
+#: code:addons/acs_hms_base/models/hms_base.py:0
+#, python-format
+msgid "Please install Document Preview module first."
+msgstr "Veuillez d'abord installer le module de prévisualisation de document."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__notification_type
+msgid ""
+"Policy on how to handle Chatter notifications:\n"
+"- Handle by Emails: notifications are sent to your email address\n"
+"- Handle in Odoo: notifications appear in your Odoo Inbox"
+msgstr ""
+"Politique de gestion des notifications Chatter :\n"
+"- Gérer par e-mail : les notifications sont envoyées à votre adresse e-mail\n"
+"- Gérer dans Odoo : les notifications apparaissent dans votre boîte de réception Odoo"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.product_template_form_view_inherit
+msgid "Pregnancy"
+msgstr "Grossesse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__pregnancy_warning
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__pregnancy_warning
+msgid "Pregnancy Warning"
+msgstr "Avertissement de grossesse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__pregnancy
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__pregnancy
+msgid "Pregnancy and Lactancy"
+msgstr "Grossesse et lactation"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.product_template_form_view_inherit
+msgid "Pregnancy/Lactation Warning"
+msgstr "Avertissement de grossesse/allaitement"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+msgid "Preview Documents"
+msgstr "Aperçu des documents"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_product_pricelist
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_product_pricelist
+msgid "Pricelist"
+msgstr "Liste de prix"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__primary_physician_id
+msgid "Primary Care Doctor"
+msgstr "Médecin de soins primaires"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_city
+msgid "Private City"
+msgstr "Ville privé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_country_id
+msgid "Private Country"
+msgstr "Pays privé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_email
+msgid "Private Email"
+msgstr "E-mail privé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_phone
+msgid "Private Phone"
+msgstr "Phone privé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_state_id
+msgid "Private State"
+msgstr "Province privé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_street
+msgid "Private Street"
+msgstr "Rue privée"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_street2
+msgid "Private Street2"
+msgstr "Rue2 privée"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__private_zip
+msgid "Private Zip"
+msgstr "Code Postal privé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_acs_qrcode_mixin__qr_image
+msgid "QR Code"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model,name:acs_hms_base.model_acs_qrcode_mixin
+msgid "QrCode Mixin"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__qty
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__ref
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__ref
+msgid "Reference"
+msgstr "Référence"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__parent_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__parent_id
+msgid "Related Company"
+msgstr "Entreprise liée"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__partner_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__partner_id
+msgid "Related Partner"
+msgstr "Partenaire associé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__user_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__user_id
+msgid "Related User"
+msgstr "Utilisateur associé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__employee_ids
+msgid "Related employee"
+msgstr "Employé lié"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__employee_ids
+msgid "Related employees based on their private address"
+msgstr "Employés liés en fonction de leur adresse privée"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__religion
+msgid "Religion"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__res_users_settings_ids
+msgid "Res Users Settings"
+msgstr "Réinitialiser les paramètres des utilisateurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__resource_ids
+msgid "Resources"
+msgstr "Ressources"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__activity_user_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__activity_user_id
+msgid "Responsible User"
+msgstr "Utilisateur responsable"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__website_id
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__website_id
+msgid "Restrict publishing to this website."
+msgstr "Restreindre la publication sur ce site Web"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_medicament_route
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__route_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__route_id
+msgid "Route"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_has_sms_error
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur de livraison de message"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__phone_sanitized
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__phone_sanitized
+msgid "Sanitized Number"
+msgstr "Numéro aseptisé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__study_school
+msgid "School"
+msgstr "Ecole"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__coach_id
+msgid ""
+"Select the \"Employee\" who is the coach of this employee.\n"
+"The \"Coach\" has no specific rights or responsibilities by default."
+msgstr ""
+"Sélectionnez le \"Employé\" qui est le coach de cet employé.\n"
+"Le \"Coach\" n'a pas de droits ou de responsabilités spécifiques par défaut."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__invoice_warn
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__picking_warn
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__invoice_warn
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__picking_warn
+msgid ""
+"Selecting the \"Warning\" option will notify user with the message, "
+"Selecting \"Blocking Message\" will throw an exception with the message and "
+"block the flow. The Message has to be written in the next field."
+msgstr ""
+"Si vous sélectionnez l'option \"Avertissement\", l'utilisateur recevra le message "
+"Sélectionner \"Message bloquant\" lèvera une exception avec le message et "
+"bloquer le flux. Le message doit être écrit dans le champ suivant."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__self
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__self
+msgid "Self"
+msgstr "Soi"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.product_template_action_services
+#: model:ir.ui.menu,name:acs_hms_base.acs_services_root
+#: model:ir.ui.menu,name:acs_hms_base.menu_acs_services
+msgid "Services"
+msgstr "Services"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__new_password
+msgid "Set Password"
+msgstr "Définir le mot de passe"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_res_company__unique_gov_code
+#: model:ir.model.fields,help:acs_hms_base.field_res_config_settings__unique_gov_code
+msgid "Set this True if the Givernment Identity in patients should be unique."
+msgstr ""
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.res_config_settings_view_form
+msgid "Set this True if the Government Identity in patients should be unique"
+msgstr " Définissez cette valeur sur Vrai si l'identité gouvernementale des patients doit être unique "
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_hms_config_settings
+msgid "Settings"
+msgstr "Réglages"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__partner_share
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__partner_share
+msgid "Share Partner"
+msgstr "Partager le partenaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__share
+msgid "Share User"
+msgstr "Partager l'utilisateur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__signature
+msgid "Signature"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__signup_expiration
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__signup_expiration
+msgid "Signup Expiration"
+msgstr "Expiration de l'inscription"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__signup_token
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__signup_token
+msgid "Signup Token"
+msgstr "Jeton d'inscription"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__signup_type
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__signup_type
+msgid "Signup Token Type"
+msgstr "Type de jeton d'inscription"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__signup_valid
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__signup_valid
+msgid "Signup Token is Valid"
+msgstr "Le jeton d'inscription est valide"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__signup_url
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__signup_url
+msgid "Signup URL"
+msgstr "URL d'inscription"
+
+#. module: acs_hms_base
+#: model:ir.model.fields.selection,name:acs_hms_base.selection__hms_patient__marital_status__single
+msgid "Single"
+msgstr "Célibataire"
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.action_physician_specialty
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__specialty_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_physician_specialty__name
+#: model:ir.ui.menu,name:acs_hms_base.menu_physician_specialty
+msgid "Specialty"
+msgstr "Spécialité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__specialty_id
+msgid "Specialty Code"
+msgstr "Code de spécialité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__new_password
+msgid ""
+"Specify a value only when creating a user or if you're changing the user's "
+"password, otherwise leave empty. After a change of password, the user has to"
+" login again."
+msgstr ""
+"Spécifier une valeur uniquement lors de la création d'un utilisateur ou si vous modifiez le "
+"mot de passe, sinon laisser vide. Après un changement de mot de passe, l'utilisateur doit"
+" se reconnecter."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__spouse_birthdate
+msgid "Spouse Birthdate"
+msgstr " Nom d'épouse "
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__spouse_complete_name
+msgid "Spouse Complete Name"
+msgstr " Nom complet d'épouse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__spouse_business
+msgid "Spouse's Business"
+msgstr "Entreprise du conjoint"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__spouse_edu
+msgid "Spouse's Education"
+msgstr "Scolarité du conjoint"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__spouse_name
+msgid "Spouse's Name"
+msgstr "Nom d'épouse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__state_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__state_id
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "State"
+msgstr "État"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__state
+msgid "Status"
+msgstr "Statut"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__activity_state
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Statut basé sur les activités\n"
+"En retard : la date d'échéance est déjà dépassée\n"
+"Aujourd'hui : la date d'activité est aujourd'hui\n"
+"Prévu : Activités futures."
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__move_id
+msgid "Stock Move"
+msgstr " Mouvement de stock"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__picking_warn
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__picking_warn
+msgid "Stock Picking"
+msgstr "Stock sélection"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__storage
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__storage
+msgid "Storage"
+msgstr "Stockage"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__street
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__street
+msgid "Street"
+msgstr "Rue"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+msgid "Street 2..."
+msgstr "Rue2..."
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "Street..."
+msgstr "Rue..."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__street2
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__street2
+msgid "Street2"
+msgstr "Rue2"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__supplier_rank
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__supplier_rank
+msgid "Supplier Rank"
+msgstr "Rang du fournisseur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__category_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__category_id
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+msgid "Tags"
+msgstr "Mots clés"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__vat
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__vat
+msgid "Tax ID"
+msgstr "Numéro d'ID fiscale"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__country_code
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+"Le code pays ISO en deux caractères. \n"
+"Vous pouvez utiliser ce champ pour une recherche rapide."
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__vat
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__vat
+msgid ""
+"The Tax Identification Number. Complete it if the contact is subjected to "
+"government taxes. Used in some legal statements."
+msgstr ""
+"Le numéro d'identification fiscale. Complétez-le si le contact est soumis à "
+"taxes gouvernementales. Utilisé dans certaines déclarations légales."
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__company_id
+msgid "The default company for this user."
+msgstr "La société par défaut pour cet utilisateur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__lactation_warning
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__lactation_warning
+msgid "The drug represents risk in lactation period"
+msgstr "Le médicament représente un risque en période de lactation"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__pregnancy_warning
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__pregnancy_warning
+msgid "The drug represents risk to pregnancy"
+msgstr "Le médicament représente un risque pour la grossesse"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__is_address_home_a_company
+msgid "The employee address has a company linked"
+msgstr "L'adresse de l'employé a une entreprise liée"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__employee_type
+msgid ""
+"The employee type. Although the primary purpose may seem to categorize "
+"employees, this field has also an impact in the Contract History. Only "
+"Employee type is supposed to be under contract and will have a Contract "
+"History."
+msgstr ""
+"Le type d'employé. Bien que l'objectif principal puisse sembler catégoriser "
+"employés, ce champ a également un impact sur l'historique du contrat. Uniquement "
+"Le type d'employé est censé être sous contrat et aura un contrat "
+"Histoire."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__property_account_position_id
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__property_account_position_id
+msgid ""
+"The fiscal position determines the taxes/accounts used for this contact."
+msgstr "La position fiscale détermine les taxes/comptes utilisés pour ce contact"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__website_url
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__website_url
+msgid "The full URL to access the document through the website."
+msgstr "L'URL complète pour accéder au document via le site Web"
+
+#. module: acs_hms_base
+#: model:ir.model.constraint,message:acs_hms_base.constraint_medicament_flavour_name_acs_medi_flavour_uniq
+msgid "The name of the Content must be unique !"
+msgstr "Le nom du Contenu doit être unique"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__property_stock_customer
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__property_stock_customer
+msgid ""
+"The stock location used as destination when sending goods to this contact."
+msgstr ""
+"L'emplacement de stockage utilisé comme destination lors de l'envoi de marchandises à ce contact."
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__property_stock_supplier
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__property_stock_supplier
+msgid ""
+"The stock location used as source when receiving goods from this contact."
+msgstr ""
+"L'emplacement du stock utilisé comme source lors de la réception des marchandises de ce contact."
+
+#. module: acs_hms_base
+#: model:ir.actions.act_window,name:acs_hms_base.act_open_therapeutic_effect
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__therapeutic_effect_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__therapeutic_effect_ids
+#: model:ir.ui.menu,name:acs_hms_base.menu_therapeutic_effect
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_therapeutic_effect_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_therapeutic_effect_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_therapeutic_effect_tree
+msgid "Therapeutic Effect"
+msgstr "Effet thérapeutique"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__therapeutic_effect_ids
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__therapeutic_effect_ids
+msgid "Therapeutic action"
+msgstr "Action thérapeutique"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__email_normalized
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__email_normalized
+msgid ""
+"This field is used to search on email address as the primary email field can"
+" contain more than strictly an email address."
+msgstr ""
+"Ce champ est utilisé pour effectuer une recherche sur l'adresse e-mail car le champ e-mail principal peut” “contenir plus que strictement une adresse e-mail."
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__property_supplier_payment_term_id
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__property_supplier_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for purchase "
+"orders and vendor bills"
+msgstr ""
+"Ce délai de paiement sera utilisé à la place du délai par défaut” “pour les bons de commande et les factures des fournisseurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__property_payment_term_id
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__property_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for sales orders "
+"and customer invoices"
+msgstr ""
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__property_product_pricelist
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__property_product_pricelist
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr ""
+"Cette liste de prix sera utilisée à la place de celle par défaut pour les ventes” “au partenaire actuel"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_res_company__birthday_mail_template_id
+#: model:ir.model.fields,help:acs_hms_base.field_res_config_settings__birthday_mail_template_id
+msgid "This will set the default mail template for birthday wishes."
+msgstr "Cela définira le modèle de courrier par défaut pour les souhaits d'anniversaire."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__tz
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__tz
+msgid "Timezone"
+msgstr "Fuseau horaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__tz_offset
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__tz_offset
+msgid "Timezone offset"
+msgstr "Décalage de fuseau horaire"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__title
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__title
+msgid "Title"
+msgstr "Titre"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_account_invoice_filter
+msgid "Today's Invoices"
+msgstr "Les factures d'aujourd'hui"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_company_form
+msgid "Torrent Pharma"
+msgstr "Pharmacie"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__total_invoiced
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__total_invoiced
+msgid "Total Invoiced"
+msgstr "Total facturé"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__debit
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__debit
+msgid "Total Payable"
+msgstr "Total à payer"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__credit
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__credit
+msgid "Total Receivable"
+msgstr "Total à recevoir"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__credit
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__credit
+msgid "Total amount this customer owes you."
+msgstr "Montant total que ce client vous doit"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__debit
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__debit
+msgid "Total amount you have to pay to this vendor."
+msgstr "Montant total que vous devez payer à ce fournisseur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__totp_secret
+msgid "Totp Secret"
+msgstr "Top secret"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__caste
+msgid "Tribe"
+msgstr "Tribu"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__totp_trusted_device_ids
+msgid "Trusted Devices"
+msgstr "Appareils de confiance"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__totp_enabled
+msgid "Two-factor authentication"
+msgstr "Authentification à deux facteurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__activity_exception_decoration
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type d'activité d'exception enregistrée."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_company__unique_gov_code
+#: model:ir.model.fields,field_description:acs_hms_base.field_res_config_settings__unique_gov_code
+msgid "Unique Government Identity for Patient"
+msgstr "Identité gouvernementale unique pour le patient"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_acs_qrcode_mixin__unique_code
+msgid "Unique UID"
+msgstr "ID unique"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_search
+msgid "Unit"
+msgstr "Unité"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_product__dosage_uom_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_product_template__dosage_uom_id
+msgid "Unit of Dosage"
+msgstr "Unité de dosage"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_active_comp__uom_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_consumable_line__product_uom
+msgid "Unit of Measure"
+msgstr "Unité de mesure"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_unread
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_unread
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__message_unread_counter
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Compteur de messages non lus"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__ocn_token
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__ocn_token
+msgid "Used for sending notification to registered devices"
+msgstr "Utilisé pour envoyer une notification aux appareils enregistrés"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__login
+msgid "Used to log into the system"
+msgstr "Utilisé pour se connecter au système"
+
+#. module: acs_hms_base
+#: model:res.groups,name:acs_hms_base.group_hms_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__log_ids
+msgid "User log entries"
+msgstr "Entrées du journal de l'utilisateur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__user_id
+msgid "User-related data of the patient"
+msgstr "Données relatives à l'utilisateur du patient"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__user_id
+msgid "User-related data of the physician"
+msgstr "Données relatives à l'utilisateur du médecin"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__user_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__user_ids
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__currency_id
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__currency_id
+msgid "Utility field to express amount currency"
+msgstr "Champ utilitaire pour exprimer la devise du montant"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_stock_supplier
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_stock_supplier
+msgid "Vendor Location"
+msgstr "Emplacement du vendeur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__property_supplier_payment_term_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__property_supplier_payment_term_id
+msgid "Vendor Payment Terms"
+msgstr "Conditions de paiement du fournisseur"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__visa_expire
+msgid "Visa Expire Date"
+msgstr "Date d'expiration du visa"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__visa_no
+msgid "Visa No"
+msgstr "Visa No"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__website_published
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__website_published
+msgid "Visible on current website"
+msgstr "Visible sur le site actuel"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__visitor_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__visitor_ids
+msgid "Visitors"
+msgstr "Visiteurs"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_product_product__pregnancy
+#: model:ir.model.fields,help:acs_hms_base.field_product_template__pregnancy
+msgid "Warnings for Pregnant Women"
+msgstr "Avertissements pour les femmes enceintes"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__website_id
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__website_id
+msgid "Website"
+msgstr "Site Web"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__website
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__website
+msgid "Website Link"
+msgstr "Lien de site Web"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__website_message_ids
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__website_message_ids
+msgid "Website Messages"
+msgstr "Messagerie du site Web"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__website_url
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__website_url
+msgid "Website URL"
+msgstr "URL de site web"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__website_message_ids
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__website_message_ids
+msgid "Website communication history"
+msgstr "Historique des communications du site Web"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,help:acs_hms_base.field_hms_patient__tz
+#: model:ir.model.fields,help:acs_hms_base.field_hms_physician__tz
+msgid ""
+"When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
+"If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
+"Anywhere else, time values are computed according to the time offset of your web client."
+msgstr ""
+"Lors de l'impression de documents et de l'exportation/importation de données, les valeurs horaires sont calculées en fonction de ce fuseau horaire.\n"
+"Si le fuseau horaire n'est pas défini, UTC (Coordinated Universal Time) est utilisé.\n"
+"Partout ailleurs, les valeurs temporelles sont calculées en fonction du décalage horaire de votre client Web."
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__address_id
+msgid "Work Address"
+msgstr "Adresse professionnelle"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__work_email
+msgid "Work Email"
+msgstr "Email de travail"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__work_location_id
+msgid "Work Location"
+msgstr "Lieu de travail"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__mobile_phone
+msgid "Work Mobile"
+msgstr "Mobile de travail"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__permit_no
+msgid "Work Permit No"
+msgstr "Permis de travail No"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__work_phone
+msgid "Work Phone"
+msgstr "Téléphone de travail"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_patient_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "ZIP"
+msgstr "Code postal"
+
+#. module: acs_hms_base
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_patient__zip
+#: model:ir.model.fields,field_description:acs_hms_base.field_hms_physician__zip
+msgid "Zip"
+msgstr "Code postal"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_form_tree
+msgid "acs Drug Form"
+msgstr "Formulaire de drogue"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_form
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_search
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_drug_route_tree
+msgid "acs Drug Route"
+msgstr "Voie du médicament"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "e.g. +506 5555 5555"
+msgstr "e.g. +257 11 11 11 11"
+
+#. module: acs_hms_base
+#: model_terms:ir.ui.view,arch_db:acs_hms_base.view_physician_form
+msgid "e.g. MBBS"
+msgstr "e.g. Médecin généraliste"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="HMS" string="HMS" name="acs_hms_base" groups="acs_hms_base.group_hms_manager">
+                    
+                    <div id="patient_data"/>
+                    <div id="appointment_data"/>
+                    <div id="prescription_data"/>
+                    <div id="hospitalization"/>
+                    <div id="laboratory"/>
+                    <div id="radiology"/>
+
+                    <block title="Other Configurations" name="other_configurations_setting_container">
+                        <setting help="Birthday wish template" id="birthday_mail_template_id_setting">
+                            <field name="birthday_mail_template_id" class="o_light_label" string="Birthday-wish template."/>
+                        </setting>
+                        <setting help="Set this True if the Government Identity in patients should be unique" id="unique_gov_code_setting">
+                            <field name="unique_gov_code" class="o_light_label" string="Unique Government Code in Patient"/>
+                        </setting>
+                    </block>
+
+                    <block title="HMS Mobile App" name="hms_mobile_app_setting_container">
+                        <setting id="on_google_play_setting">
+                            <a class="d-block mx-auto" href="https://play.google.com/store/apps/details?id=com.almightycspatient" target="blank">
+                                <img alt="On Google Play" class="d-block mx-auto img img-fluid" src="/base_setup/static/src/img/google_play.png"/>
+                            </a>
+                        </setting>
+                        <setting id="on_apple_store_setting">
+                            <a class='d-block mx-auto' href="https://apps.apple.com/us/app/almightyhms-patient-portal/id1551078716" target="blank">
+                                <img alt="On Apple Store" class="d-block mx-auto img img-fluid" src="/base_setup/static/src/img/app_store.png"/>
+                            </a>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_hms_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'acs_hms_base'}</field>
+    </record>
+
+</odoo>
