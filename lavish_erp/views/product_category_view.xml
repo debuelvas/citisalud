@@ -26,9 +26,9 @@
             <field name="model">product.category</field>
             <field name="inherit_id" ref="product.product_category_list_view"/>
             <field name="arch" type="xml">
-                <list position="attributes">
+                <tree position="attributes">
                     <attribute name="action">action_archive</attribute>
-                </list>
+                </tree>
             </field>
         </record>
 

@@ -9,7 +9,7 @@
         <field name="name">finance.transfer.list</field>
         <field name="model">finance.transfer</field>
         <field name="arch" type="xml">
-            <list string="Transfers"
+            <tree string="Transfers"
                   decoration-success="state == 'confirmed'"
                   decoration-muted="state == 'cancelled'">
                 <field name="name"/>
@@ -22,7 +22,7 @@
                        decoration-info="state == 'draft'"
                        decoration-success="state == 'confirmed'"
                        decoration-danger="state == 'cancelled'"/>
-            </list>
+            </tree>
         </field>
     </record>
 

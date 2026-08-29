@@ -9,7 +9,7 @@
         <field name="name">finance.exchange.list</field>
         <field name="model">finance.exchange</field>
         <field name="arch" type="xml">
-            <list string="Currency Exchanges"
+            <tree string="Currency Exchanges"
                   decoration-success="state == 'confirmed'"
                   decoration-muted="state == 'cancelled'">
                 <field name="name"/>
@@ -26,7 +26,7 @@
                        decoration-info="state == 'draft'"
                        decoration-success="state == 'confirmed'"
                        decoration-danger="state == 'cancelled'"/>
-            </list>
+            </tree>
         </field>
     </record>
 

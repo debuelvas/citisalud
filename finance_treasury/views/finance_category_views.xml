@@ -9,7 +9,7 @@
         <field name="name">finance.category.list</field>
         <field name="model">finance.category</field>
         <field name="arch" type="xml">
-            <list string="Finance Categories" editable="bottom">
+            <tree string="Finance Categories" editable="bottom">
                 <field name="name"/>
                 <field name="type" widget="selection"
                        decoration-success="type == 'income'"
@@ -18,7 +18,7 @@
                        decoration-warning="type == 'exchange'"/>
                 <field name="account_account_id" string="Chart of Account"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </list>
+            <tree>
         </field>
     </record>
 
