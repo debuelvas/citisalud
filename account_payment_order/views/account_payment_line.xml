@@ -31,6 +31,7 @@
                             domain="[('partner_id', '=', partner_id)]"
                             invisible="bank_account_link != 'fixed'" required="bank_account_link == 'fixed'"
                         />
+                        <field name="bank_account_link" invisible="1"/>
                         <field name="bank_account_required" invisible="1" />
                         <field name="communication_type" />
                         <field name="communication" required="1" />
