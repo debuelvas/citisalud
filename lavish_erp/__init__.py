@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from . import models
 
-def pre_init_hook(cr):
+def pre_init_hook(env):
     from odoo import api, SUPERUSER_ID
-
+    cr = env.cr
     env = api.Environment(cr, SUPERUSER_ID, {})
     
     fields_to_rename = [
