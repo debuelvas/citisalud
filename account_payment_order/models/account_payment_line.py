@@ -30,6 +30,8 @@ class AccountPaymentLine(models.Model):
     bank_account_required = fields.Boolean(
         related="order_id.payment_method_id.bank_account_required", readonly=True
     )
+    bank_account_link = fields.Selection(
+    related="order_id.payment_mode_id.bank_account_link", readonly=True)
     state = fields.Selection(
         related="order_id.state", string="State", readonly=True, store=True
     )
