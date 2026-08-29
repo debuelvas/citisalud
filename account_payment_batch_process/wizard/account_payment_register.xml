@@ -13,11 +13,11 @@
                     <field name="is_customer" invisible="1" />
                     <group
                         string="Vendor Bills to Pay"
-                        attrs="{'invisible': [('is_customer', '=', True)]}"
+                        invisible="is_customer"
                     />
                     <group
                         string="Customer Invoices Being Paid"
-                        attrs="{'invisible': [('is_customer', '=', False)]}"
+                        invisible="not is_customer"
                     />
                 </group>
                 <div invisible="not context.get('batch', False)">
@@ -45,12 +45,12 @@
                             <field
                                 name="writeoff_account_id"
                                 string="Post Difference In"
-                                attrs="{'required': [('payment_difference_handling', '=', 'reconcile'),('payment_difference', '!=', 0.0)]}"
+                                required="payment_difference_handling == 'reconcile' and payment_difference != 0.0"
                             />
                             <field name="reason_code" />
                             <field
                                 name="note"
-                                attrs="{'required': [('payment_difference_handling', '=', 'reconcile'),('payment_difference', '!=', 0.0)]}"
+                                required="payment_difference_handling == 'reconcile' and payment_difference != 0.0"
                             />
                         </tree>
                     </field>

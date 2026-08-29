@@ -29,7 +29,7 @@
                             name="partner_bank_id"
                             context="{'default_partner_id': partner_id}"
                             domain="[('partner_id', '=', partner_id)]"
-                            attrs="{'required': [('bank_account_required', '=', True)]}"
+                            invisible="bank_account_link != 'fixed'" required="bank_account_link == 'fixed'"
                         />
                         <field name="bank_account_required" invisible="1" />
                         <field name="communication_type" />
@@ -99,7 +99,7 @@
                     type="object"
                     string="View"
                     class="btn btn-secondary"
-                    attrs="{'invisible': [('move_line_id', '=', False)]}"
+                    invisible="not move_line_id"
                 />
             </tree>
         </field>

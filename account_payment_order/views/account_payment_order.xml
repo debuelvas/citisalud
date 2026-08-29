@@ -61,7 +61,7 @@
                 <div
                     class="alert alert-warning"
                     role="alert"
-                    attrs="{'invisible': [('partner_banks_archive_msg', '=', False)]}"
+                    invisible="not partner_banks_archive_msg"
                 >
                     The following bank accounts are archived: <field
                         name="partner_banks_archive_msg"
@@ -109,14 +109,14 @@
                             <field name="payment_type" invisible="0" />
                             <field
                                 name="payment_count"
-                                attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"
+                                invisible="state in ('draft', 'cancel')"
                             />
                         </group>
                         <group name="head-right">
                             <field name="date_prefered" />
                             <field
                                 name="date_scheduled"
-                                attrs="{'invisible': [('date_prefered', '!=', 'fixed')], 'required': [('date_prefered', '=', 'fixed')]}"
+                                invisible="date_prefered != 'fixed'" required="date_prefered == 'fixed'"
                             />
                             <field name="date_generated" />
                             <field name="generated_user_id" />
@@ -134,7 +134,7 @@
                         <page
                             name="payment-lines"
                             string="Payment Transactions"
-                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"
+                            invisible="state in ('draft', 'cancel')"
                         >
                             <field
                                 name="payment_ids"
