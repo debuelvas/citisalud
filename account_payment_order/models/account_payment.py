@@ -84,7 +84,7 @@ class AccountPayment(models.Model):
             ),
         }
 
-    def _prepare_move_line_default_vals(self, write_off_line_vals=None):
+    def _prepare_move_line_default_vals(self, write_off_line_vals=None, **kwargs):
         """Overwrite date_maturity of the move_lines that are generated when related
         to a payment order.
         """
