@@ -62,7 +62,7 @@ class AccountPaymentLineCreate(models.TransientModel):
         mode = order.payment_mode_id
         res.update(
             {
-                "journal_ids": mode.default_journal_ids.ids or False,
+                "journal_ids": [(6, 0, mode.default_journal_ids.ids)],
                 "target_move": mode.default_target_move,
                 "invoice": mode.default_invoice,
                 "date_type": mode.default_date_type,
