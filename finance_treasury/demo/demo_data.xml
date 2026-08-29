@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Demo Data for Finance Treasury
+         ================================================================
+         Note: No demo data is shipped because finance.account requires
+         a linked Chart of Account and finance.category requires a linked
+         CoA entry, both of which depend on the specific Chart of Accounts
+         installed in the database.
+
+         After installation, create your accounts and categories manually
+         by linking them to your existing Chart of Accounts.
+         ================================================================ -->
+</odoo>

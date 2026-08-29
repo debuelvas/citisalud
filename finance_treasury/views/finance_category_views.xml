@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Finance Category Views
+         ================================================================ -->
+
+    <!-- TREE VIEW -->
+    <record id="view_finance_category_list" model="ir.ui.view">
+        <field name="name">finance.category.list</field>
+        <field name="model">finance.category</field>
+        <field name="arch" type="xml">
+            <list string="Finance Categories" editable="bottom">
+                <field name="name"/>
+                <field name="type" widget="selection"
+                       decoration-success="type == 'income'"
+                       decoration-danger="type == 'expense'"
+                       decoration-info="type == 'transfer'"
+                       decoration-warning="type == 'exchange'"/>
+                <field name="account_account_id" string="Chart of Account"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_finance_category_form" model="ir.ui.view">
+        <field name="name">finance.category.form</field>
+        <field name="model">finance.category</field>
+        <field name="arch" type="xml">
+            <form string="Finance Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="account_account_id" string="Chart of Account"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="view_finance_category_search" model="ir.ui.view">
+        <field name="name">finance.category.search</field>
+        <field name="model">finance.category</field>
+        <field name="arch" type="xml">
+            <search string="Search Categories">
+                <field name="name"/>
+                <separator/>
+                <filter name="filter_income" string="Income" domain="[('type', '=', 'income')]"/>
+                <filter name="filter_expense" string="Expense" domain="[('type', '=', 'expense')]"/>
+                <filter name="filter_transfer" string="Transfer" domain="[('type', '=', 'transfer')]"/>
+                <filter name="filter_exchange" string="Exchange" domain="[('type', '=', 'exchange')]"/>
+                <group>
+                    <filter name="group_type" string="Type" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_finance_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">finance.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_finance_category_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first transaction category
+            </p>
+            <p>
+                Categories help classify transactions as income or expense.
+            </p>
+        </field>
+    </record>
+
+</odoo>

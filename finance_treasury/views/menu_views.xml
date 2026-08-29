@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Main Menu & Submenus
+         ================================================================ -->
+
+    <!-- Root Menu — visible to all treasury users (and admin) -->
+    <menuitem id="menu_finance_treasury_root"
+              name="Treasury"
+              web_icon="finance_treasury,static/description/icon.png"
+              sequence="25"/>
+
+    <!-- ============== Operations ============== -->
+    <menuitem id="menu_finance_operations"
+              name="Operations"
+              parent="menu_finance_treasury_root"
+              sequence="10"/>
+
+    <menuitem id="menu_finance_transaction"
+              name="Transactions"
+              parent="menu_finance_operations"
+              action="action_finance_transaction"
+              sequence="10"/>
+
+    <menuitem id="menu_finance_transfer"
+              name="Transfers"
+              parent="menu_finance_operations"
+              action="action_finance_transfer"
+              sequence="20"/>
+
+    <menuitem id="menu_finance_exchange"
+              name="Currency Exchanges"
+              parent="menu_finance_operations"
+              action="action_finance_exchange"
+              sequence="30"/>
+
+    <!-- ============== Accounts (visible to all treasury users) ============== -->
+    <menuitem id="menu_finance_accounts"
+              name="Accounts"
+              parent="menu_finance_treasury_root"
+              sequence="5"/>
+
+    <menuitem id="menu_finance_account"
+              name="All Accounts"
+              parent="menu_finance_accounts"
+              action="action_finance_account"
+              sequence="10"/>
+
+    <!-- ============== Reporting ============== -->
+    <menuitem id="menu_finance_reporting"
+              name="Reporting"
+              parent="menu_finance_treasury_root"
+              sequence="50"/>
+
+    <menuitem id="menu_finance_report_cashflow"
+              name="Cash Flow"
+              parent="menu_finance_reporting"
+              action="action_finance_transaction_report_cashflow"
+              sequence="10"/>
+
+    <menuitem id="menu_finance_report_income_expense"
+              name="Income vs Expense"
+              parent="menu_finance_reporting"
+              action="action_finance_transaction_report_income_expense"
+              sequence="20"/>
+
+    <!-- ============== Configuration (managers only) ============== -->
+    <menuitem id="menu_finance_configuration"
+              name="Configuration"
+              parent="menu_finance_treasury_root"
+              sequence="90"
+              groups="finance_treasury.group_treasury_manager"/>
+
+    <menuitem id="menu_finance_category"
+              name="Categories"
+              parent="menu_finance_configuration"
+              action="action_finance_category"
+              sequence="20"/>
+
+</odoo>

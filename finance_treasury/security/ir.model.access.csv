@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_finance_account_user,finance.account.user,model_finance_account,group_treasury_user,1,1,1,0
+access_finance_account_manager,finance.account.manager,model_finance_account,group_treasury_manager,1,1,1,1
+access_finance_category_user,finance.category.user,model_finance_category,group_treasury_user,1,1,1,0
+access_finance_category_manager,finance.category.manager,model_finance_category,group_treasury_manager,1,1,1,1
+access_finance_transaction_user,finance.transaction.user,model_finance_transaction,group_treasury_user,1,1,1,0
+access_finance_transaction_manager,finance.transaction.manager,model_finance_transaction,group_treasury_manager,1,1,1,1
+access_finance_transfer_user,finance.transfer.user,model_finance_transfer,group_treasury_user,1,1,1,0
+access_finance_transfer_manager,finance.transfer.manager,model_finance_transfer,group_treasury_manager,1,1,1,1
+access_finance_exchange_user,finance.exchange.user,model_finance_exchange,group_treasury_user,1,1,1,0
+access_finance_exchange_manager,finance.exchange.manager,model_finance_exchange,group_treasury_manager,1,1,1,1

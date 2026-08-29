@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Security Groups
+         ================================================================ -->
+
+    <record id="module_category_finance_treasury" model="ir.module.category">
+        <field name="name">Finance Treasury</field>
+        <field name="description">Access rights for the Finance Treasury module.</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="res_groups_privilege_treasury" model="res.groups.privilege">
+        <field name="name">Treasury</field>
+        <field name="category_id" ref="module_category_finance_treasury"/>
+    </record>
+
+    <!-- Treasury User: can create and view transactions -->
+    <record id="group_treasury_user" model="res.groups">
+        <field name="name">Treasury User</field>
+        <field name="privilege_id" ref="res_groups_privilege_treasury"/>
+        <field name="implied_ids" eval="[
+            (4, ref('base.group_user')),
+            (4, ref('account.group_account_readonly')),
+        ]"/>
+        <field name="comment">
+            Treasury Users can create and view accounts, transactions,
+            transfers and exchanges. They can confirm their own drafts.
+            Includes read-only accounting access for viewing journal entries.
+        </field>
+    </record>
+
+    <!-- Treasury Manager: full access including cancel and edit -->
+    <record id="group_treasury_manager" model="res.groups">
+        <field name="name">Treasury Manager</field>
+        <field name="privilege_id" ref="res_groups_privilege_treasury"/>
+        <field name="implied_ids" eval="[
+            (4, ref('group_treasury_user')),
+            (4, ref('account.group_account_invoice')),
+        ]"/>
+        <field name="comment">
+            Treasury Managers have full control: approve, cancel,
+            edit and delete all treasury records. Includes invoicing
+            access for managing journal entries.
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Record Rules
+         ================================================================ -->
+
+    <!-- Multi-company rule: users only see records from their company -->
+    <record id="rule_finance_account_company" model="ir.rule">
+        <field name="name">Finance Account: Multi-Company</field>
+        <field name="model_id" ref="model_finance_account"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_treasury_user'))]"/>
+    </record>
+
+    <record id="rule_finance_transaction_company" model="ir.rule">
+        <field name="name">Finance Transaction: Multi-Company</field>
+        <field name="model_id" ref="model_finance_transaction"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_treasury_user'))]"/>
+    </record>
+
+    <record id="rule_finance_transfer_company" model="ir.rule">
+        <field name="name">Finance Transfer: Multi-Company</field>
+        <field name="model_id" ref="model_finance_transfer"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_treasury_user'))]"/>
+    </record>
+
+    <record id="rule_finance_exchange_company" model="ir.rule">
+        <field name="name">Finance Exchange: Multi-Company</field>
+        <field name="model_id" ref="model_finance_exchange"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_treasury_user'))]"/>
+    </record>
+
+</odoo>

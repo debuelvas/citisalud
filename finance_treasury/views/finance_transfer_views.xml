@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Finance Transfer Views
+         ================================================================ -->
+
+    <!-- TREE VIEW -->
+    <record id="view_finance_transfer_list" model="ir.ui.view">
+        <field name="name">finance.transfer.list</field>
+        <field name="model">finance.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Transfers"
+                  decoration-success="state == 'confirmed'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="from_account_id"/>
+                <field name="to_account_id"/>
+                <field name="amount" widget="monetary"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'confirmed'"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_finance_transfer_form" model="ir.ui.view">
+        <field name="name">finance.transfer.form</field>
+        <field name="model">finance.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Finance Transfer">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state not in ('draft', 'confirmed')"
+                            confirm="Are you sure you want to cancel this transfer?"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft"
+                            invisible="state != 'cancelled'"
+                            groups="finance_treasury.group_treasury_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="True"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Transfer Details">
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="from_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="to_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="amount"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="True"/>
+                        </group>
+                        <group string="Classification">
+                            <field name="category_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description"
+                                   placeholder="Add notes about this transfer..."
+                                   readonly="state != 'draft'"/>
+                        </page>
+                        <page string="Generated Transactions" name="transactions"
+                              invisible="state != 'confirmed'">
+                            <group>
+                                <field name="out_transaction_id"/>
+                                <field name="in_transaction_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="view_finance_transfer_search" model="ir.ui.view">
+        <field name="name">finance.transfer.search</field>
+        <field name="model">finance.transfer</field>
+        <field name="arch" type="xml">
+            <search string="Search Transfers">
+                <field name="name"/>
+                <field name="from_account_id"/>
+                <field name="to_account_id"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_this_month" string="This Month"
+                        domain="[
+                            ('date', '&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d')),
+                            ('date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d')),
+                        ]"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <group>
+                    <filter name="group_from" string="From Account"
+                            context="{'group_by': 'from_account_id'}"/>
+                    <filter name="group_to" string="To Account"
+                            context="{'group_by': 'to_account_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_date" string="Date"
+                            context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_finance_transfer" model="ir.actions.act_window">
+        <field name="name">Transfers</field>
+        <field name="res_model">finance.transfer</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_finance_transfer_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first transfer
+            </p>
+            <p>
+                Move money between your finance accounts.
+            </p>
+        </field>
+    </record>
+
+</odoo>

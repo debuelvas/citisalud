@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Report Views: Pivot & Graph for Transactions
+         ================================================================ -->
+
+    <!-- ==================== Cash Flow Report ==================== -->
+
+    <!-- PIVOT VIEW: Cash Flow -->
+    <record id="view_finance_transaction_pivot_cashflow" model="ir.ui.view">
+        <field name="name">finance.transaction.pivot.cashflow</field>
+        <field name="model">finance.transaction</field>
+        <field name="arch" type="xml">
+            <pivot string="Cash Flow">
+                <field name="date" type="row" interval="month"/>
+                <field name="account_id" type="row"/>
+                <field name="type" type="col"/>
+                <field name="amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- GRAPH VIEW: Cash Flow -->
+    <record id="view_finance_transaction_graph_cashflow" model="ir.ui.view">
+        <field name="name">finance.transaction.graph.cashflow</field>
+        <field name="model">finance.transaction</field>
+        <field name="arch" type="xml">
+            <graph string="Cash Flow" type="bar" stacked="True">
+                <field name="date" interval="month"/>
+                <field name="amount" type="measure"/>
+                <field name="type"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ACTION: Cash Flow Report -->
+    <record id="action_finance_transaction_report_cashflow" model="ir.actions.act_window">
+        <field name="name">Cash Flow Report</field>
+        <field name="res_model">finance.transaction</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="domain">[('state', '=', 'confirmed')]</field>
+        <field name="search_view_id" ref="view_finance_transaction_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No confirmed transactions yet.
+            </p>
+        </field>
+    </record>
+
+    <!-- Bind specific views to the cash flow action -->
+    <record id="action_finance_transaction_report_cashflow_pivot" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_finance_transaction_pivot_cashflow"/>
+        <field name="act_window_id" ref="action_finance_transaction_report_cashflow"/>
+    </record>
+
+    <record id="action_finance_transaction_report_cashflow_graph" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_finance_transaction_graph_cashflow"/>
+        <field name="act_window_id" ref="action_finance_transaction_report_cashflow"/>
+    </record>
+
+    <!-- ==================== Income vs Expense Report ==================== -->
+
+    <!-- PIVOT VIEW: Income vs Expense -->
+    <record id="view_finance_transaction_pivot_income_expense" model="ir.ui.view">
+        <field name="name">finance.transaction.pivot.income.expense</field>
+        <field name="model">finance.transaction</field>
+        <field name="arch" type="xml">
+            <pivot string="Income vs Expense">
+                <field name="category_id" type="row"/>
+                <field name="type" type="col"/>
+                <field name="amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- GRAPH VIEW: Income vs Expense -->
+    <record id="view_finance_transaction_graph_income_expense" model="ir.ui.view">
+        <field name="name">finance.transaction.graph.income.expense</field>
+        <field name="model">finance.transaction</field>
+        <field name="arch" type="xml">
+            <graph string="Income vs Expense" type="pie">
+                <field name="type"/>
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ACTION: Income vs Expense Report -->
+    <record id="action_finance_transaction_report_income_expense" model="ir.actions.act_window">
+        <field name="name">Income vs Expense</field>
+        <field name="res_model">finance.transaction</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="domain">[('state', '=', 'confirmed')]</field>
+        <field name="search_view_id" ref="view_finance_transaction_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No confirmed transactions yet.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_finance_transaction_report_income_expense_pivot" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_finance_transaction_pivot_income_expense"/>
+        <field name="act_window_id" ref="action_finance_transaction_report_income_expense"/>
+    </record>
+
+    <record id="action_finance_transaction_report_income_expense_graph" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_finance_transaction_graph_income_expense"/>
+        <field name="act_window_id" ref="action_finance_transaction_report_income_expense"/>
+    </record>
+
+</odoo>

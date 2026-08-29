@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================
+         Finance Account Views
+         ================================================================ -->
+
+    <!-- TREE VIEW -->
+    <record id="view_finance_account_list" model="ir.ui.view">
+        <field name="name">finance.account.list</field>
+        <field name="model">finance.account</field>
+        <field name="arch" type="xml">
+            <list string="Finance Accounts" decoration-muted="not active">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="type" widget="badge"
+                       decoration-info="type == 'bank'"
+                       decoration-success="type == 'cash'"
+                       decoration-warning="type == 'card'"
+                       decoration-danger="type == 'wallet'"/>
+                <field name="account_account_id" optional="show"/>
+                <field name="currency_id"/>
+                <field name="balance" widget="monetary" sum="Total Balance"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_finance_account_form" model="ir.ui.view">
+        <field name="name">finance.account.form</field>
+        <field name="model">finance.account</field>
+        <field name="arch" type="xml">
+            <form string="Finance Account">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_transactions" type="object"
+                                class="oe_stat_button" icon="fa-exchange">
+                            <field name="transaction_count" widget="statinfo"
+                                   string="Transactions"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Main Cash Box"/>
+                        </h1>
+                        <h2>
+                            <field name="code" readonly="True"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Account Details">
+                            <field name="type" widget="radio"/>
+                            <field name="currency_id"/>
+                            <field name="allow_negative"/>
+                        </group>
+                        <group string="Balance &amp; Company">
+                            <field name="balance" widget="monetary"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="branch_id"/>
+                            <field name="active" invisible="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Accounting" name="accounting">
+                            <group string="Chart of Accounts Integration">
+                                <group>
+                                    <field name="account_account_id"/>
+                                </group>
+                                <group>
+                                    <field name="journal_id"/>
+                                </group>
+                            </group>
+                            <div class="alert alert-info" role="alert">
+                                <strong>How it works:</strong>
+                                When a transaction is confirmed, a journal entry is created using:
+                                <ul class="mb-0">
+                                    <li>This account's <b>Chart of Account</b> as one side</li>
+                                    <li>The transaction <b>Category's Chart of Account</b> as the counterpart</li>
+                                </ul>
+                                <b>Income:</b> Debit Account CoA → Credit Category CoA<br/>
+                                <b>Expense:</b> Debit Category CoA → Credit Account CoA
+                            </div>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- KANBAN VIEW (Dashboard) -->
+    <record id="view_finance_account_kanban" model="ir.ui.view">
+        <field name="name">finance.account.kanban</field>
+        <field name="model">finance.account</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" default_group_by="type">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type"/>
+                <field name="balance"/>
+                <field name="currency_id"/>
+                <field name="transaction_count"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="o_kanban_card_header">
+                            <div class="o_kanban_card_header_title">
+                                <div class="o_primary">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div class="o_secondary">
+                                    <field name="code"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container o_kanban_card_content mt-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="text-muted">Type</span>
+                                    <div>
+                                        <field name="type" widget="badge"
+                                               decoration-info="type == 'bank'"
+                                               decoration-success="type == 'cash'"
+                                               decoration-warning="type == 'card'"
+                                               decoration-danger="type == 'wallet'"/>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span class="text-muted">Balance</span>
+                                    <div class="fw-bold fs-5">
+                                        <field name="balance" widget="monetary"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 text-muted">
+                                    <field name="transaction_count"/> transaction(s)
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="view_finance_account_search" model="ir.ui.view">
+        <field name="name">finance.account.search</field>
+        <field name="model">finance.account</field>
+        <field name="arch" type="xml">
+            <search string="Search Accounts">
+                <field name="name" string="Name or Code"
+                       filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="type"/>
+                <field name="currency_id"/>
+                <separator/>
+                <filter name="filter_cash" string="Cash" domain="[('type', '=', 'cash')]"/>
+                <filter name="filter_bank" string="Bank" domain="[('type', '=', 'bank')]"/>
+                <filter name="filter_card" string="Card" domain="[('type', '=', 'card')]"/>
+                <filter name="filter_wallet" string="Wallet" domain="[('type', '=', 'wallet')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_type" string="Type" context="{'group_by': 'type'}"/>
+                    <filter name="group_currency" string="Currency" context="{'group_by': 'currency_id'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_finance_account" model="ir.actions.act_window">
+        <field name="name">Accounts</field>
+        <field name="res_model">finance.account</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_finance_account_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first finance account
+            </p>
+            <p>
+                Manage Cash, Bank, Card and Wallet accounts in one place.
+            </p>
+        </field>
+    </record>
+
+</odoo>
