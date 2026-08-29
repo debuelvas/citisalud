@@ -18,7 +18,7 @@
                        decoration-warning="type == 'exchange'"/>
                 <field name="account_account_id" string="Chart of Account"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            <tree>
+            </tree>
         </field>
     </record>
 
