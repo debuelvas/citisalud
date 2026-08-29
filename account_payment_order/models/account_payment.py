@@ -89,7 +89,7 @@ class AccountPayment(models.Model):
         to a payment order.
         """
         vals_list = super()._prepare_move_line_default_vals(
-            write_off_line_vals=write_off_line_vals
+            write_off_line_vals=write_off_line_vals, **kwargs
         )
         if not self.payment_order_id:
             return vals_list
