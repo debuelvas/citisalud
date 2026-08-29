@@ -10,15 +10,10 @@
         <field name="sequence">20</field>
     </record>
 
-    <record id="res_groups_privilege_treasury" model="res.groups.privilege">
-        <field name="name">Treasury</field>
-        <field name="category_id" ref="module_category_finance_treasury"/>
-    </record>
-
     <!-- Treasury User: can create and view transactions -->
     <record id="group_treasury_user" model="res.groups">
         <field name="name">Treasury User</field>
-        <field name="privilege_id" ref="res_groups_privilege_treasury"/>
+        <field name="category_id" ref="module_category_finance_treasury"/>
         <field name="implied_ids" eval="[
             (4, ref('base.group_user')),
             (4, ref('account.group_account_readonly')),
@@ -33,7 +28,7 @@
     <!-- Treasury Manager: full access including cancel and edit -->
     <record id="group_treasury_manager" model="res.groups">
         <field name="name">Treasury Manager</field>
-        <field name="privilege_id" ref="res_groups_privilege_treasury"/>
+        <field name="category_id" ref="module_category_finance_treasury"/>
         <field name="implied_ids" eval="[
             (4, ref('group_treasury_user')),
             (4, ref('account.group_account_invoice')),
