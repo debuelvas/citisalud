@@ -10,46 +10,46 @@
                         name="%(account_payment_line_create_action)d"
                         type="action"
                         string="Create Payment Lines from Journal Items"
-                        states="draft"
+                        invisible="state != 'draft'"
                         class="oe_highlight"
                     />
                     <button
                         name="draft2open"
                         type="object"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Confirm Payments"
                         class="oe_highlight"
                     />
                     <button
                         name="open2generated"
                         type="object"
-                        states="open"
+                        invisible="state != 'open'"
                         string="Generate Payment File"
                         class="oe_highlight"
                     />
                     <button
                         name="generated2uploaded"
                         type="object"
-                        states="generated"
+                        invisible="state != 'generated'"
                         string="File Successfully Uploaded"
                         class="oe_highlight"
                     />
                     <button
                         name="cancel2draft"
                         type="object"
-                        states="cancel"
+                        invisible="state != 'cancel'"
                         string="Back to Draft"
                     />
                     <button
                         name="action_cancel"
                         type="object"
-                        states="draft,open,generated"
+                        invisible="state not in ('draft', 'open', 'generated')"
                         string="Cancel Payments"
                     />
                     <button
                         name="action_uploaded_cancel"
                         type="object"
-                        states="uploaded"
+                        invisible="state != 'uploaded'"
                         string="Cancel Payments"
                     />
                     <field
