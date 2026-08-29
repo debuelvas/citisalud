@@ -51,6 +51,9 @@
                            statusbar_visible="draft,confirmed"/>
                 </header>
                 <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="transfer_id" invisible="1"/>
+                    <field name="exchange_id" invisible="1"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_journal_entry" type="object"
                                 class="oe_stat_button" icon="fa-book"
