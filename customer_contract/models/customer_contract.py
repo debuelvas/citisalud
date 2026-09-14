@@ -180,12 +180,14 @@ class CustomerContract(models.Model):
         Crear columnas manualmente para campos computados con store=True
         antes de llamar a super() para evitar MemoryError en bases de datos grandes.
         """
+
+        if table_exists(self.env.cr, 'customer_contract'):
         # Crear columnas manualmente ANTES de super()._auto_init()
-        if not column_exists(self.env.cr, 'customer_contract', 'invoiced_value'):
+          if not column_exists(self.env.cr, 'customer_contract', 'invoiced_value'):
             create_column(self.env.cr, 'customer_contract', 'invoiced_value', 'numeric')
             _logger.info('Created column invoiced_value in customer_contract')
 
-        if not column_exists(self.env.cr, 'customer_contract', 'final_percentage'):
+          if not column_exists(self.env.cr, 'customer_contract', 'final_percentage'):
             create_column(self.env.cr, 'customer_contract', 'final_percentage', 'numeric')
             _logger.info('Created column final_percentage in customer_contract')
 
