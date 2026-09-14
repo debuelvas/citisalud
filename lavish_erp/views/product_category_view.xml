@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="account.view_category_property_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet" position="before">
-                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active" groups="account.group_account_user"/>
                 </xpath>
                 <group name="account_property" position="inside">
                     <group name="account_taxes" >
