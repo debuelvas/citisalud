@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.tools.sql import index_exists, column_exists, create_column
+from odoo.tools.sql import table_exists,index_exists, column_exists, create_column
 import logging
 
 from .res_partner import TYPE_COMPANY
