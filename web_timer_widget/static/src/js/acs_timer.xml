@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="web_timer_widget.AcsTimer">
+        <span t-esc="durationFormatted"/>
+    </t>
+
+    <t t-name="web_timer_widget.AcsTimerField">
+        <AcsTimer t-if="props.readonly" value="duration" ongoing="ongoing"/>
+        <input t-else="" t-att-id="props.id" t-ref="numpadDecimal" t-att-placeholder="props.placeholder" inputmode="numeric" class="o_input" />
+    </t>
+
+</templates>
