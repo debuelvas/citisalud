@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.ambulance</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="acs_hms.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='hospitalization']" position="after">
+                <block title="Ambulance" name="ambulance_setting_container">
+                    <setting help="Allow user to create Invoices for Ambulance Service" id="acs_ambulance_invoicing_setting">
+                        <field name="acs_ambulance_invoicing" class="o_light_label"/>
+                    </setting>
+                    <setting help="Set this service as default service for Ambulance Service Invoice." id="acs_ambulance_invoicing_product_setting">
+                        <field name="acs_ambulance_invoicing_product_id" class="o_light_label" string="Ambulance Service Product"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
